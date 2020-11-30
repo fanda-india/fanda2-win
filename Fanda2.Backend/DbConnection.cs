@@ -12,7 +12,7 @@ namespace Fanda2.Backend
         public DbConnection()
         {
             string projectPath = System.IO.Path.GetFullPath(@"..\..\");
-            ConnectionString = $"Data Source={projectPath}\\fanda2.db3;";
+            ConnectionString = $"Data Source={projectPath}\\fanda2.db3;Version=3;Pooling=True;Max Pool Size=100;";
         }
 
         public IDbConnection GetConnection()

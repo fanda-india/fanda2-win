@@ -17,6 +17,9 @@ namespace Fanda2.Backend.Database
         public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public virtual Address Address { get; set; }
+        public virtual Contact Contact { get; set; }
     }
 
     //public class OrgAddress
