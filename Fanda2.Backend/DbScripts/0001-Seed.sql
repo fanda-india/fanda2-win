@@ -1,4 +1,8 @@
-﻿INSERT INTO ledger_groups (id, code, group_name, group_type, parent_id) VALUES
+﻿INSERT INTO users (id, login_name, email, mobile_number, first_name, last_name, user_password, is_enabled, created_at, is_reset_pwd)
+VALUES
+('00000000-0000-1000-0000-000000000000', 'admin', 'admin@fanda2.com', '9000000001', 'System', 'Administrator', '123', true, '2020-01-01', false)
+
+INSERT INTO ledger_groups (id, code, group_name, group_type, parent_id) VALUES
 ('10000000-0000-0000-0000-000000000000', 'AUSPIC', 'AUSPICIOUS ACCOUNTS', 1, NULL),
 ('20000000-0000-0000-0000-000000000000', 'CAPITAL', 'CAPITAL ACCOUNTS', 1, NULL),
 ('30000000-0000-0000-0000-000000000000', 'CURRLIA', 'CURRENT LIABILITIES', 2, NULL),

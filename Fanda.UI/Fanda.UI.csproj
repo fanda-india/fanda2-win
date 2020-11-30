@@ -8,7 +8,7 @@
     <ProjectGuid>{A7482F7E-FDC5-40EF-A6A9-F6BB528C644D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Fanda.UI</RootNamespace>
-    <AssemblyName>Fanda.UI</AssemblyName>
+    <AssemblyName>Fanda2-win</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

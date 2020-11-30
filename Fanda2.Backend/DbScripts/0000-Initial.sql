@@ -20,8 +20,8 @@ CREATE TABLE users (
     last_name     VARCHAR (25),
     user_password VARCHAR (16)  NOT NULL,
     login_at      DATETIME,
-    is_reset_pwd  CHAR (1)      NOT NULL,
-    is_enabled    CHAR (1)      NOT NULL,
+    is_reset_pwd  INTEGER       NOT NULL,
+    is_enabled    INTEGER       NOT NULL,
     created_at    DATETIME      NOT NULL,
     updated_at    DATETIME
 );
@@ -72,7 +72,7 @@ CREATE TABLE organizations (
                                                        ON UPDATE CASCADE,
     contact_id CHAR (36)     REFERENCES contacts (id) ON DELETE NO ACTION
                                                       ON UPDATE CASCADE,
-    is_enabled CHAR (1)      NOT NULL,
+    is_enabled INTEGER       NOT NULL,
     created_at DATETIME      NOT NULL,
     updated_at DATETIME
 );
@@ -100,11 +100,11 @@ CREATE TABLE ledgers (
                               REFERENCES ledger_groups (id) ON DELETE NO ACTION
                                                             ON UPDATE CASCADE,
     ledger_type INTEGER       NOT NULL,
-    is_sytem    CHAR (1)      NOT NULL,
+    is_sytem    INTEGER       NOT NULL,
     org_id      CHAR (36)     NOT NULL
                               REFERENCES organizations (id) ON DELETE NO ACTION
                                                             ON UPDATE NO ACTION,
-    is_enabled  CHAR (1)      NOT NULL,
+    is_enabled  INTEGER       NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME,
 	UNIQUE (
@@ -134,7 +134,7 @@ CREATE TABLE banks (
                                                           ON UPDATE NO ACTION,
     contact_id     CHAR (36)    REFERENCES contacts (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION,
-    is_default     CHAR (1)     NOT NULL
+    is_default     INTEGER      NOT NULL
 );
 
 -- Table: parties
@@ -161,7 +161,7 @@ CREATE TABLE units (
     org_id     CHAR (36)     REFERENCES organizations (id) ON DELETE NO ACTION
                                                            ON UPDATE CASCADE
                              NOT NULL,
-    is_enabled CHAR (1)      NOT NULL,
+    is_enabled INTEGER       NOT NULL,
     created_at DATETIME      NOT NULL,
     updated_at DATETIME,
 	UNIQUE (
@@ -186,7 +186,7 @@ CREATE TABLE product_categories (
     org_id        CHAR (36)     REFERENCES organizations (id) ON DELETE NO ACTION
                                                               ON UPDATE CASCADE
                                 NOT NULL,
-    is_enabled    CHAR (1)      NOT NULL,
+    is_enabled    INTEGER       NOT NULL,
     created_at    DATETIME      NOT NULL,
     updated_at    DATETIME,
 	UNIQUE (
@@ -221,7 +221,7 @@ CREATE TABLE products (
     org_id         CHAR (36)       REFERENCES organizations (id) ON DELETE NO ACTION
                                                                  ON UPDATE NO ACTION
                                    NOT NULL,
-    is_enabled     CHAR (1)        NOT NULL,
+    is_enabled     INTEGER         NOT NULL,
     created_at     DATETIME        NOT NULL,
     updated_at     DATETIME,
 	UNIQUE (
@@ -390,7 +390,7 @@ CREATE TABLE invoice_items (
     invoice_id   CHAR (36)      REFERENCES invoices (id) ON DELETE CASCADE
                                                          ON UPDATE CASCADE
                                 NOT NULL,
-    inventory_id     CHAR (36)  REFERENCES inventory (id) ON DELETE NO ACTION
+    inventory_id CHAR (36)      REFERENCES inventory (id) ON DELETE NO ACTION
                                                           ON UPDATE NO ACTION,
     item_desc    VARCHAR (255)  NOT NULL,
     unit_id      CHAR (36)      NOT NULL

@@ -1,21 +1,87 @@
-Users
-
+Users											(default user account to be seeded)
+Ledger Groups									(default groups to be seeded)
 Organizations -> Address -> Contact
 
 	Masters:
 		[Addresses]
 		[Contacts]
-		Ledger Groups
-		Ledgers -> Ledger Balance
+		
+		Ledgers -> Ledger Balance				(default ledgers to be seeded)
 			-> Banks -> Address -> Contact
 			-> Parties -> Address -> Contact
-		Units
-		Product Categories
+		Units									(default units to be seeded)
+		Product Categories						(default categories to be seeded)
 		Products
 		Buyers
 	Accounting Years
-		Serial Numbers
+		Serial Numbers							(default serials to be seeded)
 		Journals -> Journal Items
 		Invoices -> Invoice Items
 		Inventories
 		Transactions
+
+------------------------------------------------------------------------------------------
+
+Menu:
+
+File
+	New Company
+	Open Company
+	Edit Company
+	-------------
+	Close Company
+	-------------
+	Users
+	Configuration
+	-------------
+	Carry Forward
+	-------------
+	Exit
+
+Master Maitenance
+	Customers
+	Suppliers
+	Buyers
+	---------	
+	Ledgers
+	Banks
+	---------
+	Goods and Services
+	Categories
+	Units
+
+Transactions
+	Sales
+	Purchase
+	Debit Notes
+	Credit Notes
+	------------
+	Opening Stock
+	------------
+	Receipts
+	Payments
+	Journals
+
+General Reports
+	Daybook
+	Ledgers
+	Day-wise Summary
+	----------------
+	GST Summary
+
+Inventory Reports
+	Bill-wise Reports
+	Product-wise Reports
+	Group-wise Summary
+	In/Out-ward Summary
+	--------------------
+	Inventory Reports	
+
+Annual Reports
+	Sundry Debtors
+	Sundry Creditors
+	----------------
+	Trial Balance
+	Profit & Loss Account
+	---------------------
+	Balance Sheet
