@@ -1,0 +1,21 @@
+Users
+
+Organizations -> Address -> Contact
+
+	Masters:
+		[Addresses]
+		[Contacts]
+		Ledger Groups
+		Ledgers -> Ledger Balance
+			-> Banks -> Address -> Contact
+			-> Parties -> Address -> Contact
+		Units
+		Product Categories
+		Products
+		Buyers
+	Accounting Years
+		Serial Numbers
+		Journals -> Journal Items
+		Invoices -> Invoice Items
+		Inventories
+		Transactions

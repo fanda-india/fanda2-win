@@ -144,9 +144,9 @@ namespace Fanda2.Backend
     {
         Asset = 1,
         Liability = 2,
-        Income = 3,
-        Expense = 4,
-        Revenue = 5
+        Revenue = 3,
+        Income = 4,
+        Expense = 5
         //Branches = 6,
         //Warehouse = 7
     }
