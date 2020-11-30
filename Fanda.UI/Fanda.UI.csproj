@@ -75,6 +75,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LedgersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LedgersForm.Designer.cs">
+      <DependentUpon>LedgersForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="LedgersForm.resx">
+      <DependentUpon>LedgersForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +124,7 @@
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.AccountYear.datasource" />
+    <None Include="Properties\DataSources\Fanda2.Backend.Database.Ledger.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Organization.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

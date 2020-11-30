@@ -23,5 +23,12 @@ namespace Fanda.UI
             form.MdiParent = this;
             form.Show();
         }
+
+        private void mnuMasterLedgers_Click(object sender, EventArgs e)
+        {
+            var form = new LedgersForm();
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }
