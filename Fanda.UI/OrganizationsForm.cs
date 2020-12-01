@@ -52,6 +52,8 @@ namespace Fanda.UI
         private void dgvOrgs_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridViewColumn column = dgvOrgs.Columns[e.ColumnIndex];
+            if (column.SortMode == DataGridViewColumnSortMode.NotSortable)
+                return;
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
             string direction = _isSortAscending ? "ASC" : "DESC";
 
@@ -80,16 +82,16 @@ namespace Fanda.UI
 
                 case "Name":
                     if (direction == "ASC")
-                        organizationBindingSource.DataSource = _list.OrderBy(k => k.Name);
+                        organizationBindingSource.DataSource = _list.OrderBy(k => k.OrgName);
                     else
-                        organizationBindingSource.DataSource = _list.OrderByDescending(k => k.Name);
+                        organizationBindingSource.DataSource = _list.OrderByDescending(k => k.OrgName);
                     break;
 
                 case "Description":
                     if (direction == "ASC")
-                        organizationBindingSource.DataSource = _list.OrderBy(k => k.Description);
+                        organizationBindingSource.DataSource = _list.OrderBy(k => k.OrgDesc);
                     else
-                        organizationBindingSource.DataSource = _list.OrderByDescending(k => k.Description);
+                        organizationBindingSource.DataSource = _list.OrderByDescending(k => k.OrgDesc);
                     break;
             };
             // _context.MyEntities.OrderBy(

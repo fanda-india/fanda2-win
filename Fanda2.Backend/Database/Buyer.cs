@@ -4,8 +4,8 @@ namespace Fanda2.Backend.Database
 {
     public class Buyer
     {
-        public Guid Id { get; set; }
-        public Guid? ContactId { get; set; }
-        public Guid? AddressId { get; set; }
+        public string Id { get; set; }
+        public string ContactId { get; set; }   // nullable
+        public string AddressId { get; set; }   // nullable
     }
 }

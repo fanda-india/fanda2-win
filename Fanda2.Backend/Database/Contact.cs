@@ -4,7 +4,7 @@ namespace Fanda2.Backend.Database
 {
     public class Contact
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Salutation { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

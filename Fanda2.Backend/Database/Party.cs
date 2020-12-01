@@ -4,11 +4,11 @@ namespace Fanda2.Backend.Database
 {
     public class Party
     {
-        public Guid LedgerId { get; set; }
+        public string LedgerId { get; set; }
         public PaymentTerm PaymentTerm { get; set; }
         public decimal CreditLimit { get; set; }
-        public Guid? AddressId { get; set; }
-        public Guid? ContactId { get; set; }
+        public string AddressId { get; set; }    // nullable
+        public string ContactId { get; set; }    // nullable
     }
 
     //public class PartyAddress
