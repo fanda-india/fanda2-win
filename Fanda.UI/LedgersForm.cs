@@ -1,5 +1,6 @@
 ﻿using Fanda2.Backend.Database;
 using Fanda2.Backend.Repositories;
+using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Fanda.UI
     public partial class LedgersForm : Form
     {
         private LedgerRepository _repository;
-        private List<Ledger> _list;
+        private List<LedgerListModel> _list;
 
         public LedgersForm()
         {
@@ -26,7 +27,7 @@ namespace Fanda.UI
 
         private void LedgersForm_Load(object sender, EventArgs e)
         {
-            var list = _repository.GetAll();
+            _list = _repository.GetAll();
         }
     }
 }
