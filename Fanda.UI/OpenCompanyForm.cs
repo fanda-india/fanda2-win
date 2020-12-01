@@ -13,14 +13,14 @@ using System.Windows.Forms;
 
 namespace Fanda.UI
 {
-    public partial class OrganizationsForm : Form
+    public partial class OpenCompanyForm : Form
     {
         private OrganizationRepository _repository;
         private List<Organization> _list;
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
-        public OrganizationsForm()
+        public OpenCompanyForm()
         {
             InitializeComponent();
             _repository = new OrganizationRepository();
