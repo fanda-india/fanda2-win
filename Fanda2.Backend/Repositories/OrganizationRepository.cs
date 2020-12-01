@@ -55,7 +55,10 @@ namespace Fanda2.Backend.Repositories
             using (var con = _connection.GetConnection())
             {
                 var result = con.Query<Organization, Address, Contact, Organization>(qry,
-                    (org, addr, contact) => { org.Address = addr; org.Contact = contact; return org; },
+                    (org, addr, contact) =>
+                    {
+                        org.Address = addr; org.Contact = contact; return org;
+                    },
                     new { id }, splitOn: "id")
                     .FirstOrDefault();
                 return result;

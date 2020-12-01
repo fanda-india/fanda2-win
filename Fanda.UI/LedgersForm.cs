@@ -28,6 +28,7 @@ namespace Fanda.UI
         private void LedgersForm_Load(object sender, EventArgs e)
         {
             _list = _repository.GetAll();
+            var ledger = _repository.GetById("2b43d2a7-b81f-49bb-adde-fa60690f6e32");
         }
     }
 }

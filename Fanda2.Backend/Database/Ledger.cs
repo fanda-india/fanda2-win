@@ -20,5 +20,8 @@ namespace Fanda2.Backend.Database
         public bool IsEnabled { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public virtual Bank Bank { get; set; }
+        public virtual Party Party { get; set; }
     }
 }

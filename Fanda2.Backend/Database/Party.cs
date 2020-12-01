@@ -9,6 +9,9 @@ namespace Fanda2.Backend.Database
         public decimal CreditLimit { get; set; }
         public string AddressId { get; set; }    // nullable
         public string ContactId { get; set; }    // nullable
+
+        public virtual Address Address { get; set; }
+        public virtual Contact Contact { get; set; }
     }
 
     //public class PartyAddress

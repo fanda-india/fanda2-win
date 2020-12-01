@@ -25,15 +25,15 @@ namespace Fanda2.Backend.Mappings
         }
     }
 
-    internal class LedgerListMap : EntityMap<LedgerListModel>
-    {
-        internal LedgerListMap()
-        {
-            Map(l => l.LedgerName).ToColumn("ledger_name");
-            Map(l => l.LedgerDesc).ToColumn("ledger_desc");
-            Map(l => l.GroupName).ToColumn("group_name");
-            Map(l => l.LedgerType).ToColumn("ledger_type");
-            Map(l => l.IsEnabled).ToColumn("is_enabled");
-        }
-    }
+    //internal class LedgerListMap : EntityMap<LedgerListModel>
+    //{
+    //    internal LedgerListMap()
+    //    {
+    //        Map(l => l.LedgerName).ToColumn("ledger_name");
+    //        Map(l => l.LedgerDesc).ToColumn("ledger_desc");
+    //        Map(l => l.GroupName).ToColumn("group_name");
+    //        Map(l => l.LedgerType).ToColumn("ledger_type");
+    //        Map(l => l.IsEnabled).ToColumn("is_enabled");
+    //    }
+    //}
 }

@@ -14,5 +14,8 @@ namespace Fanda2.Backend.Database
         public string AddressId { get; set; }   // nullable
         public string ContactId { get; set; }   // nullable
         public bool IsDefault { get; set; }
+
+        public virtual Address Address { get; set; }
+        public virtual Contact Contact { get; set; }
     }
 }
