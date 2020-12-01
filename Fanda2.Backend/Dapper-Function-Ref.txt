@@ -1,0 +1,10 @@
+﻿// System.Data.SQLite
+connection.BindFunction(
+    new SQLiteFunctionAttribute("ceiling", 1, FunctionType.Scalar),
+    (Func<object[], object>)((object[] args) => Math.Ceiling((double)((object[])args[1])[0])),
+    null);
+
+// Microsoft.Data.Sqlite
+connection.CreateFunction(
+    "ceiling",
+    (double arg) => Math.Ceiling(arg));

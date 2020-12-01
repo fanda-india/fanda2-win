@@ -119,10 +119,10 @@ CREATE TABLE ledgers (
 
 -- Table: banks
 CREATE TABLE banks (
-    ledger_id      CHAR (36)    REFERENCES ledgers (id) ON DELETE CASCADE
-                                                        ON UPDATE CASCADE
-                                PRIMARY KEY
-                                NOT NULL,
+    ledger_id      CHAR (36)    PRIMARY KEY
+                                NOT NULL
+                                REFERENCES ledgers (id) ON DELETE CASCADE
+                                                        ON UPDATE CASCADE,
     account_number VARCHAR (25) UNIQUE
 	                            NOT NULL,
     account_type   INTEGER,
@@ -139,10 +139,10 @@ CREATE TABLE banks (
 
 -- Table: parties
 CREATE TABLE parties (
-    ledger_id    CHAR (36)       PRIMARY KEY
+    ledger_id    CHAR (36)       PRIMARY key
+    							 NOT NULL
                                  REFERENCES ledgers (id) ON DELETE CASCADE
-                                                         ON UPDATE CASCADE
-                                 NOT NULL,
+                                                         ON UPDATE CASCADE,
     payment_term INTEGER         NOT NULL,
     credit_limit DECIMAL (12, 2) NOT NULL,
     address_id   CHAR (36)       REFERENCES addresses (id) ON DELETE NO ACTION
@@ -158,9 +158,9 @@ CREATE TABLE units (
     code       VARCHAR (16)  NOT NULL,
     unit_name  VARCHAR (25)  NOT NULL,
     unit_desc  VARCHAR (255),
-    org_id     CHAR (36)     REFERENCES organizations (id) ON DELETE NO ACTION
-                                                           ON UPDATE CASCADE
-                             NOT NULL,
+    org_id     CHAR (36)     NOT null
+                             REFERENCES organizations (id) ON DELETE NO ACTION
+                                                           ON UPDATE CASCADE,
     is_enabled INTEGER       NOT NULL,
     created_at DATETIME      NOT NULL,
     updated_at DATETIME,
@@ -183,9 +183,9 @@ CREATE TABLE product_categories (
     category_desc VARCHAR (255),
     parent_id     CHAR (36)     REFERENCES product_categories (id) ON DELETE NO ACTION
                                                                    ON UPDATE NO ACTION,
-    org_id        CHAR (36)     REFERENCES organizations (id) ON DELETE NO ACTION
-                                                              ON UPDATE CASCADE
-                                NOT NULL,
+    org_id        CHAR (36)     NOT NULL
+                                REFERENCES organizations (id) ON DELETE NO ACTION
+                                                              ON UPDATE CASCADE,
     is_enabled    INTEGER       NOT NULL,
     created_at    DATETIME      NOT NULL,
     updated_at    DATETIME,
@@ -207,20 +207,20 @@ CREATE TABLE products (
     product_name   VARCHAR (25)    NOT NULL,
     product_desc   VARCHAR (255),
     product_type   INTEGER         NOT NULL,
-    category_id    CHAR (36)       REFERENCES product_categories (id) ON DELETE NO ACTION
-                                                                      ON UPDATE CASCADE
-                                   NOT NULL,
-    unit_id        CHAR (36)       REFERENCES units (id) ON DELETE NO ACTION
-                                                         ON UPDATE NO ACTION
-                                   NOT NULL,
+    category_id    CHAR (36)       NOT NULL
+    							   REFERENCES product_categories (id) ON DELETE NO ACTION
+                                                                      ON UPDATE CASCADE,
+    unit_id        CHAR (36)       NOT NULL
+    							   REFERENCES units (id) ON DELETE NO ACTION
+                                                         ON UPDATE NO ACTION,
     cost_price     DECIMAL (12, 2) NOT NULL,
     selling_price  DECIMAL (12, 2) NOT NULL,
     tax_code       VARCHAR (16)    NOT NULL,
     tax_preference INTEGER         NOT NULL,
     tax_pct        DECIMAL (5, 2)  NOT NULL,
-    org_id         CHAR (36)       REFERENCES organizations (id) ON DELETE NO ACTION
-                                                                 ON UPDATE NO ACTION
-                                   NOT NULL,
+    org_id         CHAR (36)       NOT null
+                                   REFERENCES organizations (id) ON DELETE NO ACTION
+                                                                 ON UPDATE NO ACTION,
     is_enabled     INTEGER         NOT NULL,
     created_at     DATETIME        NOT NULL,
     updated_at     DATETIME,
@@ -241,7 +241,8 @@ CREATE TABLE account_years (
     year_code  VARCHAR (16) NOT NULL,
     year_begin DATE         NOT NULL,
     year_end   DATE         NOT NULL,
-    org_id     CHAR (36)    REFERENCES organizations (id) ON DELETE NO ACTION
+    org_id     CHAR (36)    NOT NULL
+     					    REFERENCES organizations (id) ON DELETE NO ACTION
                                                           ON UPDATE CASCADE,
 	UNIQUE (
 	   year_code,
@@ -272,7 +273,7 @@ CREATE TABLE serial_numbers (
     serial_prefix VARCHAR (5),
     serial_format VARCHAR (16) NOT NULL,
     serial_suffix VARCHAR (5),
-    last_value    VARCHAR (16),
+    last_serial   VARCHAR (16),
     last_number   INTEGER      NOT NULL,
     last_date     DATETIME     NOT NULL,
     serial_reset  INTEGER      NOT NULL,
@@ -290,9 +291,9 @@ CREATE TABLE journals (
     journal_date   DATETIME     NOT NULL,
     journal_type   INTEGER      NOT NULL,
     journal_sign   CHAR (1)     NOT NULL,
-    ledger_id      CHAR (36)    REFERENCES ledgers (id) ON DELETE NO ACTION
-                                                        ON UPDATE CASCADE
-                                NOT NULL,
+    ledger_id      CHAR (36)    NOT NULL
+    							REFERENCES ledgers (id) ON DELETE NO ACTION
+                                                        ON UPDATE CASCADE,
     year_id        CHAR (36)    NOT NULL
 	                            REFERENCES account_years (id) ON DELETE NO ACTION
 								                              ON UPDATE NO ACTION,
@@ -308,9 +309,9 @@ CREATE TABLE journals (
 CREATE TABLE journal_items (
     id           CHAR (36)       PRIMARY KEY
                                  NOT NULL,
-    journal_id   CHAR (36)       REFERENCES journals (id) ON DELETE CASCADE
-                                                          ON UPDATE CASCADE
-                                 NOT NULL,
+    journal_id   CHAR (36)       NOT NULL
+    							 REFERENCES journals (id) ON DELETE CASCADE
+                                                          ON UPDATE CASCADE,
     ledger_id    CHAR (36)       REFERENCES ledgers (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION,
     quantity     DECIMAL (7, 3)  NOT NULL,
@@ -337,27 +338,28 @@ CREATE TABLE invoices (
     invoice_number VARCHAR (16)    NOT NULL,
     invoice_date   DATETIME        NOT NULL,
     invoice_type   INTEGER         NOT NULL,
+    stock_invoice_type INTEGER     NOT NULL,
     gst_treatment  INTEGER         NOT NULL,
     tax_preference INTEGER         NOT NULL,
     notes          VARCHAR (255),
-    party_id       CHAR (36)       REFERENCES ledgers (id) ON DELETE NO ACTION
-                                                           ON UPDATE CASCADE
-                                   NOT NULL,
+    party_id       CHAR (36)       NOT NULL
+    							   REFERENCES ledgers (id) ON DELETE NO ACTION
+                                                           ON UPDATE CASCADE,
     ref_num        VARCHAR (16),
     ref_date       DATE,
     buyer_id       CHAR (36)       REFERENCES buyers (id) ON DELETE NO ACTION
                                                           ON UPDATE NO ACTION,
     subtotal       DECIMAL (12, 2) NOT NULL,
-	total_qty      DECIMAL (10, 3)  NOT NULL,
+	total_qty      DECIMAL (10, 3) NOT NULL,
     discount_pct   DECIMAL (5, 2)  NOT NULL,
     discount_amt   DECIMAL (9, 2)  NOT NULL,
     total_tax_amt  DECIMAL (9, 2)  NOT NULL,
     misc_add_desc  VARCHAR (25),
     misc_add_amt   DECIMAL (9, 2)  NOT NULL,
     net_amount     DECIMAL (12, 2) NOT NULL,
-    year_id        CHAR (36)       REFERENCES account_years (id) ON DELETE NO ACTION
-                                                                 ON UPDATE NO ACTION
-                                   NOT NULL,
+    year_id        CHAR (36)       NOT NULL
+    							   REFERENCES account_years (id) ON DELETE NO ACTION
+                                                                 ON UPDATE NO ACTION,
     created_at     DATETIME        NOT NULL,
     updated_at     DATETIME,
     UNIQUE (
@@ -377,9 +379,9 @@ CREATE TABLE inventory (
                                 UNIQUE,
     mfg_date    DATE,
     expire_date DATE,
-    unit_id     CHAR (36)       REFERENCES units (id) ON DELETE NO ACTION
-                                                      ON UPDATE NO ACTION
-                                NOT NULL,
+    unit_id     CHAR (36)       NOT NULL
+    							REFERENCES units (id) ON DELETE NO ACTION
+                                                      ON UPDATE NO ACTION,
     qty_on_hand DECIMAL (10, 3) NOT NULL
 );
 
@@ -387,9 +389,9 @@ CREATE TABLE inventory (
 CREATE TABLE invoice_items (
     id           CHAR (36)      PRIMARY KEY
                                 NOT NULL,
-    invoice_id   CHAR (36)      REFERENCES invoices (id) ON DELETE CASCADE
-                                                         ON UPDATE CASCADE
-                                NOT NULL,
+    invoice_id   CHAR (36)      NOT NULL
+    							REFERENCES invoices (id) ON DELETE CASCADE
+                                                         ON UPDATE CASCADE,
     inventory_id CHAR (36)      REFERENCES inventory (id) ON DELETE NO ACTION
                                                           ON UPDATE NO ACTION,
     item_desc    VARCHAR (255)  NOT NULL,
@@ -410,12 +412,12 @@ CREATE TABLE invoice_items (
 CREATE TABLE transactions (
     id               CHAR (36)       PRIMARY KEY
                                      NOT NULL,
-    debit_ledger_id  CHAR (36)       REFERENCES ledgers (id) ON DELETE NO ACTION
-                                                             ON UPDATE NO ACTION
-                                     NOT NULL,
-    credit_ledger_id CHAR (36)       REFERENCES ledgers (id) ON DELETE NO ACTION
-                                                             ON UPDATE NO ACTION
-                                     NOT NULL,
+    debit_ledger_id  CHAR (36)       NOT NULL
+    								 REFERENCES ledgers (id) ON DELETE NO ACTION
+                                                             ON UPDATE NO ACTION,
+    credit_ledger_id CHAR (36)       NOT NULL
+    								 REFERENCES ledgers (id) ON DELETE NO ACTION
+                                                             ON UPDATE NO ACTION,
     quantity         DECIMAL (9, 3)  NOT NULL,
     amount           DECIMAL (12, 2) NOT NULL,
     tran_desc        VARCHAR (255),

@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Dapper;
+using Dapper.FluentMap;
+
+using Fanda2.Backend.Database;
+using Fanda2.Backend.Mappings;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -8,6 +14,18 @@ namespace Fanda2.Backend
     internal class DbConnection
     {
         private readonly string ConnectionString;
+
+        static DbConnection()
+        {
+            SqlMapper.AddTypeHandler(new DateTimeOffsetHandler());
+            SqlMapper.AddTypeHandler(new GuidHandler());
+            SqlMapper.AddTypeHandler(new TimeSpanHandler());
+
+            FluentMapper.Initialize(config =>
+            {
+                config.AddMap(new LedgerMap());
+            });
+        }
 
         public DbConnection()
         {

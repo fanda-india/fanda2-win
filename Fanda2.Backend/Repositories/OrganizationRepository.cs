@@ -19,10 +19,7 @@ namespace Fanda2.Backend.Repositories
 
         public List<Organization> GetAll(string searchTerm = null)
         {
-            string qry = "SELECT id, code AS Code, org_name AS Name, org_desc AS Description " +
-                // "regd_num AS RegdNum, org_pan AS PAN, org_tan AS TAN, gstin as GSTIN, " +
-                // "CASE WHEN is_enabled='Y' THEN 1 ELSE 0 END AS IsEnabled " +
-                //", created_at AS CreatedAt, updated_at AS UpdatedAt " +
+            string qry = "SELECT id, code AS Code, org_name AS OrgName, org_desc AS OrgDesc " +
                 "FROM organizations";
 
             if (!string.IsNullOrEmpty(searchTerm))
@@ -41,16 +38,27 @@ namespace Fanda2.Backend.Repositories
 
         public Organization GetById(string id)
         {
-            string qry = "SELECT id, code AS Code, org_name AS Name, org_desc AS Description, " +
-                "regd_num AS RegdNum, org_pan AS PAN, org_tan AS TAN, gstin as GSTIN, " +
-                "is_enabled AS IsEnabled, " +
-                "created_at AS CreatedAt, updated_at AS UpdatedAt " +
-                "FROM organizations " +
-                "WHERE id=@id";
+            string qry = "SELECT o.id, o.code AS Code, o.org_name AS OrgName, o.org_desc AS OrgDesc, " +
+                "o.regd_num AS RegdNum, o.org_pan AS PAN, o.org_tan AS TAN, o.gstin as GSTIN, " +
+                "o.address_id AddressId, o.contact_id ContactId, " +
+                "o.is_enabled AS IsEnabled, " +
+                "o.created_at AS CreatedAt, o.updated_at AS UpdatedAt, " +
+                "a.id, a.attention, a.addr_line1 AddressLine1, a.addr_line2 AddressLine2, a.city, a.addr_state State, " +
+                "a.country, a.postal_code PostalCode, a.phone, a.fax, " +
+                "c.id, c.salutation, c.first_name FirstName, c.last_name LastName, c.designation, c.department, c.email, " +
+                "c.work_phone WorkPhone, c.mobile_number MobileNumber " +
+                "FROM organizations o " +
+                "LEFT JOIN addresses a ON o.address_id=a.id " +
+                "LEFT JOIN contacts c ON o.contact_id=c.id " +
+                "WHERE o.id=@id";
 
             using (var con = _connection.GetConnection())
             {
-                return con.QuerySingle<Organization>(qry, new { id });
+                var result = con.Query<Organization, Address, Contact, Organization>(qry,
+                    (org, addr, contact) => { org.Address = addr; org.Contact = contact; return org; },
+                    new { id }, splitOn: "id")
+                    .FirstOrDefault();
+                return result;
             }
         }
 
@@ -60,7 +68,7 @@ namespace Fanda2.Backend.Repositories
             {
                 string sql = "INSERT INTO organizations (id, code, org_name, org_desc, " +
                     "regd_num, org_pan, org_tan, gstin, is_enabled, created_at) " +
-                    $"VALUES ('{Guid.NewGuid().ToString()}', @code, @name, @description, " +
+                    $"VALUES ('{Guid.NewGuid().ToString()}', @code, @orgName, @orgDesc, " +
                     "@regdNum, @pan, @tan, @gstin, @isEnabled, " +
                     $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
                 con.Execute(sql, org);
@@ -77,14 +85,14 @@ namespace Fanda2.Backend.Repositories
 
             using (var con = _connection.GetConnection())
             {
-                string sql = "UPDATE organizations SET code=@code, org_name=@name, " +
-                    "org_desc=@description, regd_num=@regdNum, org_pan=@pan, " +
+                string sql = "UPDATE organizations SET code=@code, org_name=@orgName, " +
+                    "org_desc=@orgDesc, regd_num=@regdNum, org_pan=@pan, " +
                     "org_tan=@tan, gstin=@gstin, is_enabled=@isEnabled, " +
                     $"updated_at='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'" +
                     "WHERE id=@id";
-                con.Execute(sql, org);
+                int rows = con.Execute(sql, org);
+                return rows == 1;
             }
-            return true;
         }
 
         public bool Remove(string id)
@@ -94,9 +102,9 @@ namespace Fanda2.Backend.Repositories
                 using (var con = _connection.GetConnection())
                 {
                     string sql = "DELETE FROM organizations WHERE id=@id";
-                    con.Execute(sql, new { id });
+                    int rows = con.Execute(sql, new { id });
+                    return rows == 1;
                 }
-                return true;
             }
             return false;
         }
