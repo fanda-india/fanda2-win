@@ -1,6 +1,7 @@
 ﻿using Dapper;
 
 using Fanda2.Backend.Database;
+using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace Fanda2.Backend.Repositories
 {
-    public class OrganizationRepository
+    public class OrganizationRepository : IRepository<Organization, OrganizationListModel>
     {
         private readonly DbConnection _connection;
 
@@ -17,9 +18,9 @@ namespace Fanda2.Backend.Repositories
             _connection = new DbConnection();
         }
 
-        public List<Organization> GetAll(string searchTerm = null)
+        public List<OrganizationListModel> GetAll(string searchTerm = null)
         {
-            string qry = "SELECT id, code AS Code, org_name AS OrgName, org_desc AS OrgDesc " +
+            string qry = "SELECT id, code, org_name, org_desc, is_enabled " +
                 "FROM organizations";
 
             if (!string.IsNullOrEmpty(searchTerm))
@@ -31,26 +32,18 @@ namespace Fanda2.Backend.Repositories
 
             using (var con = _connection.GetConnection())
             {
-                return con.Query<Organization>(qry)
+                return con.Query<OrganizationListModel>(qry)
                     .ToList();
             }
         }
 
         public Organization GetById(string id)
         {
-            string qry = "SELECT o.id, o.code AS Code, o.org_name AS OrgName, o.org_desc AS OrgDesc, " +
-                "o.regd_num AS RegdNum, o.org_pan AS PAN, o.org_tan AS TAN, o.gstin as GSTIN, " +
-                "o.address_id AddressId, o.contact_id ContactId, " +
-                "o.is_enabled AS IsEnabled, " +
-                "o.created_at AS CreatedAt, o.updated_at AS UpdatedAt, " +
-                "a.id, a.attention, a.addr_line1 AddressLine1, a.addr_line2 AddressLine2, a.city, a.addr_state State, " +
-                "a.country, a.postal_code PostalCode, a.phone, a.fax, " +
-                "c.id, c.salutation, c.first_name FirstName, c.last_name LastName, c.designation, c.department, c.email, " +
-                "c.work_phone WorkPhone, c.mobile_number MobileNumber " +
-                "FROM organizations o " +
-                "LEFT JOIN addresses a ON o.address_id=a.id " +
-                "LEFT JOIN contacts c ON o.contact_id=c.id " +
-                "WHERE o.id=@id";
+            string qry = "SELECT * " +
+                 "FROM organizations o " +
+                 "LEFT JOIN addresses a ON o.address_id=a.id " +
+                 "LEFT JOIN contacts c ON o.contact_id=c.id " +
+                 "WHERE o.id=@id";
 
             using (var con = _connection.GetConnection())
             {
@@ -65,18 +58,20 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public bool Create(Organization org)
+        public Organization Create(Organization org)
         {
+            org.Id = Guid.NewGuid().ToString();
+            org.CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             using (var con = _connection.GetConnection())
             {
                 string sql = "INSERT INTO organizations (id, code, org_name, org_desc, " +
                     "regd_num, org_pan, org_tan, gstin, is_enabled, created_at) " +
-                    $"VALUES ('{Guid.NewGuid().ToString()}', @code, @orgName, @orgDesc, " +
+                    $"VALUES (@id, @code, @orgName, @orgDesc, " +
                     "@regdNum, @pan, @tan, @gstin, @isEnabled, " +
-                    $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+                    $"'{}')";
                 con.Execute(sql, org);
             }
-            return true;
+            return org;
         }
 
         public bool Update(string id, Organization org)
