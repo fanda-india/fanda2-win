@@ -1,18 +1,21 @@
-﻿using Dapper.FluentMap.Mapping;
+﻿using Dapper.FluentMap.Dommel.Mapping;
+using Dapper.FluentMap.Mapping;
 
 using Fanda2.Backend.Database;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Fanda2.Backend.Mappings
 {
-    internal class PartyMap : EntityMap<Party>
+    internal class PartyMap : DommelEntityMap<Party>
     {
         internal PartyMap()
         {
-            Map(p => p.LedgerId).ToColumn("ledger_id");
+            ToTable("parties");
+
+            Map(p => p.LedgerId).ToColumn("ledger_id").IsKey();
+            Map(o => o.RegdNum).ToColumn("regd_num");
+            Map(o => o.PAN).ToColumn("party_pan");
+            Map(o => o.TAN).ToColumn("party_tan");
+            Map(o => o.GSTIN).ToColumn("gstin");
             Map(p => p.PaymentTerm).ToColumn("payment_term");
             Map(p => p.CreditLimit).ToColumn("credit_limit");
             Map(p => p.AddressId).ToColumn("address_id");

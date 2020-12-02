@@ -1,10 +1,12 @@
-using System;
-
 namespace Fanda2.Backend.Database
 {
     public class Party
     {
         public string LedgerId { get; set; }
+        public string RegdNum { get; set; }
+        public string PAN { get; set; }
+        public string TAN { get; set; }
+        public string GSTIN { get; set; }
         public PaymentTerm PaymentTerm { get; set; }
         public decimal CreditLimit { get; set; }
         public string AddressId { get; set; }    // nullable

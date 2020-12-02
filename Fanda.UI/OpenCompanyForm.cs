@@ -1,5 +1,6 @@
 ﻿using Fanda2.Backend.Database;
 using Fanda2.Backend.Repositories;
+using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace Fanda.UI
 {
     public partial class OpenCompanyForm : Form
     {
-        private OrganizationRepository _repository;
-        private List<Organization> _list;
+        private readonly OrganizationRepository _repository;
+        private List<OrganizationListModel> _list;
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
@@ -33,18 +34,21 @@ namespace Fanda.UI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            OrganizationEditForm editForm = new OrganizationEditForm(_repository, string.Empty);
-            editForm.MdiParent = this.MdiParent;
+            OrganizationEditForm editForm = new OrganizationEditForm(_repository, string.Empty)
+            {
+                MdiParent = this.MdiParent
+            };
             editForm.Show();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var org = organizationBindingSource.Current as Organization;
-            if (org != null)
+            if (organizationBindingSource.Current is Organization org)
             {
-                OrganizationEditForm editForm = new OrganizationEditForm(_repository, org.Id);
-                editForm.MdiParent = this.MdiParent;
+                OrganizationEditForm editForm = new OrganizationEditForm(_repository, org.Id)
+                {
+                    MdiParent = this.MdiParent
+                };
                 editForm.Show();
             }
         }
@@ -128,8 +132,7 @@ namespace Fanda.UI
                     "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    var org = organizationBindingSource.Current as Organization;
-                    if (org != null)
+                    if (organizationBindingSource.Current is Organization org)
                     {
                         if (_repository.Remove(org.Id))
                         {

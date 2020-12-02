@@ -1,18 +1,16 @@
-﻿using Dapper.FluentMap.Mapping;
+﻿using Dapper.FluentMap.Dommel.Mapping;
 
 using Fanda2.Backend.Database;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Fanda2.Backend.Mappings
 {
-    internal class BankMap : EntityMap<Bank>
+    internal class BankMap : DommelEntityMap<Bank>
     {
         internal BankMap()
         {
-            Map(b => b.LedgerId).ToColumn("ledger_id");
+            ToTable("banks");
+
+            Map(b => b.LedgerId).ToColumn("ledger_id").IsKey();
             Map(b => b.AccountNumber).ToColumn("account_number");
             Map(b => b.AccountType).ToColumn("account_type");
             Map(b => b.IfscCode).ToColumn("ifsc_code");

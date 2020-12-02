@@ -1,13 +1,9 @@
-﻿using Dapper.Contrib.Extensions;
-
-using System;
+﻿using System;
 
 namespace Fanda2.Backend.Database
 {
-    [Table("ledgers")]
     public class Ledger
     {
-        [ExplicitKey]
         public string Id { get; set; }
 
         public string Code { get; set; }

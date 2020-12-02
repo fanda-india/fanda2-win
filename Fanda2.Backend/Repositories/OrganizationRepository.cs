@@ -1,5 +1,7 @@
 ﻿using Dapper;
 
+using Dommel;
+
 using Fanda2.Backend.Database;
 using Fanda2.Backend.ViewModels;
 
@@ -11,100 +13,119 @@ namespace Fanda2.Backend.Repositories
 {
     public class OrganizationRepository : IRepository<Organization, OrganizationListModel>
     {
-        private readonly DbConnection _connection;
+        private readonly SQLiteDB _db;
+        private readonly AddressRepository _addressRepository;
+        private readonly ContactRepository _contactRepository;
 
         public OrganizationRepository()
         {
-            _connection = new DbConnection();
+            _db = new SQLiteDB();
+            _addressRepository = new AddressRepository();
+            _contactRepository = new ContactRepository();
         }
 
         public List<OrganizationListModel> GetAll(string searchTerm = null)
         {
-            string qry = "SELECT id, code, org_name, org_desc, is_enabled " +
-                "FROM organizations";
-
-            if (!string.IsNullOrEmpty(searchTerm))
+            using (var con = _db.GetConnection())
             {
-                qry += $" WHERE code LIKE '%{searchTerm}%' OR " +
-                    $"org_name LIKE '%{searchTerm}%' OR " +
-                    $"org_desc LIKE '%{searchTerm}%'";
-            }
-
-            using (var con = _connection.GetConnection())
-            {
-                return con.Query<OrganizationListModel>(qry)
-                    .ToList();
+                if (string.IsNullOrEmpty(searchTerm))
+                {
+                    return con.GetAll<OrganizationListModel>()
+                        .ToList();
+                }
+                else
+                {
+                    return con.Select<OrganizationListModel>(o =>
+                         o.Code.Contains(searchTerm) ||
+                         o.OrgName.Contains(searchTerm) ||
+                         o.OrgDesc.Contains(searchTerm)
+                    ).ToList();
+                }
             }
         }
 
         public Organization GetById(string id)
         {
-            string qry = "SELECT * " +
-                 "FROM organizations o " +
-                 "LEFT JOIN addresses a ON o.address_id=a.id " +
-                 "LEFT JOIN contacts c ON o.contact_id=c.id " +
-                 "WHERE o.id=@id";
-
-            using (var con = _connection.GetConnection())
+            using (var con = _db.GetConnection())
             {
-                var result = con.Query<Organization, Address, Contact, Organization>(qry,
-                    (org, addr, contact) =>
-                    {
-                        org.Address = addr; org.Contact = contact; return org;
-                    },
-                    new { id }, splitOn: "id")
-                    .FirstOrDefault();
-                return result;
+                return con.Get<Organization, Address, Contact, Organization>(id);
             }
         }
 
-        public Organization Create(Organization org)
+        public string Create(Organization entity)
         {
-            org.Id = Guid.NewGuid().ToString();
-            org.CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            using (var con = _connection.GetConnection())
+            entity.Id = Guid.NewGuid().ToString();
+            entity.CreatedAt = DateTime.Now;   //.ToString("yyyy-MM-dd HH:mm:ss");
+            //string sql =
+            //    "INSERT INTO organizations " +
+            //    "(id, code, org_name, org_desc, regd_num, org_pan, org_tan, gstin, is_enabled, created_at) " +
+            //    "VALUES " +
+            //    $"(@id, @code, @orgName, @orgDesc, @regdNum, @pan, @tan, @gstin, @isEnabled, @createdAt)";
+            using (var con = _db.GetConnection())
             {
-                string sql = "INSERT INTO organizations (id, code, org_name, org_desc, " +
-                    "regd_num, org_pan, org_tan, gstin, is_enabled, created_at) " +
-                    $"VALUES (@id, @code, @orgName, @orgDesc, " +
-                    "@regdNum, @pan, @tan, @gstin, @isEnabled, " +
-                    $"'{}')";
-                con.Execute(sql, org);
+                using (var tran = con.BeginTransaction())
+                {
+                    string addressId = _addressRepository.Save(entity.Address, con, tran);
+                    string contactId = _contactRepository.Save(entity.Contact, con, tran);
+                    con.Insert(entity, tran); //con.Execute(sql, entity);
+
+                    tran.Commit();
+                    return entity.Id;
+                }
             }
-            return org;
         }
 
-        public bool Update(string id, Organization org)
+        public bool Update(string id, Organization entity)
         {
-            if (id != org.Id)
+            if (string.IsNullOrEmpty(id) || id.Length != 36 || id != entity.Id)
             {
                 return false;
             }
 
-            using (var con = _connection.GetConnection())
+            entity.UpdatedAt = DateTime.Now;     //.ToString("yyyy-MM-dd HH:mm:ss")
+            //string sql =
+            //    "UPDATE organizations SET code=@code, org_name=@orgName, " +
+            //    "org_desc=@orgDesc, regd_num=@regdNum, org_pan=@pan, " +
+            //    "org_tan=@tan, gstin=@gstin, is_enabled=@isEnabled, " +
+            //    $"updated_at=@updatedAt " +
+            //    "WHERE id=@id";
+            using (var con = _db.GetConnection())
             {
-                string sql = "UPDATE organizations SET code=@code, org_name=@orgName, " +
-                    "org_desc=@orgDesc, regd_num=@regdNum, org_pan=@pan, " +
-                    "org_tan=@tan, gstin=@gstin, is_enabled=@isEnabled, " +
-                    $"updated_at='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'" +
-                    "WHERE id=@id";
-                int rows = con.Execute(sql, org);
-                return rows == 1;
+                using (var tran = con.BeginTransaction())
+                {
+                    string addressId = _addressRepository.Save(entity.Address, con, tran);
+                    string contactId = _contactRepository.Save(entity.Contact, con, tran);
+                    bool success = con.Update(entity, tran); //con.Execute(sql, entity);
+                    tran.Commit();
+                    return success;
+                }
             }
         }
 
         public bool Remove(string id)
         {
-            if (!string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id) || id.Length != 36)
             {
-                using (var con = _connection.GetConnection())
+                return false;
+            }
+
+            using (var con = _db.GetConnection())
+            {
+                Organization org = con.Get<Organization>(id);
+                if (org == null)
+                    return false;
+
+                using (var tran = con.BeginTransaction())
                 {
-                    string sql = "DELETE FROM organizations WHERE id=@id";
-                    int rows = con.Execute(sql, new { id });
-                    return rows == 1;
+                    _addressRepository.Remove(org.AddressId, con, tran);
+                    _contactRepository.Remove(org.ContactId, con, tran);
+                    bool success = con.Delete(org, tran);
+                    //int rows = con.Execute("DELETE FROM organizations WHERE id=@id", new { id }, tran);
+                    tran.Commit();
+                    return success;
+                    //return rows == 1;
                 }
             }
-            return false;
         }
     }
 }

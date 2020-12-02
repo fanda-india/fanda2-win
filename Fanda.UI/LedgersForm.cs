@@ -16,7 +16,7 @@ namespace Fanda.UI
 {
     public partial class LedgersForm : Form
     {
-        private LedgerRepository _repository;
+        private readonly LedgerRepository _repository;
         private List<LedgerListModel> _list;
 
         public LedgersForm()

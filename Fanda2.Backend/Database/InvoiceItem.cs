@@ -1,5 +1,3 @@
-using System;
-
 namespace Fanda2.Backend.Database
 {
     public class InvoiceItem

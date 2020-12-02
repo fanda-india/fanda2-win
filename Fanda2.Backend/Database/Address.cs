@@ -1,5 +1,3 @@
-using System;
-
 namespace Fanda2.Backend.Database
 {
     public class Address
@@ -15,5 +13,18 @@ namespace Fanda2.Backend.Database
         public string Phone { set; get; }
         public string Fax { set; get; }
         //public AddressType AddressType { get; set; }
+
+        public bool IsEmpty()
+        {
+            return string.IsNullOrWhiteSpace(Attention) &&
+                string.IsNullOrWhiteSpace(AddressLine1) &&
+                string.IsNullOrWhiteSpace(AddressLine2) &&
+                string.IsNullOrWhiteSpace(City) &&
+                string.IsNullOrWhiteSpace(AddressState) &&
+                string.IsNullOrWhiteSpace(Country) &&
+                string.IsNullOrWhiteSpace(PostalCode) &&
+                string.IsNullOrWhiteSpace(Phone) &&
+                string.IsNullOrWhiteSpace(Fax);
+        }
     }
 }

@@ -90,7 +90,7 @@ namespace Fanda.UI
             // 
             // txtName
             // 
-            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "Name", true));
+            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "OrgName", true));
             this.txtName.Location = new System.Drawing.Point(296, 6);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(363, 23);
@@ -107,7 +107,7 @@ namespace Fanda.UI
             // 
             // txtDescription
             // 
-            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "Description", true));
+            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "OrgDesc", true));
             this.txtDescription.Location = new System.Drawing.Point(95, 37);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
@@ -261,7 +261,7 @@ namespace Fanda.UI
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(683, 306);
+            this.tabPage2.Size = new System.Drawing.Size(671, 306);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Address";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -270,7 +270,7 @@ namespace Fanda.UI
             // 
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(683, 306);
+            this.tabPage3.Size = new System.Drawing.Size(671, 306);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Contact";
             this.tabPage3.UseVisualStyleBackColor = true;

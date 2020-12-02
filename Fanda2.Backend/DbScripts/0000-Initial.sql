@@ -100,7 +100,7 @@ CREATE TABLE ledgers (
                               REFERENCES ledger_groups (id) ON DELETE NO ACTION
                                                             ON UPDATE CASCADE,
     ledger_type INTEGER       NOT NULL,
-    is_sytem    INTEGER       NOT NULL,
+    is_system   INTEGER       NOT NULL,
     org_id      CHAR (36)     NOT NULL
                               REFERENCES organizations (id) ON DELETE NO ACTION
                                                             ON UPDATE NO ACTION,
@@ -143,6 +143,10 @@ CREATE TABLE parties (
     							 NOT NULL
                                  REFERENCES ledgers (id) ON DELETE CASCADE
                                                          ON UPDATE CASCADE,
+    regd_num     VARCHAR (25),
+    party_pan    VARCHAR (25),
+    party_tan    VARCHAR (25),
+    gstin        VARCHAR (25),    
     payment_term INTEGER         NOT NULL,
     credit_limit DECIMAL (12, 2) NOT NULL,
     address_id   CHAR (36)       REFERENCES addresses (id) ON DELETE NO ACTION

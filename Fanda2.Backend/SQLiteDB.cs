@@ -1,21 +1,18 @@
 ﻿using Dapper;
 using Dapper.FluentMap;
+using Dapper.FluentMap.Dommel;
 
-using Fanda2.Backend.Database;
 using Fanda2.Backend.Mappings;
 
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace Fanda2.Backend
 {
-    internal class DbConnection
+    internal class SQLiteDB
     {
         private readonly string ConnectionString;
 
-        static DbConnection()
+        static SQLiteDB()
         {
             SqlMapper.AddTypeHandler(new DateTimeOffsetHandler());
             SqlMapper.AddTypeHandler(new GuidHandler());
@@ -26,20 +23,23 @@ namespace Fanda2.Backend
                 config.AddMap(new AddressMap());
                 config.AddMap(new ContactMap());
                 config.AddMap(new OrganizationMap());
+                config.AddMap(new OrganizationListMap());
                 config.AddMap(new LedgerMap());
                 config.AddMap(new LedgerListMap());
                 config.AddMap(new BankMap());
                 config.AddMap(new PartyMap());
+
+                config.ForDommel();
             });
         }
 
-        public DbConnection()
+        internal SQLiteDB()
         {
             string projectPath = System.IO.Path.GetFullPath(@"..\..\");
             ConnectionString = $"Data Source={projectPath}\\fanda2.db3;Version=3;Pooling=True;Max Pool Size=100;";
         }
 
-        public IDbConnection GetConnection()
+        internal IDbConnection GetConnection()
         {
             var con = new System.Data.SQLite.SQLiteConnection(ConnectionString);
             con.Open();
