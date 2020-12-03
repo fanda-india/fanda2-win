@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Fanda2.Backend.Enums;
+
+using System;
 
 namespace Fanda2.Backend.Database
 {

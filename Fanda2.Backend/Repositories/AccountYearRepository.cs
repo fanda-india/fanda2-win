@@ -8,25 +8,21 @@ using System.Linq;
 
 namespace Fanda2.Backend.Repositories
 {
-    public class UnitRepository : MasterRepositoryBase<Unit, UnitListModel>
+    public class AccountYearRepository : MasterRepositoryBase<AccountYear, AccountYearListModel>
     {
-        public override List<UnitListModel> GetAll(int orgId, string searchTerm = null)
+        public override List<AccountYearListModel> GetAll(int orgId, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<UnitListModel>(u => u.OrgId == orgId)
+                    return con.Select<AccountYearListModel>(ay => ay.OrgId == orgId)
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<UnitListModel>(u =>
-                        u.OrgId == orgId &&
-                         (u.Code.Contains(searchTerm) ||
-                         u.UnitName.Contains(searchTerm) ||
-                         u.UnitDesc.Contains(searchTerm))
-                    ).ToList();
+                    return con.Select<AccountYearListModel>(ay => ay.OrgId == orgId && ay.YearCode.Contains(searchTerm))
+                        .ToList();
                 }
             }
         }

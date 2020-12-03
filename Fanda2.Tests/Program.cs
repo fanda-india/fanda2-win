@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Fanda2.Backend.Database;
+using Fanda2.Backend.Repositories;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +13,14 @@ namespace Fanda2.Tests
     {
         private static void Main()
         {
-            Backend.Repositories.OrganizationRepository orgRepo = new Backend.Repositories.OrganizationRepository();
+            CreateAccountYearTest();
+        }
 
-            Backend.Database.Organization org = new Backend.Database.Organization
+        private static void CreateOrgTest()
+        {
+            var orgRepo = new OrganizationRepository();
+
+            var org = new Organization
             {
                 Code = "TESTING",
                 OrgName = "Testing Company",
@@ -47,8 +55,26 @@ namespace Fanda2.Tests
                 }
             };
             orgRepo.Create(org);
+        }
 
+        private static void GetByIdOrgTest()
+        {
+            var orgRepo = new OrganizationRepository();
             var orgFetched = orgRepo.GetById(1);
+            Console.WriteLine(orgFetched.Code);
+        }
+
+        private static void CreateAccountYearTest()
+        {
+            var yearRepo = new AccountYearRepository();
+            var year = new AccountYear
+            {
+                YearCode = "2020-21",
+                YearBegin = new DateTime(2020, 4, 1),
+                YearEnd = new DateTime(2021, 3, 31),
+                IsEnabled = true
+            };
+            yearRepo.Create(1, year);
         }
     }
 }

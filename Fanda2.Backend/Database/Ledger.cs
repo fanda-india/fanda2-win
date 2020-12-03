@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Fanda2.Backend.Enums;
+
+using System;
 
 namespace Fanda2.Backend.Database
 {
@@ -16,6 +18,8 @@ namespace Fanda2.Backend.Database
         public bool IsEnabled { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public LedgerBalance LedgerBalance { get; set; }
 
         public virtual Bank Bank { get; set; }
         public virtual Party Party { get; set; }

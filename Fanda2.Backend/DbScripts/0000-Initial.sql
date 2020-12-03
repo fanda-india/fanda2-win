@@ -261,13 +261,15 @@ CREATE TABLE account_years (
 
 -- Table: ledger_balances
 CREATE TABLE ledger_balances (
+    id              INTEGER         PRIMARY KEY
+                                    NOT NULL,
     ledger_id       INTEGER         NOT NULL,
     year_id         INTEGER         NOT NULL
                                     REFERENCES account_years (id) ON DELETE NO ACTION
                                                                   ON UPDATE CASCADE,
     opening_balance DECIMAL (12, 2) NOT NULL,
     balance_sign    CHAR (1)        NOT NULL,
-    PRIMARY KEY (
+    UNIQUE (
         ledger_id,
         year_id
     )
@@ -275,6 +277,8 @@ CREATE TABLE ledger_balances (
 
 -- Table: serial_numbers
 CREATE TABLE serial_numbers (
+    id            INTEGER      PRIMARY KEY
+                               NOT NULL,
     year_id       INTEGER      NOT NULL
                                REFERENCES account_years (id) ON DELETE NO ACTION
                                                              ON UPDATE CASCADE,
@@ -286,7 +290,7 @@ CREATE TABLE serial_numbers (
     last_number   INTEGER      NOT NULL,
     last_date     DATETIME     NOT NULL,
     serial_reset  INTEGER      NOT NULL,
-    PRIMARY KEY (
+    UNIQUE (
         year_id,
         serial_module
     )

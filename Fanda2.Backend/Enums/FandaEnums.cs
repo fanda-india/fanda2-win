@@ -1,4 +1,4 @@
-namespace Fanda2.Backend
+namespace Fanda2.Backend.Enums
 {
     public enum AddressType
     {

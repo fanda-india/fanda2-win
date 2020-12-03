@@ -1,4 +1,6 @@
-﻿namespace Fanda2.Backend.ViewModels
+﻿using Fanda2.Backend.Enums;
+
+namespace Fanda2.Backend.ViewModels
 {
     public class LedgerListModel
     {

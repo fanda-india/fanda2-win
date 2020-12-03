@@ -1,3 +1,5 @@
+using Fanda2.Backend.Enums;
+
 namespace Fanda2.Backend.Database
 {
     public class Party : ISubLedger

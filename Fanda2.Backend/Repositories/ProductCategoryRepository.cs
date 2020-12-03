@@ -8,24 +8,25 @@ using System.Linq;
 
 namespace Fanda2.Backend.Repositories
 {
-    public class UnitRepository : MasterRepositoryBase<Unit, UnitListModel>
+    public class ProductCategoryRepository : MasterRepositoryBase<ProductCategory, ProductCategoryListModel>
     {
-        public override List<UnitListModel> GetAll(int orgId, string searchTerm = null)
+        public override List<ProductCategoryListModel> GetAll(int orgId, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<UnitListModel>(u => u.OrgId == orgId)
+                    return con.Select<ProductCategoryListModel>(pc => pc.OrgId == orgId)
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<UnitListModel>(u =>
-                        u.OrgId == orgId &&
-                         (u.Code.Contains(searchTerm) ||
-                         u.UnitName.Contains(searchTerm) ||
-                         u.UnitDesc.Contains(searchTerm))
+                    return con.Select<ProductCategoryListModel>(pc =>
+                        pc.OrgId == orgId &&
+                         (pc.Code.Contains(searchTerm) ||
+                         pc.CategoryName.Contains(searchTerm) ||
+                         pc.CategoryDesc.Contains(searchTerm)) ||
+                         pc.ParentCategoryName.Contains(searchTerm)
                     ).ToList();
                 }
             }

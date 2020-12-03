@@ -30,6 +30,7 @@ namespace Fanda2.Backend.Mappings
         internal LedgerListMap()
         {
             ToTable("ledgers");
+
             Map(l => l.Id).ToColumn("id").IsKey();
             Map(l => l.Code).ToColumn("code");
             Map(l => l.LedgerName).ToColumn("ledger_name");

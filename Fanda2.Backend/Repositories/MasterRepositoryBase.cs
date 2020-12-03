@@ -1,5 +1,4 @@
-﻿
-using Dommel;
+﻿using Dommel;
 
 using System;
 using System.Collections.Generic;
@@ -11,34 +10,14 @@ namespace Fanda2.Backend.Repositories
         where TEntity : class, IMaster
         where TListModel : class
     {
-        private readonly SQLiteDB _db;
+        protected readonly SQLiteDB _db;
 
-        public MasterRepositoryBase()
+        protected MasterRepositoryBase()
         {
             _db = new SQLiteDB();
         }
 
-        public virtual List<TListModel> GetAll(int orgId, string searchTerm = null)
-        {
-            //using (var con = _db.GetConnection())
-            //{
-            //    if (string.IsNullOrEmpty(searchTerm))
-            //    {
-            //        return con.Select<TListModel>(u => u.OrgId == orgId)
-            //            .ToList();
-            //    }
-            //    else
-            //    {
-            //        return con.Select<TListModel>(u =>
-            //            u.OrgId == orgId &&
-            //             (u.Code.Contains(searchTerm) ||
-            //             u.UnitName.Contains(searchTerm) ||
-            //             u.UnitDesc.Contains(searchTerm))
-            //        ).ToList();
-            //    }
-            //}
-            throw new NotImplementedException();
-        }
+        public abstract List<TListModel> GetAll(int orgId, string searchTerm = null);
 
         public virtual TEntity GetById(int id)
         {

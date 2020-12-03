@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Fanda2.Backend
 {
-    internal class SQLiteDB
+    public class SQLiteDB
     {
         private readonly string ConnectionString;
 
@@ -30,6 +30,13 @@ namespace Fanda2.Backend
                 config.AddMap(new PartyMap());
                 config.AddMap(new UnitMap());
                 config.AddMap(new UnitListMap());
+                config.AddMap(new ProductCategoryMap());
+                config.AddMap(new ProductCategoryListMap());
+                config.AddMap(new ProductMap());
+                config.AddMap(new ProductListMap());
+                config.AddMap(new AccountYearMap());
+                config.AddMap(new AccountYearListMap());
+                config.AddMap(new LedgerBalanceMap());
 
                 config.ForDommel();
             });
