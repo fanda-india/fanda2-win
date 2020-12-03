@@ -14,6 +14,15 @@ namespace Fanda2.Backend.Database
 
         public virtual Address Address { get; set; }
         public virtual Contact Contact { get; set; }
+
+        public bool IsEmpty()
+        {
+            return string.IsNullOrWhiteSpace(RegdNum) &&
+                string.IsNullOrWhiteSpace(PAN) &&
+                string.IsNullOrWhiteSpace(TAN) &&
+                string.IsNullOrWhiteSpace(GSTIN) &&
+                CreditLimit == 0.0m;
+        }
     }
 
     //public class PartyAddress

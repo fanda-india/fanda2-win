@@ -15,5 +15,14 @@ namespace Fanda2.Backend.Database
 
         public virtual Address Address { get; set; }
         public virtual Contact Contact { get; set; }
+
+        public bool IsEmpty()
+        {
+            return string.IsNullOrWhiteSpace(AccountNumber) &&
+                string.IsNullOrWhiteSpace(IfscCode) &&
+                string.IsNullOrWhiteSpace(MicrCode) &&
+                string.IsNullOrWhiteSpace(BranchCode) &&
+                string.IsNullOrWhiteSpace(BranchName);
+        }
     }
 }
