@@ -11,5 +11,7 @@
 
         //public string LedgerTypeString { get { return this.LedgerType.ToString(); } }
         public bool IsEnabled { get; set; }
+
+        public int OrgId { get; set; }
     }
 }

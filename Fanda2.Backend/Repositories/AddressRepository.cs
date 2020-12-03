@@ -14,13 +14,17 @@ namespace Fanda2.Backend.Repositories
         public int? Save(Address entity, IDbConnection con, IDbTransaction tran)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             // Insert
             if (entity.Id == 0)
             {
                 if (entity.IsEmpty())
+                {
                     return null;
+                }
 
                 int id = Convert.ToInt32(con.Insert(entity, tran));
                 entity.Id = id;
@@ -32,7 +36,10 @@ namespace Fanda2.Backend.Repositories
                 if (entity.IsEmpty())
                 {
                     if (Remove(entity.Id, con, tran))
+                    {
                         return null;
+                    }
+
                     return entity.Id;
                 }
                 else

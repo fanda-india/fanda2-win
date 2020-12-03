@@ -47,7 +47,7 @@ namespace Fanda.UI
             this.mnuMaster = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMasterCustomers = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMasterSuppliers = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMasterBuyers = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMasterConsumers = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuMasterLedgers = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMasterBanks = new System.Windows.Forms.ToolStripMenuItem();
@@ -228,7 +228,7 @@ namespace Fanda.UI
             this.mnuMaster.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuMasterCustomers,
             this.mnuMasterSuppliers,
-            this.mnuMasterBuyers,
+            this.mnuMasterConsumers,
             this.toolStripSeparator3,
             this.mnuMasterLedgers,
             this.mnuMasterBanks,
@@ -243,25 +243,25 @@ namespace Fanda.UI
             // mnuMasterCustomers
             // 
             this.mnuMasterCustomers.Name = "mnuMasterCustomers";
-            this.mnuMasterCustomers.Size = new System.Drawing.Size(176, 22);
+            this.mnuMasterCustomers.Size = new System.Drawing.Size(180, 22);
             this.mnuMasterCustomers.Text = "&Customers";
             // 
             // mnuMasterSuppliers
             // 
             this.mnuMasterSuppliers.Name = "mnuMasterSuppliers";
-            this.mnuMasterSuppliers.Size = new System.Drawing.Size(176, 22);
+            this.mnuMasterSuppliers.Size = new System.Drawing.Size(180, 22);
             this.mnuMasterSuppliers.Text = "&Suppliers";
             // 
-            // mnuMasterBuyers
+            // mnuMasterConsumers
             // 
-            this.mnuMasterBuyers.Name = "mnuMasterBuyers";
-            this.mnuMasterBuyers.Size = new System.Drawing.Size(176, 22);
-            this.mnuMasterBuyers.Text = "&Buyers";
+            this.mnuMasterConsumers.Name = "mnuMasterConsumers";
+            this.mnuMasterConsumers.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterConsumers.Text = "Consu&mers";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(173, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuMasterLedgers
             // 
@@ -276,31 +276,31 @@ namespace Fanda.UI
             // 
             this.mnuMasterBanks.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mnuMasterBanks.Name = "mnuMasterBanks";
-            this.mnuMasterBanks.Size = new System.Drawing.Size(176, 22);
+            this.mnuMasterBanks.Size = new System.Drawing.Size(180, 22);
             this.mnuMasterBanks.Text = "&Banks";
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(173, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuMasterProducts
             // 
             this.mnuMasterProducts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mnuMasterProducts.Name = "mnuMasterProducts";
-            this.mnuMasterProducts.Size = new System.Drawing.Size(176, 22);
+            this.mnuMasterProducts.Size = new System.Drawing.Size(180, 22);
             this.mnuMasterProducts.Text = "&Goods and Services";
             // 
             // mnuMasterCategories
             // 
             this.mnuMasterCategories.Name = "mnuMasterCategories";
-            this.mnuMasterCategories.Size = new System.Drawing.Size(176, 22);
+            this.mnuMasterCategories.Size = new System.Drawing.Size(180, 22);
             this.mnuMasterCategories.Text = "Cate&gories";
             // 
             // mnuMasterUnits
             // 
             this.mnuMasterUnits.Name = "mnuMasterUnits";
-            this.mnuMasterUnits.Size = new System.Drawing.Size(176, 22);
+            this.mnuMasterUnits.Size = new System.Drawing.Size(180, 22);
             this.mnuMasterUnits.Text = "&Units";
             // 
             // mnuTransations
@@ -323,59 +323,59 @@ namespace Fanda.UI
             // mnuTranSales
             // 
             this.mnuTranSales.Name = "mnuTranSales";
-            this.mnuTranSales.Size = new System.Drawing.Size(152, 22);
+            this.mnuTranSales.Size = new System.Drawing.Size(180, 22);
             this.mnuTranSales.Text = "&Sales";
             // 
             // mnuTranPurchase
             // 
             this.mnuTranPurchase.Name = "mnuTranPurchase";
-            this.mnuTranPurchase.Size = new System.Drawing.Size(152, 22);
+            this.mnuTranPurchase.Size = new System.Drawing.Size(180, 22);
             this.mnuTranPurchase.Text = "&Purchase";
             // 
             // mnuTranDebitNotes
             // 
             this.mnuTranDebitNotes.Name = "mnuTranDebitNotes";
-            this.mnuTranDebitNotes.Size = new System.Drawing.Size(152, 22);
+            this.mnuTranDebitNotes.Size = new System.Drawing.Size(180, 22);
             this.mnuTranDebitNotes.Text = "&Debit Notes";
             // 
             // mnuTranCreditNotes
             // 
             this.mnuTranCreditNotes.Name = "mnuTranCreditNotes";
-            this.mnuTranCreditNotes.Size = new System.Drawing.Size(152, 22);
+            this.mnuTranCreditNotes.Size = new System.Drawing.Size(180, 22);
             this.mnuTranCreditNotes.Text = "&Credit Notes";
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuTranOpenStock
             // 
             this.mnuTranOpenStock.Name = "mnuTranOpenStock";
-            this.mnuTranOpenStock.Size = new System.Drawing.Size(152, 22);
+            this.mnuTranOpenStock.Size = new System.Drawing.Size(180, 22);
             this.mnuTranOpenStock.Text = "&Opening Stock";
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuTranReceipts
             // 
             this.mnuTranReceipts.Name = "mnuTranReceipts";
-            this.mnuTranReceipts.Size = new System.Drawing.Size(152, 22);
+            this.mnuTranReceipts.Size = new System.Drawing.Size(180, 22);
             this.mnuTranReceipts.Text = "&Receipts";
             // 
             // mnuTranPayments
             // 
             this.mnuTranPayments.Name = "mnuTranPayments";
-            this.mnuTranPayments.Size = new System.Drawing.Size(152, 22);
+            this.mnuTranPayments.Size = new System.Drawing.Size(180, 22);
             this.mnuTranPayments.Text = "Pa&yments";
             // 
             // mnuTranJournals
             // 
             this.mnuTranJournals.Name = "mnuTranJournals";
-            this.mnuTranJournals.Size = new System.Drawing.Size(152, 22);
+            this.mnuTranJournals.Size = new System.Drawing.Size(180, 22);
             this.mnuTranJournals.Text = "&Journals";
             // 
             // mnuGeneralReports
@@ -734,7 +734,7 @@ namespace Fanda.UI
         private System.Windows.Forms.ToolStripMenuItem mnuFileOptions;
         private System.Windows.Forms.ToolStripMenuItem mnuFileCarryForward;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripMenuItem mnuMasterBuyers;
+        private System.Windows.Forms.ToolStripMenuItem mnuMasterConsumers;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem mnuMasterCategories;
         private System.Windows.Forms.ToolStripMenuItem mnuMasterUnits;

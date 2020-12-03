@@ -10,7 +10,8 @@ namespace Fanda2.Backend.Mappings
         {
             ToTable("parties");
 
-            Map(p => p.LedgerId).ToColumn("ledger_id").IsKey();
+            Map(b => b.Id).ToColumn("id").IsKey();
+            Map(b => b.LedgerId).ToColumn("ledger_id");
             Map(o => o.RegdNum).ToColumn("regd_num");
             Map(o => o.PAN).ToColumn("party_pan");
             Map(o => o.TAN).ToColumn("party_tan");

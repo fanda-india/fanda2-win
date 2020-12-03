@@ -28,6 +28,8 @@ namespace Fanda2.Backend
                 config.AddMap(new LedgerListMap());
                 config.AddMap(new BankMap());
                 config.AddMap(new PartyMap());
+                config.AddMap(new UnitMap());
+                config.AddMap(new UnitListMap());
 
                 config.ForDommel();
             });

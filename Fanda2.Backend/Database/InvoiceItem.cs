@@ -4,7 +4,7 @@ namespace Fanda2.Backend.Database
     {
         public int Id { get; set; }
         public int InvoiceId { get; set; }
-        public int StockId { get; set; }
+        public int InventoryId { get; set; }
         public string ItemDesc { get; set; }
 
         public int UnitId { get; set; }

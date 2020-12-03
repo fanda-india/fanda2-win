@@ -1,7 +1,8 @@
 namespace Fanda2.Backend.Database
 {
-    public class Bank
+    public class Bank : ISubLedger
     {
+        public int Id { get; set; }
         public int LedgerId { get; set; }
         public string AccountNumber { get; set; }
         public BankAccountType AccountType { get; set; }
@@ -9,8 +10,8 @@ namespace Fanda2.Backend.Database
         public string MicrCode { get; set; }
         public string BranchCode { get; set; }
         public string BranchName { get; set; }
-        public int AddressId { get; set; }   // nullable
-        public int ContactId { get; set; }   // nullable
+        public int? AddressId { get; set; }   // nullable
+        public int? ContactId { get; set; }   // nullable
         public bool IsDefault { get; set; }
 
         public virtual Address Address { get; set; }

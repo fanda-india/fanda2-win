@@ -15,7 +15,7 @@ namespace Fanda2.Backend.Database
         public int PartyId { get; set; }
         public string RefNum { get; set; }
         public DateTime? RefDate { get; set; }
-        public int? BuyerId { get; set; }     // nullable
+        public int? ConsumerId { get; set; }     // nullable
 
         // Trailer
         public decimal Subtotal { get; set; }

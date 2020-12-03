@@ -20,8 +20,8 @@ CREATE TABLE users (
     last_name     VARCHAR (25),
     user_password VARCHAR (16)  NOT NULL,
     login_at      DATETIME,
-    is_reset_pwd  INTEGER       NOT NULL,
-    is_enabled    INTEGER       NOT NULL,
+    is_reset_pwd  BOOLEAN       NOT NULL,
+    is_enabled    BOOLEAN       NOT NULL,
     created_at    DATETIME      NOT NULL,
     updated_at    DATETIME
 );
@@ -72,7 +72,7 @@ CREATE TABLE organizations (
                                                        ON UPDATE CASCADE,
     contact_id INTEGER       REFERENCES contacts (id) ON DELETE NO ACTION
                                                       ON UPDATE CASCADE,
-    is_enabled INTEGER       NOT NULL,
+    is_enabled BOOLEAN       NOT NULL,
     created_at DATETIME      NOT NULL,
     updated_at DATETIME
 );
@@ -100,11 +100,11 @@ CREATE TABLE ledgers (
                               REFERENCES ledger_groups (id) ON DELETE NO ACTION
                                                             ON UPDATE CASCADE,
     ledger_type INTEGER       NOT NULL,
-    is_system   INTEGER       NOT NULL,
+    is_system   BOOLEAN       NOT NULL,
     org_id      INTEGER       NOT NULL
                               REFERENCES organizations (id) ON DELETE NO ACTION
                                                             ON UPDATE NO ACTION,
-    is_enabled  INTEGER       NOT NULL,
+    is_enabled  BOOLEAN       NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME,
 	UNIQUE (
@@ -119,8 +119,9 @@ CREATE TABLE ledgers (
 
 -- Table: banks
 CREATE TABLE banks (
-    ledger_id      INTEGER      PRIMARY KEY
-                                NOT NULL
+    id             INTEGER      PRIMARY KEY
+                                NOT NULL,
+    ledger_id      INTEGER      NOT NULL
                                 REFERENCES ledgers (id) ON DELETE CASCADE
                                                         ON UPDATE CASCADE,
     account_number VARCHAR (25) UNIQUE
@@ -134,13 +135,14 @@ CREATE TABLE banks (
                                                           ON UPDATE NO ACTION,
     contact_id     INTEGER      REFERENCES contacts (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION,
-    is_default     INTEGER      NOT NULL
+    is_default     BOOLEAN      NOT NULL
 );
 
 -- Table: parties
 CREATE TABLE parties (
-    ledger_id    INTEGER         PRIMARY key
-    							 NOT NULL
+    id           INTEGER         PRIMARY KEY
+                                 NOT NULL,
+    ledger_id    INTEGER         NOT NULL
                                  REFERENCES ledgers (id) ON DELETE CASCADE
                                                          ON UPDATE CASCADE,
     regd_num     VARCHAR (25),
@@ -165,7 +167,7 @@ CREATE TABLE units (
     org_id     INTEGER       NOT null
                              REFERENCES organizations (id) ON DELETE NO ACTION
                                                            ON UPDATE CASCADE,
-    is_enabled INTEGER       NOT NULL,
+    is_enabled BOOLEAN       NOT NULL,
     created_at DATETIME      NOT NULL,
     updated_at DATETIME,
 	UNIQUE (
@@ -190,7 +192,7 @@ CREATE TABLE product_categories (
     org_id        INTEGER       NOT NULL
                                 REFERENCES organizations (id) ON DELETE NO ACTION
                                                               ON UPDATE CASCADE,
-    is_enabled    INTEGER       NOT NULL,
+    is_enabled    BOOLEAN       NOT NULL,
     created_at    DATETIME      NOT NULL,
     updated_at    DATETIME,
 	UNIQUE (
@@ -225,7 +227,7 @@ CREATE TABLE products (
     org_id         INTEGER         NOT null
                                    REFERENCES organizations (id) ON DELETE NO ACTION
                                                                  ON UPDATE NO ACTION,
-    is_enabled     INTEGER         NOT NULL,
+    is_enabled     BOOLEAN         NOT NULL,
     created_at     DATETIME        NOT NULL,
     updated_at     DATETIME,
 	UNIQUE (
@@ -248,7 +250,10 @@ CREATE TABLE account_years (
     org_id     INTEGER      NOT NULL
      					    REFERENCES organizations (id) ON DELETE NO ACTION
                                                           ON UPDATE CASCADE,
-	UNIQUE (
+    is_enabled BOOLEAN      NOT NULL,
+    created_at DATETIME     NOT NULL,
+    updated_at DATETIME,	
+    UNIQUE (
 	   year_code,
 	   org_id
 	)
@@ -325,8 +330,8 @@ CREATE TABLE journal_items (
     ref_date     DATE
 );
 
--- Table: buyers
-CREATE TABLE buyers (
+-- Table: consumers
+CREATE TABLE consumers (
     id         INTEGER      PRIMARY KEY
                             NOT NULL,
     contact_id INTEGER      REFERENCES contacts (id) ON DELETE NO ACTION
@@ -351,8 +356,8 @@ CREATE TABLE invoices (
                                                            ON UPDATE CASCADE,
     ref_num        VARCHAR (16),
     ref_date       DATE,
-    buyer_id       INTEGER         REFERENCES buyers (id) ON DELETE NO ACTION
-                                                          ON UPDATE NO ACTION,
+    consumer_id    INTEGER         REFERENCES consumers (id) ON DELETE NO ACTION
+                                                             ON UPDATE NO ACTION,
     subtotal       DECIMAL (12, 2) NOT NULL,
 	total_qty      DECIMAL (10, 3) NOT NULL,
     discount_pct   DECIMAL (5, 2)  NOT NULL,
@@ -372,7 +377,7 @@ CREATE TABLE invoices (
     )
 );
 
--- Table: stocks
+-- Table: inventory
 CREATE TABLE inventory (
     id          INTEGER         PRIMARY KEY
                                 NOT NULL,

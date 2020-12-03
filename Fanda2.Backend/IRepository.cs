@@ -3,6 +3,42 @@ using System.Data;
 
 namespace Fanda2.Backend
 {
+    internal interface IRepository<Entity, ListModel>
+    {
+        Entity GetById(int id);
+
+        List<ListModel> GetAll(int superId, string searchTerm = null);
+
+        /// <summary>
+        /// Insert
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>Newly inserted id</returns>
+        int Create(int superId, Entity entity);
+
+        bool Update(int id, Entity entity);
+
+        bool Remove(int id);
+    }
+
+    internal interface IRootRepository<Entity, ListModel>
+    {
+        Entity GetById(int id);
+
+        List<ListModel> GetAll(string searchTerm = null);
+
+        /// <summary>
+        /// Insert
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>Newly inserted id</returns>
+        int Create(Entity entity);
+
+        bool Update(int id, Entity entity);
+
+        bool Remove(int id);
+    }
+
     internal interface IRepository<Entity>
     {
         /// <summary>
@@ -11,7 +47,7 @@ namespace Fanda2.Backend
         /// <param name="entity"></param>
         /// <param name="con"></param>
         /// <param name="tran"></param>
-        /// <returns></returns>
+        /// <returns>id</returns>
         int? Save(Entity entity, IDbConnection con, IDbTransaction tran);
 
         /// <summary>
@@ -24,21 +60,10 @@ namespace Fanda2.Backend
         bool Remove(int? id, IDbConnection con, IDbTransaction tran);
     }
 
-    internal interface IRepository<Entity, ListModel>
+    internal interface ISubRepository<Entity>
     {
-        Entity GetById(int id);
+        bool Save(int superId, Entity entity, IDbConnection con, IDbTransaction tran);
 
-        List<ListModel> GetAll(string searchTerm = null);
-
-        /// <summary>
-        /// Insert
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns>Newly inserted GUID as string</returns>
-        int Create(Entity entity);
-
-        bool Update(int id, Entity entity);
-
-        bool Remove(int id);
+        bool Remove(int superId, IDbConnection con, IDbTransaction tran);
     }
 }

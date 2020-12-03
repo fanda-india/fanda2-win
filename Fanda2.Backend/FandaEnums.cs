@@ -38,7 +38,7 @@ namespace Fanda2.Backend
     {
         Customer = 1,
         Supplier = 2,
-        Buyer = 3,
+        Consumer = 3,
         Other = 4
     }
 

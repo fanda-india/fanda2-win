@@ -2,7 +2,7 @@ using System;
 
 namespace Fanda2.Backend.Database
 {
-    public class ProductCategory
+    public class ProductCategory : IMaster
     {
         public int Id { get; set; }
         public string Code { get; set; }

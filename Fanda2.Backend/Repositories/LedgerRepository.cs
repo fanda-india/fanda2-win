@@ -13,35 +13,40 @@ namespace Fanda2.Backend.Repositories
 {
     public class LedgerRepository : IRepository<Ledger, LedgerListModel>
     {
-        internal readonly SQLiteDB _db;
+        private readonly SQLiteDB _db;
+        private readonly BankRepository _bankRepository;
+        private readonly PartyRepository _partyRepository;
 
         public LedgerRepository()
         {
             _db = new SQLiteDB();
+            _bankRepository = new BankRepository();
+            _partyRepository = new PartyRepository();
         }
 
-        public virtual List<LedgerListModel> GetAll(string searchTerm = null)
+        public List<LedgerListModel> GetAll(int orgId, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.GetAll<LedgerListModel>()
+                    return con.Select<LedgerListModel>(l => l.OrgId == orgId)
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<LedgerListModel>(o =>
-                         o.Code.Contains(searchTerm) ||
-                         o.LedgerName.Contains(searchTerm) ||
-                         o.LedgerDesc.Contains(searchTerm) ||
-                         o.GroupName.Contains(searchTerm)
+                    return con.Select<LedgerListModel>(l =>
+                        l.OrgId == orgId &&
+                        (l.Code.Contains(searchTerm) ||
+                        l.LedgerName.Contains(searchTerm) ||
+                        l.LedgerDesc.Contains(searchTerm) ||
+                        l.GroupName.Contains(searchTerm))
                     ).ToList();
                 }
             }
         }
 
-        public virtual Ledger GetById(int id)
+        public Ledger GetById(int id)
         {
             using (var con = _db.GetConnection())
             {
@@ -49,41 +54,65 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public virtual int Create(Ledger entity)
+        public int Create(int orgId, Ledger ledger)
         {
-            entity.CreatedAt = DateTime.Now;
             using (var con = _db.GetConnection())
             {
-                con.Insert(entity);
-                return entity.Id;
+                using (var tran = con.BeginTransaction())
+                {
+                    ledger.OrgId = orgId;
+                    ledger.CreatedAt = DateTime.Now;
+                    int ledgerId = Convert.ToInt32(con.Insert(ledger, tran));
+                    _bankRepository.Save(ledgerId, ledger.Bank, con, tran);
+                    _partyRepository.Save(ledgerId, ledger.Party, con, tran);
+                    tran.Commit();
+                    return ledgerId;
+                }
             }
         }
 
-        public virtual bool Update(int id, Ledger entity)
+        public bool Update(int ledgerId, Ledger ledger)
         {
-            if (id <= 0 || id != entity.Id)
-            {
-                return false;
-            }
-
-            entity.UpdatedAt = DateTime.Now;
-            using (var con = _db.GetConnection())
-            {
-                return con.Update(entity);
-            }
-        }
-
-        public bool Remove(int id)
-        {
-            if (id <= 0)
+            if (ledgerId <= 0 || ledgerId != ledger.Id)
             {
                 return false;
             }
 
             using (var con = _db.GetConnection())
             {
-                long rows = con.Execute("DELETE FROM ledgers WHERE id=@id", new { id });
-                return rows == 1;
+                using (var tran = con.BeginTransaction())
+                {
+                    ledger.UpdatedAt = DateTime.Now;
+                    bool success = con.Update(ledger);
+                    _bankRepository.Save(ledger.Id, ledger.Bank, con, tran);
+                    _partyRepository.Save(ledger.Id, ledger.Party, con, tran);
+                    tran.Commit();
+                    return success;
+                }
+            }
+        }
+
+        public bool Remove(int ledgerId)
+        {
+            if (ledgerId <= 0)
+            {
+                return false;
+            }
+
+            using (var con = _db.GetConnection())
+            {
+                //Ledger ledger = con.Get<Ledger>(ledgerId);
+                //if (ledger == null)
+                //    return false;
+
+                using (var tran = con.BeginTransaction())
+                {
+                    _bankRepository.Remove(ledgerId, con, tran);
+                    _partyRepository.Remove(ledgerId, con, tran);
+                    int rows = con.Execute("DELETE FROM ledgers WHERE id=@ledgerId", new { ledgerId }, tran);
+                    tran.Commit();
+                    return rows == 1;
+                }
             }
         }
     }

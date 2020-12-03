@@ -10,7 +10,8 @@ namespace Fanda2.Backend.Mappings
         {
             ToTable("banks");
 
-            Map(b => b.LedgerId).ToColumn("ledger_id").IsKey();
+            Map(b => b.Id).ToColumn("id").IsKey();
+            Map(b => b.LedgerId).ToColumn("ledger_id");
             Map(b => b.AccountNumber).ToColumn("account_number");
             Map(b => b.AccountType).ToColumn("account_type");
             Map(b => b.IfscCode).ToColumn("ifsc_code");

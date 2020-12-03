@@ -1,6 +1,6 @@
 ﻿INSERT INTO users (id, login_name, email, mobile_number, first_name, last_name, user_password, is_enabled, created_at, is_reset_pwd)
 VALUES
-(1, 'admin', 'admin@fanda2.com', '9000000001', 'System', 'Administrator', '123', true, '2020-01-01', false)
+(1, 'admin', 'admin@fanda2.com', '9999999999', 'System', 'Administrator', '123', true, '2020-01-01', false);
 
 INSERT INTO ledger_groups (id, code, group_name, group_type, parent_id) VALUES
 (100, 'AUSPIC', 'AUSPICIOUS ACCOUNTS', 1, NULL),

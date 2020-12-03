@@ -2,7 +2,7 @@ using System;
 
 namespace Fanda2.Backend.Database
 {
-    public class Stock
+    public class Inventory
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
@@ -12,7 +12,6 @@ namespace Fanda2.Backend.Database
 
         public DateTime? MfgDate { get; set; }
         public DateTime? ExpiryDate { get; set; }
-
         public int UnitId { get; set; }
         public decimal QtyOnHand { get; set; }
     }

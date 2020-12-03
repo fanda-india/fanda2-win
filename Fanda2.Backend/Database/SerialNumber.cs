@@ -9,8 +9,7 @@ namespace Fanda2.Backend.Database
         // N, NNN
         // HH, MI, SS, -- MS
 
-        public int YearId { get; set; }
-
+        public int Id { get; set; }
         public SerialNumberModule SerialModule { get; set; }
         public string SerialPrefix { get; set; }
         public string SerialFormat { get; set; }
@@ -19,5 +18,6 @@ namespace Fanda2.Backend.Database
         public int LastNumber { get; set; }
         public DateTime LastDate { get; set; }
         public SerialNumberReset SerialReset { get; set; }
+        public int YearId { get; set; }
     }
 }

@@ -12,7 +12,8 @@ Organizations -> Address -> Contact
 		Units									(default units to be seeded)
 		Product Categories						(default categories to be seeded)
 		Products
-		Buyers
+		Consumers
+		AccountYears
 	Accounting Years
 		Serial Numbers							(default serials to be seeded)
 		Journals -> Journal Items
@@ -41,7 +42,7 @@ File
 Master Maitenance
 	Customers
 	Suppliers
-	Buyers
+	Consumers
 	---------	
 	Ledgers
 	Banks

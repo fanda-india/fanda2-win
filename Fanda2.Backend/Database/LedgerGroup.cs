@@ -9,7 +9,7 @@ namespace Fanda2.Backend.Database
         public string GroupName { get; set; }
         public string GroupDesc { get; set; }
         public LedgerGroupType GroupType { get; set; }
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }      // nullable
         public bool IsSystem { get; set; }
         public int OrgId { get; set; }
         public bool IsEnabled { get; set; }

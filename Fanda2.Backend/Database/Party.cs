@@ -1,7 +1,8 @@
 namespace Fanda2.Backend.Database
 {
-    public class Party
+    public class Party : ISubLedger
     {
+        public int Id { get; set; }
         public int LedgerId { get; set; }
         public string RegdNum { get; set; }
         public string PAN { get; set; }

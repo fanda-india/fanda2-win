@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Fanda2.Backend.Repositories
 {
-    public class OrganizationRepository : IRepository<Organization, OrganizationListModel>
+    public class OrganizationRepository : IRootRepository<Organization, OrganizationListModel>
     {
         private readonly SQLiteDB _db;
         private readonly AddressRepository _addressRepository;
@@ -103,7 +103,9 @@ namespace Fanda2.Backend.Repositories
             {
                 Organization org = con.Get<Organization>(id);
                 if (org == null)
+                {
                     return false;
+                }
 
                 using (var tran = con.BeginTransaction())
                 {
