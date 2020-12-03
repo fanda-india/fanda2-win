@@ -44,7 +44,7 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public Ledger GetById(string id)
+        public Ledger GetById(int id)
         {
             var qry = "SELECT l.*, " +
                 "b.ledger_id BankId, b.*, ba.id BankAddrId, ba.*, bc.id BankContactId, bc.*,  " +
@@ -77,9 +77,9 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public string Create(Ledger entity)
+        public int Create(Ledger entity)
         {
-            entity.Id = Guid.NewGuid().ToString();
+            //entity.Id = Guid.NewGuid().ToString();
             entity.CreatedAt = DateTime.Now;
             using (var con = _db.GetConnection())
             {
@@ -88,9 +88,9 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public bool Update(string id, Ledger entity)
+        public bool Update(int id, Ledger entity)
         {
-            if (string.IsNullOrEmpty(id) || id.Length != 36 || id != entity.Id)
+            if (id <= 0 || id != entity.Id)
             {
                 return false;
             }
@@ -102,9 +102,9 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public bool Remove(string id)
+        public bool Remove(int id)
         {
-            if (string.IsNullOrEmpty(id) || id.Length != 36)
+            if (id <= 0)
             {
                 return false;
             }

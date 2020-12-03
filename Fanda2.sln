@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1D196710-8
 		Fanda2-win.txt = Fanda2-win.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanda2.Tests", "Fanda2.Tests\Fanda2.Tests.csproj", "{1818AA2B-2016-4570-A6E4-037E9E63F25B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A7482F7E-FDC5-40EF-A6A9-F6BB528C644D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7482F7E-FDC5-40EF-A6A9-F6BB528C644D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7482F7E-FDC5-40EF-A6A9-F6BB528C644D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1818AA2B-2016-4570-A6E4-037E9E63F25B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1818AA2B-2016-4570-A6E4-037E9E63F25B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1818AA2B-2016-4570-A6E4-037E9E63F25B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1818AA2B-2016-4570-A6E4-037E9E63F25B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

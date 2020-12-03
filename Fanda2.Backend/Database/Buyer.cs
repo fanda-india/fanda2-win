@@ -2,8 +2,8 @@
 {
     public class Buyer
     {
-        public string Id { get; set; }
-        public string ContactId { get; set; }   // nullable
-        public string AddressId { get; set; }   // nullable
+        public int Id { get; set; }
+        public int? ContactId { get; set; }   // nullable
+        public int? AddressId { get; set; }   // nullable
     }
 }

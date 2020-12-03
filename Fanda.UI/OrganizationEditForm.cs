@@ -16,24 +16,24 @@ namespace Fanda.UI
     public partial class OrganizationEditForm : Form
     {
         private readonly OrganizationRepository _repository;
-        private readonly string _id;
+        private readonly int _id;
         private Organization _org;
 
         public OrganizationEditForm(OrganizationRepository repository,
-            string id)
+            int id)
         {
             InitializeComponent();
 
             _repository = repository;
             _id = id;
 
-            if (!string.IsNullOrEmpty(id))
+            if (id == 0)
             {
-                _org = _repository.GetById(id);
+                _org = new Organization();
             }
             else
             {
-                _org = new Organization();
+                _org = _repository.GetById(id);
             }
             orgBindingSource.DataSource = _org;
         }
@@ -42,9 +42,9 @@ namespace Fanda.UI
         {
             try
             {
-                if (string.IsNullOrEmpty(_id))
+                if (_id == 0)
                 {
-                    if (!string.IsNullOrEmpty(_repository.Create(_org)))
+                    if (_repository.Create(_org) > 0)
                     {
                         _org = new Organization();
                         orgBindingSource.DataSource = _org;

@@ -2,15 +2,15 @@ namespace Fanda2.Backend.Database
 {
     public class Party
     {
-        public string LedgerId { get; set; }
+        public int LedgerId { get; set; }
         public string RegdNum { get; set; }
         public string PAN { get; set; }
         public string TAN { get; set; }
         public string GSTIN { get; set; }
         public PaymentTerm PaymentTerm { get; set; }
         public decimal CreditLimit { get; set; }
-        public string AddressId { get; set; }    // nullable
-        public string ContactId { get; set; }    // nullable
+        public int? AddressId { get; set; }    // nullable
+        public int? ContactId { get; set; }    // nullable
 
         public virtual Address Address { get; set; }
         public virtual Contact Contact { get; set; }

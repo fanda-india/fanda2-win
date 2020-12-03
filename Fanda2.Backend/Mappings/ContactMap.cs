@@ -10,7 +10,7 @@ namespace Fanda2.Backend.Mappings
         {
             ToTable("contacts");
 
-            Map(c => c.Id).IsKey();
+            Map(c => c.Id).ToColumn("id").IsKey();
             Map(c => c.Salutation).ToColumn("salutation");
             Map(c => c.FirstName).ToColumn("first_name");
             Map(c => c.LastName).ToColumn("last_name");

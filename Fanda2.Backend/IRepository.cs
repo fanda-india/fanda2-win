@@ -11,8 +11,8 @@ namespace Fanda2.Backend
         /// <param name="entity"></param>
         /// <param name="con"></param>
         /// <param name="tran"></param>
-        /// <returns>Always return GUID as string</returns>
-        string Save(Entity entity, IDbConnection con, IDbTransaction tran);
+        /// <returns></returns>
+        int? Save(Entity entity, IDbConnection con, IDbTransaction tran);
 
         /// <summary>
         /// Delete from table
@@ -21,12 +21,12 @@ namespace Fanda2.Backend
         /// <param name="con"></param>
         /// <param name="tran"></param>
         /// <returns></returns>
-        bool Remove(string id, IDbConnection con, IDbTransaction tran);
+        bool Remove(int? id, IDbConnection con, IDbTransaction tran);
     }
 
     internal interface IRepository<Entity, ListModel>
     {
-        Entity GetById(string id);
+        Entity GetById(int id);
 
         List<ListModel> GetAll(string searchTerm = null);
 
@@ -35,10 +35,10 @@ namespace Fanda2.Backend
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>Newly inserted GUID as string</returns>
-        string Create(Entity entity);
+        int Create(Entity entity);
 
-        bool Update(string id, Entity entity);
+        bool Update(int id, Entity entity);
 
-        bool Remove(string id);
+        bool Remove(int id);
     }
 }

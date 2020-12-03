@@ -34,7 +34,7 @@ namespace Fanda.UI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            OrganizationEditForm editForm = new OrganizationEditForm(_repository, string.Empty)
+            OrganizationEditForm editForm = new OrganizationEditForm(_repository, 0)
             {
                 MdiParent = this.MdiParent
             };

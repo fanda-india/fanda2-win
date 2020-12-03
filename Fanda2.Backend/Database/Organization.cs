@@ -4,7 +4,7 @@ namespace Fanda2.Backend.Database
 {
     public class Organization
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Code { get; set; }
         public string OrgName { get; set; }
@@ -13,8 +13,8 @@ namespace Fanda2.Backend.Database
         public string PAN { get; set; }
         public string TAN { get; set; }
         public string GSTIN { get; set; }
-        public string AddressId { get; set; }
-        public string ContactId { get; set; }
+        public int? AddressId { get; set; }
+        public int? ContactId { get; set; }
         public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

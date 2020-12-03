@@ -9,7 +9,7 @@ namespace Fanda2.Backend.Database
         // N, NNN
         // HH, MI, SS, -- MS
 
-        public string YearId { get; set; }
+        public int YearId { get; set; }
 
         public SerialNumberModule SerialModule { get; set; }
         public string SerialPrefix { get; set; }

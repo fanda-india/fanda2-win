@@ -71,7 +71,7 @@ namespace Fanda2.Backend
     {
         Stock = 1,
         Purchase = 2,
-        DebitNote = 3, //PurchaseReturn
+        DebitNote = 3,  //PurchaseReturn
         Sales = 4,
         CreditNote = 5, //SalesReturn
         Exchange = 6,

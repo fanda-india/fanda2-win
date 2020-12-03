@@ -4,18 +4,18 @@ namespace Fanda2.Backend.Database
 {
     public class Product
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Code { get; set; }
         public string ProductName { get; set; }
         public string ProductDesc { get; set; }
         public ProductType ProductType { get; set; }
 
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         //public Guid? BrandId { get; set; }
         //public Guid? SegmentId { get; set; }
         //public Guid? VarietyId { get; set; }
-        public string UnitId { get; set; }
+        public int UnitId { get; set; }
 
         public decimal CostPrice { get; set; }
 
@@ -29,7 +29,7 @@ namespace Fanda2.Backend.Database
 
         #endregion Tax / GST
 
-        public string OrgId { get; set; }
+        public int OrgId { get; set; }
         public bool IsEnabled { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

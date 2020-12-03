@@ -1,6 +1,4 @@
-﻿using Dapper;
-
-using Dommel;
+﻿using Dommel;
 
 using Fanda2.Backend.Database;
 using Fanda2.Backend.ViewModels;
@@ -44,7 +42,7 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public Organization GetById(string id)
+        public Organization GetById(int id)
         {
             using (var con = _db.GetConnection())
             {
@@ -52,22 +50,18 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public string Create(Organization entity)
+        public int Create(Organization entity)
         {
-            entity.Id = Guid.NewGuid().ToString();
-            entity.CreatedAt = DateTime.Now;   //.ToString("yyyy-MM-dd HH:mm:ss");
-            //string sql =
-            //    "INSERT INTO organizations " +
-            //    "(id, code, org_name, org_desc, regd_num, org_pan, org_tan, gstin, is_enabled, created_at) " +
-            //    "VALUES " +
-            //    $"(@id, @code, @orgName, @orgDesc, @regdNum, @pan, @tan, @gstin, @isEnabled, @createdAt)";
+            entity.CreatedAt = DateTime.Now;
             using (var con = _db.GetConnection())
             {
                 using (var tran = con.BeginTransaction())
                 {
-                    string addressId = _addressRepository.Save(entity.Address, con, tran);
-                    string contactId = _contactRepository.Save(entity.Contact, con, tran);
-                    con.Insert(entity, tran); //con.Execute(sql, entity);
+                    int? addressId = _addressRepository.Save(entity.Address, con, tran);
+                    int? contactId = _contactRepository.Save(entity.Contact, con, tran);
+                    entity.AddressId = addressId;
+                    entity.ContactId = contactId;
+                    con.Insert(entity, tran);
 
                     tran.Commit();
                     return entity.Id;
@@ -75,36 +69,32 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public bool Update(string id, Organization entity)
+        public bool Update(int id, Organization entity)
         {
-            if (string.IsNullOrEmpty(id) || id.Length != 36 || id != entity.Id)
+            if (id <= 0 || id != entity.Id)
             {
                 return false;
             }
 
-            entity.UpdatedAt = DateTime.Now;     //.ToString("yyyy-MM-dd HH:mm:ss")
-            //string sql =
-            //    "UPDATE organizations SET code=@code, org_name=@orgName, " +
-            //    "org_desc=@orgDesc, regd_num=@regdNum, org_pan=@pan, " +
-            //    "org_tan=@tan, gstin=@gstin, is_enabled=@isEnabled, " +
-            //    $"updated_at=@updatedAt " +
-            //    "WHERE id=@id";
+            entity.UpdatedAt = DateTime.Now;
             using (var con = _db.GetConnection())
             {
                 using (var tran = con.BeginTransaction())
                 {
-                    string addressId = _addressRepository.Save(entity.Address, con, tran);
-                    string contactId = _contactRepository.Save(entity.Contact, con, tran);
-                    bool success = con.Update(entity, tran); //con.Execute(sql, entity);
+                    int? addressId = _addressRepository.Save(entity.Address, con, tran);
+                    int? contactId = _contactRepository.Save(entity.Contact, con, tran);
+                    entity.AddressId = addressId;
+                    entity.ContactId = contactId;
+                    bool success = con.Update(entity, tran);
                     tran.Commit();
                     return success;
                 }
             }
         }
 
-        public bool Remove(string id)
+        public bool Remove(int id)
         {
-            if (string.IsNullOrEmpty(id) || id.Length != 36)
+            if (id <= 0)
             {
                 return false;
             }
@@ -120,10 +110,8 @@ namespace Fanda2.Backend.Repositories
                     _addressRepository.Remove(org.AddressId, con, tran);
                     _contactRepository.Remove(org.ContactId, con, tran);
                     bool success = con.Delete(org, tran);
-                    //int rows = con.Execute("DELETE FROM organizations WHERE id=@id", new { id }, tran);
                     tran.Commit();
                     return success;
-                    //return rows == 1;
                 }
             }
         }

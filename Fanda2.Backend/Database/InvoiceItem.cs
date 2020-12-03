@@ -2,12 +2,12 @@ namespace Fanda2.Backend.Database
 {
     public class InvoiceItem
     {
-        public string Id { get; set; }
-        public string InvoiceId { get; set; }
-        public string StockId { get; set; }
+        public int Id { get; set; }
+        public int InvoiceId { get; set; }
+        public int StockId { get; set; }
         public string ItemDesc { get; set; }
 
-        public string UnitId { get; set; }
+        public int UnitId { get; set; }
         public decimal Qty { get; set; }
 
         public decimal UnitPrice { get; set; }

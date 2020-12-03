@@ -11,7 +11,7 @@ namespace Fanda2.Backend.Mappings
         {
             ToTable("organizations");
 
-            Map(o => o.Id).IsKey();
+            Map(o => o.Id).ToColumn("id").IsKey();
             Map(o => o.Code).ToColumn("code");
             Map(o => o.OrgName).ToColumn("org_name");
             Map(o => o.OrgDesc).ToColumn("org_desc");
@@ -32,7 +32,7 @@ namespace Fanda2.Backend.Mappings
         internal OrganizationListMap()
         {
             ToTable("organizations");
-            Map(o => o.Id).IsKey();
+            Map(o => o.Id).ToColumn("id").IsKey();
             Map(l => l.Code).ToColumn("code");
             Map(l => l.OrgName).ToColumn("org_name");
             Map(l => l.OrgDesc).ToColumn("org_desc");

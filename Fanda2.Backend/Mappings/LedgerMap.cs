@@ -1,5 +1,4 @@
 ﻿using Dapper.FluentMap.Dommel.Mapping;
-using Dapper.FluentMap.Mapping;
 
 using Fanda2.Backend.Database;
 using Fanda2.Backend.ViewModels;
@@ -12,7 +11,7 @@ namespace Fanda2.Backend.Mappings
         {
             ToTable("ledgers");
 
-            Map(l => l.Id).IsKey();
+            Map(l => l.Id).ToColumn("id").IsKey();
             Map(l => l.Code).ToColumn("code");
             Map(l => l.LedgerName).ToColumn("ledger_name");
             Map(l => l.LedgerDesc).ToColumn("ledger_desc");
@@ -26,10 +25,12 @@ namespace Fanda2.Backend.Mappings
         }
     }
 
-    internal class LedgerListMap : EntityMap<LedgerListModel>
+    internal class LedgerListMap : DommelEntityMap<LedgerListModel>
     {
         internal LedgerListMap()
         {
+            Map(l => l.Id).ToColumn("id").IsKey();
+            Map(l => l.Code).ToColumn("code");
             Map(l => l.LedgerName).ToColumn("ledger_name");
             Map(l => l.LedgerDesc).ToColumn("ledger_desc");
             Map(l => l.GroupName).ToColumn("group_name");

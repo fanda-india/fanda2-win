@@ -35,7 +35,7 @@ namespace Fanda2.Backend
 
         internal SQLiteDB()
         {
-            string projectPath = System.IO.Path.GetFullPath(@"..\..\");
+            string projectPath = System.IO.Path.GetFullPath(@"..\..");
             ConnectionString = $"Data Source={projectPath}\\fanda2.db3;Version=3;Pooling=True;Max Pool Size=100;";
         }
 

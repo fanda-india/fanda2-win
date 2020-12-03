@@ -2,7 +2,7 @@ namespace Fanda2.Backend.Database
 {
     public class Address
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Attention { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

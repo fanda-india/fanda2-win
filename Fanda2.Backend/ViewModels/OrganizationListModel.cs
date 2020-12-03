@@ -2,7 +2,7 @@
 {
     public class OrganizationListModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Code { get; set; }
         public string OrgName { get; set; }
         public string OrgDesc { get; set; }

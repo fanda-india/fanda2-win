@@ -8,7 +8,7 @@ BEGIN TRANSACTION;
 
 -- Table: users
 CREATE TABLE users (
-    id            CHAR (36)     PRIMARY KEY
+    id            INTEGER       PRIMARY KEY
                                 NOT NULL,
     login_name    VARCHAR (16)  UNIQUE
                                 NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE users (
 
 -- Table: addresses
 CREATE TABLE addresses (
-    id          CHAR (36)    PRIMARY KEY
+    id          INTEGER      PRIMARY KEY
                              NOT NULL,
     attention   VARCHAR (25),
     addr_line1  VARCHAR (50),
@@ -43,7 +43,7 @@ CREATE TABLE addresses (
 
 -- Table: contacts
 CREATE TABLE contacts (
-    id            CHAR (36)     PRIMARY KEY
+    id            INTEGER       PRIMARY KEY
                                 NOT NULL,
     salutation    VARCHAR (5),
     first_name    VARCHAR (25),
@@ -57,7 +57,7 @@ CREATE TABLE contacts (
 
 -- Table: organizations
 CREATE TABLE organizations (
-    id         CHAR (36)     PRIMARY KEY
+    id         INTEGER       PRIMARY KEY
                              NOT NULL,
     code       VARCHAR (16)  UNIQUE
                              NOT NULL,
@@ -68,9 +68,9 @@ CREATE TABLE organizations (
     org_pan    VARCHAR (25),
     org_tan    VARCHAR (25),
     gstin      VARCHAR (25),
-    address_id CHAR (36)     REFERENCES addresses (id) ON DELETE NO ACTION
+    address_id INTEGER       REFERENCES addresses (id) ON DELETE NO ACTION
                                                        ON UPDATE CASCADE,
-    contact_id CHAR (36)     REFERENCES contacts (id) ON DELETE NO ACTION
+    contact_id INTEGER       REFERENCES contacts (id) ON DELETE NO ACTION
                                                       ON UPDATE CASCADE,
     is_enabled INTEGER       NOT NULL,
     created_at DATETIME      NOT NULL,
@@ -79,29 +79,29 @@ CREATE TABLE organizations (
 
 -- Table: ledger_groups
 CREATE TABLE ledger_groups (
-    id         CHAR (36)     PRIMARY KEY
+    id         INTEGER       PRIMARY KEY
                              NOT NULL,
     code       VARCHAR (16)  NOT NULL,
     group_name VARCHAR (25)  NOT NULL,
     group_desc VARCHAR (255),
     group_type INTEGER       NOT NULL,
-    parent_id  CHAR (36)     REFERENCES ledger_groups (id) ON DELETE NO ACTION
+    parent_id  INTEGER       REFERENCES ledger_groups (id) ON DELETE NO ACTION
                                                            ON UPDATE NO ACTION
 );
 
 -- Table: ledgers
 CREATE TABLE ledgers (
-    id          CHAR (36)     PRIMARY KEY
+    id          INTEGER       PRIMARY KEY
                               NOT NULL,
     code        VARCHAR (16)  NOT NULL,
     ledger_name VARCHAR (25)  NOT NULL,
     ledger_desc VARCHAR (255),
-    group_id    CHAR (36)     NOT NULL
+    group_id    INTEGER       NOT NULL
                               REFERENCES ledger_groups (id) ON DELETE NO ACTION
                                                             ON UPDATE CASCADE,
     ledger_type INTEGER       NOT NULL,
     is_system   INTEGER       NOT NULL,
-    org_id      CHAR (36)     NOT NULL
+    org_id      INTEGER       NOT NULL
                               REFERENCES organizations (id) ON DELETE NO ACTION
                                                             ON UPDATE NO ACTION,
     is_enabled  INTEGER       NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE ledgers (
 
 -- Table: banks
 CREATE TABLE banks (
-    ledger_id      CHAR (36)    PRIMARY KEY
+    ledger_id      INTEGER      PRIMARY KEY
                                 NOT NULL
                                 REFERENCES ledgers (id) ON DELETE CASCADE
                                                         ON UPDATE CASCADE,
@@ -130,16 +130,16 @@ CREATE TABLE banks (
     micr_code      VARCHAR (16),
     branch_code    VARCHAR (16),
     branch_name    VARCHAR (25),
-    address_id     CHAR (36)    REFERENCES addresses (id) ON DELETE NO ACTION
+    address_id     INTEGER      REFERENCES addresses (id) ON DELETE NO ACTION
                                                           ON UPDATE NO ACTION,
-    contact_id     CHAR (36)    REFERENCES contacts (id) ON DELETE NO ACTION
+    contact_id     INTEGER      REFERENCES contacts (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION,
     is_default     INTEGER      NOT NULL
 );
 
 -- Table: parties
 CREATE TABLE parties (
-    ledger_id    CHAR (36)       PRIMARY key
+    ledger_id    INTEGER         PRIMARY key
     							 NOT NULL
                                  REFERENCES ledgers (id) ON DELETE CASCADE
                                                          ON UPDATE CASCADE,
@@ -149,20 +149,20 @@ CREATE TABLE parties (
     gstin        VARCHAR (25),    
     payment_term INTEGER         NOT NULL,
     credit_limit DECIMAL (12, 2) NOT NULL,
-    address_id   CHAR (36)       REFERENCES addresses (id) ON DELETE NO ACTION
+    address_id   INTEGER         REFERENCES addresses (id) ON DELETE NO ACTION
                                                            ON UPDATE NO ACTION,
-    contact_id   CHAR (36)       REFERENCES contacts (id) ON DELETE NO ACTION
+    contact_id   INTEGER         REFERENCES contacts (id) ON DELETE NO ACTION
                                                           ON UPDATE NO ACTION
 );
 
 -- Table: units
 CREATE TABLE units (
-    id         CHAR (36)     PRIMARY KEY
+    id         INTEGER       PRIMARY KEY
                              NOT NULL,
     code       VARCHAR (16)  NOT NULL,
     unit_name  VARCHAR (25)  NOT NULL,
     unit_desc  VARCHAR (255),
-    org_id     CHAR (36)     NOT null
+    org_id     INTEGER       NOT null
                              REFERENCES organizations (id) ON DELETE NO ACTION
                                                            ON UPDATE CASCADE,
     is_enabled INTEGER       NOT NULL,
@@ -180,14 +180,14 @@ CREATE TABLE units (
 
 -- Table: product_categories
 CREATE TABLE product_categories (
-    id            CHAR (36)     PRIMARY KEY
+    id            INTEGER       PRIMARY KEY
                                 NOT NULL,
     code          VARCHAR (16)  NOT NULL,
     category_name VARCHAR (25)  NOT NULL,
     category_desc VARCHAR (255),
-    parent_id     CHAR (36)     REFERENCES product_categories (id) ON DELETE NO ACTION
+    parent_id     INTEGER       REFERENCES product_categories (id) ON DELETE NO ACTION
                                                                    ON UPDATE NO ACTION,
-    org_id        CHAR (36)     NOT NULL
+    org_id        INTEGER       NOT NULL
                                 REFERENCES organizations (id) ON DELETE NO ACTION
                                                               ON UPDATE CASCADE,
     is_enabled    INTEGER       NOT NULL,
@@ -205,16 +205,16 @@ CREATE TABLE product_categories (
 
 -- Table: products
 CREATE TABLE products (
-    id             CHAR (36)       PRIMARY KEY
+    id             INTEGER         PRIMARY KEY
                                    NOT NULL,
     code           VARCHAR (16)    NOT NULL,
     product_name   VARCHAR (25)    NOT NULL,
     product_desc   VARCHAR (255),
     product_type   INTEGER         NOT NULL,
-    category_id    CHAR (36)       NOT NULL
+    category_id    INTEGER         NOT NULL
     							   REFERENCES product_categories (id) ON DELETE NO ACTION
                                                                       ON UPDATE CASCADE,
-    unit_id        CHAR (36)       NOT NULL
+    unit_id        INTEGER         NOT NULL
     							   REFERENCES units (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION,
     cost_price     DECIMAL (12, 2) NOT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE products (
     tax_code       VARCHAR (16)    NOT NULL,
     tax_preference INTEGER         NOT NULL,
     tax_pct        DECIMAL (5, 2)  NOT NULL,
-    org_id         CHAR (36)       NOT null
+    org_id         INTEGER         NOT null
                                    REFERENCES organizations (id) ON DELETE NO ACTION
                                                                  ON UPDATE NO ACTION,
     is_enabled     INTEGER         NOT NULL,
@@ -240,12 +240,12 @@ CREATE TABLE products (
 
 -- Table: account_years
 CREATE TABLE account_years (
-    id         CHAR (36)    PRIMARY KEY
+    id         INTEGER      PRIMARY KEY
                             NOT NULL,
     year_code  VARCHAR (16) NOT NULL,
     year_begin DATE         NOT NULL,
     year_end   DATE         NOT NULL,
-    org_id     CHAR (36)    NOT NULL
+    org_id     INTEGER      NOT NULL
      					    REFERENCES organizations (id) ON DELETE NO ACTION
                                                           ON UPDATE CASCADE,
 	UNIQUE (
@@ -256,8 +256,8 @@ CREATE TABLE account_years (
 
 -- Table: ledger_balances
 CREATE TABLE ledger_balances (
-    ledger_id       CHAR (36)       NOT NULL,
-    year_id         CHAR (36)       NOT NULL
+    ledger_id       INTEGER         NOT NULL,
+    year_id         INTEGER         NOT NULL
                                     REFERENCES account_years (id) ON DELETE NO ACTION
                                                                   ON UPDATE CASCADE,
     opening_balance DECIMAL (12, 2) NOT NULL,
@@ -270,7 +270,7 @@ CREATE TABLE ledger_balances (
 
 -- Table: serial_numbers
 CREATE TABLE serial_numbers (
-    year_id       CHAR (36)    NOT NULL
+    year_id       INTEGER      NOT NULL
                                REFERENCES account_years (id) ON DELETE NO ACTION
                                                              ON UPDATE CASCADE,
     serial_module INTEGER      NOT NULL,
@@ -289,16 +289,16 @@ CREATE TABLE serial_numbers (
 
 -- Table: journals
 CREATE TABLE journals (
-    id             CHAR (36)    PRIMARY KEY
+    id             INTEGER      PRIMARY KEY
                                 NOT NULL,
     journal_number VARCHAR (16) NOT NULL,
     journal_date   DATETIME     NOT NULL,
     journal_type   INTEGER      NOT NULL,
     journal_sign   CHAR (1)     NOT NULL,
-    ledger_id      CHAR (36)    NOT NULL
+    ledger_id      INTEGER      NOT NULL
     							REFERENCES ledgers (id) ON DELETE NO ACTION
                                                         ON UPDATE CASCADE,
-    year_id        CHAR (36)    NOT NULL
+    year_id        INTEGER      NOT NULL
 	                            REFERENCES account_years (id) ON DELETE NO ACTION
 								                              ON UPDATE NO ACTION,
     created_at     DATETIME     NOT NULL,
@@ -311,12 +311,12 @@ CREATE TABLE journals (
 
 -- Table: journal_items
 CREATE TABLE journal_items (
-    id           CHAR (36)       PRIMARY KEY
+    id           INTEGER         PRIMARY KEY
                                  NOT NULL,
-    journal_id   CHAR (36)       NOT NULL
+    journal_id   INTEGER         NOT NULL
     							 REFERENCES journals (id) ON DELETE CASCADE
                                                           ON UPDATE CASCADE,
-    ledger_id    CHAR (36)       REFERENCES ledgers (id) ON DELETE NO ACTION
+    ledger_id    INTEGER         REFERENCES ledgers (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION,
     quantity     DECIMAL (7, 3)  NOT NULL,
     amount       DECIMAL (12, 2) NOT NULL,
@@ -327,17 +327,17 @@ CREATE TABLE journal_items (
 
 -- Table: buyers
 CREATE TABLE buyers (
-    id         CHAR (36)    PRIMARY KEY
+    id         INTEGER      PRIMARY KEY
                             NOT NULL,
-    contact_id CHAR (36)    REFERENCES contacts (id) ON DELETE NO ACTION
+    contact_id INTEGER      REFERENCES contacts (id) ON DELETE NO ACTION
                                                      ON UPDATE CASCADE,
-    address_id CHAR (36)    REFERENCES addresses (id) ON DELETE NO ACTION
+    address_id INTEGER      REFERENCES addresses (id) ON DELETE NO ACTION
                                                       ON UPDATE CASCADE
 );
 
 -- Table: invoices
 CREATE TABLE invoices (
-    id             CHAR (36)       PRIMARY KEY
+    id             INTEGER         PRIMARY KEY
                                    NOT NULL,
     invoice_number VARCHAR (16)    NOT NULL,
     invoice_date   DATETIME        NOT NULL,
@@ -346,12 +346,12 @@ CREATE TABLE invoices (
     gst_treatment  INTEGER         NOT NULL,
     tax_preference INTEGER         NOT NULL,
     notes          VARCHAR (255),
-    party_id       CHAR (36)       NOT NULL
+    party_id       INTEGER         NOT NULL
     							   REFERENCES ledgers (id) ON DELETE NO ACTION
                                                            ON UPDATE CASCADE,
     ref_num        VARCHAR (16),
     ref_date       DATE,
-    buyer_id       CHAR (36)       REFERENCES buyers (id) ON DELETE NO ACTION
+    buyer_id       INTEGER         REFERENCES buyers (id) ON DELETE NO ACTION
                                                           ON UPDATE NO ACTION,
     subtotal       DECIMAL (12, 2) NOT NULL,
 	total_qty      DECIMAL (10, 3) NOT NULL,
@@ -361,7 +361,7 @@ CREATE TABLE invoices (
     misc_add_desc  VARCHAR (25),
     misc_add_amt   DECIMAL (9, 2)  NOT NULL,
     net_amount     DECIMAL (12, 2) NOT NULL,
-    year_id        CHAR (36)       NOT NULL
+    year_id        INTEGER         NOT NULL
     							   REFERENCES account_years (id) ON DELETE NO ACTION
                                                                  ON UPDATE NO ACTION,
     created_at     DATETIME        NOT NULL,
@@ -374,16 +374,16 @@ CREATE TABLE invoices (
 
 -- Table: stocks
 CREATE TABLE inventory (
-    id          CHAR (36)       PRIMARY KEY
+    id          INTEGER         PRIMARY KEY
                                 NOT NULL,
-    product_id  CHAR (36)       NOT NULL
+    product_id  INTEGER         NOT NULL
                                 REFERENCES products (id) ON DELETE NO ACTION
                                                           ON UPDATE CASCADE,
     tag_number  VARCHAR (16)    NOT NULL
                                 UNIQUE,
     mfg_date    DATE,
     expire_date DATE,
-    unit_id     CHAR (36)       NOT NULL
+    unit_id     INTEGER         NOT NULL
     							REFERENCES units (id) ON DELETE NO ACTION
                                                       ON UPDATE NO ACTION,
     qty_on_hand DECIMAL (10, 3) NOT NULL
@@ -391,15 +391,15 @@ CREATE TABLE inventory (
 
 -- Table: invoice_items
 CREATE TABLE invoice_items (
-    id           CHAR (36)      PRIMARY KEY
+    id           INTEGER        PRIMARY KEY
                                 NOT NULL,
-    invoice_id   CHAR (36)      NOT NULL
+    invoice_id   INTEGER        NOT NULL
     							REFERENCES invoices (id) ON DELETE CASCADE
                                                          ON UPDATE CASCADE,
-    inventory_id CHAR (36)      REFERENCES inventory (id) ON DELETE NO ACTION
+    inventory_id INTEGER        REFERENCES inventory (id) ON DELETE NO ACTION
                                                           ON UPDATE NO ACTION,
     item_desc    VARCHAR (255)  NOT NULL,
-    unit_id      CHAR (36)      NOT NULL
+    unit_id      INTEGER        NOT NULL
                                 REFERENCES units (id) ON DELETE NO ACTION
                                                       ON UPDATE NO ACTION,
     qty          DECIMAL (9, 3) NOT NULL,
@@ -414,12 +414,12 @@ CREATE TABLE invoice_items (
 
 -- Table: transactions
 CREATE TABLE transactions (
-    id               CHAR (36)       PRIMARY KEY
+    id               INTEGER         PRIMARY KEY
                                      NOT NULL,
-    debit_ledger_id  CHAR (36)       NOT NULL
+    debit_ledger_id  INTEGER         NOT NULL
     								 REFERENCES ledgers (id) ON DELETE NO ACTION
                                                              ON UPDATE NO ACTION,
-    credit_ledger_id CHAR (36)       NOT NULL
+    credit_ledger_id INTEGER         NOT NULL
     								 REFERENCES ledgers (id) ON DELETE NO ACTION
                                                              ON UPDATE NO ACTION,
     quantity         DECIMAL (9, 3)  NOT NULL,
@@ -427,9 +427,9 @@ CREATE TABLE transactions (
     tran_desc        VARCHAR (255),
     ref_num          VARCHAR (16),
     ref_date         DATE,
-    journal_id       CHAR (36)       REFERENCES journals (id) ON DELETE CASCADE
+    journal_id       INTEGER         REFERENCES journals (id) ON DELETE CASCADE
                                                               ON UPDATE NO ACTION,
-    invoice_id       CHAR (36)       REFERENCES invoices (id) ON DELETE CASCADE
+    invoice_id       INTEGER         REFERENCES invoices (id) ON DELETE CASCADE
                                                               ON UPDATE NO ACTION
 );
 

@@ -11,20 +11,20 @@ namespace Fanda2.Backend.Repositories
 {
     internal class AddressRepository : IRepository<Address>
     {
-        public string Save(Address entity, IDbConnection con, IDbTransaction tran)
+        public int? Save(Address entity, IDbConnection con, IDbTransaction tran)
         {
             if (entity == null)
                 return null;
 
             // Insert
-            if (string.IsNullOrEmpty(entity.Id))
+            if (entity.Id == 0)
             {
                 if (entity.IsEmpty())
                     return null;
 
-                entity.Id = Guid.NewGuid().ToString();
-                con.Insert(entity, tran);
-                return entity.Id;
+                int id = Convert.ToInt32(con.Insert(entity, tran));
+                entity.Id = id;
+                return id;
             }
             // Update
             else
@@ -43,9 +43,9 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public bool Remove(string id, IDbConnection con, IDbTransaction tran)
+        public bool Remove(int? id, IDbConnection con, IDbTransaction tran)
         {
-            if (string.IsNullOrEmpty(id) || id.Length != 36)
+            if (!id.HasValue || id.Value <= 0)
             {
                 return false;
             }
