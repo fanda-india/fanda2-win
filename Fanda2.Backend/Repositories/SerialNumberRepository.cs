@@ -110,8 +110,41 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        private string IncrementAlpha(string alpha)
+        public string IncrementAlpha(string alpha)
         {
+            if (string.IsNullOrWhiteSpace(alpha))
+                return alpha;
+            alpha = alpha.ToUpper();
+
+            int alphaLen = alpha.Length;
+            char lastChar = alpha[alphaLen - 1];
+            string next;
+
+            if (lastChar == 'Z')
+                next = "A";
+            //else if (!(lastChar >= 'A' && lastChar <= 'Z'))
+            //{
+            //    if (alphaLen > 1)
+            //    {
+            //        string stripLast = alpha.Substring(0, alphaLen - 1);
+            //        next = IncrementAlpha(stripLast) + stripLast;
+            //    }
+            //    else
+            //        next = Convert.ToString(lastChar);
+            //}
+            else
+                next = Convert.ToString((char)(lastChar + 1));
+
+            if (alphaLen > 1)
+            {
+                string stripLast = alpha.Substring(0, alphaLen - 1);
+                if (lastChar == 'Z')
+                    next = IncrementAlpha(stripLast) + next;
+                else
+                    next = stripLast + next;
+            }
+
+            return next;
         }
     }
 

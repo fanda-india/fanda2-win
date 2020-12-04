@@ -4,6 +4,7 @@ using Fanda2.Backend.Repositories;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Fanda2.Tests
     {
         private static void Main()
         {
-            SerialNumberTest();
+            IncrementAlphaTest();
         }
 
         private static void CreateOrgTest()
@@ -84,6 +85,18 @@ namespace Fanda2.Tests
             Console.WriteLine(
                 serialRepo.NextNumber(1, SerialNumberModule.Receipts, new DateTime(2019, 3, 31))
             );
+        }
+
+        private static void IncrementAlphaTest()
+        {
+            var snRepo = new SerialNumberRepository();
+            Debug.WriteLine("{0} -> {1}", "A", snRepo.IncrementAlpha("A"));
+            Debug.WriteLine("{0} -> {1}", "J", snRepo.IncrementAlpha("J"));
+            Debug.WriteLine("{0} -> {1}", "Z", snRepo.IncrementAlpha("Z"));
+            Debug.WriteLine("{0} -> {1}", "A-A-", snRepo.IncrementAlpha("AA"));
+            Debug.WriteLine("{0} -> {1}", "A-J-", snRepo.IncrementAlpha("AJ"));
+            Debug.WriteLine("{0} -> {1}", "A-Z-", snRepo.IncrementAlpha("AZ"));
+            Debug.WriteLine("{0} -> {1}", "Z-Z-", snRepo.IncrementAlpha("ZZ"));
         }
     }
 }
