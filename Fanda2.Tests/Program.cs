@@ -90,13 +90,16 @@ namespace Fanda2.Tests
         private static void IncrementAlphaTest()
         {
             var snRepo = new SerialNumberRepository();
-            Debug.WriteLine("{0} -> {1}", "A", snRepo.IncrementAlpha("A"));
-            Debug.WriteLine("{0} -> {1}", "J", snRepo.IncrementAlpha("J"));
-            Debug.WriteLine("{0} -> {1}", "Z", snRepo.IncrementAlpha("Z"));
-            Debug.WriteLine("{0} -> {1}", "A-A-", snRepo.IncrementAlpha("AA"));
-            Debug.WriteLine("{0} -> {1}", "A-J-", snRepo.IncrementAlpha("AJ"));
-            Debug.WriteLine("{0} -> {1}", "A-Z-", snRepo.IncrementAlpha("AZ"));
-            Debug.WriteLine("{0} -> {1}", "Z-Z-", snRepo.IncrementAlpha("ZZ"));
+            //Debug.WriteLine("{0} -> {1}", "A", snRepo.IncrementAlpha("A"));
+            //Debug.WriteLine("{0} -> {1}", "J", snRepo.IncrementAlpha("J"));
+            //Debug.WriteLine("{0} -> {1}", "Z", snRepo.IncrementAlpha("Z"));
+            Debug.WriteLine("{0} -> {1}", "A-A-", snRepo.IncrementAlpha("A-A-"));
+            Debug.WriteLine("{0} -> {1}", "A-J-", snRepo.IncrementAlpha("A-J-"));
+            Debug.WriteLine("{0} -> {1}", "A-Z-", snRepo.IncrementAlpha("A-Z-"));
+            Debug.WriteLine("{0} -> {1}", "Z-Z-", snRepo.IncrementAlpha("Z-Z-"));
+            Debug.WriteLine("{0} -> {1}", "BXN-AN-O", snRepo.IncrementAlpha("BXN-AN-O"));
+
+            Debug.WriteLine("{0} -> {1}", "BXN-999", snRepo.NextNumber("BXN-", "NNN", "", 999));
         }
     }
 }

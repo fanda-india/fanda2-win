@@ -5,9 +5,9 @@ namespace Fanda2.Backend
 {
     internal interface IRepository<Entity, ListModel>
     {
-        Entity GetById(int id);
-
         List<ListModel> GetAll(int superId, string searchTerm = null);
+
+        Entity GetById(int id);
 
         /// <summary>
         /// Insert
@@ -23,9 +23,9 @@ namespace Fanda2.Backend
 
     internal interface IRootRepository<Entity, ListModel>
     {
-        Entity GetById(int id);
-
         List<ListModel> GetAll(string searchTerm = null);
+
+        Entity GetById(int id);
 
         /// <summary>
         /// Insert

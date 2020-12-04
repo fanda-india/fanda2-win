@@ -4,12 +4,13 @@ using Fanda2.Backend.Database;
 using Fanda2.Backend.Enums;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Fanda2.Backend.Repositories
 {
-    public sealed class SerialNumberRepository
+    public sealed class SerialNumberRepository : IRepository<SerialNumber, SerialNumber>
     {
         private readonly SQLiteDB _db;
         private static readonly object syncRoot = new object();
@@ -18,6 +19,8 @@ namespace Fanda2.Backend.Repositories
         {
             _db = new SQLiteDB();
         }
+
+        #region Increment methods
 
         public string NextNumber(int yearId, SerialNumberModule module,
             DateTime? yearEnd = default)
@@ -33,72 +36,87 @@ namespace Fanda2.Backend.Repositories
                     if (serialNumber == null)
                         return null;
 
-                    int firstIndex = serialNumber.SerialFormat.IndexOf('N'); // YYJJJNNNNN = 5
-                    int lastIndex = serialNumber.SerialFormat.LastIndexOf('N'); // YYJJJNNNNN = 9
-                    string nums = serialNumber.SerialFormat.Substring(firstIndex, (lastIndex - firstIndex) + 1);
+                    #region Commented
 
-                    int nextNumber = serialNumber.LastNumber + 1;
+                    //int firstIndex = serialNumber.SerialFormat.IndexOf('N'); // YYJJJNNNNN = 5
+                    //int lastIndex = serialNumber.SerialFormat.LastIndexOf('N'); // YYJJJNNNNN = 9
+                    //string nums = serialNumber.SerialFormat.Substring(firstIndex, (lastIndex - firstIndex) + 1);
 
-                    switch (serialNumber.SerialReset)
-                    {
-                        case SerialNumberReset.Max:
-                        case SerialNumberReset.AccountingYear:
-                            if (nextNumber.ToString().Length > nums.Length)
-                            {
-                                nextNumber = 1;
-                            }
+                    //int nextNumber = serialNumber.LastNumber + 1;
 
-                            break;
+                    //// Serial prefix to increment alpha
+                    //string serialPrefix = serialNumber.SerialPrefix;
 
-                        case SerialNumberReset.Daily:
-                            if (serialNumber.LastDate.Day != DateTime.Today.Day)
-                            {
-                                nextNumber = 1;
-                            }
+                    //switch (serialNumber.SerialReset)
+                    //{
+                    //    case SerialNumberReset.Max:
+                    //    case SerialNumberReset.AccountingYear:
+                    //        if (nextNumber.ToString().Length > nums.Length)
+                    //        {
+                    //            serialPrefix = IncrementAlpha(serialPrefix);
+                    //            nextNumber = 1;
+                    //        }
 
-                            break;
+                    //        break;
 
-                        case SerialNumberReset.Monthly:
-                            if (serialNumber.LastDate.Month != DateTime.Today.Month)
-                            {
-                                nextNumber = 1;
-                            }
+                    //    case SerialNumberReset.Daily:
+                    //        if (serialNumber.LastDate.Day != DateTime.Today.Day)
+                    //        {
+                    //            serialPrefix = IncrementAlpha(serialPrefix);
+                    //            nextNumber = 1;
+                    //        }
 
-                            break;
+                    //        break;
 
-                        case SerialNumberReset.CalendarYear:
-                            if (DateTime.Today.Year > serialNumber.LastDate.Year)
-                            {
-                                nextNumber = 1;
-                            }
+                    //    case SerialNumberReset.Monthly:
+                    //        if (serialNumber.LastDate.Month != DateTime.Today.Month)
+                    //        {
+                    //            serialPrefix = IncrementAlpha(serialPrefix);
+                    //            nextNumber = 1;
+                    //        }
 
-                            break;
-                            //case SerialNumberReset.AccountingYear: // 01/04/2019 - 31/03/2020
-                            //                                       //var accountYear = await context.AccountYears
-                            //                                       //    .FindAsync(yearId);
-                            //    if (DateTime.Today > yearEnd)
-                            //    {
-                            //        nextNumber = 1;
-                            //    }
-                            //    break;
-                    }
+                    //        break;
 
-                    var sbSerialNumber =
-                        new StringBuilder($"{serialNumber.SerialPrefix}{serialNumber.SerialFormat}{serialNumber.SerialSuffix}");
+                    //    case SerialNumberReset.CalendarYear:
+                    //        if (DateTime.Today.Year > serialNumber.LastDate.Year)
+                    //        {
+                    //            serialPrefix = IncrementAlpha(serialPrefix);
+                    //            nextNumber = 1;
+                    //        }
 
-                    sbSerialNumber.Replace("YYYY", DateTime.Today.ToString("yyyy"));
-                    sbSerialNumber.Replace("YY", DateTime.Today.ToString("yy"));
-                    sbSerialNumber.Replace("MMM", DateTime.Today.ToString("MMM").ToUpper());
-                    sbSerialNumber.Replace("MM", DateTime.Today.ToString("MM"));
-                    sbSerialNumber.Replace("DD", DateTime.Today.ToString("dd"));
-                    sbSerialNumber.Replace("JJJ", $"{DateTime.Today.DayOfYear:D3}");
-                    sbSerialNumber.Replace("HH", DateTime.Now.ToString("HH"));
-                    sbSerialNumber.Replace("MI", DateTime.Now.ToString("mm"));
-                    sbSerialNumber.Replace("SS", DateTime.Now.ToString("ss"));
+                    //        break;
+                    //        //case SerialNumberReset.AccountingYear: // 01/04/2019 - 31/03/2020
+                    //        //                                       //var accountYear = await context.AccountYears
+                    //        //                                       //    .FindAsync(yearId);
+                    //        //    if (DateTime.Today > yearEnd)
+                    //        //    {
+                    //        //        serialPrefix = IncrementAlpha(serialPrefix);
+                    //        //        nextNumber = 1;
+                    //        //    }
+                    //        //    break;
+                    //}
 
-                    string nextSerial = nextNumber.ToString().PadLeft(nums.Length, '0');
-                    sbSerialNumber.Replace(nums, nextSerial);
-                    string nextValue = sbSerialNumber.ToString();
+                    //var sbSerialNumber =
+                    //    new StringBuilder($"{serialPrefix}{serialNumber.SerialFormat}{serialNumber.SerialSuffix}");
+
+                    //sbSerialNumber.Replace("YYYY", DateTime.Today.ToString("yyyy"));
+                    //sbSerialNumber.Replace("YY", DateTime.Today.ToString("yy"));
+                    //sbSerialNumber.Replace("MMM", DateTime.Today.ToString("MMM").ToUpper());
+                    //sbSerialNumber.Replace("MM", DateTime.Today.ToString("MM"));
+                    //sbSerialNumber.Replace("DD", DateTime.Today.ToString("dd"));
+                    //sbSerialNumber.Replace("JJJ", $"{DateTime.Today.DayOfYear:D3}");
+                    //sbSerialNumber.Replace("HH", DateTime.Now.ToString("HH"));
+                    //sbSerialNumber.Replace("MI", DateTime.Now.ToString("mm"));
+                    //sbSerialNumber.Replace("SS", DateTime.Now.ToString("ss"));
+
+                    //string nextSerial = nextNumber.ToString().PadLeft(nums.Length, '0');
+                    //sbSerialNumber.Replace(nums, nextSerial);
+                    //string nextValue = sbSerialNumber.ToString();
+
+                    #endregion Commented
+
+                    var (nextValue, nextNumber) = NextNumber(serialNumber.SerialPrefix, serialNumber.SerialFormat,
+                        serialNumber.SerialSuffix, serialNumber.LastNumber, serialNumber.LastDate, serialNumber.SerialReset);
 
                     serialNumber.LastSerial = nextValue;
                     serialNumber.LastNumber = nextNumber;
@@ -108,6 +126,86 @@ namespace Fanda2.Backend.Repositories
                     return nextValue;
                 }
             }
+        }
+
+        public (string, int) NextNumber(string prefix, string format, string suffix,
+            int lastNumber, DateTime? lastDate = null, SerialNumberReset serialReset = SerialNumberReset.Max)
+        {
+            int firstIndex = format.IndexOf('N');       // YYJJJNNNNN = 5
+            int lastIndex = format.LastIndexOf('N');    // YYJJJNNNNN = 9
+            string nums = format.Substring(firstIndex, (lastIndex - firstIndex) + 1);
+
+            int nextNumber = lastNumber + 1;
+
+            // Serial prefix to increment alpha
+            //string serialPrefix = serialNumber.SerialPrefix;
+
+            switch (serialReset)
+            {
+                case SerialNumberReset.Max:
+                case SerialNumberReset.AccountingYear:
+                    if (nextNumber.ToString().Length > nums.Length)
+                    {
+                        prefix = IncrementAlpha(prefix);
+                        nextNumber = 1;
+                    }
+
+                    break;
+
+                case SerialNumberReset.Daily:
+                    if (lastDate?.Day != DateTime.Today.Day)
+                    {
+                        prefix = IncrementAlpha(prefix);
+                        nextNumber = 1;
+                    }
+
+                    break;
+
+                case SerialNumberReset.Monthly:
+                    if (lastDate?.Month != DateTime.Today.Month)
+                    {
+                        prefix = IncrementAlpha(prefix);
+                        nextNumber = 1;
+                    }
+
+                    break;
+
+                case SerialNumberReset.CalendarYear:
+                    if (DateTime.Today.Year > lastDate?.Year)
+                    {
+                        prefix = IncrementAlpha(prefix);
+                        nextNumber = 1;
+                    }
+
+                    break;
+                    //case SerialNumberReset.AccountingYear: // 01/04/2019 - 31/03/2020
+                    //                                       //var accountYear = await context.AccountYears
+                    //                                       //    .FindAsync(yearId);
+                    //    if (DateTime.Today > yearEnd)
+                    //    {
+                    //        serialPrefix = IncrementAlpha(serialPrefix);
+                    //        nextNumber = 1;
+                    //    }
+                    //    break;
+            }
+
+            var sbSerialNumber =
+                new StringBuilder($"{prefix}{format}{suffix}");
+
+            sbSerialNumber.Replace("YYYY", DateTime.Today.ToString("yyyy"));
+            sbSerialNumber.Replace("YY", DateTime.Today.ToString("yy"));
+            sbSerialNumber.Replace("MMM", DateTime.Today.ToString("MMM").ToUpper());
+            sbSerialNumber.Replace("MM", DateTime.Today.ToString("MM"));
+            sbSerialNumber.Replace("DD", DateTime.Today.ToString("dd"));
+            sbSerialNumber.Replace("JJJ", $"{DateTime.Today.DayOfYear:D3}");
+            sbSerialNumber.Replace("HH", DateTime.Now.ToString("HH"));
+            sbSerialNumber.Replace("MI", DateTime.Now.ToString("mm"));
+            sbSerialNumber.Replace("SS", DateTime.Now.ToString("ss"));
+
+            string nextSerial = nextNumber.ToString().PadLeft(nums.Length, '0');
+            sbSerialNumber.Replace(nums, nextSerial);
+            string nextValue = sbSerialNumber.ToString();
+            return (nextValue, nextNumber);
         }
 
         public string IncrementAlpha(string alpha)
@@ -122,23 +220,26 @@ namespace Fanda2.Backend.Repositories
 
             if (lastChar == 'Z')
                 next = "A";
-            //else if (!(lastChar >= 'A' && lastChar <= 'Z'))
-            //{
-            //    if (alphaLen > 1)
-            //    {
-            //        string stripLast = alpha.Substring(0, alphaLen - 1);
-            //        next = IncrementAlpha(stripLast) + stripLast;
-            //    }
-            //    else
-            //        next = Convert.ToString(lastChar);
-            //}
-            else
+            else if (lastChar >= 'A' && lastChar < 'Z')
                 next = Convert.ToString((char)(lastChar + 1));
+            else
+                next = Convert.ToString(lastChar);
 
             if (alphaLen > 1)
             {
                 string stripLast = alpha.Substring(0, alphaLen - 1);
-                if (lastChar == 'Z')
+
+                if (!(lastChar >= 'A' && lastChar <= 'Z'))
+                {
+                    //if (alphaLen > 1)
+                    //{
+                    //string stripLast = alpha.Substring(0, alphaLen - 1);
+                    next = IncrementAlpha(stripLast) + lastChar;
+                    //}
+                    //else
+                    //    next = Convert.ToString(lastChar);
+                }
+                else if (lastChar == 'Z')
                     next = IncrementAlpha(stripLast) + next;
                 else
                     next = stripLast + next;
@@ -146,6 +247,83 @@ namespace Fanda2.Backend.Repositories
 
             return next;
         }
+
+        #endregion Increment methods
+
+        #region Repository methods
+
+        public List<SerialNumber> GetAll(int yearId, string searchTerm = null)
+        {
+            using (var con = _db.GetConnection())
+            {
+                //if (string.IsNullOrEmpty(searchTerm))
+                //{
+                return con.Select<SerialNumber>(sn => sn.YearId == yearId)
+                    .ToList();
+                //}
+                //else
+                //{
+                //    return con.Select<SerialNumber>(u =>
+                //        u.YearId == yearId &&
+                //         (u.Contains(searchTerm) ||
+                //         u.UnitName.Contains(searchTerm) ||
+                //         u.UnitDesc.Contains(searchTerm))
+                //    ).ToList();
+                //}
+            }
+        }
+
+        public SerialNumber GetById(int id)
+        {
+            using (var con = _db.GetConnection())
+            {
+                return con.Get<SerialNumber>(id);
+            }
+        }
+
+        public int Create(int yearId, SerialNumber entity)
+        {
+            using (var con = _db.GetConnection())
+            {
+                entity.YearId = yearId;
+                int serialId = Convert.ToInt32(con.Insert(entity));
+                return serialId;
+            }
+        }
+
+        public bool Update(int id, SerialNumber entity)
+        {
+            if (id <= 0 || id != entity.Id)
+            {
+                return false;
+            }
+
+            using (var con = _db.GetConnection())
+            {
+                return con.Update(entity);
+            }
+        }
+
+        public bool Remove(int id)
+        {
+            if (id <= 0)
+            {
+                return false;
+            }
+
+            using (var con = _db.GetConnection())
+            {
+                SerialNumber entity = con.Get<SerialNumber>(id);
+                if (entity == null)
+                {
+                    return false;
+                }
+
+                return con.Delete(entity);
+            }
+        }
+
+        #endregion Repository methods
     }
 
     public static class ExcelColumn

@@ -27,28 +27,28 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public virtual int Create(int orgId, TEntity unit)
+        public virtual int Create(int orgId, TEntity entity)
         {
             using (var con = _db.GetConnection())
             {
-                unit.OrgId = orgId;
-                unit.CreatedAt = DateTime.Now;
-                int unitId = Convert.ToInt32(con.Insert(unit));
-                return unitId;
+                entity.OrgId = orgId;
+                entity.CreatedAt = DateTime.Now;
+                int newId = Convert.ToInt32(con.Insert(entity));
+                return newId;
             }
         }
 
-        public virtual bool Update(int unitId, TEntity unit)
+        public virtual bool Update(int id, TEntity entity)
         {
-            if (unitId <= 0 || unitId != unit.Id)
+            if (id <= 0 || id != entity.Id)
             {
                 return false;
             }
 
             using (var con = _db.GetConnection())
             {
-                unit.UpdatedAt = DateTime.Now;
-                return con.Update(unit);
+                entity.UpdatedAt = DateTime.Now;
+                return con.Update(entity);
             }
         }
 
