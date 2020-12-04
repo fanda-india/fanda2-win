@@ -1,4 +1,5 @@
 ﻿using Fanda2.Backend.Database;
+using Fanda2.Backend.Enums;
 using Fanda2.Backend.Repositories;
 
 using System;
@@ -13,7 +14,7 @@ namespace Fanda2.Tests
     {
         private static void Main()
         {
-            CreateAccountYearTest();
+            SerialNumberTest();
         }
 
         private static void CreateOrgTest()
@@ -75,6 +76,14 @@ namespace Fanda2.Tests
                 IsEnabled = true
             };
             yearRepo.Create(1, year);
+        }
+
+        private static void SerialNumberTest()
+        {
+            var serialRepo = new SerialNumberRepository();
+            Console.WriteLine(
+                serialRepo.NextNumber(1, SerialNumberModule.Receipts, new DateTime(2019, 3, 31))
+            );
         }
     }
 }

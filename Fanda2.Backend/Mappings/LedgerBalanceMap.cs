@@ -14,7 +14,7 @@ namespace Fanda2.Backend.Mappings
             Map(a => a.LedgerId).ToColumn("ledger_id");
             Map(a => a.YearId).ToColumn("year_id");
             Map(a => a.OpeningBalance).ToColumn("opening_balance");
-            Map(a => a.LedgerId).ToColumn("balance_sign");
+            Map(a => a.BalanceSign).ToColumn("balance_sign");
         }
     }
 }

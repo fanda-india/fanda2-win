@@ -107,14 +107,14 @@ CREATE TABLE ledgers (
     is_enabled  BOOLEAN       NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME,
-	UNIQUE (
-	    code,
-		org_id
-	),
-	UNIQUE (
-	    ledger_name,
-		org_id
-	)
+    UNIQUE (
+        code,
+        org_id
+    ),
+    UNIQUE (
+        ledger_name,
+        org_id
+    )
 );
 
 -- Table: banks
@@ -125,7 +125,7 @@ CREATE TABLE banks (
                                 REFERENCES ledgers (id) ON DELETE CASCADE
                                                         ON UPDATE CASCADE,
     account_number VARCHAR (25) UNIQUE
-	                            NOT NULL,
+                                NOT NULL,
     account_type   INTEGER,
     ifsc_code      VARCHAR (16) NOT NULL,
     micr_code      VARCHAR (16),
@@ -170,14 +170,14 @@ CREATE TABLE units (
     is_enabled BOOLEAN       NOT NULL,
     created_at DATETIME      NOT NULL,
     updated_at DATETIME,
-	UNIQUE (
-	    code,
-		org_id
-	),
-	UNIQUE (
-	    unit_name,
-		org_id
-	)
+    UNIQUE (
+        code,
+        org_id
+    ),
+    UNIQUE (
+        unit_name,
+        org_id
+    )
 );
 
 -- Table: product_categories
@@ -195,14 +195,14 @@ CREATE TABLE product_categories (
     is_enabled    BOOLEAN       NOT NULL,
     created_at    DATETIME      NOT NULL,
     updated_at    DATETIME,
-	UNIQUE (
-	    code,
-		org_id
-	),
-	UNIQUE (
-	    category_name,
-		org_id
-	)
+    UNIQUE (
+        code,
+        org_id
+    ),
+    UNIQUE (
+        category_name,
+        org_id
+    )
 );
 
 -- Table: products
@@ -214,10 +214,10 @@ CREATE TABLE products (
     product_desc   VARCHAR (255),
     product_type   INTEGER         NOT NULL,
     category_id    INTEGER         NOT NULL
-    							   REFERENCES product_categories (id) ON DELETE NO ACTION
+                                   REFERENCES product_categories (id) ON DELETE NO ACTION
                                                                       ON UPDATE CASCADE,
     unit_id        INTEGER         NOT NULL
-    							   REFERENCES units (id) ON DELETE NO ACTION
+                                   REFERENCES units (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION,
     cost_price     DECIMAL (12, 2) NOT NULL,
     selling_price  DECIMAL (12, 2) NOT NULL,
@@ -230,14 +230,14 @@ CREATE TABLE products (
     is_enabled     BOOLEAN         NOT NULL,
     created_at     DATETIME        NOT NULL,
     updated_at     DATETIME,
-	UNIQUE (
-	    code,
-		org_id
-	),
-	UNIQUE (
-	    product_name,
-		org_id
-	)
+    UNIQUE (
+        code,
+        org_id
+    ),
+    UNIQUE (
+        product_name,
+        org_id
+    )
 );
 
 -- Table: account_years
@@ -248,15 +248,19 @@ CREATE TABLE account_years (
     year_begin DATE         NOT NULL,
     year_end   DATE         NOT NULL,
     org_id     INTEGER      NOT NULL
-     					    REFERENCES organizations (id) ON DELETE NO ACTION
+                            REFERENCES organizations (id) ON DELETE NO ACTION
                                                           ON UPDATE CASCADE,
     is_enabled BOOLEAN      NOT NULL,
     created_at DATETIME     NOT NULL,
     updated_at DATETIME,	
     UNIQUE (
-	   year_code,
-	   org_id
-	)
+       year_code,
+       org_id
+    ),
+    UNIQUE (
+       year_begin,
+       org_id
+    )
 );
 
 -- Table: ledger_balances
@@ -305,11 +309,11 @@ CREATE TABLE journals (
     journal_type   INTEGER      NOT NULL,
     journal_sign   CHAR (1)     NOT NULL,
     ledger_id      INTEGER      NOT NULL
-    							REFERENCES ledgers (id) ON DELETE NO ACTION
+                                REFERENCES ledgers (id) ON DELETE NO ACTION
                                                         ON UPDATE CASCADE,
     year_id        INTEGER      NOT NULL
-	                            REFERENCES account_years (id) ON DELETE NO ACTION
-								                              ON UPDATE NO ACTION,
+                                REFERENCES account_years (id) ON DELETE NO ACTION
+                                                              ON UPDATE NO ACTION,
     created_at     DATETIME     NOT NULL,
     updated_at     DATETIME,
     UNIQUE (
@@ -323,7 +327,7 @@ CREATE TABLE journal_items (
     id           INTEGER         PRIMARY KEY
                                  NOT NULL,
     journal_id   INTEGER         NOT NULL
-    							 REFERENCES journals (id) ON DELETE CASCADE
+                                 REFERENCES journals (id) ON DELETE CASCADE
                                                           ON UPDATE CASCADE,
     ledger_id    INTEGER         REFERENCES ledgers (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION,
@@ -356,14 +360,14 @@ CREATE TABLE invoices (
     tax_preference INTEGER         NOT NULL,
     notes          VARCHAR (255),
     party_id       INTEGER         NOT NULL
-    							   REFERENCES ledgers (id) ON DELETE NO ACTION
+                                   REFERENCES ledgers (id) ON DELETE NO ACTION
                                                            ON UPDATE CASCADE,
     ref_num        VARCHAR (16),
     ref_date       DATE,
     consumer_id    INTEGER         REFERENCES consumers (id) ON DELETE NO ACTION
                                                              ON UPDATE NO ACTION,
     subtotal       DECIMAL (12, 2) NOT NULL,
-	total_qty      DECIMAL (10, 3) NOT NULL,
+    total_qty      DECIMAL (10, 3) NOT NULL,
     discount_pct   DECIMAL (5, 2)  NOT NULL,
     discount_amt   DECIMAL (9, 2)  NOT NULL,
     total_tax_amt  DECIMAL (9, 2)  NOT NULL,
@@ -371,7 +375,7 @@ CREATE TABLE invoices (
     misc_add_amt   DECIMAL (9, 2)  NOT NULL,
     net_amount     DECIMAL (12, 2) NOT NULL,
     year_id        INTEGER         NOT NULL
-    							   REFERENCES account_years (id) ON DELETE NO ACTION
+                                   REFERENCES account_years (id) ON DELETE NO ACTION
                                                                  ON UPDATE NO ACTION,
     created_at     DATETIME        NOT NULL,
     updated_at     DATETIME,
@@ -393,7 +397,7 @@ CREATE TABLE inventory (
     mfg_date    DATE,
     expire_date DATE,
     unit_id     INTEGER         NOT NULL
-    							REFERENCES units (id) ON DELETE NO ACTION
+                                REFERENCES units (id) ON DELETE NO ACTION
                                                       ON UPDATE NO ACTION,
     qty_on_hand DECIMAL (10, 3) NOT NULL
 );
@@ -403,7 +407,7 @@ CREATE TABLE invoice_items (
     id           INTEGER        PRIMARY KEY
                                 NOT NULL,
     invoice_id   INTEGER        NOT NULL
-    							REFERENCES invoices (id) ON DELETE CASCADE
+                                REFERENCES invoices (id) ON DELETE CASCADE
                                                          ON UPDATE CASCADE,
     inventory_id INTEGER        REFERENCES inventory (id) ON DELETE NO ACTION
                                                           ON UPDATE NO ACTION,
@@ -426,10 +430,10 @@ CREATE TABLE transactions (
     id               INTEGER         PRIMARY KEY
                                      NOT NULL,
     debit_ledger_id  INTEGER         NOT NULL
-    								 REFERENCES ledgers (id) ON DELETE NO ACTION
+                                     REFERENCES ledgers (id) ON DELETE NO ACTION
                                                              ON UPDATE NO ACTION,
     credit_ledger_id INTEGER         NOT NULL
-    								 REFERENCES ledgers (id) ON DELETE NO ACTION
+                                     REFERENCES ledgers (id) ON DELETE NO ACTION
                                                              ON UPDATE NO ACTION,
     quantity         DECIMAL (9, 3)  NOT NULL,
     amount           DECIMAL (12, 2) NOT NULL,
