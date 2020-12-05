@@ -1,11 +1,5 @@
 ﻿using Fanda2.Backend.Database;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Fanda.UI
 {
     internal static class AppConfig

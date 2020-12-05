@@ -37,6 +37,7 @@ namespace Fanda.UI
             this.mnuFileEditCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileCloseCompany = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileSwitchYear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileUsers = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileOptions = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,7 +123,7 @@ namespace Fanda.UI
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
             this.mnuMain.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
-            this.mnuMain.Size = new System.Drawing.Size(1048, 25);
+            this.mnuMain.Size = new System.Drawing.Size(974, 25);
             this.mnuMain.TabIndex = 1;
             this.mnuMain.Text = "menuStrip1";
             // 
@@ -134,6 +135,7 @@ namespace Fanda.UI
             this.mnuFileEditCompany,
             this.toolStripSeparator1,
             this.mnuFileCloseCompany,
+            this.mnuFileSwitchYear,
             this.toolStripSeparator8,
             this.mnuFileUsers,
             this.mnuFileOptions,
@@ -184,6 +186,12 @@ namespace Fanda.UI
             this.mnuFileCloseCompany.Size = new System.Drawing.Size(203, 24);
             this.mnuFileCloseCompany.Text = "&Close Company";
             // 
+            // mnuFileSwitchYear
+            // 
+            this.mnuFileSwitchYear.Name = "mnuFileSwitchYear";
+            this.mnuFileSwitchYear.Size = new System.Drawing.Size(203, 24);
+            this.mnuFileSwitchYear.Text = "&Switch Accounting Year";
+            // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
@@ -222,6 +230,7 @@ namespace Fanda.UI
             this.mnuFileExit.Name = "mnuFileExit";
             this.mnuFileExit.Size = new System.Drawing.Size(203, 24);
             this.mnuFileExit.Text = "E&xit";
+            this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
             // 
             // mnuMaster
             // 
@@ -551,7 +560,7 @@ namespace Fanda.UI
             this.helpToolStripButton});
             this.tbrMain.Location = new System.Drawing.Point(0, 25);
             this.tbrMain.Name = "tbrMain";
-            this.tbrMain.Size = new System.Drawing.Size(1048, 25);
+            this.tbrMain.Size = new System.Drawing.Size(974, 25);
             this.tbrMain.TabIndex = 2;
             this.tbrMain.Text = "toolStrip1";
             // 
@@ -643,17 +652,17 @@ namespace Fanda.UI
             this.sbrMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sbrText,
             this.sbrProgress});
-            this.sbrMain.Location = new System.Drawing.Point(0, 624);
+            this.sbrMain.Location = new System.Drawing.Point(0, 561);
             this.sbrMain.Name = "sbrMain";
             this.sbrMain.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.sbrMain.Size = new System.Drawing.Size(1048, 22);
+            this.sbrMain.Size = new System.Drawing.Size(974, 22);
             this.sbrMain.TabIndex = 3;
             this.sbrMain.Text = "statusStrip1";
             // 
             // sbrText
             // 
             this.sbrText.Name = "sbrText";
-            this.sbrText.Size = new System.Drawing.Size(1031, 17);
+            this.sbrText.Size = new System.Drawing.Size(962, 17);
             this.sbrText.Spring = true;
             this.sbrText.Text = "Ready";
             this.sbrText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -668,7 +677,7 @@ namespace Fanda.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 646);
+            this.ClientSize = new System.Drawing.Size(974, 583);
             this.Controls.Add(this.sbrMain);
             this.Controls.Add(this.tbrMain);
             this.Controls.Add(this.mnuMain);
@@ -679,6 +688,7 @@ namespace Fanda.UI
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fanda";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.mnuMain.ResumeLayout(false);
             this.mnuMain.PerformLayout();
             this.tbrMain.ResumeLayout(false);
@@ -765,6 +775,7 @@ namespace Fanda.UI
         private System.Windows.Forms.ToolStripMenuItem mnuHelpAbout;
         private System.Windows.Forms.ToolStripStatusLabel sbrText;
         private System.Windows.Forms.ToolStripProgressBar sbrProgress;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileSwitchYear;
     }
 }
 

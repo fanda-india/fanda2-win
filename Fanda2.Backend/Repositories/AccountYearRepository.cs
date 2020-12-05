@@ -3,9 +3,7 @@
 using Fanda2.Backend.Database;
 using Fanda2.Backend.ViewModels;
 
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace Fanda2.Backend.Repositories

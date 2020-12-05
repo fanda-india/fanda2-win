@@ -2,10 +2,6 @@
 
 using Fanda2.Backend.Database;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Fanda2.Backend.Mappings
 {
     internal class LedgerGroupMap : DommelEntityMap<LedgerGroup>

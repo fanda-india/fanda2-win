@@ -48,16 +48,20 @@ namespace Fanda2.Backend.Repositories
 
         public virtual bool Update(int id, TEntity entity)
         {
+            using (var con = _db.GetConnection())
+            {
+                return Update(id, entity, con, null);
+            }
+        }
+
+        public bool Update(int id, TEntity entity, IDbConnection con, IDbTransaction tran)
+        {
             if (id <= 0 || id != entity.Id)
             {
                 return false;
             }
-
-            using (var con = _db.GetConnection())
-            {
-                entity.UpdatedAt = DateTime.Now;
-                return con.Update(entity);
-            }
+            entity.UpdatedAt = DateTime.Now;
+            return con.Update(entity, tran);
         }
 
         public virtual bool Remove(int id)

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -17,9 +10,22 @@ namespace Fanda.UI
             InitializeComponent();
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            mnuMaster.Enabled = false;
+            mnuTransations.Enabled = false;
+            mnuGeneralReports.Enabled = false;
+            mnuInventoryReports.Enabled = false;
+            mnuAnnualReports.Enabled = false;
+
+            mnuFileEditCompany.Enabled = false;
+            mnuFileCloseCompany.Enabled = false;
+            mnuFileCarryForward.Enabled = false;
+        }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new OrganizationsForm();
+            var form = new OpenCompanyForm();
             form.MdiParent = this;
             form.Show();
         }
@@ -29,6 +35,11 @@ namespace Fanda.UI
             var form = new LedgersForm();
             form.MdiParent = this;
             form.Show();
+        }
+
+        private void mnuFileExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

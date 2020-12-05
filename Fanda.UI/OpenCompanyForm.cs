@@ -1,15 +1,10 @@
-﻿using Fanda2.Backend.Database;
-using Fanda2.Backend.Repositories;
+﻿using Fanda2.Backend.Repositories;
 using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -43,7 +38,7 @@ namespace Fanda.UI
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (organizationBindingSource.Current is Organization org)
+            if (organizationListModelBindingSource.Current is OrganizationListModel org)
             {
                 OrganizationEditForm editForm = new OrganizationEditForm(_repository, org.Id)
                 {
@@ -77,23 +72,23 @@ namespace Fanda.UI
             {
                 case "Code":
                     if (direction == "ASC")
-                        organizationBindingSource.DataSource = _list.OrderBy(k => k.Code);
+                        organizationListModelBindingSource.DataSource = _list.OrderBy(k => k.Code);
                     else
-                        organizationBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
+                        organizationListModelBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
                     break;
 
                 case "Name":
                     if (direction == "ASC")
-                        organizationBindingSource.DataSource = _list.OrderBy(k => k.OrgName);
+                        organizationListModelBindingSource.DataSource = _list.OrderBy(k => k.OrgName);
                     else
-                        organizationBindingSource.DataSource = _list.OrderByDescending(k => k.OrgName);
+                        organizationListModelBindingSource.DataSource = _list.OrderByDescending(k => k.OrgName);
                     break;
 
                 case "Description":
                     if (direction == "ASC")
-                        organizationBindingSource.DataSource = _list.OrderBy(k => k.OrgDesc);
+                        organizationListModelBindingSource.DataSource = _list.OrderBy(k => k.OrgDesc);
                     else
-                        organizationBindingSource.DataSource = _list.OrderByDescending(k => k.OrgDesc);
+                        organizationListModelBindingSource.DataSource = _list.OrderByDescending(k => k.OrgDesc);
                     break;
             };
             // _context.MyEntities.OrderBy(
@@ -103,7 +98,7 @@ namespace Fanda.UI
         private void RefreshList(string searchTerm = null)
         {
             _list = _repository.GetAll(searchTerm);
-            organizationBindingSource.DataSource = _list;
+            organizationListModelBindingSource.DataSource = _list;
             if (_sortColumn != null)
             {
                 string direction = _isSortAscending ? "ASC" : "DESC";
@@ -132,7 +127,7 @@ namespace Fanda.UI
                     "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    if (organizationBindingSource.Current is Organization org)
+                    if (organizationListModelBindingSource.Current is OrganizationListModel org)
                     {
                         if (_repository.Remove(org.Id))
                         {

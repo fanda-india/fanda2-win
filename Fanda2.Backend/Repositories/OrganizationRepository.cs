@@ -304,9 +304,9 @@ namespace Fanda2.Backend.Repositories
                 return group.Id;
         }
 
-        public bool Update(int id, Organization org)
+        public bool Update(int orgId, Organization org)
         {
-            if (id <= 0 || id != org.Id)
+            if (orgId <= 0 || orgId != org.Id)
             {
                 return false;
             }
@@ -321,6 +321,8 @@ namespace Fanda2.Backend.Repositories
                     org.AddressId = addressId;
                     org.ContactId = contactId;
                     bool success = con.Update(org, tran);
+                    // Accounting Year
+                    _yearRepository.Update(orgId, org.Year, con, tran);
                     tran.Commit();
                     return success;
                 }

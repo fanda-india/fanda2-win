@@ -31,6 +31,11 @@ namespace Fanda.UI
         {
             this.components = new System.ComponentModel.Container();
             this.dgvOrgs = new System.Windows.Forms.DataGridView();
+            this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orgNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orgDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.organizationListModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,41 +43,75 @@ namespace Fanda.UI
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrgs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.organizationListModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvOrgs
             // 
             this.dgvOrgs.AllowUserToAddRows = false;
             this.dgvOrgs.AllowUserToDeleteRows = false;
+            this.dgvOrgs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvOrgs.AutoGenerateColumns = false;
             this.dgvOrgs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOrgs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codeDataGridViewTextBoxColumn,
-            this.nameDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn});
-            this.dgvOrgs.DataSource = this.organizationBindingSource;
-            this.dgvOrgs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvOrgs.Location = new System.Drawing.Point(0, 0);
+            this.orgNameDataGridViewTextBoxColumn,
+            this.orgDescDataGridViewTextBoxColumn,
+            this.isEnabledDataGridViewCheckBoxColumn});
+            this.dgvOrgs.DataSource = this.organizationListModelBindingSource;
+            this.dgvOrgs.Location = new System.Drawing.Point(12, 13);
             this.dgvOrgs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvOrgs.Name = "dgvOrgs";
             this.dgvOrgs.ReadOnly = true;
             this.dgvOrgs.RowHeadersVisible = false;
             this.dgvOrgs.RowHeadersWidth = 45;
             this.dgvOrgs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrgs.Size = new System.Drawing.Size(779, 405);
+            this.dgvOrgs.Size = new System.Drawing.Size(755, 388);
             this.dgvOrgs.TabIndex = 0;
             this.dgvOrgs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrgs_CellDoubleClick);
             this.dgvOrgs.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvOrgs_ColumnHeaderMouseClick);
+            // 
+            // codeDataGridViewTextBoxColumn
+            // 
+            this.codeDataGridViewTextBoxColumn.DataPropertyName = "Code";
+            this.codeDataGridViewTextBoxColumn.HeaderText = "Code";
+            this.codeDataGridViewTextBoxColumn.Name = "codeDataGridViewTextBoxColumn";
+            this.codeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // orgNameDataGridViewTextBoxColumn
+            // 
+            this.orgNameDataGridViewTextBoxColumn.DataPropertyName = "OrgName";
+            this.orgNameDataGridViewTextBoxColumn.HeaderText = "Org.Name";
+            this.orgNameDataGridViewTextBoxColumn.Name = "orgNameDataGridViewTextBoxColumn";
+            this.orgNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.orgNameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // orgDescDataGridViewTextBoxColumn
+            // 
+            this.orgDescDataGridViewTextBoxColumn.DataPropertyName = "OrgDesc";
+            this.orgDescDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.orgDescDataGridViewTextBoxColumn.Name = "orgDescDataGridViewTextBoxColumn";
+            this.orgDescDataGridViewTextBoxColumn.ReadOnly = true;
+            this.orgDescDataGridViewTextBoxColumn.Width = 300;
+            // 
+            // isEnabledDataGridViewCheckBoxColumn
+            // 
+            this.isEnabledDataGridViewCheckBoxColumn.DataPropertyName = "IsEnabled";
+            this.isEnabledDataGridViewCheckBoxColumn.HeaderText = "IsEnabled";
+            this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
+            this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.isEnabledDataGridViewCheckBoxColumn.Width = 75;
+            // 
+            // organizationListModelBindingSource
+            // 
+            this.organizationListModelBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.OrganizationListModel);
             // 
             // splitContainer1
             // 
@@ -95,15 +134,15 @@ namespace Fanda.UI
             this.splitContainer1.Panel2.Controls.Add(this.btnAdd);
             this.splitContainer1.Size = new System.Drawing.Size(779, 460);
             this.splitContainer1.SplitterDistance = 405;
-            this.splitContainer1.TabIndex = 2;
+            this.splitContainer1.TabIndex = 0;
             // 
             // txtSearch
             // 
-            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearch.Location = new System.Drawing.Point(151, 14);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(373, 25);
+            this.txtSearch.Size = new System.Drawing.Size(373, 23);
             this.txtSearch.TabIndex = 2;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -113,7 +152,7 @@ namespace Fanda.UI
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(93, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 19);
+            this.label1.Size = new System.Drawing.Size(45, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Search:";
             // 
@@ -161,66 +200,31 @@ namespace Fanda.UI
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // codeDataGridViewTextBoxColumn
+            // OpenCompanyForm
             // 
-            this.codeDataGridViewTextBoxColumn.DataPropertyName = "Code";
-            this.codeDataGridViewTextBoxColumn.HeaderText = "Code";
-            this.codeDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.codeDataGridViewTextBoxColumn.Name = "codeDataGridViewTextBoxColumn";
-            this.codeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codeDataGridViewTextBoxColumn.Width = 110;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 300;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.descriptionDataGridViewTextBoxColumn.Width = 350;
-            // 
-            // organizationBindingSource
-            // 
-            this.organizationBindingSource.DataSource = typeof(Fanda2.Backend.Database.Organization);
-            // 
-            // OrganizationsForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 460);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.830189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "OrganizationsForm";
+            this.Name = "OpenCompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Organizations";
             this.Load += new System.EventHandler(this.OrganizationsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrgs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.organizationListModelBindingSource)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.BindingSource organizationBindingSource;
         private System.Windows.Forms.DataGridView dgvOrgs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnEdit;
@@ -228,5 +232,10 @@ namespace Fanda.UI
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn orgNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn orgDescDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isEnabledDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.BindingSource organizationListModelBindingSource;
     }
 }

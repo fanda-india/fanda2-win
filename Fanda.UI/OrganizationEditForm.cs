@@ -2,13 +2,6 @@
 using Fanda2.Backend.Repositories;
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -19,8 +12,7 @@ namespace Fanda.UI
         private readonly int _id;
         private Organization _org;
 
-        public OrganizationEditForm(OrganizationRepository repository,
-            int id)
+        public OrganizationEditForm(OrganizationRepository repository, int id)
         {
             InitializeComponent();
 
@@ -30,11 +22,12 @@ namespace Fanda.UI
             if (id == 0)
             {
                 _org = new Organization();
+                repository.UpdateYear(_org, 0);
             }
             else
-            {
                 _org = _repository.GetById(id);
-            }
+
+
             orgBindingSource.DataSource = _org;
         }
 
