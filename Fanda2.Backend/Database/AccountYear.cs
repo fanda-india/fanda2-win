@@ -30,7 +30,7 @@ namespace Fanda2.Backend.Database
         private string GetYearCode()
         {
             if (!IsEmpty())
-                return $"{YearBegin.ToString("yyyy")}-{YearEnd.ToString("yyyy")}";
+                return $"{YearBegin:yyyy}-{YearEnd:yyyy}";
             else
                 return string.Empty;
         }

@@ -55,9 +55,12 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public Organization UpdateYear(Organization org, int yearId)
+        public Organization UpdateYear(Organization org, int yearId = 0)
         {
-            var year = _yearRepository.GetById(yearId);
+            AccountYear year = null;
+            if (yearId > 0)
+                year = _yearRepository.GetById(yearId);
+
             if (year == null)
                 year = new AccountYear { OrgId = org.Id };
             org.Year = year;
@@ -79,10 +82,12 @@ namespace Fanda2.Backend.Repositories
                     org.Id = orgId;
 
                     // Accounting Year
-                    _yearRepository.Create(orgId, org.Year, con, tran);
+                    int yearId = _yearRepository.Create(orgId, org.Year, con, tran);
+
                     // Seed: Org
                     SeedOrg(orgId, con, tran);
                     // Seed : Year
+                    SeedYearSerialNumbers(yearId, con, tran);
 
                     tran.Commit();
                     return orgId;
@@ -128,8 +133,96 @@ namespace Fanda2.Backend.Repositories
             serialRepo.Create(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Receipts,
-                SerialPrefix = "RA-",
-                SerialFormat = "9999",
+                SerialPrefix = "R",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.Payments,
+                SerialPrefix = "Y",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.Deposits,
+                SerialPrefix = "D",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.Withdrawls,
+                SerialPrefix = "W",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.Journals,
+                SerialPrefix = "J",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.Purchase,
+                SerialPrefix = "P",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.Sales,
+                SerialPrefix = "S",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.DebitNote,
+                SerialPrefix = "B",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.CreditNote,
+                SerialPrefix = "C",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.Stock,
+                SerialPrefix = "O",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.RawMaterial,
+                SerialPrefix = "M",
+                SerialFormat = "YY-9999",
+                SerialSuffix = null,
+                SerialReset = Enums.SerialNumberReset.Max
+            }, con, tran);
+            serialRepo.Create(yearId, new SerialNumber
+            {
+                SerialModule = Enums.SerialNumberModule.TagNumber,
+                SerialPrefix = "AA-",
+                SerialFormat = "99999",
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);

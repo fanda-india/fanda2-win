@@ -39,6 +39,9 @@ namespace Fanda2.Backend.Repositories
 
         public int? Save(LedgerBalance balance, IDbConnection con, IDbTransaction tran)
         {
+            if (balance == null)
+                return null;
+
             if (balance.LedgerId <= 0 || balance.YearId <= 0)
             {
                 throw new ArgumentNullException("LedgerId or YearId of LedgerBalance is null");

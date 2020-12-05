@@ -162,16 +162,16 @@ namespace Fanda2.Backend.Enums
     {
         Receipts = 1,
         Payments = 2,
-        Withdrawls = 3,
-        Deposits = 4,
+        Deposits = 3,
+        Withdrawls = 4,
         Journals = 5,
         Purchase = 6,
         Sales = 7,
         DebitNote = 8,      // PurchaseReturn
         CreditNote = 9,     // SalesReturn
         Stock = 10,
-        TagNumber = 11,
-        RawMaterial = 12
+        RawMaterial = 11,
+        TagNumber = 12
     }
 
     public enum SerialNumberReset

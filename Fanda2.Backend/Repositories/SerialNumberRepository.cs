@@ -41,8 +41,8 @@ namespace Fanda2.Backend.Repositories
 
                     #region Commented
 
-                    //int firstIndex = serialNumber.SerialFormat.IndexOf('N'); // YYJJJNNNNN = 5
-                    //int lastIndex = serialNumber.SerialFormat.LastIndexOf('N'); // YYJJJNNNNN = 9
+                    //int firstIndex = serialNumber.SerialFormat.IndexOf('9'); // YYJJJ99999 = 5
+                    //int lastIndex = serialNumber.SerialFormat.LastIndexOf('9'); // YYJJJ99999 = 9
                     //string nums = serialNumber.SerialFormat.Substring(firstIndex, (lastIndex - firstIndex) + 1);
 
                     //int nextNumber = serialNumber.LastNumber + 1;
@@ -136,8 +136,8 @@ namespace Fanda2.Backend.Repositories
             int lastNumber, DateTime? lastDate = default, DateTime? yearEnd = default,
             SerialNumberReset serialReset = SerialNumberReset.Max)
         {
-            int firstIndex = format.IndexOf('N');       // YYJJJNNNNN = 5
-            int lastIndex = format.LastIndexOf('N');    // YYJJJNNNNN = 9
+            int firstIndex = format.IndexOf('9');       // YYJJJ99999 = 5
+            int lastIndex = format.LastIndexOf('9');    // YYJJJ99999 = 9
             string nums = format.Substring(firstIndex, (lastIndex - firstIndex) + 1);
 
             int nextNumber = lastNumber + 1;

@@ -42,6 +42,7 @@ namespace Fanda2.Backend.Repositories
             entity.OrgId = orgId;
             entity.CreatedAt = DateTime.Now;
             int newId = Convert.ToInt32(con.Insert(entity, tran));
+            entity.Id = newId;
             return newId;
         }
 

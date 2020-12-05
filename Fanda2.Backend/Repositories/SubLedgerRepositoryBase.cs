@@ -27,9 +27,9 @@ namespace Fanda2.Backend.Repositories
         public virtual bool Save(int ledgerId, TEntity entity, IDbConnection con, IDbTransaction tran)
         {
             if (ledgerId <= 0)
-            {
                 return false;
-            }
+            if (entity == null)
+                return true;
 
             entity.LedgerId = ledgerId;
             bool found = con.Any<TEntity>(b => b.LedgerId == ledgerId);

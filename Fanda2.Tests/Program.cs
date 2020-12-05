@@ -15,7 +15,7 @@ namespace Fanda2.Tests
     {
         private static void Main()
         {
-            IncrementAlphaTest();
+            CreateOrgTest();
         }
 
         private static void CreateOrgTest()
@@ -56,6 +56,7 @@ namespace Fanda2.Tests
                     MobileNumber = "TEST-MOBILE-NUMBER"
                 }
             };
+            orgRepo.UpdateYear(org);
             orgRepo.Create(org);
         }
 
