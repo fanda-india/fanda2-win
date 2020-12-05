@@ -40,8 +40,8 @@ namespace Fanda2.Backend.Repositories
                 int? contactId = _contactRepository.Save(entity.Contact, con, tran);
                 entity.AddressId = addressId;
                 entity.ContactId = contactId;
-                int bankId = Convert.ToInt32(con.Insert(entity, tran));
-                return bankId > 0;
+                int entityId = Convert.ToInt32(con.Insert(entity, tran));
+                return entityId > 0;
             }
             // Update/Delete
             else
@@ -68,16 +68,16 @@ namespace Fanda2.Backend.Repositories
                 return false;
             }
 
-            TEntity bank = con.Select<TEntity>(b => b.LedgerId == ledgerId)
+            TEntity entity = con.Select<TEntity>(b => b.LedgerId == ledgerId)
                 .FirstOrDefault();
-            if (bank == null)
+            if (entity == null)
             {
                 return true;
             }
 
-            _addressRepository.Remove(bank.AddressId, con, tran);
-            _contactRepository.Remove(bank.ContactId, con, tran);
-            return con.Delete(bank, tran);
+            _addressRepository.Remove(entity.AddressId, con, tran);
+            _contactRepository.Remove(entity.ContactId, con, tran);
+            return con.Delete(entity, tran);
         }
     }
 }

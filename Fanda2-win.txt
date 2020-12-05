@@ -21,6 +21,7 @@ Organizations -> Address -> Contact
         Invoices -> Invoice Items
         Inventories
         Transactions
+
 ------------------------------------------------------------------------------------------
 New Company seeds?
 New Account Year seeds/reset?
@@ -91,7 +92,7 @@ Annual Reports
     Balance Sheet
 
 ------------------------------------------------------------------------------------------
-
 Ledger -> Group Name?
 ProductCategory -> Parent Category Name?
 Product -> Category Name?
+------------------------------------------------------------------------------------------

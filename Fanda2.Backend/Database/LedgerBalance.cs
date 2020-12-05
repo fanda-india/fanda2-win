@@ -7,5 +7,11 @@
         public int YearId { get; set; }
         public decimal OpeningBalance { get; set; }
         public string BalanceSign { get; set; }
+
+        public bool IsEmpty()
+        {
+            return OpeningBalance == 0 ||
+                string.IsNullOrWhiteSpace(BalanceSign);
+        }
     }
 }
