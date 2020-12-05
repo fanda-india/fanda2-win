@@ -10,8 +10,10 @@ namespace Fanda2.Backend.Database
         public string CategoryDesc { get; set; }
         public int? ParentId { get; set; }     // nullable
         public int OrgId { get; set; }
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        // public virtual ProductCategory Parent { get; set; }
     }
 }

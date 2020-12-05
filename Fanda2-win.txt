@@ -16,7 +16,7 @@ Organizations -> Address -> Contact
         AccountYears
     Accounting Years
         Ledger Balance
-        Serial Numbers							(default serials to be seeded)
+        Serial Numbers							(default serials to be seeded, depends on accounting year)
         Journals -> Journal Items
         Invoices -> Invoice Items
         Inventories
@@ -25,6 +25,7 @@ Organizations -> Address -> Contact
 ------------------------------------------------------------------------------------------
 New Company seeds?
 New Account Year seeds/reset?
+Ledger/Product to be allowed to activate/deactivate by Accounting Year
 ------------------------------------------------------------------------------------------
 
 Menu:

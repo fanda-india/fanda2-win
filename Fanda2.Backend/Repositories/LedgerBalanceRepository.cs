@@ -27,76 +27,80 @@ namespace Fanda2.Backend.Repositories
                     .FirstOrDefault();
 
                 if (balance == null)
+                {
                     return new LedgerBalance { LedgerId = ledgerId, YearId = yearId };
+                }
                 else
+                {
                     return balance;
+                }
             }
         }
 
-        public int? Save(LedgerBalance entity, IDbConnection con, IDbTransaction tran)
+        public int? Save(LedgerBalance balance, IDbConnection con, IDbTransaction tran)
         {
-            if (entity == null)
-                throw new ArgumentNullException("Ledger balance is null");
-
-            if (entity.LedgerId <= 0 || entity.YearId <= 0)
-                throw new ArgumentNullException("LedgerId or YearId is null");
+            if (balance.LedgerId <= 0 || balance.YearId <= 0)
+            {
+                throw new ArgumentNullException("LedgerId or YearId of LedgerBalance is null");
+            }
 
             // Insert
-            if (entity.Id == 0)
+            if (balance.Id == 0)
             {
-                if (entity.IsEmpty())
+                if (balance.IsEmpty())
+                {
                     return null;
-
-                //entity.LedgerId = ledgerId;
-                //entity.YearId = yearId;
-                int id = Convert.ToInt32(con.Insert(entity));
+                }
+                int id = Convert.ToInt32(con.Insert(balance));
+                balance.Id = id;
                 return id;
             }
             // Update
             else
             {
-                if (entity.IsEmpty())
+                if (balance.IsEmpty())
                 {
-                    if (Remove(entity.Id, con, tran))
+                    if (RemoveById(balance.Id, con, tran))
                     {
                         return null;
                     }
 
-                    return entity.Id;
+                    return balance.Id;
                 }
                 else
                 {
-                    con.Update(entity, tran);
-                    return entity.Id;
+                    con.Update(balance, tran);
+                    return balance.Id;
                 }
             }
         }
 
-        public bool Remove(int id, IDbConnection con, IDbTransaction tran)
+        public bool RemoveById(int ledgerId, int yearId, IDbConnection con, IDbTransaction tran)
+        {
+            if (ledgerId == 0 || yearId == 0)
+                throw new ArgumentNullException("LedgerId or YearId of LedgerBalance is null");
+
+            int rows = con.Execute("DELETE FROM ledger_balances WHERE ledger_id=@ledgerId AND year_id@yearId", new { ledgerId, yearId }, tran);
+            return rows == 1;
+        }
+
+        public bool RemoveById(int id, IDbConnection con, IDbTransaction tran)
         {
             if (id <= 0)
+            {
                 throw new ArgumentNullException("Id of LedgerBalance is null");
-
-            //LedgerBalance entity = con.Get<LedgerBalance>(id);
-            //if (entity == null)
-            //{
-            //    return false;
-            //}
+            }
 
             int rows = con.Execute("DELETE FROM ledger_balances WHERE id=@id", new { id }, tran);
             return rows == 1;
         }
 
-        public bool RemoveBalances(int ledgerId, IDbConnection con, IDbTransaction tran)
+        public bool RemoveAll(int ledgerId, IDbConnection con, IDbTransaction tran)
         {
             if (ledgerId <= 0)
+            {
                 throw new ArgumentNullException("LedgerId of LedgerBalance is null");
-
-            //LedgerBalance entity = con.Get<LedgerBalance>(id);
-            //if (entity == null)
-            //{
-            //    return false;
-            //}
+            }
 
             int rows = con.Execute("DELETE FROM ledger_balances WHERE ledger_id=@ledgerId", new { ledgerId }, tran);
             return rows == 1;

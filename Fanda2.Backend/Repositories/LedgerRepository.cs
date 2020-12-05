@@ -7,6 +7,7 @@ using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace Fanda2.Backend.Repositories
@@ -56,9 +57,11 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public LedgerBalance GetBalance(int ledgerId, int yearId)
+        public Ledger UpdateBalance(Ledger ledger, int ledgerId, int yearId)
         {
-            return _balanceRepository.Get(ledgerId, yearId);
+            var balance = _balanceRepository.Get(ledgerId, yearId);
+            ledger.Balance = balance;
+            return ledger;
         }
 
         public int Create(int orgId, Ledger ledger)
@@ -67,19 +70,24 @@ namespace Fanda2.Backend.Repositories
             {
                 using (var tran = con.BeginTransaction())
                 {
-                    ledger.OrgId = orgId;
-                    ledger.CreatedAt = DateTime.Now;
-
-                    int ledgerId = Convert.ToInt32(con.Insert(ledger, tran));
-                    ledger.Id = ledgerId;
-                    _bankRepository.Save(ledgerId, ledger.Bank, con, tran);
-                    _partyRepository.Save(ledgerId, ledger.Party, con, tran);
-                    _balanceRepository.Save(ledger.LedgerBalance, con, tran);
-
+                    int ledgerId = Create(orgId, ledger, con, tran);
                     tran.Commit();
                     return ledgerId;
                 }
             }
+        }
+
+        public int Create(int orgId, Ledger ledger, IDbConnection con, IDbTransaction tran)
+        {
+            ledger.OrgId = orgId;
+            ledger.CreatedAt = DateTime.Now;
+
+            int ledgerId = Convert.ToInt32(con.Insert(ledger, tran));
+            ledger.Id = ledgerId;
+            _bankRepository.Save(ledgerId, ledger.Bank, con, tran);
+            _partyRepository.Save(ledgerId, ledger.Party, con, tran);
+            _balanceRepository.Save(ledger.Balance, con, tran);
+            return ledgerId;
         }
 
         public bool Update(int ledgerId, Ledger ledger)
@@ -97,7 +105,7 @@ namespace Fanda2.Backend.Repositories
                     bool success = con.Update(ledger);
                     _bankRepository.Save(ledger.Id, ledger.Bank, con, tran);
                     _partyRepository.Save(ledger.Id, ledger.Party, con, tran);
-                    _balanceRepository.Save(ledger.LedgerBalance, con, tran);
+                    _balanceRepository.Save(ledger.Balance, con, tran);
                     tran.Commit();
                     return success;
                 }
@@ -121,7 +129,8 @@ namespace Fanda2.Backend.Repositories
                 {
                     _bankRepository.Remove(ledgerId, con, tran);
                     _partyRepository.Remove(ledgerId, con, tran);
-                    _balanceRepository.RemoveBalances(ledgerId, con, tran);
+                    // TODO: Remove LedgerBalance for active accounting year
+                    //_balanceRepository.RemoveById(ledgerId, con, tran);
                     int rows = con.Execute("DELETE FROM ledgers WHERE id=@ledgerId", new { ledgerId }, tran);
                     tran.Commit();
                     return rows == 1;

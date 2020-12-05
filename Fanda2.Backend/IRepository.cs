@@ -21,24 +21,6 @@ namespace Fanda2.Backend
         bool Remove(int id);
     }
 
-    internal interface IRootRepository<Entity, ListModel>
-    {
-        List<ListModel> GetAll(string searchTerm = null);
-
-        Entity GetById(int id);
-
-        /// <summary>
-        /// Insert
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns>Newly inserted id</returns>
-        int Create(Entity entity);
-
-        bool Update(int id, Entity entity);
-
-        bool Remove(int id);
-    }
-
     internal interface IRepository<Entity>
     {
         /// <summary>
@@ -60,10 +42,21 @@ namespace Fanda2.Backend
         bool Remove(int? id, IDbConnection con, IDbTransaction tran);
     }
 
-    internal interface ISubRepository<Entity>
+    internal interface IRootRepository<Entity, ListModel>
     {
-        bool Save(int superId, Entity entity, IDbConnection con, IDbTransaction tran);
+        List<ListModel> GetAll(string searchTerm = null);
 
-        bool Remove(int superId, IDbConnection con, IDbTransaction tran);
+        Entity GetById(int id);
+
+        /// <summary>
+        /// Insert
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>Newly inserted id</returns>
+        int Create(Entity entity);
+
+        bool Update(int id, Entity entity);
+
+        bool Remove(int id);
     }
 }

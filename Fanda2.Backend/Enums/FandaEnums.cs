@@ -169,8 +169,9 @@ namespace Fanda2.Backend.Enums
         Sales = 7,
         DebitNote = 8,      // PurchaseReturn
         CreditNote = 9,     // SalesReturn
-        RawMaterial = 10,
-        TagNumber = 11
+        Stock = 10,
+        TagNumber = 11,
+        RawMaterial = 12
     }
 
     public enum SerialNumberReset

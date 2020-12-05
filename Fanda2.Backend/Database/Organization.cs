@@ -19,6 +19,11 @@ namespace Fanda2.Backend.Database
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
+        // Accounting Year
+        //public DateTime DateBegin { get; set; }
+        //public DateTime DateEnd { get; set; }
+        public virtual AccountYear Year { get; set; }
+
         public virtual Address Address { get; set; }
         public virtual Contact Contact { get; set; }
     }

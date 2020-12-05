@@ -32,8 +32,10 @@ namespace Fanda2.Backend.Database
         #endregion Tax / GST
 
         public int OrgId { get; set; }
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        // public virtual ProductCategory Category { get; set; }
     }
 }

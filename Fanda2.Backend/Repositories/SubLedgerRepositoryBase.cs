@@ -6,6 +6,13 @@ using System.Linq;
 
 namespace Fanda2.Backend.Repositories
 {
+    internal interface ISubRepository<Entity>
+    {
+        bool Save(int superId, Entity entity, IDbConnection con, IDbTransaction tran);
+
+        bool Remove(int superId, IDbConnection con, IDbTransaction tran);
+    }
+
     internal abstract class SubLedgerRepositoryBase<TEntity> : ISubRepository<TEntity> where TEntity : class, ISubLedger
     {
         private readonly AddressRepository _addressRepository;

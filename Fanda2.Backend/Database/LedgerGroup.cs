@@ -14,7 +14,7 @@ namespace Fanda2.Backend.Database
         public int? ParentId { get; set; }      // nullable
         public bool IsSystem { get; set; }
         public int OrgId { get; set; }
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

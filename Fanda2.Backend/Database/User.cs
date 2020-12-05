@@ -13,7 +13,7 @@ namespace Fanda2.Backend.Database
         public string UserPassword { get; set; }
         public DateTime? LoginAt { get; set; }
         public bool? IsResetPassword { get; set; }
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

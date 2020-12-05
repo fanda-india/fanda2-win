@@ -3,7 +3,9 @@
 using Fanda2.Backend.Database;
 using Fanda2.Backend.ViewModels;
 
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace Fanda2.Backend.Repositories
@@ -26,87 +28,43 @@ namespace Fanda2.Backend.Repositories
                 }
             }
         }
+
+        //public int? Save(AccountYear year, IDbConnection con, IDbTransaction tran)
+        //{
+        //    if (year.OrgId <= 0)
+        //    {
+        //        throw new ArgumentNullException("YearId of AccountYear is null");
+        //    }
+
+        //    // Insert
+        //    if (year.Id == 0)
+        //    {
+        //        if (year.IsEmpty())
+        //        {
+        //            return null;
+        //        }
+        //        int id = Convert.ToInt32(con.Insert(year));
+        //        year.Id = id;
+        //        return id;
+        //    }
+        //    // Update
+        //    else
+        //    {
+        //        if (year.IsEmpty())
+        //        {
+        //            if (Remove(year.Id, con, tran))
+        //            {
+        //                return null;
+        //            }
+
+        //            return balance.Id;
+        //        }
+        //        else
+        //        {
+        //            con.Update(balance, tran);
+        //            return balance.Id;
+        //        }
+        //    }
+        //}
     }
-
-    //public class UnitRepository : IRepository<Unit, UnitListModel>
-    //{
-    //    private readonly SQLiteDB _db;
-
-    //    public UnitRepository()
-    //    {
-    //        _db = new SQLiteDB();
-    //    }
-
-    //    public List<UnitListModel> GetAll(int orgId, string searchTerm = null)
-    //    {
-    //        using (var con = _db.GetConnection())
-    //        {
-    //            if (string.IsNullOrEmpty(searchTerm))
-    //            {
-    //                return con.Select<UnitListModel>(u => u.OrgId == orgId)
-    //                    .ToList();
-    //            }
-    //            else
-    //            {
-    //                return con.Select<UnitListModel>(u =>
-    //                    u.OrgId == orgId &&
-    //                     (u.Code.Contains(searchTerm) ||
-    //                     u.UnitName.Contains(searchTerm) ||
-    //                     u.UnitDesc.Contains(searchTerm))
-    //                ).ToList();
-    //            }
-    //        }
-    //    }
-
-    //    public Unit GetById(int id)
-    //    {
-    //        using (var con = _db.GetConnection())
-    //        {
-    //            return con.Get<Unit>(id);
-    //        }
-    //    }
-
-    //    public int Create(int orgId, Unit unit)
-    //    {
-    //        using (var con = _db.GetConnection())
-    //        {
-    //            unit.OrgId = orgId;
-    //            unit.CreatedAt = DateTime.Now;
-    //            int unitId = Convert.ToInt32(con.Insert(unit));
-    //            return unitId;
-    //        }
-    //    }
-
-    //    public bool Update(int unitId, Unit unit)
-    //    {
-    //        if (unitId <= 0 || unitId != unit.Id)
-    //        {
-    //            return false;
-    //        }
-
-    //        using (var con = _db.GetConnection())
-    //        {
-    //            unit.UpdatedAt = DateTime.Now;
-    //            return con.Update(unit);
-    //        }
-    //    }
-
-    //    public bool Remove(int id)
-    //    {
-    //        if (id <= 0)
-    //        {
-    //            return false;
-    //        }
-
-    //        using (var con = _db.GetConnection())
-    //        {
-    //            //Ledger ledger = con.Get<Ledger>(ledgerId);
-    //            //if (ledger == null)
-    //            //    return false;
-
-    //            int rows = con.Execute("DELETE FROM units WHERE id=@id", new { id });
-    //            return rows == 1;
-    //        }
-    //    }
-    //}
 }

@@ -38,6 +38,7 @@ namespace Fanda2.Backend
                 config.AddMap(new AccountYearListMap());
                 config.AddMap(new LedgerBalanceMap());
                 config.AddMap(new SerialNumberMap());
+                config.AddMap(new LedgerGroupMap());
 
                 config.ForDommel();
             });

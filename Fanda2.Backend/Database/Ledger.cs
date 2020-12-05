@@ -15,11 +15,18 @@ namespace Fanda2.Backend.Database
         public LedgerType LedgerType { get; set; }
         public bool IsSystem { get; set; }
         public int OrgId { get; set; }
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public LedgerBalance LedgerBalance { get; set; }
+        // Ledger Balance
+
+        //public int YearId { get; set; }
+        //public decimal OpeningBalance { get; set; }
+        //public string BalanceSign { get; set; }
+        public virtual LedgerBalance Balance { get; set; }
+
+        // Virtual Members
 
         public virtual Bank Bank { get; set; }
         public virtual Party Party { get; set; }
