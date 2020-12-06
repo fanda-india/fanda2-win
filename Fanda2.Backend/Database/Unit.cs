@@ -12,5 +12,11 @@ namespace Fanda2.Backend.Database
         public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public bool IsEmpty()
+        {
+            return string.IsNullOrWhiteSpace(Code) &&
+                string.IsNullOrWhiteSpace(UnitName);
+        }
     }
 }

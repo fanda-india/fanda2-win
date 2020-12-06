@@ -11,16 +11,9 @@ namespace Fanda2.Backend.Database
         public string ProductName { get; set; }
         public string ProductDesc { get; set; }
         public ProductType ProductType { get; set; }
-
         public int CategoryId { get; set; }
-
-        //public Guid? BrandId { get; set; }
-        //public Guid? SegmentId { get; set; }
-        //public Guid? VarietyId { get; set; }
         public int UnitId { get; set; }
-
         public decimal CostPrice { get; set; }
-
         public decimal SellingPrice { get; set; }
 
         #region Tax / GST
@@ -36,6 +29,13 @@ namespace Fanda2.Backend.Database
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        // public virtual ProductCategory Category { get; set; }
+        public bool IsEmpty()
+        {
+            return string.IsNullOrWhiteSpace(Code) &&
+                string.IsNullOrWhiteSpace(ProductName) &&
+                (int)ProductType == 1 &&
+                CategoryId == 0 &&
+                UnitId == 0;
+        }
     }
 }

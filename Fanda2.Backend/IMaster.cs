@@ -9,5 +9,7 @@ namespace Fanda2.Backend
         bool IsEnabled { get; set; }
         DateTime CreatedAt { get; set; }
         DateTime? UpdatedAt { get; set; }
+
+        bool IsEmpty();
     }
 }

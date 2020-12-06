@@ -163,7 +163,7 @@ namespace Fanda.UI
             this.mnuFileOpenCompany.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.mnuFileOpenCompany.Size = new System.Drawing.Size(203, 24);
             this.mnuFileOpenCompany.Text = "&Open Company";
-            this.mnuFileOpenCompany.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.mnuFileOpenCompany.Click += new System.EventHandler(this.mnuFileOpenCompany_Click);
             // 
             // mnuFileEditCompany
             // 
@@ -662,7 +662,7 @@ namespace Fanda.UI
             // sbrText
             // 
             this.sbrText.Name = "sbrText";
-            this.sbrText.Size = new System.Drawing.Size(962, 17);
+            this.sbrText.Size = new System.Drawing.Size(957, 17);
             this.sbrText.Spring = true;
             this.sbrText.Text = "Ready";
             this.sbrText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

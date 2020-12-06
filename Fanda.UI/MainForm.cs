@@ -5,6 +5,8 @@ namespace Fanda.UI
 {
     public partial class MainForm : Form
     {
+        private OpenCompanyForm openCompanyForm;
+
         public MainForm()
         {
             InitializeComponent();
@@ -12,22 +14,19 @@ namespace Fanda.UI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            mnuMaster.Enabled = false;
-            mnuTransations.Enabled = false;
-            mnuGeneralReports.Enabled = false;
-            mnuInventoryReports.Enabled = false;
-            mnuAnnualReports.Enabled = false;
-
-            mnuFileEditCompany.Enabled = false;
-            mnuFileCloseCompany.Enabled = false;
-            mnuFileCarryForward.Enabled = false;
+            EnableMenu(false);
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenCompanyForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = new OpenCompanyForm();
-            form.MdiParent = this;
-            form.Show();
+            if (AppConfig.CurrentCompany != null)
+                EnableMenu();
+        }
+
+        private void mnuFileOpenCompany_Click(object sender, EventArgs e)
+        {
+            openCompanyForm = FormHelpers.ShowForm(ref openCompanyForm, this);
+            openCompanyForm.FormClosed += OpenCompanyForm_FormClosed;
         }
 
         private void mnuMasterLedgers_Click(object sender, EventArgs e)
@@ -35,11 +34,29 @@ namespace Fanda.UI
             var form = new LedgersForm();
             form.MdiParent = this;
             form.Show();
+            form.BringToFront();
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)
         {
             Close();
         }
+
+        #region Private methods
+
+        private void EnableMenu(bool enable = true)
+        {
+            mnuMaster.Enabled = enable;
+            mnuTransations.Enabled = enable;
+            mnuGeneralReports.Enabled = enable;
+            mnuInventoryReports.Enabled = enable;
+            mnuAnnualReports.Enabled = enable;
+
+            mnuFileEditCompany.Enabled = enable;
+            mnuFileCloseCompany.Enabled = enable;
+            mnuFileCarryForward.Enabled = enable;
+        }
+
+        #endregion Private methods
     }
 }

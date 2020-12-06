@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="FormHelpers.cs" />
     <Compile Include="LedgersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +138,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.AccountYear.datasource" />
@@ -161,6 +163,21 @@
       <Project>{1825ac22-9ed4-43a1-9d0b-35b4d94ad328}</Project>
       <Name>Fanda2.Backend</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16x162.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16x163.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -14,6 +14,10 @@ namespace Fanda2.Backend.Database
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        // public virtual ProductCategory Parent { get; set; }
+        public bool IsEmpty()
+        {
+            return string.IsNullOrWhiteSpace(Code) &&
+                string.IsNullOrWhiteSpace(CategoryName);
+        }
     }
 }

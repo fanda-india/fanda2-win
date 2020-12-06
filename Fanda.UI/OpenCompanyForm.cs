@@ -1,4 +1,5 @@
-﻿using Fanda2.Backend.Repositories;
+﻿using Fanda2.Backend.Database;
+using Fanda2.Backend.Repositories;
 using Fanda2.Backend.ViewModels;
 
 using System;
@@ -15,6 +16,8 @@ namespace Fanda.UI
         private List<OrganizationListModel> _list;
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
+
+        //public event EventHandler<EventArgs> FormClosed;
 
         public OpenCompanyForm()
         {
@@ -36,17 +39,17 @@ namespace Fanda.UI
             editForm.Show();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (organizationListModelBindingSource.Current is OrganizationListModel org)
-            {
-                OrganizationEditForm editForm = new OrganizationEditForm(_repository, org.Id)
-                {
-                    MdiParent = this.MdiParent
-                };
-                editForm.Show();
-            }
-        }
+        //private void btnEdit_Click(object sender, EventArgs e)
+        //{
+        //    if (organizationListModelBindingSource.Current is OrganizationListModel org)
+        //    {
+        //        OrganizationEditForm editForm = new OrganizationEditForm(_repository, org.Id)
+        //        {
+        //            MdiParent = this.MdiParent
+        //        };
+        //        editForm.Show();
+        //    }
+        //}
 
         private void dgvOrgs_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -64,6 +67,64 @@ namespace Fanda.UI
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             RefreshList(txtSearch.Text);
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            RefreshList(txtSearch.Text);
+        }
+
+        //private void btnDelete_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (MessageBox.Show("Are you sure, you want to DELETE?",
+        //            "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning,
+        //            MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+        //        {
+        //            if (organizationListModelBindingSource.Current is OrganizationListModel org)
+        //            {
+        //                if (_repository.Remove(org.Id))
+        //                {
+        //                    RefreshList(txtSearch.Text);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            if (organizationListModelBindingSource.Current is OrganizationListModel org)
+            {
+                AppConfig.CurrentCompany = _repository.GetById(org.Id);
+                Close();
+            }
+        }
+
+        private void OpenCompanyForm_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+                return;
+
+            dgvOrgs.Columns[0].Width = (int)(Width * 0.1);
+            dgvOrgs.Columns[1].Width = (int)(Width * 0.3);
+            dgvOrgs.Columns[2].Width = (int)(Width * 0.42);
+            dgvOrgs.Columns[3].Width = (int)(Width * 0.1);
+        }
+
+        private void dgvOrgs_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnOpen.PerformClick();
+        }
+
+        private void dgvOrgs_DoubleClick(object sender, EventArgs e)
+        {
+            btnOpen.PerformClick();
         }
 
         private void ApplySort(string columnName, string direction)
@@ -106,39 +167,6 @@ namespace Fanda.UI
                 //dgvOrgs_ColumnHeaderMouseClick(this,
                 //    new DataGridViewCellMouseEventArgs(_sortColumn.Index, 0, 0, 0,
                 //    new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0)));
-            }
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            RefreshList(txtSearch.Text);
-        }
-
-        private void dgvOrgs_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            btnEdit.PerformClick();
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (MessageBox.Show("Are you sure, you want to DELETE?",
-                    "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-                    if (organizationListModelBindingSource.Current is OrganizationListModel org)
-                    {
-                        if (_repository.Remove(org.Id))
-                        {
-                            RefreshList(txtSearch.Text);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
