@@ -71,8 +71,10 @@ namespace Fanda.UI
             this.dgvOrgs.Size = new System.Drawing.Size(755, 400);
             this.dgvOrgs.TabIndex = 0;
             this.dgvOrgs.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrgs_CellContentDoubleClick);
+            this.dgvOrgs.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrgs_CellDoubleClick);
             this.dgvOrgs.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvOrgs_ColumnHeaderMouseClick);
             this.dgvOrgs.DoubleClick += new System.EventHandler(this.dgvOrgs_DoubleClick);
+            this.dgvOrgs.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.dgvOrgs_PreviewKeyDown);
             // 
             // codeDataGridViewTextBoxColumn
             // 
@@ -137,7 +139,7 @@ namespace Fanda.UI
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(80, 28);
             this.btnOpen.TabIndex = 5;
-            this.btnOpen.Text = "Open";
+            this.btnOpen.Text = "&Open";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
@@ -150,7 +152,7 @@ namespace Fanda.UI
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(80, 28);
             this.btnAdd.TabIndex = 3;
-            this.btnAdd.Text = "Add";
+            this.btnAdd.Text = "&Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -162,7 +164,7 @@ namespace Fanda.UI
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(80, 28);
             this.btnRefresh.TabIndex = 0;
-            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.Text = "&Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -184,6 +186,7 @@ namespace Fanda.UI
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Organizations";
             this.Load += new System.EventHandler(this.OrganizationsForm_Load);
+            this.Shown += new System.EventHandler(this.OpenCompanyForm_Shown);
             this.Resize += new System.EventHandler(this.OpenCompanyForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrgs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationListModelBindingSource)).EndInit();

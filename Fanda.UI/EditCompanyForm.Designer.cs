@@ -1,7 +1,7 @@
 ﻿
 namespace Fanda.UI
 {
-    partial class OrganizationEditForm
+    partial class EditCompanyForm
     {
         /// <summary>
         /// Required designer variable.
@@ -52,6 +52,10 @@ namespace Fanda.UI
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dtpDateFrom = new System.Windows.Forms.DateTimePicker();
+            this.label9 = new System.Windows.Forms.Label();
+            this.dtpDateTo = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.orgBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -60,7 +64,7 @@ namespace Fanda.UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 9);
+            this.label1.Location = new System.Drawing.Point(6, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 15);
             this.label1.TabIndex = 0;
@@ -70,7 +74,7 @@ namespace Fanda.UI
             // 
             this.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "Code", true));
-            this.txtCode.Location = new System.Drawing.Point(95, 6);
+            this.txtCode.Location = new System.Drawing.Point(82, 6);
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(141, 23);
             this.txtCode.TabIndex = 1;
@@ -82,7 +86,7 @@ namespace Fanda.UI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(242, 9);
+            this.label2.Location = new System.Drawing.Point(229, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 15);
             this.label2.TabIndex = 2;
@@ -91,15 +95,15 @@ namespace Fanda.UI
             // txtName
             // 
             this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "OrgName", true));
-            this.txtName.Location = new System.Drawing.Point(296, 6);
+            this.txtName.Location = new System.Drawing.Point(277, 6);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(363, 23);
+            this.txtName.Size = new System.Drawing.Size(382, 23);
             this.txtName.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 44);
+            this.label3.Location = new System.Drawing.Point(6, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 15);
             this.label3.TabIndex = 4;
@@ -108,16 +112,16 @@ namespace Fanda.UI
             // txtDescription
             // 
             this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "OrgDesc", true));
-            this.txtDescription.Location = new System.Drawing.Point(95, 37);
+            this.txtDescription.Location = new System.Drawing.Point(82, 37);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(564, 63);
+            this.txtDescription.Size = new System.Drawing.Size(577, 63);
             this.txtDescription.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 109);
+            this.label4.Location = new System.Drawing.Point(6, 109);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 15);
             this.label4.TabIndex = 6;
@@ -126,15 +130,15 @@ namespace Fanda.UI
             // txtRegdNum
             // 
             this.txtRegdNum.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "RegdNum", true));
-            this.txtRegdNum.Location = new System.Drawing.Point(95, 106);
+            this.txtRegdNum.Location = new System.Drawing.Point(82, 106);
             this.txtRegdNum.Name = "txtRegdNum";
-            this.txtRegdNum.Size = new System.Drawing.Size(141, 23);
+            this.txtRegdNum.Size = new System.Drawing.Size(250, 23);
             this.txtRegdNum.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(242, 109);
+            this.label5.Location = new System.Drawing.Point(370, 109);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(33, 15);
             this.label5.TabIndex = 8;
@@ -143,15 +147,15 @@ namespace Fanda.UI
             // txtPAN
             // 
             this.txtPAN.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "PAN", true));
-            this.txtPAN.Location = new System.Drawing.Point(296, 106);
+            this.txtPAN.Location = new System.Drawing.Point(409, 106);
             this.txtPAN.Name = "txtPAN";
-            this.txtPAN.Size = new System.Drawing.Size(141, 23);
+            this.txtPAN.Size = new System.Drawing.Size(250, 23);
             this.txtPAN.TabIndex = 9;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(443, 109);
+            this.label6.Location = new System.Drawing.Point(371, 138);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 15);
             this.label6.TabIndex = 10;
@@ -160,15 +164,15 @@ namespace Fanda.UI
             // txtTAN
             // 
             this.txtTAN.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "TAN", true));
-            this.txtTAN.Location = new System.Drawing.Point(486, 106);
+            this.txtTAN.Location = new System.Drawing.Point(409, 135);
             this.txtTAN.Name = "txtTAN";
-            this.txtTAN.Size = new System.Drawing.Size(173, 23);
+            this.txtTAN.Size = new System.Drawing.Size(250, 23);
             this.txtTAN.TabIndex = 11;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 140);
+            this.label7.Location = new System.Drawing.Point(6, 143);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 15);
             this.label7.TabIndex = 12;
@@ -177,16 +181,16 @@ namespace Fanda.UI
             // txtGSTIN
             // 
             this.txtGSTIN.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.orgBindingSource, "GSTIN", true));
-            this.txtGSTIN.Location = new System.Drawing.Point(95, 137);
+            this.txtGSTIN.Location = new System.Drawing.Point(82, 135);
             this.txtGSTIN.Name = "txtGSTIN";
-            this.txtGSTIN.Size = new System.Drawing.Size(141, 23);
+            this.txtGSTIN.Size = new System.Drawing.Size(250, 23);
             this.txtGSTIN.TabIndex = 13;
             // 
             // chkIsEnabled
             // 
             this.chkIsEnabled.AutoSize = true;
             this.chkIsEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.orgBindingSource, "IsEnabled", true));
-            this.chkIsEnabled.Location = new System.Drawing.Point(246, 138);
+            this.chkIsEnabled.Location = new System.Drawing.Point(82, 195);
             this.chkIsEnabled.Name = "chkIsEnabled";
             this.chkIsEnabled.Size = new System.Drawing.Size(84, 19);
             this.chkIsEnabled.TabIndex = 14;
@@ -233,6 +237,8 @@ namespace Fanda.UI
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dtpDateTo);
+            this.tabPage1.Controls.Add(this.dtpDateFrom);
             this.tabPage1.Controls.Add(this.txtCode);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.label4);
@@ -240,7 +246,9 @@ namespace Fanda.UI
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.txtDescription);
             this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.txtName);
+            this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.txtTAN);
             this.tabPage1.Controls.Add(this.label2);
@@ -275,7 +283,43 @@ namespace Fanda.UI
             this.tabPage3.Text = "Contact";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // OrganizationEditForm
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 172);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 15);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Date &From:";
+            // 
+            // dtpDateFrom
+            // 
+            this.dtpDateFrom.CustomFormat = "dd-MM-yyyy";
+            this.dtpDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateFrom.Location = new System.Drawing.Point(82, 166);
+            this.dtpDateFrom.Name = "dtpDateFrom";
+            this.dtpDateFrom.Size = new System.Drawing.Size(250, 23);
+            this.dtpDateFrom.TabIndex = 15;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(354, 170);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(49, 15);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Date &To:";
+            // 
+            // dtpDateTo
+            // 
+            this.dtpDateTo.CustomFormat = "dd-MM-yyyy";
+            this.dtpDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateTo.Location = new System.Drawing.Point(409, 164);
+            this.dtpDateTo.Name = "dtpDateTo";
+            this.dtpDateTo.Size = new System.Drawing.Size(250, 23);
+            this.dtpDateTo.TabIndex = 15;
+            // 
+            // EditCompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -287,7 +331,7 @@ namespace Fanda.UI
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimizeBox = false;
-            this.Name = "OrganizationEditForm";
+            this.Name = "EditCompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Organization";
             ((System.ComponentModel.ISupportInitialize)(this.orgBindingSource)).EndInit();
@@ -322,5 +366,9 @@ namespace Fanda.UI
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DateTimePicker dtpDateFrom;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DateTimePicker dtpDateTo;
+        private System.Windows.Forms.Label label9;
     }
 }

@@ -32,7 +32,7 @@ namespace Fanda.UI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            OrganizationEditForm editForm = new OrganizationEditForm(_repository, 0)
+            EditCompanyForm editForm = new EditCompanyForm(_repository, 0)
             {
                 MdiParent = this.MdiParent
             };
@@ -127,6 +127,21 @@ namespace Fanda.UI
             btnOpen.PerformClick();
         }
 
+        private void dgvOrgs_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnOpen.PerformClick();
+        }
+
+        private void dgvOrgs_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnOpen.PerformClick();
+            }
+        }
+
+        #region Private methods
+
         private void ApplySort(string columnName, string direction)
         {
             switch (columnName)
@@ -167,6 +182,16 @@ namespace Fanda.UI
                 //dgvOrgs_ColumnHeaderMouseClick(this,
                 //    new DataGridViewCellMouseEventArgs(_sortColumn.Index, 0, 0, 0,
                 //    new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0)));
+            }
+        }
+
+        #endregion Private methods
+
+        private void OpenCompanyForm_Shown(object sender, EventArgs e)
+        {
+            if (_list.Count == 1)
+            {
+                btnOpen.PerformClick();
             }
         }
     }

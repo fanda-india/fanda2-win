@@ -36,7 +36,6 @@ namespace Fanda.UI
             this.mnuFileOpenCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileEditCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuFileCloseCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileSwitchYear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileUsers = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,19 +122,18 @@ namespace Fanda.UI
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
             this.mnuMain.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
-            this.mnuMain.Size = new System.Drawing.Size(974, 25);
+            this.mnuMain.Size = new System.Drawing.Size(966, 25);
             this.mnuMain.TabIndex = 1;
             this.mnuMain.Text = "menuStrip1";
             // 
             // mnuFile
             // 
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFileNewCompany,
             this.mnuFileOpenCompany,
-            this.mnuFileEditCompany,
-            this.toolStripSeparator1,
-            this.mnuFileCloseCompany,
             this.mnuFileSwitchYear,
+            this.toolStripSeparator1,
+            this.mnuFileNewCompany,
+            this.mnuFileEditCompany,
             this.toolStripSeparator8,
             this.mnuFileUsers,
             this.mnuFileOptions,
@@ -177,14 +175,6 @@ namespace Fanda.UI
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(200, 6);
-            // 
-            // mnuFileCloseCompany
-            // 
-            this.mnuFileCloseCompany.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.mnuFileCloseCompany.Name = "mnuFileCloseCompany";
-            this.mnuFileCloseCompany.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
-            this.mnuFileCloseCompany.Size = new System.Drawing.Size(203, 24);
-            this.mnuFileCloseCompany.Text = "&Close Company";
             // 
             // mnuFileSwitchYear
             // 
@@ -560,7 +550,7 @@ namespace Fanda.UI
             this.helpToolStripButton});
             this.tbrMain.Location = new System.Drawing.Point(0, 25);
             this.tbrMain.Name = "tbrMain";
-            this.tbrMain.Size = new System.Drawing.Size(974, 25);
+            this.tbrMain.Size = new System.Drawing.Size(966, 25);
             this.tbrMain.TabIndex = 2;
             this.tbrMain.Text = "toolStrip1";
             // 
@@ -652,17 +642,17 @@ namespace Fanda.UI
             this.sbrMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sbrText,
             this.sbrProgress});
-            this.sbrMain.Location = new System.Drawing.Point(0, 561);
+            this.sbrMain.Location = new System.Drawing.Point(0, 544);
             this.sbrMain.Name = "sbrMain";
             this.sbrMain.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.sbrMain.Size = new System.Drawing.Size(974, 22);
+            this.sbrMain.Size = new System.Drawing.Size(966, 22);
             this.sbrMain.TabIndex = 3;
             this.sbrMain.Text = "statusStrip1";
             // 
             // sbrText
             // 
             this.sbrText.Name = "sbrText";
-            this.sbrText.Size = new System.Drawing.Size(957, 17);
+            this.sbrText.Size = new System.Drawing.Size(949, 17);
             this.sbrText.Spring = true;
             this.sbrText.Text = "Ready";
             this.sbrText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -677,7 +667,7 @@ namespace Fanda.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(974, 583);
+            this.ClientSize = new System.Drawing.Size(966, 566);
             this.Controls.Add(this.sbrMain);
             this.Controls.Add(this.tbrMain);
             this.Controls.Add(this.mnuMain);
@@ -708,7 +698,6 @@ namespace Fanda.UI
         private System.Windows.Forms.ToolStripMenuItem mnuFileOpenCompany;
         private System.Windows.Forms.ToolStripMenuItem mnuFileEditCompany;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem mnuFileCloseCompany;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem mnuFileExit;
         private System.Windows.Forms.ToolStripMenuItem mnuMaster;

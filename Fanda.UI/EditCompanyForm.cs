@@ -6,13 +6,13 @@ using System.Windows.Forms;
 
 namespace Fanda.UI
 {
-    public partial class OrganizationEditForm : Form
+    public partial class EditCompanyForm : Form
     {
         private readonly OrganizationRepository _repository;
         private readonly int _id;
         private Organization _org;
 
-        public OrganizationEditForm(OrganizationRepository repository, int id)
+        public EditCompanyForm(OrganizationRepository repository, int id)
         {
             InitializeComponent();
 

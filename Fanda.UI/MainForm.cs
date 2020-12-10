@@ -5,6 +5,7 @@ namespace Fanda.UI
 {
     public partial class MainForm : Form
     {
+        private const string AppTitle = "Fanda v1.0";
         private OpenCompanyForm openCompanyForm;
 
         public MainForm()
@@ -15,18 +16,21 @@ namespace Fanda.UI
         private void MainForm_Load(object sender, EventArgs e)
         {
             EnableMenu(false);
-        }
-
-        private void OpenCompanyForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (AppConfig.CurrentCompany != null)
-                EnableMenu();
+            mnuFileOpenCompany.PerformClick();
         }
 
         private void mnuFileOpenCompany_Click(object sender, EventArgs e)
         {
             openCompanyForm = FormHelpers.ShowForm(ref openCompanyForm, this);
             openCompanyForm.FormClosed += OpenCompanyForm_FormClosed;
+        }
+
+        private void OpenCompanyForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (AppConfig.CurrentCompany != null)
+                EnableMenu();
+            else
+                EnableMenu(false);
         }
 
         private void mnuMasterLedgers_Click(object sender, EventArgs e)
@@ -53,8 +57,12 @@ namespace Fanda.UI
             mnuAnnualReports.Enabled = enable;
 
             mnuFileEditCompany.Enabled = enable;
-            mnuFileCloseCompany.Enabled = enable;
             mnuFileCarryForward.Enabled = enable;
+
+            if (AppConfig.CurrentCompany != null)
+            {
+                Text = $"{AppTitle} - [{AppConfig.CurrentCompany.OrgName}]";
+            }
         }
 
         #endregion Private methods
