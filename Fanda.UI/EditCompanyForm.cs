@@ -9,26 +9,38 @@ namespace Fanda.UI
     public partial class EditCompanyForm : Form
     {
         private readonly OrganizationRepository _repository;
-        private readonly int _id;
+        private int _id;
         private Organization _org;
 
-        public EditCompanyForm(OrganizationRepository repository, int id)
+        public EditCompanyForm()
         {
             InitializeComponent();
+            _repository = new OrganizationRepository();
+        }
 
-            _repository = repository;
+        private void EditCompanyForm_Load(object sender, EventArgs e)
+        {
+            //dtpDateFrom.DataBindings.Add(new Binding("Value", this.orgBindingSource, "Year.YearBegin", true));
+            //dtpDateTo.DataBindings.Add(new Binding("Value", this.orgBindingSource, "Year.YearEnd", true));
+        }
+
+        public void Edit(int id)
+        {
             _id = id;
 
-            if (id == 0)
+            if (_id == 0)
             {
                 _org = new Organization();
-                repository.UpdateYear(_org, 0);
+                _repository.UpdateYear(_org, 0);
             }
             else
-                _org = _repository.GetById(id);
-
+            {
+                _org = _repository.GetById(_id);
+                _repository.UpdateYear(_org, 0);
+            }
 
             orgBindingSource.DataSource = _org;
+            yearBindingSource.DataSource = _org.Year;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

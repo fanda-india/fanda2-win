@@ -17,7 +17,7 @@ namespace Fanda.UI
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
-        //public event EventHandler<EventArgs> FormClosed;
+        private EditCompanyForm editCompanyForm;
 
         public OpenCompanyForm()
         {
@@ -32,11 +32,8 @@ namespace Fanda.UI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            EditCompanyForm editForm = new EditCompanyForm(_repository, 0)
-            {
-                MdiParent = this.MdiParent
-            };
-            editForm.Show();
+            editCompanyForm = FormHelpers.ShowForm(ref editCompanyForm, this);
+            editCompanyForm.Edit(0);
         }
 
         //private void btnEdit_Click(object sender, EventArgs e)

@@ -7,6 +7,7 @@ namespace Fanda.UI
     {
         private const string AppTitle = "Fanda v1.0";
         private OpenCompanyForm openCompanyForm;
+        private EditCompanyForm editCompanyForm;
 
         public MainForm()
         {
@@ -19,10 +20,21 @@ namespace Fanda.UI
             mnuFileOpenCompany.PerformClick();
         }
 
+        #region File -> Company
+
         private void mnuFileOpenCompany_Click(object sender, EventArgs e)
         {
             openCompanyForm = FormHelpers.ShowForm(ref openCompanyForm, this);
             openCompanyForm.FormClosed += OpenCompanyForm_FormClosed;
+        }
+
+        private void mnuFileEditCompany_Click(object sender, EventArgs e)
+        {
+            if (AppConfig.CurrentCompany != null)
+            {
+                editCompanyForm = FormHelpers.ShowForm(ref editCompanyForm, this);
+                editCompanyForm.Edit(AppConfig.CurrentCompany.Id);
+            }
         }
 
         private void OpenCompanyForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -32,6 +44,8 @@ namespace Fanda.UI
             else
                 EnableMenu(false);
         }
+
+        #endregion File -> Company
 
         private void mnuMasterLedgers_Click(object sender, EventArgs e)
         {

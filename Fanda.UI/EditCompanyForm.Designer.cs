@@ -50,15 +50,17 @@ namespace Fanda.UI
             this.btnCancel = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label8 = new System.Windows.Forms.Label();
+            this.dtpDateTo = new System.Windows.Forms.DateTimePicker();
             this.dtpDateFrom = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
-            this.dtpDateTo = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.yearBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.orgBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.yearBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -264,6 +266,44 @@ namespace Fanda.UI
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // dtpDateTo
+            // 
+            this.dtpDateTo.CustomFormat = "dd-MM-yyyy";
+            this.dtpDateTo.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.yearBindingSource, "YearEnd", true));
+            this.dtpDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateTo.Location = new System.Drawing.Point(409, 164);
+            this.dtpDateTo.Name = "dtpDateTo";
+            this.dtpDateTo.Size = new System.Drawing.Size(250, 23);
+            this.dtpDateTo.TabIndex = 15;
+            // 
+            // dtpDateFrom
+            // 
+            this.dtpDateFrom.CustomFormat = "dd-MM-yyyy";
+            this.dtpDateFrom.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.yearBindingSource, "YearBegin", true));
+            this.dtpDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateFrom.Location = new System.Drawing.Point(82, 166);
+            this.dtpDateFrom.Name = "dtpDateFrom";
+            this.dtpDateFrom.Size = new System.Drawing.Size(250, 23);
+            this.dtpDateFrom.TabIndex = 15;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(354, 170);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(49, 15);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Date &To:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 172);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 15);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Date &From:";
+            // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
@@ -283,41 +323,9 @@ namespace Fanda.UI
             this.tabPage3.Text = "Contact";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // yearBindingSource
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 172);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 15);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Date &From:";
-            // 
-            // dtpDateFrom
-            // 
-            this.dtpDateFrom.CustomFormat = "dd-MM-yyyy";
-            this.dtpDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateFrom.Location = new System.Drawing.Point(82, 166);
-            this.dtpDateFrom.Name = "dtpDateFrom";
-            this.dtpDateFrom.Size = new System.Drawing.Size(250, 23);
-            this.dtpDateFrom.TabIndex = 15;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(354, 170);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(49, 15);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Date &To:";
-            // 
-            // dtpDateTo
-            // 
-            this.dtpDateTo.CustomFormat = "dd-MM-yyyy";
-            this.dtpDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateTo.Location = new System.Drawing.Point(409, 164);
-            this.dtpDateTo.Name = "dtpDateTo";
-            this.dtpDateTo.Size = new System.Drawing.Size(250, 23);
-            this.dtpDateTo.TabIndex = 15;
+            this.yearBindingSource.DataSource = typeof(Fanda2.Backend.Database.AccountYear);
             // 
             // EditCompanyForm
             // 
@@ -334,10 +342,12 @@ namespace Fanda.UI
             this.Name = "EditCompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Organization";
+            this.Load += new System.EventHandler(this.EditCompanyForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.orgBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.yearBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -370,5 +380,6 @@ namespace Fanda.UI
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker dtpDateTo;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.BindingSource yearBindingSource;
     }
 }

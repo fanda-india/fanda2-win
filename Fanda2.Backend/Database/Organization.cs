@@ -15,15 +15,12 @@ namespace Fanda2.Backend.Database
         public string GSTIN { get; set; }
         public int? AddressId { get; set; }
         public int? ContactId { get; set; }
+        public int ActiveYearId { get; set; }
         public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        // Accounting Year
-        //public DateTime DateBegin { get; set; }
-        //public DateTime DateEnd { get; set; }
         public virtual AccountYear Year { get; set; }
-
         public virtual Address Address { get; set; }
         public virtual Contact Contact { get; set; }
     }

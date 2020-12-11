@@ -32,11 +32,11 @@ namespace Fanda.UI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileNewCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileOpenCompany = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileEditCompany = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileSwitchYear = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuFileNewCompany = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileEditCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileUsers = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileOptions = new System.Windows.Forms.ToolStripMenuItem();
@@ -145,14 +145,6 @@ namespace Fanda.UI
             this.mnuFile.Size = new System.Drawing.Size(37, 19);
             this.mnuFile.Text = "&File";
             // 
-            // mnuFileNewCompany
-            // 
-            this.mnuFileNewCompany.Image = ((System.Drawing.Image)(resources.GetObject("mnuFileNewCompany.Image")));
-            this.mnuFileNewCompany.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.mnuFileNewCompany.Name = "mnuFileNewCompany";
-            this.mnuFileNewCompany.Size = new System.Drawing.Size(203, 24);
-            this.mnuFileNewCompany.Text = "&New Company";
-            // 
             // mnuFileOpenCompany
             // 
             this.mnuFileOpenCompany.Image = ((System.Drawing.Image)(resources.GetObject("mnuFileOpenCompany.Image")));
@@ -163,6 +155,25 @@ namespace Fanda.UI
             this.mnuFileOpenCompany.Text = "&Open Company";
             this.mnuFileOpenCompany.Click += new System.EventHandler(this.mnuFileOpenCompany_Click);
             // 
+            // mnuFileSwitchYear
+            // 
+            this.mnuFileSwitchYear.Name = "mnuFileSwitchYear";
+            this.mnuFileSwitchYear.Size = new System.Drawing.Size(203, 24);
+            this.mnuFileSwitchYear.Text = "&Switch Accounting Year";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(200, 6);
+            // 
+            // mnuFileNewCompany
+            // 
+            this.mnuFileNewCompany.Image = ((System.Drawing.Image)(resources.GetObject("mnuFileNewCompany.Image")));
+            this.mnuFileNewCompany.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mnuFileNewCompany.Name = "mnuFileNewCompany";
+            this.mnuFileNewCompany.Size = new System.Drawing.Size(203, 24);
+            this.mnuFileNewCompany.Text = "&New Company";
+            // 
             // mnuFileEditCompany
             // 
             this.mnuFileEditCompany.Image = ((System.Drawing.Image)(resources.GetObject("mnuFileEditCompany.Image")));
@@ -170,17 +181,7 @@ namespace Fanda.UI
             this.mnuFileEditCompany.Name = "mnuFileEditCompany";
             this.mnuFileEditCompany.Size = new System.Drawing.Size(203, 24);
             this.mnuFileEditCompany.Text = "&Edit Company";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(200, 6);
-            // 
-            // mnuFileSwitchYear
-            // 
-            this.mnuFileSwitchYear.Name = "mnuFileSwitchYear";
-            this.mnuFileSwitchYear.Size = new System.Drawing.Size(203, 24);
-            this.mnuFileSwitchYear.Text = "&Switch Accounting Year";
+            this.mnuFileEditCompany.Click += new System.EventHandler(this.mnuFileEditCompany_Click);
             // 
             // toolStripSeparator8
             // 
