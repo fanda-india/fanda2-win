@@ -32,7 +32,7 @@ namespace Fanda.UI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            editCompanyForm = FormHelpers.ShowForm(ref editCompanyForm, this);
+            editCompanyForm = FormHelpers.ShowForm(ref editCompanyForm, this.MdiParent);
             editCompanyForm.Edit(0);
         }
 
@@ -186,7 +186,11 @@ namespace Fanda.UI
 
         private void OpenCompanyForm_Shown(object sender, EventArgs e)
         {
-            if (_list.Count == 1)
+            if (_list.Count == 0)
+            {
+                btnAdd.PerformClick();
+            }
+            else if (_list.Count == 1)
             {
                 btnOpen.PerformClick();
             }

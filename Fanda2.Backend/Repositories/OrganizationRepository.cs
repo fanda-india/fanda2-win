@@ -1,4 +1,6 @@
-﻿using Dommel;
+﻿using Dapper;
+
+using Dommel;
 
 using Fanda2.Backend.Database;
 using Fanda2.Backend.ViewModels;
@@ -51,21 +53,24 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                return con.Get<Organization, Address, Contact, Organization>(id);
+                Organization org = con.Get<Organization, Address, Contact, Organization>(id);
+                AccountYear year = _yearRepository.GetById(org.ActiveYearId);
+                org.Year = year;
+                return org;
             }
         }
 
-        public Organization UpdateYear(Organization org, int yearId = 0)
-        {
-            AccountYear year = null;
-            if (yearId > 0)
-                year = _yearRepository.GetById(yearId);
+        //private AccountYear GetYearById(int orgId, int yearId = 0)
+        //{
+        //    AccountYear year = null;
+        //    if (yearId > 0)
+        //        year = _yearRepository.GetById(yearId);
 
-            if (year == null)
-                year = new AccountYear { OrgId = org.Id };
-            org.Year = year;
-            return org;
-        }
+        //    if (year == null)
+        //        year = new AccountYear { OrgId = org.Id };
+        //    org.Year = year;
+        //    return org;
+        //}
 
         public int Create(Organization org)
         {
@@ -83,6 +88,7 @@ namespace Fanda2.Backend.Repositories
 
                     // Accounting Year
                     int yearId = _yearRepository.Create(orgId, org.Year, con, tran);
+                    UpdateActiveYearId(orgId, yearId, con, tran);
 
                     // Seed: Org
                     SeedOrg(orgId, con, tran);
@@ -94,6 +100,73 @@ namespace Fanda2.Backend.Repositories
                 }
             }
         }
+
+        public bool Update(int orgId, Organization org)
+        {
+            if (orgId <= 0 || orgId != org.Id)
+            {
+                return false;
+            }
+
+            org.UpdatedAt = DateTime.Now;
+            using (var con = _db.GetConnection())
+            {
+                using (var tran = con.BeginTransaction())
+                {
+                    int? addressId = _addressRepository.Save(org.Address, con, tran);
+                    int? contactId = _contactRepository.Save(org.Contact, con, tran);
+                    org.AddressId = addressId;
+                    org.ContactId = contactId;
+                    bool success = con.Update(org, tran);
+                    // Accounting Year
+                    _yearRepository.Update(orgId, org.Year, con, tran);
+                    tran.Commit();
+                    return success;
+                }
+            }
+        }
+
+        public bool Remove(int id)
+        {
+            if (id <= 0)
+            {
+                return false;
+            }
+
+            using (var con = _db.GetConnection())
+            {
+                Organization org = con.Get<Organization>(id);
+                if (org == null)
+                {
+                    return false;
+                }
+
+                using (var tran = con.BeginTransaction())
+                {
+                    _addressRepository.Remove(org.AddressId, con, tran);
+                    _contactRepository.Remove(org.ContactId, con, tran);
+                    bool success = con.Delete(org, tran);
+                    tran.Commit();
+                    return success;
+                }
+            }
+        }
+
+        public bool UpdateActiveYearId(int orgId, int yearId, IDbConnection con, IDbTransaction tran)
+        {
+            if (orgId <= 0 || yearId <= 0)
+                return false;
+
+            //using (var con = _db.GetConnection())
+            //{
+            int rows = con.Execute("UPDATE organizations SET active_year_id=@yearId WHERE id=@orgId",
+                new { orgId, yearId }, tran);
+
+            return rows == 1;
+            //}
+        }
+
+        #region Seed
 
         private void SeedOrg(int orgId, IDbConnection con, IDbTransaction tran)
         {
@@ -304,55 +377,6 @@ namespace Fanda2.Backend.Repositories
                 return group.Id;
         }
 
-        public bool Update(int orgId, Organization org)
-        {
-            if (orgId <= 0 || orgId != org.Id)
-            {
-                return false;
-            }
-
-            org.UpdatedAt = DateTime.Now;
-            using (var con = _db.GetConnection())
-            {
-                using (var tran = con.BeginTransaction())
-                {
-                    int? addressId = _addressRepository.Save(org.Address, con, tran);
-                    int? contactId = _contactRepository.Save(org.Contact, con, tran);
-                    org.AddressId = addressId;
-                    org.ContactId = contactId;
-                    bool success = con.Update(org, tran);
-                    // Accounting Year
-                    _yearRepository.Update(orgId, org.Year, con, tran);
-                    tran.Commit();
-                    return success;
-                }
-            }
-        }
-
-        public bool Remove(int id)
-        {
-            if (id <= 0)
-            {
-                return false;
-            }
-
-            using (var con = _db.GetConnection())
-            {
-                Organization org = con.Get<Organization>(id);
-                if (org == null)
-                {
-                    return false;
-                }
-
-                using (var tran = con.BeginTransaction())
-                {
-                    _addressRepository.Remove(org.AddressId, con, tran);
-                    _contactRepository.Remove(org.ContactId, con, tran);
-                    bool success = con.Delete(org, tran);
-                    tran.Commit();
-                    return success;
-                }
-            }
-        }
+        #endregion Seed
     }
 }

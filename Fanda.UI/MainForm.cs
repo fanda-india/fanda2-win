@@ -28,6 +28,12 @@ namespace Fanda.UI
             openCompanyForm.FormClosed += OpenCompanyForm_FormClosed;
         }
 
+        private void mnuFileNewCompany_Click(object sender, EventArgs e)
+        {
+            editCompanyForm = FormHelpers.ShowForm(ref editCompanyForm, this);
+            editCompanyForm.Edit(0);
+        }
+
         private void mnuFileEditCompany_Click(object sender, EventArgs e)
         {
             if (AppConfig.CurrentCompany != null)

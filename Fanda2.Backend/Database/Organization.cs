@@ -4,6 +4,13 @@ namespace Fanda2.Backend.Database
 {
     public class Organization
     {
+        public Organization()
+        {
+            Year = new AccountYear();
+            Address = new Address();
+            Contact = new Contact();
+        }
+
         public int Id { get; set; }
 
         public string Code { get; set; }

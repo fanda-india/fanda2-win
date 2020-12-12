@@ -57,24 +57,27 @@ CREATE TABLE contacts (
 
 -- Table: organizations
 CREATE TABLE organizations (
-    id         INTEGER       PRIMARY KEY
+    id             INTEGER       PRIMARY KEY
+                                 NOT NULL,
+    code           VARCHAR (16)  UNIQUE
                              NOT NULL,
-    code       VARCHAR (16)  UNIQUE
+    org_name       VARCHAR (50)  UNIQUE
                              NOT NULL,
-    org_name   VARCHAR (50)  UNIQUE
-                             NOT NULL,
-    org_desc   VARCHAR (255),
-    regd_num   VARCHAR (25),
-    org_pan    VARCHAR (25),
-    org_tan    VARCHAR (25),
-    gstin      VARCHAR (25),
-    address_id INTEGER       REFERENCES addresses (id) ON DELETE NO ACTION
+    org_desc       VARCHAR (255),
+    regd_num       VARCHAR (25),
+    org_pan        VARCHAR (25),
+    org_tan        VARCHAR (25),
+    gstin          VARCHAR (25),
+    address_id     INTEGER       REFERENCES addresses (id) ON DELETE NO ACTION
                                                        ON UPDATE CASCADE,
-    contact_id INTEGER       REFERENCES contacts (id) ON DELETE NO ACTION
+    contact_id     INTEGER       REFERENCES contacts (id) ON DELETE NO ACTION
                                                       ON UPDATE CASCADE,
-    is_enabled BOOLEAN       NOT NULL,
-    created_at DATETIME      NOT NULL,
-    updated_at DATETIME
+    active_year_id INTEGER       NULL
+                                 REFERENCES account_years(id) ON DELETE NO ACTION
+                                                          ON UPDATE CASCADE,
+    is_enabled     BOOLEAN       NOT NULL,
+    created_at     DATETIME      NOT NULL,
+    updated_at     DATETIME
 );
 
 -- Table: ledger_groups

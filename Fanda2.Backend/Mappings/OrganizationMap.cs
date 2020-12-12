@@ -21,6 +21,7 @@ namespace Fanda2.Backend.Mappings
             Map(o => o.GSTIN).ToColumn("gstin");
             Map(o => o.AddressId).ToColumn("address_id");
             Map(o => o.ContactId).ToColumn("contact_id");
+            Map(o => o.ActiveYearId).ToColumn("active_year_id");
             Map(o => o.IsEnabled).ToColumn("is_enabled");
             Map(o => o.CreatedAt).ToColumn("created_at");
             Map(o => o.UpdatedAt).ToColumn("updated_at");

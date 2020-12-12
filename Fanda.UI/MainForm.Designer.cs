@@ -173,6 +173,7 @@ namespace Fanda.UI
             this.mnuFileNewCompany.Name = "mnuFileNewCompany";
             this.mnuFileNewCompany.Size = new System.Drawing.Size(203, 24);
             this.mnuFileNewCompany.Text = "&New Company";
+            this.mnuFileNewCompany.Click += new System.EventHandler(this.mnuFileNewCompany_Click);
             // 
             // mnuFileEditCompany
             // 

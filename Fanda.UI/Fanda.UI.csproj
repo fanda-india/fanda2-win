@@ -133,6 +133,8 @@
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.AccountYear.datasource" />
+    <None Include="Properties\DataSources\Fanda2.Backend.Database.Address.datasource" />
+    <None Include="Properties\DataSources\Fanda2.Backend.Database.Contact.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Ledger.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Organization.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.ViewModels.OrganizationListModel.datasource" />

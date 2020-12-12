@@ -20,8 +20,7 @@ namespace Fanda.UI
 
         private void EditCompanyForm_Load(object sender, EventArgs e)
         {
-            //dtpDateFrom.DataBindings.Add(new Binding("Value", this.orgBindingSource, "Year.YearBegin", true));
-            //dtpDateTo.DataBindings.Add(new Binding("Value", this.orgBindingSource, "Year.YearEnd", true));
+            txtCode.Focus();
         }
 
         public void Edit(int id)
@@ -31,16 +30,16 @@ namespace Fanda.UI
             if (_id == 0)
             {
                 _org = new Organization();
-                _repository.UpdateYear(_org, 0);
             }
             else
             {
                 _org = _repository.GetById(_id);
-                _repository.UpdateYear(_org, 0);
             }
 
             orgBindingSource.DataSource = _org;
             yearBindingSource.DataSource = _org.Year;
+            addressBindingSource.DataSource = _org.Address;
+            contactBindingSource.DataSource = _org.Contact;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -51,9 +50,13 @@ namespace Fanda.UI
                 {
                     if (_repository.Create(_org) > 0)
                     {
-                        _org = new Organization();
-                        orgBindingSource.DataSource = _org;
-                        txtCode.Focus();
+                        //_org = new Organization();
+                        //orgBindingSource.DataSource = _org;
+                        //yearBindingSource.DataSource = _org.Year;
+                        //addressBindingSource.DataSource = _org.Address;
+                        //contactBindingSource.DataSource = _org.Contact;
+                        //txtCode.Focus();
+                        Close();
                     }
                 }
                 else
