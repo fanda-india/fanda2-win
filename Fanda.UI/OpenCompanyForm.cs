@@ -33,7 +33,13 @@ namespace Fanda.UI
         private void btnAdd_Click(object sender, EventArgs e)
         {
             editCompanyForm = FormHelpers.ShowForm(ref editCompanyForm, this.MdiParent);
+            editCompanyForm.FormClosed += EditCompanyForm_FormClosed;
             editCompanyForm.Edit(0);
+        }
+
+        private void EditCompanyForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            RefreshList();
         }
 
         //private void btnEdit_Click(object sender, EventArgs e)
@@ -96,7 +102,7 @@ namespace Fanda.UI
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            if (organizationListModelBindingSource.Current is OrganizationListModel org)
+            if (orgListBindingSource.Current is OrganizationListModel org)
             {
                 AppConfig.CurrentCompany = _repository.GetById(org.Id);
                 Close();
@@ -145,23 +151,23 @@ namespace Fanda.UI
             {
                 case "Code":
                     if (direction == "ASC")
-                        organizationListModelBindingSource.DataSource = _list.OrderBy(k => k.Code);
+                        orgListBindingSource.DataSource = _list.OrderBy(k => k.Code);
                     else
-                        organizationListModelBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
+                        orgListBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
                     break;
 
                 case "Name":
                     if (direction == "ASC")
-                        organizationListModelBindingSource.DataSource = _list.OrderBy(k => k.OrgName);
+                        orgListBindingSource.DataSource = _list.OrderBy(k => k.OrgName);
                     else
-                        organizationListModelBindingSource.DataSource = _list.OrderByDescending(k => k.OrgName);
+                        orgListBindingSource.DataSource = _list.OrderByDescending(k => k.OrgName);
                     break;
 
                 case "Description":
                     if (direction == "ASC")
-                        organizationListModelBindingSource.DataSource = _list.OrderBy(k => k.OrgDesc);
+                        orgListBindingSource.DataSource = _list.OrderBy(k => k.OrgDesc);
                     else
-                        organizationListModelBindingSource.DataSource = _list.OrderByDescending(k => k.OrgDesc);
+                        orgListBindingSource.DataSource = _list.OrderByDescending(k => k.OrgDesc);
                     break;
             };
             // _context.MyEntities.OrderBy(
@@ -171,7 +177,7 @@ namespace Fanda.UI
         private void RefreshList(string searchTerm = null)
         {
             _list = _repository.GetAll(searchTerm);
-            organizationListModelBindingSource.DataSource = _list;
+            orgListBindingSource.DataSource = _list;
             if (_sortColumn != null)
             {
                 string direction = _isSortAscending ? "ASC" : "DESC";
@@ -182,10 +188,28 @@ namespace Fanda.UI
             }
         }
 
+        private void SelectCurrentCompany()
+        {
+            if (AppConfig.CurrentCompany == null)
+                return;
+
+            dgvOrgs.ClearSelection();
+            foreach (DataGridViewRow row in dgvOrgs.Rows)
+            {
+                if (row.Cells[0].Value as string == AppConfig.CurrentCompany.Code)
+                {
+                    row.Selected = true;
+                    dgvOrgs.CurrentCell = row.Cells[0];
+                }
+            }
+        }
+
         #endregion Private methods
 
         private void OpenCompanyForm_Shown(object sender, EventArgs e)
         {
+            txtSearch.Focus();
+            SelectCurrentCompany();
             if (_list.Count == 0)
             {
                 btnAdd.PerformClick();

@@ -16,6 +16,7 @@ namespace Fanda.UI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Text = AppTitle;
             EnableMenu(false);
             mnuFileOpenCompany.PerformClick();
         }

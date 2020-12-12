@@ -55,8 +55,6 @@ namespace Fanda.UI
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.yearBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.orgBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label10 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -91,6 +89,8 @@ namespace Fanda.UI
             this.textBox15 = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.textBox16 = new System.Windows.Forms.TextBox();
+            this.yearBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.orgBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.addressBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.contactBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
@@ -393,14 +393,6 @@ namespace Fanda.UI
             this.tabPage3.Text = "Contact";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // yearBindingSource
-            // 
-            this.yearBindingSource.DataSource = typeof(Fanda2.Backend.Database.AccountYear);
-            // 
-            // orgBindingSource
-            // 
-            this.orgBindingSource.DataSource = typeof(Fanda2.Backend.Database.Organization);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -565,7 +557,7 @@ namespace Fanda.UI
             // 
             // comboBox1
             // 
-            this.comboBox1.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.contactBindingSource, "Salutation", true));
+            this.comboBox1.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.contactBindingSource, "Salutation", true));
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
@@ -698,6 +690,14 @@ namespace Fanda.UI
             this.textBox16.Size = new System.Drawing.Size(251, 23);
             this.textBox16.TabIndex = 15;
             // 
+            // yearBindingSource
+            // 
+            this.yearBindingSource.DataSource = typeof(Fanda2.Backend.Database.AccountYear);
+            // 
+            // orgBindingSource
+            // 
+            this.orgBindingSource.DataSource = typeof(Fanda2.Backend.Database.Organization);
+            // 
             // addressBindingSource
             // 
             this.addressBindingSource.DataSource = typeof(Fanda2.Backend.Database.Address);
@@ -720,7 +720,7 @@ namespace Fanda.UI
             this.Name = "EditCompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Organization";
-            this.Load += new System.EventHandler(this.EditCompanyForm_Load);
+            this.Shown += new System.EventHandler(this.EditCompanyForm_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

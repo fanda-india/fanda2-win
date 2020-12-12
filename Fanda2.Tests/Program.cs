@@ -28,7 +28,7 @@ namespace Fanda2.Tests
                 TAN = "TAN-TEST",
                 GSTIN = "GSTIN-TEST",
                 IsEnabled = true,
-                Address = new Backend.Database.Address
+                Address = new Address
                 {
                     Attention = "Attn Test",
                     AddressLine1 = "Test address line 1",
@@ -40,7 +40,7 @@ namespace Fanda2.Tests
                     Phone = "TEST-PHONE",
                     Fax = "TEST-FAX"
                 },
-                Contact = new Backend.Database.Contact
+                Contact = new Contact
                 {
                     Salutation = "Mr.",
                     FirstName = "TestFirst",
@@ -52,7 +52,7 @@ namespace Fanda2.Tests
                     MobileNumber = "TEST-MOBILE-NUMBER"
                 }
             };
-            orgRepo.UpdateYear(org);
+            //orgRepo.UpdateYear(org);
             orgRepo.Create(org);
         }
 

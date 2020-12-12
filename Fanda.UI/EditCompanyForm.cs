@@ -18,7 +18,7 @@ namespace Fanda.UI
             _repository = new OrganizationRepository();
         }
 
-        private void EditCompanyForm_Load(object sender, EventArgs e)
+        private void EditCompanyForm_Shown(object sender, EventArgs e)
         {
             txtCode.Focus();
         }

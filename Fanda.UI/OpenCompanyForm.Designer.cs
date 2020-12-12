@@ -36,14 +36,14 @@ namespace Fanda.UI
             this.orgNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orgDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.organizationListModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.orgListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrgs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.organizationListModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orgListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvOrgs
@@ -60,7 +60,7 @@ namespace Fanda.UI
             this.orgNameDataGridViewTextBoxColumn,
             this.orgDescDataGridViewTextBoxColumn,
             this.isEnabledDataGridViewCheckBoxColumn});
-            this.dgvOrgs.DataSource = this.organizationListModelBindingSource;
+            this.dgvOrgs.DataSource = this.orgListBindingSource;
             this.dgvOrgs.Location = new System.Drawing.Point(12, 47);
             this.dgvOrgs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvOrgs.Name = "dgvOrgs";
@@ -107,9 +107,9 @@ namespace Fanda.UI
             this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
             this.isEnabledDataGridViewCheckBoxColumn.Width = 75;
             // 
-            // organizationListModelBindingSource
+            // orgListBindingSource
             // 
-            this.organizationListModelBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.OrganizationListModel);
+            this.orgListBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.OrganizationListModel);
             // 
             // txtSearch
             // 
@@ -170,6 +170,7 @@ namespace Fanda.UI
             // 
             // OpenCompanyForm
             // 
+            this.AcceptButton = this.btnOpen;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 460);
@@ -189,7 +190,7 @@ namespace Fanda.UI
             this.Shown += new System.EventHandler(this.OpenCompanyForm_Shown);
             this.Resize += new System.EventHandler(this.OpenCompanyForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrgs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.organizationListModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orgListBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,7 +206,7 @@ namespace Fanda.UI
         private System.Windows.Forms.DataGridViewTextBoxColumn orgNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orgDescDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isEnabledDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.BindingSource organizationListModelBindingSource;
+        private System.Windows.Forms.BindingSource orgListBindingSource;
         private System.Windows.Forms.Button btnOpen;
     }
 }
