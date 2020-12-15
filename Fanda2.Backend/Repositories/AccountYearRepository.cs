@@ -3,6 +3,7 @@
 using Fanda2.Backend.Database;
 using Fanda2.Backend.ViewModels;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,18 +11,26 @@ namespace Fanda2.Backend.Repositories
 {
     public class AccountYearRepository : MasterRepositoryBase<AccountYear, AccountYearListModel>
     {
-        public override List<AccountYearListModel> GetAll(int orgId, string searchTerm = null)
+        public override List<AccountYearListModel> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
+                Func<AccountYearListModel, bool> filterDisabled;
+                if (includeDisabled)
+                    filterDisabled = (p) => true;
+                else
+                    filterDisabled = (p => p.IsEnabled = true);
+
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<AccountYearListModel>(ay => ay.OrgId == orgId)
+                    return con.Select<AccountYearListModel>(ay => ay.OrgId == orgId && filterDisabled(ay))
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<AccountYearListModel>(ay => ay.OrgId == orgId && ay.YearCode.Contains(searchTerm))
+                    return con.Select<AccountYearListModel>(ay => ay.OrgId == orgId &&
+                        filterDisabled(ay) &&
+                        ay.YearCode.Contains(searchTerm))
                         .ToList();
                 }
             }

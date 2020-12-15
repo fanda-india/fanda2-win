@@ -7,7 +7,7 @@ namespace Fanda2.Backend.Repositories
 {
     public class UserRepository : IRootRepository<User, UserListModel>
     {
-        public List<UserListModel> GetAll(string searchTerm = null)
+        public List<UserListModel> GetAll(bool includeDisabled = true, string searchTerm = null)
         {
             throw new System.NotImplementedException();
         }

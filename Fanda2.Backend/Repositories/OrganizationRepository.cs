@@ -29,21 +29,27 @@ namespace Fanda2.Backend.Repositories
             _ledgerGroupRepository = new LedgerGroupRepository();
         }
 
-        public List<OrganizationListModel> GetAll(string searchTerm = null)
+        public List<OrganizationListModel> GetAll(bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
+                Func<OrganizationListModel, bool> filterDisabled;
+                if (includeDisabled)
+                    filterDisabled = (p) => true;
+                else
+                    filterDisabled = (p => p.IsEnabled = true);
+
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.GetAll<OrganizationListModel>()
+                    return con.Select<OrganizationListModel>(o => filterDisabled(o))
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<OrganizationListModel>(o =>
-                         o.Code.Contains(searchTerm) ||
+                    return con.Select<OrganizationListModel>(o => filterDisabled(o) &&
+                         (o.Code.Contains(searchTerm) ||
                          o.OrgName.Contains(searchTerm) ||
-                         o.OrgDesc.Contains(searchTerm)
+                         o.OrgDesc.Contains(searchTerm))
                     ).ToList();
                 }
             }

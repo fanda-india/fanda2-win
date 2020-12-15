@@ -271,7 +271,7 @@ namespace Fanda2.Backend.Repositories
 
         #region Repository methods
 
-        public List<SerialNumber> GetAll(int yearId, string searchTerm = null)
+        public List<SerialNumber> GetAll(int yearId, bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {

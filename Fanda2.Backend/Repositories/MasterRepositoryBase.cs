@@ -18,7 +18,7 @@ namespace Fanda2.Backend.Repositories
             _db = new SQLiteDB();
         }
 
-        public abstract List<TListModel> GetAll(int orgId, string searchTerm = null);
+        public abstract List<TListModel> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null);
 
         public virtual TEntity GetById(int id)
         {

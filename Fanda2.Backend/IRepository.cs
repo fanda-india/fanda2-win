@@ -5,7 +5,7 @@ namespace Fanda2.Backend
 {
     internal interface IRepository<Entity, ListModel>
     {
-        List<ListModel> GetAll(int superId, string searchTerm = null);
+        List<ListModel> GetAll(int superId, bool includeDisabled = true, string searchTerm = null);
 
         Entity GetById(int id);
 
@@ -44,7 +44,7 @@ namespace Fanda2.Backend
 
     internal interface IRootRepository<Entity, ListModel>
     {
-        List<ListModel> GetAll(string searchTerm = null);
+        List<ListModel> GetAll(bool includeDisabled = true, string searchTerm = null);
 
         Entity GetById(int id);
 

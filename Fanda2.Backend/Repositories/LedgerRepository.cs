@@ -27,19 +27,25 @@ namespace Fanda2.Backend.Repositories
             _balanceRepository = new LedgerBalanceRepository();
         }
 
-        public List<LedgerListModel> GetAll(int orgId, string searchTerm = null)
+        public List<LedgerListModel> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
+                Func<LedgerListModel, bool> filterDisabled;
+                if (includeDisabled)
+                    filterDisabled = (p) => true;
+                else
+                    filterDisabled = (p => p.IsEnabled = true);
+
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<LedgerListModel>(l => l.OrgId == orgId)
+                    return con.Select<LedgerListModel>(l => l.OrgId == orgId && filterDisabled(l))
                         .ToList();
                 }
                 else
                 {
                     return con.Select<LedgerListModel>(l =>
-                        l.OrgId == orgId &&
+                        l.OrgId == orgId && filterDisabled(l) &&
                         (l.Code.Contains(searchTerm) ||
                         l.LedgerName.Contains(searchTerm) ||
                         l.LedgerDesc.Contains(searchTerm) ||

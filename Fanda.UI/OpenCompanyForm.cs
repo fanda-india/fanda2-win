@@ -176,7 +176,7 @@ namespace Fanda.UI
 
         private void RefreshList(string searchTerm = null)
         {
-            _list = _repository.GetAll(searchTerm);
+            _list = _repository.GetAll(false, searchTerm);
             orgListBindingSource.DataSource = _list;
             if (_sortColumn != null)
             {
