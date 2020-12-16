@@ -19,7 +19,7 @@ namespace Fanda2.Backend.Repositories
                 if (includeDisabled)
                     filterDisabled = (p) => true;
                 else
-                    filterDisabled = (p => p.IsEnabled = true);
+                    filterDisabled = (p => p.IsEnabled == true);
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {

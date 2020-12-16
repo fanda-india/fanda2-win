@@ -3,12 +3,14 @@
 using Dommel;
 
 using Fanda2.Backend.Database;
+using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Fanda2.Backend.Repositories
 {
@@ -33,24 +35,27 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                Func<OrganizationListModel, bool> filterDisabled;
+                Expression<Func<OrganizationListModel, bool>> filterDisabled;
                 if (includeDisabled)
                     filterDisabled = (p) => true;
                 else
-                    filterDisabled = (p => p.IsEnabled = true);
+                    filterDisabled = (p => p.IsEnabled == true);
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<OrganizationListModel>(o => filterDisabled(o))
+                    return con.Select<OrganizationListModel>(filterDisabled)
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<OrganizationListModel>(o => filterDisabled(o) &&
-                         (o.Code.Contains(searchTerm) ||
+                    Expression<Func<OrganizationListModel, bool>> filterSearchTerm = (o) =>
+                        (o.Code.Contains(searchTerm) ||
                          o.OrgName.Contains(searchTerm) ||
-                         o.OrgDesc.Contains(searchTerm))
-                    ).ToList();
+                         o.OrgDesc.Contains(searchTerm));
+
+                    var expr = DbHelper.AndAlso<OrganizationListModel>(filterDisabled, filterSearchTerm);
+                    return con.Select<OrganizationListModel>(expr)
+                        .ToList();
                 }
             }
         }

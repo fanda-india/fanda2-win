@@ -1,11 +1,13 @@
 ﻿using Dommel;
 
 using Fanda2.Backend.Database;
+using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Fanda2.Backend.Repositories
 {
@@ -15,22 +17,30 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                Func<AccountYearListModel, bool> filterDisabled;
+                Expression<Func<AccountYearListModel, bool>> filterDisabled;
                 if (includeDisabled)
                     filterDisabled = (p) => true;
                 else
-                    filterDisabled = (p => p.IsEnabled = true);
+                    filterDisabled = (p => p.IsEnabled == true);
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<AccountYearListModel>(ay => ay.OrgId == orgId && filterDisabled(ay))
+                    Expression<Func<AccountYearListModel, bool>> filterOrg =
+                        (o) => o.OrgId == orgId;
+
+                    var expr = DbHelper.AndAlso<AccountYearListModel>(filterDisabled, filterOrg);
+                    return con.Select<AccountYearListModel>(expr)
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<AccountYearListModel>(ay => ay.OrgId == orgId &&
-                        filterDisabled(ay) &&
-                        ay.YearCode.Contains(searchTerm))
+                    Expression<Func<AccountYearListModel, bool>> filterOrg =
+                        (ay) => ay.OrgId == orgId &&
+                        ay.YearCode.Contains(searchTerm);
+
+                    var expr = DbHelper.AndAlso<AccountYearListModel>(filterDisabled, filterOrg);
+
+                    return con.Select<AccountYearListModel>(expr)
                         .ToList();
                 }
             }
