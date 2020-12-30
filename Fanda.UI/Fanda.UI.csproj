@@ -109,6 +109,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnitsForm.Designer.cs">
+      <DependentUpon>UnitsForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LedgersForm.resx">
       <DependentUpon>LedgersForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,13 +137,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UnitsForm.resx">
+      <DependentUpon>UnitsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.AccountYear.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Address.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Contact.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Ledger.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Organization.datasource" />
+    <None Include="Properties\DataSources\Fanda2.Backend.Database.Unit.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.ViewModels.OrganizationListModel.datasource" />
+    <None Include="Properties\DataSources\Fanda2.Backend.ViewModels.UnitListModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

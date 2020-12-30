@@ -238,8 +238,8 @@ namespace Fanda.UI
             this.mnuMasterCategories,
             this.mnuMasterUnits});
             this.mnuMaster.Name = "mnuMaster";
-            this.mnuMaster.Size = new System.Drawing.Size(120, 19);
-            this.mnuMaster.Text = "&Master Maitenance";
+            this.mnuMaster.Size = new System.Drawing.Size(127, 19);
+            this.mnuMaster.Text = "&Master Maintenance";
             // 
             // mnuMasterCustomers
             // 
