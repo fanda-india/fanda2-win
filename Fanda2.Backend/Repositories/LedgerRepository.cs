@@ -3,12 +3,14 @@
 using Dommel;
 
 using Fanda2.Backend.Database;
+using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Fanda2.Backend.Repositories
 {
@@ -31,7 +33,7 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                Func<LedgerListModel, bool> filterDisabled;
+                Expression<Func<LedgerListModel, bool>> filterDisabled;
                 if (includeDisabled)
                     filterDisabled = (p) => true;
                 else
@@ -39,18 +41,23 @@ namespace Fanda2.Backend.Repositories
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<LedgerListModel>(l => l.OrgId == orgId && filterDisabled(l))
+                    Expression<Func<LedgerListModel, bool>> filterOrg = (l) => l.OrgId == orgId;
+
+                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
+                    return con.Select(filters)
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<LedgerListModel>(l =>
-                        l.OrgId == orgId && filterDisabled(l) &&
+                    Expression<Func<LedgerListModel, bool>> filterOrg = (l) => l.OrgId == orgId &&
                         (l.Code.Contains(searchTerm) ||
                         l.LedgerName.Contains(searchTerm) ||
                         l.LedgerDesc.Contains(searchTerm) ||
-                        l.GroupName.Contains(searchTerm))
-                    ).ToList();
+                        l.GroupName.Contains(searchTerm));
+
+                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
+                    return con.Select(filters)
+                        .ToList();
                 }
             }
         }

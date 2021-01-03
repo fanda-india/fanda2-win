@@ -25,8 +25,7 @@ namespace Fanda2.Backend.Repositories
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    Expression<Func<AccountYearListModel, bool>> filterOrg =
-                        (o) => o.OrgId == orgId;
+                    Expression<Func<AccountYearListModel, bool>> filterOrg = (o) => o.OrgId == orgId;
 
                     var expr = DbHelper.AndAlso<AccountYearListModel>(filterDisabled, filterOrg);
                     return con.Select<AccountYearListModel>(expr)
@@ -39,7 +38,6 @@ namespace Fanda2.Backend.Repositories
                         ay.YearCode.Contains(searchTerm);
 
                     var expr = DbHelper.AndAlso<AccountYearListModel>(filterDisabled, filterOrg);
-
                     return con.Select<AccountYearListModel>(expr)
                         .ToList();
                 }

@@ -8,6 +8,7 @@ namespace Fanda.UI
         private const string AppTitle = "Fanda v1.0";
         private OpenCompanyForm openCompanyForm;
         private EditCompanyForm editCompanyForm;
+        private UnitsForm unitsForm;
 
         public MainForm()
         {
@@ -53,6 +54,11 @@ namespace Fanda.UI
         }
 
         #endregion File -> Company
+
+        private void mnuMasterUnits_Click(object sender, EventArgs e)
+        {
+            unitsForm = FormHelpers.ShowForm(ref unitsForm, this);
+        }
 
         private void mnuMasterLedgers_Click(object sender, EventArgs e)
         {

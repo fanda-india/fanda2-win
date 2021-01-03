@@ -1,11 +1,13 @@
 ﻿using Dommel;
 
 using Fanda2.Backend.Database;
+using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Fanda2.Backend.Repositories
 {
@@ -15,7 +17,7 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                Func<UnitListModel, bool> filterDisabled;
+                Expression<Func<UnitListModel, bool>> filterDisabled;
                 if (includeDisabled)
                     filterDisabled = (p) => true;
                 else
@@ -23,17 +25,22 @@ namespace Fanda2.Backend.Repositories
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<UnitListModel>(u => u.OrgId == orgId && filterDisabled(u))
+                    Expression<Func<UnitListModel, bool>> filterOrg = (o) => o.OrgId == orgId;
+
+                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
+                    return con.Select(filters)
                         .ToList();
                 }
                 else
                 {
-                    return con.Select<UnitListModel>(u =>
-                        u.OrgId == orgId && filterDisabled(u) &&
-                         (u.Code.Contains(searchTerm) ||
-                         u.UnitName.Contains(searchTerm) ||
-                         u.UnitDesc.Contains(searchTerm))
-                    ).ToList();
+                    Expression<Func<UnitListModel, bool>> filterOrg = (u) => u.OrgId == orgId &&
+                        (u.Code.Contains(searchTerm) ||
+                        u.UnitName.Contains(searchTerm) ||
+                        u.UnitDesc.Contains(searchTerm));
+
+                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
+                    return con.Select(filters)
+                        .ToList();
                 }
             }
         }

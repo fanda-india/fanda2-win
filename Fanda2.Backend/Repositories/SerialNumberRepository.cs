@@ -275,20 +275,8 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                //if (string.IsNullOrEmpty(searchTerm))
-                //{
                 return con.Select<SerialNumber>(sn => sn.YearId == yearId)
                     .ToList();
-                //}
-                //else
-                //{
-                //    return con.Select<SerialNumber>(u =>
-                //        u.YearId == yearId &&
-                //         (u.Contains(searchTerm) ||
-                //         u.UnitName.Contains(searchTerm) ||
-                //         u.UnitDesc.Contains(searchTerm))
-                //    ).ToList();
-                //}
             }
         }
 
