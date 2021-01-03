@@ -14,5 +14,13 @@ namespace Fanda2.Backend.Helpers
             var lambda = Expression.Lambda<Func<T, bool>>(body, expr1.Parameters[0]);
             return lambda;
         }
+
+        public static Expression<Func<T, bool>> OrElse<T>(Expression<Func<T, bool>> expr1,
+            Expression<Func<T, bool>> expr2)
+        {
+            var body = Expression.OrElse(expr1.Body, expr2.Body);
+            var lambda = Expression.Lambda<Func<T, bool>>(body, expr1.Parameters[0]);
+            return lambda;
+        }
     }
 }

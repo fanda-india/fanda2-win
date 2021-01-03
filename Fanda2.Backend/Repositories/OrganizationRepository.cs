@@ -37,13 +37,13 @@ namespace Fanda2.Backend.Repositories
             {
                 Expression<Func<OrganizationListModel, bool>> filterDisabled;
                 if (includeDisabled)
-                    filterDisabled = (p) => true;
+                    filterDisabled = (o) => true;
                 else
-                    filterDisabled = (p => p.IsEnabled == true);
+                    filterDisabled = (o) => o.IsEnabled == true;
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    return con.Select<OrganizationListModel>(filterDisabled)
+                    return con.Select(filterDisabled)
                         .ToList();
                 }
                 else
@@ -53,8 +53,8 @@ namespace Fanda2.Backend.Repositories
                          o.OrgName.Contains(searchTerm) ||
                          o.OrgDesc.Contains(searchTerm));
 
-                    var expr = DbHelper.AndAlso<OrganizationListModel>(filterDisabled, filterSearchTerm);
-                    return con.Select<OrganizationListModel>(expr)
+                    var expr = DbHelper.AndAlso(filterDisabled, filterSearchTerm);
+                    return con.Select(expr)
                         .ToList();
                 }
             }

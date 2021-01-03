@@ -1,14 +1,11 @@
-﻿using Fanda2.Backend.Repositories;
+﻿using Fanda2.Backend.Database;
+using Fanda2.Backend.Repositories;
 using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -17,6 +14,7 @@ namespace Fanda.UI
     {
         private readonly UnitRepository _repository;
         private List<UnitListModel> _list;
+        private Unit _unit;
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
@@ -61,7 +59,7 @@ namespace Fanda.UI
 
             dgvUnits.Columns[0].Width = (int)(Width * 0.1);
             dgvUnits.Columns[1].Width = (int)(Width * 0.3);
-            dgvUnits.Columns[2].Width = (int)(Width * 0.42);
+            dgvUnits.Columns[2].Width = (int)(Width * 0.3);
             dgvUnits.Columns[3].Width = (int)(Width * 0.1);
         }
 
@@ -98,18 +96,53 @@ namespace Fanda.UI
 
         private void RefreshList(string searchTerm = null)
         {
-            _list = _repository.GetAll(AppConfig.CurrentCompany.Id, false, searchTerm);
+            _list = _repository.GetAll(AppConfig.CurrentCompany.Id, true, searchTerm);
             unitListBindingSource.DataSource = _list;
             if (_sortColumn != null)
             {
                 string direction = _isSortAscending ? "ASC" : "DESC";
                 ApplySort(_sortColumn.DataPropertyName, direction);
-                //dgvOrgs_ColumnHeaderMouseClick(this,
-                //    new DataGridViewCellMouseEventArgs(_sortColumn.Index, 0, 0, 0,
-                //    new MouseEventArgs(MouseButtons.Left, 0, 0, 0, 0)));
             }
         }
 
         #endregion Private methods
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            _unit = new Unit();
+            unitBindingSource.DataSource = _unit;
+            txtCode.Focus();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            bool success;
+            if (_unit.Id == 0)
+                success = _repository.Create(AppConfig.CurrentCompany.Id, _unit) != 0;
+            else
+                success = _repository.Update(_unit.Id, _unit);
+            if (success)
+            {
+                RefreshList();
+                tssLabel.Text = "Saved successfully!";
+            }
+            else
+                tssLabel.Text = "Error: Error occured while saving.";
+        }
+
+        private void dgvUnits_SelectionChanged(object sender, EventArgs e)
+        {
+            if (unitListBindingSource.Current is UnitListModel unit)
+            {
+                _unit = _repository.GetById(unit.Id);
+                unitBindingSource.DataSource = _unit;
+                tssLabel.Text = "Ready";
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            dgvUnits_SelectionChanged(this, new EventArgs());
+        }
     }
 }

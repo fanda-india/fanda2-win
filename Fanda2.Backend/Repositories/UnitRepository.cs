@@ -1,47 +1,45 @@
-﻿using Dommel;
+﻿using Dapper;
+
+using Dommel;
 
 using Fanda2.Backend.Database;
-using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Text;
 
 namespace Fanda2.Backend.Repositories
 {
     public class UnitRepository : MasterRepositoryBase<Unit, UnitListModel>
     {
+        public UnitRepository()
+        {
+            DommelMapper.LogReceived = (qry) =>
+            {
+                Debug.WriteLine("LOG: " + qry);
+            };
+        }
+
         public override List<UnitListModel> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
-                Expression<Func<UnitListModel, bool>> filterDisabled;
-                if (includeDisabled)
-                    filterDisabled = (p) => true;
-                else
-                    filterDisabled = (p => p.IsEnabled == true);
+                StringBuilder filters = new StringBuilder($"org_id = {orgId}");
 
-                if (string.IsNullOrEmpty(searchTerm))
+                if (!includeDisabled)
+                    filters.Append(" and is_enabled = 1");
+
+                if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    Expression<Func<UnitListModel, bool>> filterOrg = (o) => o.OrgId == orgId;
-
-                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
-                    return con.Select(filters)
-                        .ToList();
+                    filters.Append($" and (code like '%{searchTerm}%' or unit_name like '%{searchTerm}%' or unit_desc like '%{searchTerm}%')");
                 }
-                else
-                {
-                    Expression<Func<UnitListModel, bool>> filterOrg = (u) => u.OrgId == orgId &&
-                        (u.Code.Contains(searchTerm) ||
-                        u.UnitName.Contains(searchTerm) ||
-                        u.UnitDesc.Contains(searchTerm));
 
-                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
-                    return con.Select(filters)
-                        .ToList();
-                }
+                var list = con.Query<UnitListModel>($"select * from units where {filters}")
+                    .ToList();
+
+                return list;
             }
         }
     }

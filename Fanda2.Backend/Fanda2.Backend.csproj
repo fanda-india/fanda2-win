@@ -7,8 +7,15 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
     <PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
-    <PackageReference Include="Dapper.FluentMap.Dommel" Version="2.0.0" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.113.6" />
+    <PackageReference Include="Serilog" Version="2.10.1-dev-01265" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00839" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dapper-FluentMap\src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj" />
+    <ProjectReference Include="..\Dapper-FluentMap\src\Dapper.FluentMap\Dapper.FluentMap.csproj" />
+    <ProjectReference Include="..\Dommel\src\Dommel\Dommel.csproj" />
   </ItemGroup>
 
 </Project>
