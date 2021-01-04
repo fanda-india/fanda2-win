@@ -88,14 +88,14 @@ namespace Fanda2.Backend.Repositories
             {
                 using (var tran = con.BeginTransaction())
                 {
-                    int ledgerId = Create(orgId, ledger, con, tran);
+                    int ledgerId = Add(orgId, ledger, con, tran);
                     tran.Commit();
                     return ledgerId;
                 }
             }
         }
 
-        public int Create(int orgId, Ledger ledger, IDbConnection con, IDbTransaction tran)
+        public int Add(int orgId, Ledger ledger, IDbConnection con, IDbTransaction tran)
         {
             ledger.OrgId = orgId;
             ledger.CreatedAt = DateTime.Now;

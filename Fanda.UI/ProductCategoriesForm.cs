@@ -11,57 +11,57 @@ using System.Windows.Forms;
 
 namespace Fanda.UI
 {
-    public partial class UnitsForm : Form
+    public partial class ProductCategoriesForm : Form
     {
-        private readonly UnitRepository _repository;
-        private List<UnitListModel> _list;
-        private Unit _unit;
+        private readonly ProductCategoryRepository _repository;
+        private List<ProductCategoryListModel> _list;
+        private ProductCategory _editItem;
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
-        public UnitsForm()
+        public ProductCategoriesForm()
         {
             InitializeComponent();
-            _repository = new UnitRepository();
+            _repository = new ProductCategoryRepository();
         }
 
         #region Form events
 
-        private void UnitsForm_Load(object sender, EventArgs e)
+        private void ProductCategoriesForm_Load(object sender, EventArgs e)
         {
             RefreshList(txtSearch.Text);
         }
 
-        private void UnitsForm_Resize(object sender, EventArgs e)
+        private void ProductCategoriesForm_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {
                 return;
             }
 
-            dgvUnits.Columns[0].Width = (int)(Width * 0.1);
-            dgvUnits.Columns[1].Width = (int)(Width * 0.3);
-            dgvUnits.Columns[2].Width = (int)(Width * 0.3);
-            dgvUnits.Columns[3].Width = (int)(Width * 0.1);
+            dgvProductCategories.Columns[0].Width = (int)(Width * 0.1);
+            dgvProductCategories.Columns[1].Width = (int)(Width * 0.3);
+            dgvProductCategories.Columns[2].Width = (int)(Width * 0.3);
+            dgvProductCategories.Columns[3].Width = (int)(Width * 0.1);
         }
 
         #endregion Form events
 
         #region DataGridView events
 
-        private void dgvUnits_SelectionChanged(object sender, EventArgs e)
+        private void dgvProductCategories_SelectionChanged(object sender, EventArgs e)
         {
-            if (unitListBindingSource.Current is UnitListModel unit)
+            if (categoryListBindingSource.Current is ProductCategoryListModel currentItem)
             {
-                _unit = _repository.GetById(unit.Id);
-                unitBindingSource.DataSource = _unit;
+                _editItem = _repository.GetById(currentItem.Id);
+                categoryBindingSource.DataSource = _editItem;
                 tssLabel.Text = "Ready";
             }
         }
 
-        private void dgvUnits_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvProductCategories_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            DataGridViewColumn column = dgvUnits.Columns[e.ColumnIndex];
+            DataGridViewColumn column = dgvProductCategories.Columns[e.ColumnIndex];
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
             string direction = _isSortAscending ? "ASC" : "DESC";
 
@@ -84,32 +84,31 @@ namespace Fanda.UI
         {
             txtCode_Validated(this, null);
             txtName_Validated(this, null);
-            if (!string.IsNullOrEmpty(unitErrors.GetError(txtCode)) ||
-                !string.IsNullOrEmpty(unitErrors.GetError(txtName)))
+            if (!string.IsNullOrEmpty(itemErrors.GetError(txtCode)) ||
+                !string.IsNullOrEmpty(itemErrors.GetError(txtName)))
                 return;
 
-            int newUnitId = 0;
+            int newItemId = 0;
             bool success;
-            if (_unit.Id == 0)
+            if (_editItem.Id == 0)
             {
-                newUnitId = _repository.Add(AppConfig.CurrentCompany.Id, _unit);
-                success = newUnitId != 0;
+                newItemId = _repository.Add(AppConfig.CurrentCompany.Id, _editItem);
+                success = newItemId != 0;
             }
             else
             {
-                success = _repository.Update(_unit.Id, _unit);
+                success = _repository.Update(_editItem.Id, _editItem);
             }
 
             if (success)
             {
                 RefreshList(txtSearch.Text);
 
-                if (newUnitId > 0)
+                if (newItemId > 0)
                 {
-                    var item = (unitListBindingSource.DataSource as List<UnitListModel>).Find(u => u.Id == newUnitId);
-                    int index = unitListBindingSource.IndexOf(item);
-                    //int index = unitListBindingSource.Find("Id", newUnitId);
-                    unitListBindingSource.Position = index;
+                    var item = (categoryListBindingSource.DataSource as List<ProductCategoryListModel>).Find(u => u.Id == newItemId);
+                    int index = categoryListBindingSource.IndexOf(item);
+                    categoryListBindingSource.Position = index;
                 }
                 tssLabel.Text = "Saved successfully!";
             }
@@ -121,10 +120,8 @@ namespace Fanda.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //unitErrors.SetError(txtCode, null);
-            //unitErrors.SetError(txtName, null);
-            unitErrors.Clear();
-            dgvUnits_SelectionChanged(this, new EventArgs());
+            itemErrors.Clear();
+            dgvProductCategories_SelectionChanged(this, new EventArgs());
         }
 
         #endregion Save & Cancel button events
@@ -143,22 +140,22 @@ namespace Fanda.UI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _unit = new Unit();
-            unitBindingSource.DataSource = _unit;
+            _editItem = new ProductCategory();
+            categoryBindingSource.DataSource = _editItem;
             txtCode.Focus();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            UnitListModel unit = unitListBindingSource.Current as UnitListModel;
-            if (unit == null)
+            ProductCategoryListModel currentItem = categoryListBindingSource.Current as ProductCategoryListModel;
+            if (currentItem == null)
                 return;
 
-            DialogResult result = MessageBox.Show($"Are you sure, you want to delete unit '{unit.Code}'?", "Delete",
+            DialogResult result = MessageBox.Show($"Are you sure, you want to delete product category '{currentItem.Code}'?", "Delete",
             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {
-                bool success = _repository.Remove(unit.Id);
+                bool success = _repository.Remove(currentItem.Id);
                 if (success)
                 {
                     RefreshList(txtSearch.Text);
@@ -179,32 +176,32 @@ namespace Fanda.UI
         {
             if (string.IsNullOrWhiteSpace(txtCode.Text))
             {
-                unitErrors.SetError(txtCode, $"Unit code is required!");
+                itemErrors.SetError(txtCode, $"Product category code is required!");
                 return;
             }
             else
-                unitErrors.SetError(txtCode, null);
+                itemErrors.SetError(txtCode, null);
 
-            if (_repository.Exists(KeyField.Code, txtCode.Text, _unit.Id, AppConfig.CurrentCompany.Id))
-                unitErrors.SetError(txtCode, $"Unit code '{txtCode.Text}' already exists!");
+            if (_repository.Exists(KeyField.Code, txtCode.Text, _editItem.Id, AppConfig.CurrentCompany.Id))
+                itemErrors.SetError(txtCode, $"Product category code '{txtCode.Text}' already exists!");
             else
-                unitErrors.SetError(txtCode, null);
+                itemErrors.SetError(txtCode, null);
         }
 
         private void txtName_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                unitErrors.SetError(txtName, $"Unit name is required!");
+                itemErrors.SetError(txtName, $"Product category name is required!");
                 return;
             }
             else
-                unitErrors.SetError(txtName, null);
+                itemErrors.SetError(txtName, null);
 
-            if (_repository.Exists(KeyField.Name, txtName.Text, _unit.Id, AppConfig.CurrentCompany.Id))
-                unitErrors.SetError(txtName, $"Unit name '{txtName.Text}' already exists!");
+            if (_repository.Exists(KeyField.Name, txtName.Text, _editItem.Id, AppConfig.CurrentCompany.Id))
+                itemErrors.SetError(txtName, $"Product category name '{txtName.Text}' already exists!");
             else
-                unitErrors.SetError(txtName, null);
+                itemErrors.SetError(txtName, null);
         }
 
         #endregion Validation events
@@ -218,11 +215,11 @@ namespace Fanda.UI
                 case "Code":
                     if (direction == "ASC")
                     {
-                        unitListBindingSource.DataSource = _list.OrderBy(k => k.Code);
+                        categoryListBindingSource.DataSource = _list.OrderBy(k => k.Code);
                     }
                     else
                     {
-                        unitListBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
+                        categoryListBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
                     }
 
                     break;
@@ -230,11 +227,11 @@ namespace Fanda.UI
                 case "Name":
                     if (direction == "ASC")
                     {
-                        unitListBindingSource.DataSource = _list.OrderBy(k => k.UnitName);
+                        categoryListBindingSource.DataSource = _list.OrderBy(k => k.CategoryName);
                     }
                     else
                     {
-                        unitListBindingSource.DataSource = _list.OrderByDescending(k => k.UnitName);
+                        categoryListBindingSource.DataSource = _list.OrderByDescending(k => k.CategoryName);
                     }
 
                     break;
@@ -242,11 +239,11 @@ namespace Fanda.UI
                 case "Description":
                     if (direction == "ASC")
                     {
-                        unitListBindingSource.DataSource = _list.OrderBy(k => k.UnitDesc);
+                        categoryListBindingSource.DataSource = _list.OrderBy(k => k.CategoryDesc);
                     }
                     else
                     {
-                        unitListBindingSource.DataSource = _list.OrderByDescending(k => k.UnitDesc);
+                        categoryListBindingSource.DataSource = _list.OrderByDescending(k => k.CategoryDesc);
                     }
 
                     break;
@@ -258,7 +255,7 @@ namespace Fanda.UI
         private void RefreshList(string searchTerm)
         {
             _list = _repository.GetAll(AppConfig.CurrentCompany.Id, true, searchTerm);
-            unitListBindingSource.DataSource = _list;
+            categoryListBindingSource.DataSource = _list;
             if (_sortColumn != null)
             {
                 string direction = _isSortAscending ? "ASC" : "DESC";

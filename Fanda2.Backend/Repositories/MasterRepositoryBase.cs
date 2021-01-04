@@ -36,12 +36,12 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                int newId = Create(orgId, entity, con, null);
+                int newId = Add(orgId, entity, con, null);
                 return newId;
             }
         }
 
-        public int Create(int orgId, TEntity entity, IDbConnection con, IDbTransaction tran)
+        public int Add(int orgId, TEntity entity, IDbConnection con, IDbTransaction tran)
         {
             if (entity == null || entity.IsEmpty())
             {

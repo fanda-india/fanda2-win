@@ -103,7 +103,7 @@ namespace Fanda2.Backend.Repositories
                     org.Id = orgId;
 
                     // Accounting Year
-                    int yearId = _yearRepository.Create(orgId, org.Year, con, tran);
+                    int yearId = _yearRepository.Add(orgId, org.Year, con, tran);
                     UpdateActiveYearId(orgId, yearId, con, tran);
 
                     // Seed: Org
@@ -215,7 +215,7 @@ namespace Fanda2.Backend.Repositories
         private void SeedOrgProductCategories(int orgId, IDbConnection con, IDbTransaction tran)
         {
             var productCategoryRepo = new ProductCategoryRepository();
-            productCategoryRepo.Create(orgId, new ProductCategory
+            productCategoryRepo.Add(orgId, new ProductCategory
             {
                 Code = "DEFAULT",
                 CategoryName = "Default",
@@ -228,7 +228,7 @@ namespace Fanda2.Backend.Repositories
         private void SeedOrgUnits(int orgId, IDbConnection con, IDbTransaction tran)
         {
             var unitRepo = new UnitRepository();
-            unitRepo.Create(orgId, new Unit
+            unitRepo.Add(orgId, new Unit
             {
                 Code = "EACH",
                 UnitName = "Each",
@@ -240,7 +240,7 @@ namespace Fanda2.Backend.Repositories
         private void SeedYearSerialNumbers(int yearId, IDbConnection con, IDbTransaction tran)
         {
             var serialRepo = new SerialNumberRepository();
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Receipts,
                 SerialPrefix = "R",
@@ -248,7 +248,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Payments,
                 SerialPrefix = "Y",
@@ -256,7 +256,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Deposits,
                 SerialPrefix = "D",
@@ -264,7 +264,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Withdrawls,
                 SerialPrefix = "W",
@@ -272,7 +272,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Journals,
                 SerialPrefix = "J",
@@ -280,7 +280,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Purchase,
                 SerialPrefix = "P",
@@ -288,7 +288,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Sales,
                 SerialPrefix = "S",
@@ -296,7 +296,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.DebitNote,
                 SerialPrefix = "B",
@@ -304,7 +304,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.CreditNote,
                 SerialPrefix = "C",
@@ -312,7 +312,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.Stock,
                 SerialPrefix = "O",
@@ -320,7 +320,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.RawMaterial,
                 SerialPrefix = "M",
@@ -328,7 +328,7 @@ namespace Fanda2.Backend.Repositories
                 SerialSuffix = null,
                 SerialReset = Enums.SerialNumberReset.Max
             }, con, tran);
-            serialRepo.Create(yearId, new SerialNumber
+            serialRepo.Add(yearId, new SerialNumber
             {
                 SerialModule = Enums.SerialNumberModule.TagNumber,
                 SerialPrefix = "AA-",
@@ -343,7 +343,7 @@ namespace Fanda2.Backend.Repositories
             var ledgerRepo = new LedgerRepository();
 
             // Ledgers
-            ledgerRepo.Create(orgId, new Ledger
+            ledgerRepo.Add(orgId, new Ledger
             {
                 Code = "CASH",
                 LedgerName = "Cash on hand",
@@ -353,7 +353,7 @@ namespace Fanda2.Backend.Repositories
                 IsSystem = true,
                 IsEnabled = true
             }, con, tran);
-            ledgerRepo.Create(orgId, new Ledger
+            ledgerRepo.Add(orgId, new Ledger
             {
                 Code = "PURCHASE",
                 LedgerName = "Purchase",
@@ -363,7 +363,7 @@ namespace Fanda2.Backend.Repositories
                 IsSystem = true,
                 IsEnabled = true
             }, con, tran);
-            ledgerRepo.Create(orgId, new Ledger
+            ledgerRepo.Add(orgId, new Ledger
             {
                 Code = "SALES",
                 LedgerName = "Sales",
@@ -373,7 +373,7 @@ namespace Fanda2.Backend.Repositories
                 IsSystem = true,
                 IsEnabled = true
             }, con, tran);
-            ledgerRepo.Create(orgId, new Ledger
+            ledgerRepo.Add(orgId, new Ledger
             {
                 Code = "DEBITNOTE",
                 LedgerName = "Debit Note",
@@ -383,7 +383,7 @@ namespace Fanda2.Backend.Repositories
                 IsSystem = true,
                 IsEnabled = true
             }, con, tran);
-            ledgerRepo.Create(orgId, new Ledger
+            ledgerRepo.Add(orgId, new Ledger
             {
                 Code = "CREDITNOTE",
                 LedgerName = "Credit Note",
@@ -393,7 +393,7 @@ namespace Fanda2.Backend.Repositories
                 IsSystem = true,
                 IsEnabled = true
             }, con, tran);
-            ledgerRepo.Create(orgId, new Ledger
+            ledgerRepo.Add(orgId, new Ledger
             {
                 Code = "STOCK",
                 LedgerName = "Stock on hand",

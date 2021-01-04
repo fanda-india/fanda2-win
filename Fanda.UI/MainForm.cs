@@ -9,6 +9,7 @@ namespace Fanda.UI
         private OpenCompanyForm openCompanyForm;
         private EditCompanyForm editCompanyForm;
         private UnitsForm unitsForm;
+        private ProductCategoriesForm productCategoriesForm;
 
         public MainForm()
         {
@@ -62,6 +63,11 @@ namespace Fanda.UI
         private void mnuMasterUnits_Click(object sender, EventArgs e)
         {
             unitsForm = FormHelpers.ShowForm(ref unitsForm, this);
+        }
+
+        private void mnuMasterCategories_Click(object sender, EventArgs e)
+        {
+            productCategoriesForm = FormHelpers.ShowForm(ref productCategoriesForm, this);
         }
 
         private void mnuMasterLedgers_Click(object sender, EventArgs e)

@@ -292,11 +292,11 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                return Create(yearId, entity, con, null);
+                return Add(yearId, entity, con, null);
             }
         }
 
-        public int Create(int yearId, SerialNumber entity,
+        public int Add(int yearId, SerialNumber entity,
             IDbConnection con, IDbTransaction tran)
         {
             entity.YearId = yearId;

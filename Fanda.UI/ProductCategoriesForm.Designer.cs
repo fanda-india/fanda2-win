@@ -1,7 +1,7 @@
 ﻿
 namespace Fanda.UI
 {
-    partial class UnitsForm
+    partial class ProductCategoriesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,15 +34,15 @@ namespace Fanda.UI
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
-            this.unitBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.unitListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.unitStatus = new System.Windows.Forms.StatusStrip();
+            this.categoryListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.itemStatus = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -50,19 +50,20 @@ namespace Fanda.UI
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.dgvUnits = new System.Windows.Forms.DataGridView();
+            this.dgvProductCategories = new System.Windows.Forms.DataGridView();
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unitNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unitDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parentCategoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.unitErrors = new System.Windows.Forms.ErrorProvider(this.components);
+            this.itemErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unitListBindingSource)).BeginInit();
-            this.unitStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.categoryListBindingSource)).BeginInit();
+            this.itemStatus.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUnits)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unitErrors)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductCategories)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemErrors)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -83,7 +84,7 @@ namespace Fanda.UI
             this.groupBox1.Size = new System.Drawing.Size(638, 165);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Unit Details";
+            this.groupBox1.Text = "Product Category Details";
             // 
             // btnCancel
             // 
@@ -110,7 +111,7 @@ namespace Fanda.UI
             // chkEnabled
             // 
             this.chkEnabled.AutoSize = true;
-            this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.unitBindingSource, "IsEnabled", true));
+            this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.categoryBindingSource, "IsEnabled", true));
             this.chkEnabled.Location = new System.Drawing.Point(75, 131);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(71, 17);
@@ -118,15 +119,15 @@ namespace Fanda.UI
             this.chkEnabled.Text = "Enabled?";
             this.chkEnabled.UseVisualStyleBackColor = true;
             // 
-            // unitBindingSource
+            // categoryBindingSource
             // 
-            this.unitBindingSource.DataSource = typeof(Fanda2.Backend.Database.Unit);
+            this.categoryBindingSource.DataSource = typeof(Fanda2.Backend.Database.ProductCategory);
             // 
             // txtDescription
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "UnitDesc", true));
+            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.categoryBindingSource, "CategoryDesc", true));
             this.txtDescription.Location = new System.Drawing.Point(75, 71);
             this.txtDescription.MaxLength = 255;
             this.txtDescription.Multiline = true;
@@ -138,7 +139,7 @@ namespace Fanda.UI
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "UnitName", true));
+            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.categoryBindingSource, "CategoryName", true));
             this.txtName.Location = new System.Drawing.Point(75, 45);
             this.txtName.MaxLength = 25;
             this.txtName.Name = "txtName";
@@ -158,7 +159,7 @@ namespace Fanda.UI
             // txtCode
             // 
             this.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "Code", true));
+            this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.categoryBindingSource, "Code", true));
             this.txtCode.Location = new System.Drawing.Point(75, 19);
             this.txtCode.MaxLength = 16;
             this.txtCode.Name = "txtCode";
@@ -184,20 +185,20 @@ namespace Fanda.UI
             this.label1.TabIndex = 0;
             this.label1.Text = "&Code:";
             // 
-            // unitListBindingSource
+            // categoryListBindingSource
             // 
-            this.unitListBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.UnitListModel);
+            this.categoryListBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.ProductCategoryListModel);
             // 
-            // unitStatus
+            // itemStatus
             // 
-            this.unitStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
-            this.unitStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.itemStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabel});
-            this.unitStatus.Location = new System.Drawing.Point(0, 447);
-            this.unitStatus.Name = "unitStatus";
-            this.unitStatus.Size = new System.Drawing.Size(662, 22);
-            this.unitStatus.TabIndex = 2;
-            this.unitStatus.Text = "Ready";
+            this.itemStatus.Location = new System.Drawing.Point(0, 447);
+            this.itemStatus.Name = "itemStatus";
+            this.itemStatus.Size = new System.Drawing.Size(662, 22);
+            this.itemStatus.TabIndex = 2;
+            this.itemStatus.Text = "Ready";
             // 
             // tssLabel
             // 
@@ -217,13 +218,13 @@ namespace Fanda.UI
             this.groupBox2.Controls.Add(this.btnAdd);
             this.groupBox2.Controls.Add(this.txtSearch);
             this.groupBox2.Controls.Add(this.btnRefresh);
-            this.groupBox2.Controls.Add(this.dgvUnits);
+            this.groupBox2.Controls.Add(this.dgvProductCategories);
             this.groupBox2.Location = new System.Drawing.Point(12, 183);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(638, 261);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Units";
+            this.groupBox2.Text = "Product Categories";
             // 
             // label4
             // 
@@ -277,93 +278,94 @@ namespace Fanda.UI
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // dgvUnits
+            // dgvProductCategories
             // 
-            this.dgvUnits.AllowUserToAddRows = false;
-            this.dgvUnits.AllowUserToDeleteRows = false;
-            this.dgvUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvProductCategories.AllowUserToAddRows = false;
+            this.dgvProductCategories.AllowUserToDeleteRows = false;
+            this.dgvProductCategories.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvUnits.AutoGenerateColumns = false;
-            this.dgvUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUnits.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvProductCategories.AutoGenerateColumns = false;
+            this.dgvProductCategories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductCategories.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codeDataGridViewTextBoxColumn,
-            this.unitNameDataGridViewTextBoxColumn,
-            this.unitDescDataGridViewTextBoxColumn,
+            this.categoryNameDataGridViewTextBoxColumn,
+            this.categoryDescDataGridViewTextBoxColumn,
+            this.parentCategoryNameDataGridViewTextBoxColumn,
             this.isEnabledDataGridViewCheckBoxColumn});
-            this.dgvUnits.DataSource = this.unitListBindingSource;
-            this.dgvUnits.Location = new System.Drawing.Point(6, 48);
-            this.dgvUnits.Name = "dgvUnits";
-            this.dgvUnits.ReadOnly = true;
-            this.dgvUnits.RowHeadersWidth = 51;
-            this.dgvUnits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUnits.Size = new System.Drawing.Size(626, 207);
-            this.dgvUnits.TabIndex = 5;
-            this.dgvUnits.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvUnits_ColumnHeaderMouseClick);
-            this.dgvUnits.SelectionChanged += new System.EventHandler(this.dgvUnits_SelectionChanged);
+            this.dgvProductCategories.DataSource = this.categoryListBindingSource;
+            this.dgvProductCategories.Location = new System.Drawing.Point(6, 48);
+            this.dgvProductCategories.Name = "dgvProductCategories";
+            this.dgvProductCategories.ReadOnly = true;
+            this.dgvProductCategories.RowHeadersWidth = 51;
+            this.dgvProductCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProductCategories.Size = new System.Drawing.Size(626, 207);
+            this.dgvProductCategories.TabIndex = 5;
+            this.dgvProductCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvProductCategories_ColumnHeaderMouseClick);
+            this.dgvProductCategories.SelectionChanged += new System.EventHandler(this.dgvProductCategories_SelectionChanged);
             // 
             // codeDataGridViewTextBoxColumn
             // 
             this.codeDataGridViewTextBoxColumn.DataPropertyName = "Code";
             this.codeDataGridViewTextBoxColumn.HeaderText = "Code";
-            this.codeDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.codeDataGridViewTextBoxColumn.Name = "codeDataGridViewTextBoxColumn";
             this.codeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codeDataGridViewTextBoxColumn.Width = 125;
             // 
-            // unitNameDataGridViewTextBoxColumn
+            // categoryNameDataGridViewTextBoxColumn
             // 
-            this.unitNameDataGridViewTextBoxColumn.DataPropertyName = "UnitName";
-            this.unitNameDataGridViewTextBoxColumn.HeaderText = "Unit Name";
-            this.unitNameDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.unitNameDataGridViewTextBoxColumn.Name = "unitNameDataGridViewTextBoxColumn";
-            this.unitNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.unitNameDataGridViewTextBoxColumn.Width = 125;
+            this.categoryNameDataGridViewTextBoxColumn.DataPropertyName = "CategoryName";
+            this.categoryNameDataGridViewTextBoxColumn.HeaderText = "Category Name";
+            this.categoryNameDataGridViewTextBoxColumn.Name = "categoryNameDataGridViewTextBoxColumn";
+            this.categoryNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.categoryNameDataGridViewTextBoxColumn.Width = 150;
             // 
-            // unitDescDataGridViewTextBoxColumn
+            // categoryDescDataGridViewTextBoxColumn
             // 
-            this.unitDescDataGridViewTextBoxColumn.DataPropertyName = "UnitDesc";
-            this.unitDescDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.unitDescDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.unitDescDataGridViewTextBoxColumn.Name = "unitDescDataGridViewTextBoxColumn";
-            this.unitDescDataGridViewTextBoxColumn.ReadOnly = true;
-            this.unitDescDataGridViewTextBoxColumn.Width = 125;
+            this.categoryDescDataGridViewTextBoxColumn.DataPropertyName = "CategoryDesc";
+            this.categoryDescDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.categoryDescDataGridViewTextBoxColumn.Name = "categoryDescDataGridViewTextBoxColumn";
+            this.categoryDescDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // parentCategoryNameDataGridViewTextBoxColumn
+            // 
+            this.parentCategoryNameDataGridViewTextBoxColumn.DataPropertyName = "ParentCategoryName";
+            this.parentCategoryNameDataGridViewTextBoxColumn.HeaderText = "Parent";
+            this.parentCategoryNameDataGridViewTextBoxColumn.Name = "parentCategoryNameDataGridViewTextBoxColumn";
+            this.parentCategoryNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // isEnabledDataGridViewCheckBoxColumn
             // 
             this.isEnabledDataGridViewCheckBoxColumn.DataPropertyName = "IsEnabled";
             this.isEnabledDataGridViewCheckBoxColumn.HeaderText = "IsEnabled";
-            this.isEnabledDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
             this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
-            this.isEnabledDataGridViewCheckBoxColumn.Width = 125;
             // 
-            // unitErrors
+            // itemErrors
             // 
-            this.unitErrors.ContainerControl = this;
+            this.itemErrors.ContainerControl = this;
             // 
-            // UnitsForm
+            // ProductCategoriesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 469);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.unitStatus);
+            this.Controls.Add(this.itemStatus);
             this.Controls.Add(this.groupBox1);
-            this.Name = "UnitsForm";
-            this.Text = "Units";
-            this.Load += new System.EventHandler(this.UnitsForm_Load);
-            this.Resize += new System.EventHandler(this.UnitsForm_Resize);
+            this.Name = "ProductCategoriesForm";
+            this.Text = "Product Categories";
+            this.Load += new System.EventHandler(this.ProductCategoriesForm_Load);
+            this.Resize += new System.EventHandler(this.ProductCategoriesForm_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unitListBindingSource)).EndInit();
-            this.unitStatus.ResumeLayout(false);
-            this.unitStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.categoryBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.categoryListBindingSource)).EndInit();
+            this.itemStatus.ResumeLayout(false);
+            this.itemStatus.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUnits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unitErrors)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductCategories)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemErrors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -379,11 +381,11 @@ namespace Fanda.UI
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.BindingSource unitListBindingSource;
+        private System.Windows.Forms.BindingSource categoryListBindingSource;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.BindingSource unitBindingSource;
-        private System.Windows.Forms.StatusStrip unitStatus;
+        private System.Windows.Forms.BindingSource categoryBindingSource;
+        private System.Windows.Forms.StatusStrip itemStatus;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
@@ -391,11 +393,12 @@ namespace Fanda.UI
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.DataGridView dgvUnits;
+        private System.Windows.Forms.DataGridView dgvProductCategories;
+        private System.Windows.Forms.ErrorProvider itemErrors;
         private System.Windows.Forms.DataGridViewTextBoxColumn codeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn unitNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn unitDescDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryDescDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parentCategoryNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isEnabledDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.ErrorProvider unitErrors;
     }
 }
