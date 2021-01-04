@@ -35,9 +35,13 @@ namespace Fanda2.Backend.Repositories
             {
                 Expression<Func<LedgerListModel, bool>> filterDisabled;
                 if (includeDisabled)
+                {
                     filterDisabled = (p) => true;
+                }
                 else
+                {
                     filterDisabled = (p => p.IsEnabled == true);
+                }
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {

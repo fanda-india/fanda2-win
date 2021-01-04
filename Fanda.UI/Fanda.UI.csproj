@@ -39,17 +39,20 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.78\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper.FluentMap, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.FluentMap.2.0.0\lib\netstandard2.0\Dapper.FluentMap.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper.FluentMap.Dommel, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.FluentMap.Dommel.2.0.0\lib\netstandard2.0\Dapper.FluentMap.Dommel.dll</HintPath>
+    </Reference>
+    <Reference Include="Dommel, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dommel.2.1.0\lib\netstandard2.0\Dommel.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.2.10.1-dev-01265\lib\net46\Serilog.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog.Sinks.Console, Version=4.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.Console.4.0.0-dev-00839\lib\net45\Serilog.Sinks.Console.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -160,18 +163,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dapper-FluentMap\src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj">
-      <Project>{baa9d5d0-7dd0-422d-b9a7-d84fc988dfd4}</Project>
-      <Name>Dapper.FluentMap.Dommel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dapper-FluentMap\src\Dapper.FluentMap\Dapper.FluentMap.csproj">
-      <Project>{c3d479e7-0ad0-44ba-a516-dee818b055cb}</Project>
-      <Name>Dapper.FluentMap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dommel\src\Dommel\Dommel.csproj">
-      <Project>{8633e3fe-16f5-4a1b-9a0f-3b582f8f3c0b}</Project>
-      <Name>Dommel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanda2.Backend\Fanda2.Backend.csproj">
       <Project>{1825ac22-9ed4-43a1-9d0b-35b4d94ad328}</Project>
       <Name>Fanda2.Backend</Name>

@@ -1,5 +1,4 @@
-﻿using Fanda2.Backend.Database;
-using Fanda2.Backend.Repositories;
+﻿using Fanda2.Backend.Repositories;
 using Fanda2.Backend.ViewModels;
 
 using System;
@@ -62,7 +61,11 @@ namespace Fanda.UI
 
             ApplySort(column.DataPropertyName, direction);
 
-            if (_sortColumn != null) _sortColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            if (_sortColumn != null)
+            {
+                _sortColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
+
             column.HeaderCell.SortGlyphDirection = _isSortAscending ? SortOrder.Ascending : SortOrder.Descending;
             _sortColumn = column;
         }
@@ -112,7 +115,9 @@ namespace Fanda.UI
         private void OpenCompanyForm_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
+            {
                 return;
+            }
 
             dgvOrgs.Columns[0].Width = (int)(Width * 0.1);
             dgvOrgs.Columns[1].Width = (int)(Width * 0.3);
@@ -151,23 +156,38 @@ namespace Fanda.UI
             {
                 case "Code":
                     if (direction == "ASC")
+                    {
                         orgListBindingSource.DataSource = _list.OrderBy(k => k.Code);
+                    }
                     else
+                    {
                         orgListBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
+                    }
+
                     break;
 
                 case "Name":
                     if (direction == "ASC")
+                    {
                         orgListBindingSource.DataSource = _list.OrderBy(k => k.OrgName);
+                    }
                     else
+                    {
                         orgListBindingSource.DataSource = _list.OrderByDescending(k => k.OrgName);
+                    }
+
                     break;
 
                 case "Description":
                     if (direction == "ASC")
+                    {
                         orgListBindingSource.DataSource = _list.OrderBy(k => k.OrgDesc);
+                    }
                     else
+                    {
                         orgListBindingSource.DataSource = _list.OrderByDescending(k => k.OrgDesc);
+                    }
+
                     break;
             };
             // _context.MyEntities.OrderBy(
@@ -191,7 +211,9 @@ namespace Fanda.UI
         private void SelectCurrentCompany()
         {
             if (AppConfig.CurrentCompany == null)
+            {
                 return;
+            }
 
             dgvOrgs.ClearSelection();
             foreach (DataGridViewRow row in dgvOrgs.Rows)

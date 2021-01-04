@@ -44,9 +44,13 @@ namespace Fanda2.Backend.Database
         private string GetYearCode()
         {
             if (!IsEmpty())
+            {
                 return $"{YearBegin:yyyy}-{YearEnd:yyyy}";
+            }
             else
+            {
                 return string.Empty;
+            }
         }
 
         private int GetBeginYear()

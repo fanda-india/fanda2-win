@@ -29,7 +29,9 @@ namespace Fanda2.Backend.Repositories
                 StringBuilder filters = new StringBuilder($"org_id = {orgId}");
 
                 if (!includeDisabled)
+                {
                     filters.Append(" and is_enabled = 1");
+                }
 
                 if (!string.IsNullOrEmpty(searchTerm))
                 {

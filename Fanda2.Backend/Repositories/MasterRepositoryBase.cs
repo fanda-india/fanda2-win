@@ -40,7 +40,9 @@ namespace Fanda2.Backend.Repositories
         public int Create(int orgId, TEntity entity, IDbConnection con, IDbTransaction tran)
         {
             if (entity == null || entity.IsEmpty())
+            {
                 return 0;
+            }
 
             entity.OrgId = orgId;
             entity.CreatedAt = DateTime.Now;
@@ -60,7 +62,9 @@ namespace Fanda2.Backend.Repositories
         public bool Update(int id, TEntity entity, IDbConnection con, IDbTransaction tran)
         {
             if (entity == null || entity.IsEmpty())
+            {
                 return false;
+            }
 
             if (id <= 0 || id != entity.Id)
             {

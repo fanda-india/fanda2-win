@@ -37,9 +37,13 @@ namespace Fanda2.Backend.Repositories
             {
                 Expression<Func<OrganizationListModel, bool>> filterDisabled;
                 if (includeDisabled)
+                {
                     filterDisabled = (o) => true;
+                }
                 else
+                {
                     filterDisabled = (o) => o.IsEnabled == true;
+                }
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
@@ -166,7 +170,9 @@ namespace Fanda2.Backend.Repositories
         public bool UpdateActiveYearId(int orgId, int yearId, IDbConnection con, IDbTransaction tran)
         {
             if (orgId <= 0 || yearId <= 0)
+            {
                 return false;
+            }
 
             //using (var con = _db.GetConnection())
             //{
@@ -383,9 +389,13 @@ namespace Fanda2.Backend.Repositories
         {
             var group = _ledgerGroupRepository.GetByCode(groupCode);
             if (group == null)
+            {
                 return 0;
+            }
             else
+            {
                 return group.Id;
+            }
         }
 
         #endregion Seed

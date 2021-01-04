@@ -40,7 +40,9 @@ namespace Fanda2.Backend.Repositories
         public int? Save(LedgerBalance balance, IDbConnection con, IDbTransaction tran)
         {
             if (balance == null)
+            {
                 return null;
+            }
 
             if (balance.LedgerId <= 0 || balance.YearId <= 0)
             {
@@ -81,7 +83,9 @@ namespace Fanda2.Backend.Repositories
         public bool RemoveById(int ledgerId, int yearId, IDbConnection con, IDbTransaction tran)
         {
             if (ledgerId == 0 || yearId == 0)
+            {
                 throw new ArgumentNullException("LedgerId or YearId of LedgerBalance is null");
+            }
 
             int rows = con.Execute("DELETE FROM ledger_balances WHERE ledger_id=@ledgerId AND year_id@yearId", new { ledgerId, yearId }, tran);
             return rows == 1;

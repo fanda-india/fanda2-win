@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Fanda.UI
 {
@@ -21,7 +16,10 @@ namespace Fanda.UI
             }
             form.Show();
             if (form.WindowState == FormWindowState.Minimized)
+            {
                 form.WindowState = FormWindowState.Normal;
+            }
+
             form.BringToFront();
             return form;
         }

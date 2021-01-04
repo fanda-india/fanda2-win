@@ -24,9 +24,38 @@ namespace Fanda.UI
             _repository = new UnitRepository();
         }
 
+        #region Form events
+
         private void UnitsForm_Load(object sender, EventArgs e)
         {
             RefreshList();
+        }
+
+        private void UnitsForm_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                return;
+            }
+
+            dgvUnits.Columns[0].Width = (int)(Width * 0.1);
+            dgvUnits.Columns[1].Width = (int)(Width * 0.3);
+            dgvUnits.Columns[2].Width = (int)(Width * 0.3);
+            dgvUnits.Columns[3].Width = (int)(Width * 0.1);
+        }
+
+        #endregion Form events
+
+        #region DataGridView events
+
+        private void dgvUnits_SelectionChanged(object sender, EventArgs e)
+        {
+            if (unitListBindingSource.Current is UnitListModel unit)
+            {
+                _unit = _repository.GetById(unit.Id);
+                unitBindingSource.DataSource = _unit;
+                tssLabel.Text = "Ready";
+            }
         }
 
         private void dgvUnits_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -37,9 +66,54 @@ namespace Fanda.UI
 
             ApplySort(column.DataPropertyName, direction);
 
-            if (_sortColumn != null) _sortColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            if (_sortColumn != null)
+            {
+                _sortColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
+
             column.HeaderCell.SortGlyphDirection = _isSortAscending ? SortOrder.Ascending : SortOrder.Descending;
             _sortColumn = column;
+        }
+
+        #endregion DataGridView events
+
+        #region Save & Cancel button events
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            bool success;
+            if (_unit.Id == 0)
+            {
+                success = _repository.Create(AppConfig.CurrentCompany.Id, _unit) != 0;
+            }
+            else
+            {
+                success = _repository.Update(_unit.Id, _unit);
+            }
+
+            if (success)
+            {
+                RefreshList();
+                tssLabel.Text = "Saved successfully!";
+            }
+            else
+            {
+                tssLabel.Text = "Error: Error occured while saving.";
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            dgvUnits_SelectionChanged(this, new EventArgs());
+        }
+
+        #endregion Save & Cancel button events
+
+        #region Other events
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            RefreshList(txtSearch.Text);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -47,21 +121,37 @@ namespace Fanda.UI
             RefreshList(txtSearch.Text);
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            _unit = new Unit();
+            unitBindingSource.DataSource = _unit;
+            txtCode.Focus();
         }
 
-        private void UnitsForm_Resize(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
+            UnitListModel unit = unitListBindingSource.Current as UnitListModel;
+            if (unit == null)
                 return;
 
-            dgvUnits.Columns[0].Width = (int)(Width * 0.1);
-            dgvUnits.Columns[1].Width = (int)(Width * 0.3);
-            dgvUnits.Columns[2].Width = (int)(Width * 0.3);
-            dgvUnits.Columns[3].Width = (int)(Width * 0.1);
+            DialogResult result = MessageBox.Show($"Are you sure, you want to delete unit '{unit.Code}'?", "Delete",
+            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
+            {
+                bool success = _repository.Remove(unit.Id);
+                if (success)
+                {
+                    RefreshList();
+                    tssLabel.Text = "Ready";
+                }
+                else
+                {
+                    tssLabel.Text = "Error occured while deleting.";
+                }
+            }
         }
+
+        #endregion Other events
 
         #region Private methods
 
@@ -71,23 +161,38 @@ namespace Fanda.UI
             {
                 case "Code":
                     if (direction == "ASC")
+                    {
                         unitListBindingSource.DataSource = _list.OrderBy(k => k.Code);
+                    }
                     else
+                    {
                         unitListBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
+                    }
+
                     break;
 
                 case "Name":
                     if (direction == "ASC")
+                    {
                         unitListBindingSource.DataSource = _list.OrderBy(k => k.UnitName);
+                    }
                     else
+                    {
                         unitListBindingSource.DataSource = _list.OrderByDescending(k => k.UnitName);
+                    }
+
                     break;
 
                 case "Description":
                     if (direction == "ASC")
+                    {
                         unitListBindingSource.DataSource = _list.OrderBy(k => k.UnitDesc);
+                    }
                     else
+                    {
                         unitListBindingSource.DataSource = _list.OrderByDescending(k => k.UnitDesc);
+                    }
+
                     break;
             };
             // _context.MyEntities.OrderBy(
@@ -106,43 +211,5 @@ namespace Fanda.UI
         }
 
         #endregion Private methods
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            _unit = new Unit();
-            unitBindingSource.DataSource = _unit;
-            txtCode.Focus();
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            bool success;
-            if (_unit.Id == 0)
-                success = _repository.Create(AppConfig.CurrentCompany.Id, _unit) != 0;
-            else
-                success = _repository.Update(_unit.Id, _unit);
-            if (success)
-            {
-                RefreshList();
-                tssLabel.Text = "Saved successfully!";
-            }
-            else
-                tssLabel.Text = "Error: Error occured while saving.";
-        }
-
-        private void dgvUnits_SelectionChanged(object sender, EventArgs e)
-        {
-            if (unitListBindingSource.Current is UnitListModel unit)
-            {
-                _unit = _repository.GetById(unit.Id);
-                unitBindingSource.DataSource = _unit;
-                tssLabel.Text = "Ready";
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            dgvUnits_SelectionChanged(this, new EventArgs());
-        }
     }
 }

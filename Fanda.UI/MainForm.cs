@@ -48,9 +48,13 @@ namespace Fanda.UI
         private void OpenCompanyForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (AppConfig.CurrentCompany != null)
+            {
                 EnableMenu();
+            }
             else
+            {
                 EnableMenu(false);
+            }
         }
 
         #endregion File -> Company
