@@ -288,7 +288,7 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public int Create(int yearId, SerialNumber entity)
+        public int Add(int yearId, SerialNumber entity)
         {
             using (var con = _db.GetConnection())
             {
@@ -334,6 +334,11 @@ namespace Fanda2.Backend.Repositories
 
                 return con.Delete(entity);
             }
+        }
+
+        public bool Exists(KeyField keyField, string fieldValue, int id, int superId)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion Repository methods

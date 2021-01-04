@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Fanda2.Backend.Enums;
+
+using System.Collections.Generic;
 using System.Data;
 
 namespace Fanda2.Backend
@@ -9,16 +11,15 @@ namespace Fanda2.Backend
 
         Entity GetById(int id);
 
-        /// <summary>
-        /// Insert
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns>Newly inserted id</returns>
-        int Create(int superId, Entity entity);
+        int Add(int superId, Entity entity);
 
         bool Update(int id, Entity entity);
 
         bool Remove(int id);
+
+        bool Exists(KeyField keyField, string fieldValue, int id, int superId);
+
+        //bool Exists(int orgId, Expression<Func<TEntity, bool>> predicate /*KeyField keyField, string fieldValue, int id, int orgId*/);
     }
 
     internal interface IRepository<Entity>
@@ -48,15 +49,12 @@ namespace Fanda2.Backend
 
         Entity GetById(int id);
 
-        /// <summary>
-        /// Insert
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns>Newly inserted id</returns>
-        int Create(Entity entity);
+        int Add(Entity entity);
 
         bool Update(int id, Entity entity);
 
         bool Remove(int id);
+
+        bool Exists(KeyField keyField, string fieldValue, int id);
     }
 }

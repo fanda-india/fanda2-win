@@ -1,6 +1,7 @@
 ﻿using Dommel;
 
 using Fanda2.Backend.Database;
+using Fanda2.Backend.Enums;
 using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
@@ -48,6 +49,25 @@ namespace Fanda2.Backend.Repositories
                         .ToList();
                 }
             }
+        }
+
+        public override bool Exists(KeyField keyField, string fieldValue, int id, int orgId)
+        {
+            bool exists = true;
+            using (var con = _db.GetConnection())
+            {
+                switch (keyField)
+                {
+                    case KeyField.Code:
+                        exists = con.Any<Product>(o => o.Id != id && o.Code == fieldValue && o.OrgId == orgId);
+                        break;
+
+                    case KeyField.Name:
+                        exists = con.Any<Product>(o => o.Id != id && o.ProductName == fieldValue && o.OrgId == orgId);
+                        break;
+                }
+            }
+            return exists;
         }
     }
 }

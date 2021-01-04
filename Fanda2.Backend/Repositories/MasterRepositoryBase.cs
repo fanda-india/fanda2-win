@@ -1,8 +1,12 @@
 ﻿using Dommel;
 
+using Fanda2.Backend.Enums;
+using Fanda2.Backend.Helpers;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace Fanda2.Backend.Repositories
 {
@@ -28,7 +32,7 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public virtual int Create(int orgId, TEntity entity)
+        public virtual int Add(int orgId, TEntity entity)
         {
             using (var con = _db.GetConnection())
             {
@@ -92,6 +96,8 @@ namespace Fanda2.Backend.Repositories
                 return con.Delete(entity);
             }
         }
+
+        public abstract bool Exists(KeyField keyField, string fieldValue, int id, int orgId);
     }
 }
 

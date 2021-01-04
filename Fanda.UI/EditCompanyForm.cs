@@ -48,7 +48,7 @@ namespace Fanda.UI
             {
                 if (_id == 0)
                 {
-                    if (_repository.Create(_org) > 0)
+                    if (_repository.Add(_org) > 0)
                     {
                         //_org = new Organization();
                         //orgBindingSource.DataSource = _org;

@@ -1,4 +1,5 @@
 ﻿using Fanda2.Backend.Database;
+using Fanda2.Backend.Enums;
 using Fanda2.Backend.ViewModels;
 
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Fanda2.Backend.Repositories
             throw new System.NotImplementedException();
         }
 
-        public int Create(User entity)
+        public int Add(User entity)
         {
             throw new System.NotImplementedException();
         }
@@ -28,6 +29,11 @@ namespace Fanda2.Backend.Repositories
         }
 
         public bool Remove(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Exists(KeyField keyField, string fieldValue, int id)
         {
             throw new System.NotImplementedException();
         }

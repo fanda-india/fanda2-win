@@ -1,6 +1,7 @@
 ﻿using Dommel;
 
 using Fanda2.Backend.Database;
+using Fanda2.Backend.Enums;
 using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
@@ -46,6 +47,24 @@ namespace Fanda2.Backend.Repositories
                         .ToList();
                 }
             }
+        }
+
+        public override bool Exists(KeyField keyField, string fieldValue, int id, int orgId)
+        {
+            bool exists = true;
+            using (var con = _db.GetConnection())
+            {
+                switch (keyField)
+                {
+                    case KeyField.Code:
+                        exists = con.Any<AccountYear>(o => o.Id != id && o.YearCode == fieldValue && o.OrgId == orgId);
+                        break;
+
+                    default:
+                        throw new Exception($"Unknown keyfield '{keyField}'");
+                }
+            }
+            return exists;
         }
 
         //public int? Save(AccountYear year, IDbConnection con, IDbTransaction tran)

@@ -3,6 +3,7 @@
 using Dommel;
 
 using Fanda2.Backend.Database;
+using Fanda2.Backend.Enums;
 using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
@@ -87,7 +88,7 @@ namespace Fanda2.Backend.Repositories
         //    return org;
         //}
 
-        public int Create(Organization org)
+        public int Add(Organization org)
         {
             org.CreatedAt = DateTime.Now;
             using (var con = _db.GetConnection())
@@ -165,6 +166,25 @@ namespace Fanda2.Backend.Repositories
                     return success;
                 }
             }
+        }
+
+        public bool Exists(KeyField keyField, string fieldValue, int id)
+        {
+            bool exists = true;
+            using (var con = _db.GetConnection())
+            {
+                switch (keyField)
+                {
+                    case KeyField.Code:
+                        exists = con.Any<Organization>(o => o.Id != id && o.Code == fieldValue);
+                        break;
+
+                    case KeyField.Name:
+                        exists = con.Any<Organization>(o => o.Id != id && o.OrgName == fieldValue);
+                        break;
+                }
+            }
+            return exists;
         }
 
         public bool UpdateActiveYearId(int orgId, int yearId, IDbConnection con, IDbTransaction tran)

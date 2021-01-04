@@ -53,7 +53,7 @@ namespace Fanda2.Tests
                 }
             };
             //orgRepo.UpdateYear(org);
-            orgRepo.Create(org);
+            orgRepo.Add(org);
         }
 
         private static void GetByIdOrgTest()
@@ -73,7 +73,7 @@ namespace Fanda2.Tests
                 YearEnd = new DateTime(2021, 3, 31),
                 IsEnabled = true
             };
-            yearRepo.Create(1, year);
+            yearRepo.Add(1, year);
         }
 
         private static void SerialNumberTest()

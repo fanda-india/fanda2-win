@@ -4,6 +4,7 @@ using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,7 +14,7 @@ namespace Fanda.UI
     public partial class UnitsForm : Form
     {
         private readonly UnitRepository _repository;
-        private List<UnitListModel> _list;
+        private BindingList<UnitListModel> _list;
         private Unit _unit;
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
@@ -81,10 +82,12 @@ namespace Fanda.UI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            int newUnitId = 0;
             bool success;
             if (_unit.Id == 0)
             {
-                success = _repository.Create(AppConfig.CurrentCompany.Id, _unit) != 0;
+                newUnitId = _repository.Add(AppConfig.CurrentCompany.Id, _unit);
+                success = newUnitId != 0;
             }
             else
             {
@@ -94,6 +97,12 @@ namespace Fanda.UI
             if (success)
             {
                 RefreshList();
+
+                if (newUnitId > 0)
+                {
+                    int index = unitListBindingSource.Find("Id", newUnitId);
+                    unitListBindingSource.Position = index;
+                }
                 tssLabel.Text = "Saved successfully!";
             }
             else
@@ -201,7 +210,7 @@ namespace Fanda.UI
 
         private void RefreshList(string searchTerm = null)
         {
-            _list = _repository.GetAll(AppConfig.CurrentCompany.Id, true, searchTerm);
+            _list = new BindingList<UnitListModel>(_repository.GetAll(AppConfig.CurrentCompany.Id, true, searchTerm));
             unitListBindingSource.DataSource = _list;
             if (_sortColumn != null)
             {
