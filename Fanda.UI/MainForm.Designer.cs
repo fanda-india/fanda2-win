@@ -244,32 +244,32 @@ namespace Fanda.UI
             // mnuMasterCustomers
             // 
             this.mnuMasterCustomers.Name = "mnuMasterCustomers";
-            this.mnuMasterCustomers.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterCustomers.Size = new System.Drawing.Size(176, 22);
             this.mnuMasterCustomers.Text = "&Customers";
             // 
             // mnuMasterSuppliers
             // 
             this.mnuMasterSuppliers.Name = "mnuMasterSuppliers";
-            this.mnuMasterSuppliers.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterSuppliers.Size = new System.Drawing.Size(176, 22);
             this.mnuMasterSuppliers.Text = "&Suppliers";
             // 
             // mnuMasterConsumers
             // 
             this.mnuMasterConsumers.Name = "mnuMasterConsumers";
-            this.mnuMasterConsumers.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterConsumers.Size = new System.Drawing.Size(176, 22);
             this.mnuMasterConsumers.Text = "Consu&mers";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(173, 6);
             // 
             // mnuMasterLedgers
             // 
             this.mnuMasterLedgers.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mnuMasterLedgers.Name = "mnuMasterLedgers";
             this.mnuMasterLedgers.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.mnuMasterLedgers.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterLedgers.Size = new System.Drawing.Size(176, 22);
             this.mnuMasterLedgers.Text = "&Ledgers";
             this.mnuMasterLedgers.Click += new System.EventHandler(this.mnuMasterLedgers_Click);
             // 
@@ -277,32 +277,32 @@ namespace Fanda.UI
             // 
             this.mnuMasterBanks.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mnuMasterBanks.Name = "mnuMasterBanks";
-            this.mnuMasterBanks.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterBanks.Size = new System.Drawing.Size(176, 22);
             this.mnuMasterBanks.Text = "&Banks";
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(173, 6);
             // 
             // mnuMasterProducts
             // 
             this.mnuMasterProducts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mnuMasterProducts.Name = "mnuMasterProducts";
-            this.mnuMasterProducts.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterProducts.Size = new System.Drawing.Size(176, 22);
             this.mnuMasterProducts.Text = "&Goods and Services";
             // 
             // mnuMasterCategories
             // 
             this.mnuMasterCategories.Name = "mnuMasterCategories";
-            this.mnuMasterCategories.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterCategories.Size = new System.Drawing.Size(176, 22);
             this.mnuMasterCategories.Text = "Cate&gories";
             this.mnuMasterCategories.Click += new System.EventHandler(this.mnuMasterCategories_Click);
             // 
             // mnuMasterUnits
             // 
             this.mnuMasterUnits.Name = "mnuMasterUnits";
-            this.mnuMasterUnits.Size = new System.Drawing.Size(180, 22);
+            this.mnuMasterUnits.Size = new System.Drawing.Size(176, 22);
             this.mnuMasterUnits.Text = "&Units";
             this.mnuMasterUnits.Click += new System.EventHandler(this.mnuMasterUnits_Click);
             // 
