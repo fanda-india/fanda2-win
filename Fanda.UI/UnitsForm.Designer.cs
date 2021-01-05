@@ -51,11 +51,11 @@ namespace Fanda.UI
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.dgvUnits = new System.Windows.Forms.DataGridView();
+            this.unitErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unitNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unitDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.unitErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitListBindingSource)).BeginInit();
@@ -78,9 +78,9 @@ namespace Fanda.UI
             this.groupBox1.Controls.Add(this.txtCode);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(14, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(638, 165);
+            this.groupBox1.Size = new System.Drawing.Size(744, 190);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Unit Details";
@@ -88,9 +88,9 @@ namespace Fanda.UI
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(557, 131);
+            this.btnCancel.Location = new System.Drawing.Point(650, 151);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(87, 27);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -99,9 +99,9 @@ namespace Fanda.UI
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(476, 131);
+            this.btnSave.Location = new System.Drawing.Point(555, 151);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(87, 27);
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -111,9 +111,9 @@ namespace Fanda.UI
             // 
             this.chkEnabled.AutoSize = true;
             this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.unitBindingSource, "IsEnabled", true));
-            this.chkEnabled.Location = new System.Drawing.Point(75, 131);
+            this.chkEnabled.Location = new System.Drawing.Point(87, 151);
             this.chkEnabled.Name = "chkEnabled";
-            this.chkEnabled.Size = new System.Drawing.Size(71, 17);
+            this.chkEnabled.Size = new System.Drawing.Size(73, 19);
             this.chkEnabled.TabIndex = 6;
             this.chkEnabled.Text = "Enabled?";
             this.chkEnabled.UseVisualStyleBackColor = true;
@@ -127,11 +127,11 @@ namespace Fanda.UI
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "UnitDesc", true));
-            this.txtDescription.Location = new System.Drawing.Point(75, 71);
+            this.txtDescription.Location = new System.Drawing.Point(87, 82);
             this.txtDescription.MaxLength = 255;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(557, 54);
+            this.txtDescription.Size = new System.Drawing.Size(649, 62);
             this.txtDescription.TabIndex = 5;
             // 
             // txtName
@@ -139,19 +139,19 @@ namespace Fanda.UI
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "UnitName", true));
-            this.txtName.Location = new System.Drawing.Point(75, 45);
+            this.txtName.Location = new System.Drawing.Point(87, 52);
             this.txtName.MaxLength = 25;
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(542, 20);
+            this.txtName.Size = new System.Drawing.Size(632, 23);
             this.txtName.TabIndex = 3;
             this.txtName.Validated += new System.EventHandler(this.txtName_Validated);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 74);
+            this.label3.Location = new System.Drawing.Point(7, 85);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(70, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "&Description:";
             // 
@@ -159,28 +159,28 @@ namespace Fanda.UI
             // 
             this.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "Code", true));
-            this.txtCode.Location = new System.Drawing.Point(75, 19);
+            this.txtCode.Location = new System.Drawing.Point(87, 22);
             this.txtCode.MaxLength = 16;
             this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(106, 20);
+            this.txtCode.Size = new System.Drawing.Size(123, 23);
             this.txtCode.TabIndex = 1;
             this.txtCode.Validated += new System.EventHandler(this.txtCode_Validated);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 48);
+            this.label2.Location = new System.Drawing.Point(7, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(42, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "&Name:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Location = new System.Drawing.Point(7, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(38, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "&Code:";
             // 
@@ -193,16 +193,17 @@ namespace Fanda.UI
             this.unitStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.unitStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabel});
-            this.unitStatus.Location = new System.Drawing.Point(0, 447);
+            this.unitStatus.Location = new System.Drawing.Point(0, 519);
             this.unitStatus.Name = "unitStatus";
-            this.unitStatus.Size = new System.Drawing.Size(662, 22);
+            this.unitStatus.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.unitStatus.Size = new System.Drawing.Size(772, 22);
             this.unitStatus.TabIndex = 2;
             this.unitStatus.Text = "Ready";
             // 
             // tssLabel
             // 
             this.tssLabel.Name = "tssLabel";
-            this.tssLabel.Size = new System.Drawing.Size(647, 17);
+            this.tssLabel.Size = new System.Drawing.Size(755, 17);
             this.tssLabel.Spring = true;
             this.tssLabel.Text = "Ready";
             this.tssLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -218,9 +219,9 @@ namespace Fanda.UI
             this.groupBox2.Controls.Add(this.txtSearch);
             this.groupBox2.Controls.Add(this.btnRefresh);
             this.groupBox2.Controls.Add(this.dgvUnits);
-            this.groupBox2.Location = new System.Drawing.Point(12, 183);
+            this.groupBox2.Location = new System.Drawing.Point(14, 211);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(638, 261);
+            this.groupBox2.Size = new System.Drawing.Size(744, 301);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Units";
@@ -228,18 +229,18 @@ namespace Fanda.UI
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(87, 24);
+            this.label4.Location = new System.Drawing.Point(101, 28);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.Size = new System.Drawing.Size(45, 15);
             this.label4.TabIndex = 1;
             this.label4.Text = "&Search:";
             // 
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(557, 19);
+            this.btnDelete.Location = new System.Drawing.Point(650, 22);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(87, 27);
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -248,9 +249,9 @@ namespace Fanda.UI
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Location = new System.Drawing.Point(476, 19);
+            this.btnAdd.Location = new System.Drawing.Point(555, 22);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(87, 27);
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "&Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -260,18 +261,18 @@ namespace Fanda.UI
             // 
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearch.Location = new System.Drawing.Point(137, 21);
+            this.txtSearch.Location = new System.Drawing.Point(160, 24);
             this.txtSearch.MaxLength = 255;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(333, 20);
+            this.txtSearch.Size = new System.Drawing.Size(388, 23);
             this.txtSearch.TabIndex = 2;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(6, 19);
+            this.btnRefresh.Location = new System.Drawing.Point(7, 22);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.Size = new System.Drawing.Size(87, 27);
             this.btnRefresh.TabIndex = 0;
             this.btnRefresh.Text = "&Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -292,15 +293,19 @@ namespace Fanda.UI
             this.unitDescDataGridViewTextBoxColumn,
             this.isEnabledDataGridViewCheckBoxColumn});
             this.dgvUnits.DataSource = this.unitListBindingSource;
-            this.dgvUnits.Location = new System.Drawing.Point(6, 48);
+            this.dgvUnits.Location = new System.Drawing.Point(7, 55);
             this.dgvUnits.Name = "dgvUnits";
             this.dgvUnits.ReadOnly = true;
             this.dgvUnits.RowHeadersWidth = 51;
             this.dgvUnits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUnits.Size = new System.Drawing.Size(626, 207);
+            this.dgvUnits.Size = new System.Drawing.Size(730, 239);
             this.dgvUnits.TabIndex = 5;
             this.dgvUnits.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvUnits_ColumnHeaderMouseClick);
             this.dgvUnits.SelectionChanged += new System.EventHandler(this.dgvUnits_SelectionChanged);
+            // 
+            // unitErrors
+            // 
+            this.unitErrors.ContainerControl = this;
             // 
             // codeDataGridViewTextBoxColumn
             // 
@@ -309,7 +314,6 @@ namespace Fanda.UI
             this.codeDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.codeDataGridViewTextBoxColumn.Name = "codeDataGridViewTextBoxColumn";
             this.codeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codeDataGridViewTextBoxColumn.Width = 125;
             // 
             // unitNameDataGridViewTextBoxColumn
             // 
@@ -318,7 +322,7 @@ namespace Fanda.UI
             this.unitNameDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.unitNameDataGridViewTextBoxColumn.Name = "unitNameDataGridViewTextBoxColumn";
             this.unitNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.unitNameDataGridViewTextBoxColumn.Width = 125;
+            this.unitNameDataGridViewTextBoxColumn.Width = 200;
             // 
             // unitDescDataGridViewTextBoxColumn
             // 
@@ -327,7 +331,7 @@ namespace Fanda.UI
             this.unitDescDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.unitDescDataGridViewTextBoxColumn.Name = "unitDescDataGridViewTextBoxColumn";
             this.unitDescDataGridViewTextBoxColumn.ReadOnly = true;
-            this.unitDescDataGridViewTextBoxColumn.Width = 125;
+            this.unitDescDataGridViewTextBoxColumn.Width = 250;
             // 
             // isEnabledDataGridViewCheckBoxColumn
             // 
@@ -336,20 +340,16 @@ namespace Fanda.UI
             this.isEnabledDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
             this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
-            this.isEnabledDataGridViewCheckBoxColumn.Width = 125;
-            // 
-            // unitErrors
-            // 
-            this.unitErrors.ContainerControl = this;
             // 
             // UnitsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 469);
+            this.ClientSize = new System.Drawing.Size(772, 541);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.unitStatus);
             this.Controls.Add(this.groupBox1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UnitsForm";
             this.Text = "Units";
             this.Load += new System.EventHandler(this.UnitsForm_Load);
@@ -392,10 +392,10 @@ namespace Fanda.UI
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.DataGridView dgvUnits;
+        private System.Windows.Forms.ErrorProvider unitErrors;
         private System.Windows.Forms.DataGridViewTextBoxColumn codeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn unitNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn unitDescDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isEnabledDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.ErrorProvider unitErrors;
     }
 }

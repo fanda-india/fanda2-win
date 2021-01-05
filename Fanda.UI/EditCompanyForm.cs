@@ -1,4 +1,5 @@
 ﻿using Fanda2.Backend.Database;
+using Fanda2.Backend.Enums;
 using Fanda2.Backend.Repositories;
 
 using System;
@@ -46,6 +47,12 @@ namespace Fanda.UI
         {
             try
             {
+                txtCode_Validated(this, null);
+                txtName_Validated(this, null);
+                if (!string.IsNullOrEmpty(orgErrors.GetError(txtCode)) ||
+                    !string.IsNullOrEmpty(orgErrors.GetError(txtName)))
+                    return;
+
                 if (_id == 0)
                 {
                     if (_repository.Add(_org) > 0)
@@ -76,6 +83,38 @@ namespace Fanda.UI
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void txtCode_Validated(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtCode.Text))
+            {
+                orgErrors.SetError(txtCode, $"Company code is required!");
+                return;
+            }
+            else
+                orgErrors.SetError(txtCode, null);
+
+            if (_repository.Exists(KeyField.Code, txtCode.Text, _org.Id))
+                orgErrors.SetError(txtCode, $"Company code '{txtCode.Text}' already exists!");
+            else
+                orgErrors.SetError(txtCode, null);
+        }
+
+        private void txtName_Validated(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                orgErrors.SetError(txtName, $"Company name is required!");
+                return;
+            }
+            else
+                orgErrors.SetError(txtName, null);
+
+            if (_repository.Exists(KeyField.Name, txtName.Text, _org.Id))
+                orgErrors.SetError(txtName, $"Company name '{txtName.Text}' already exists!");
+            else
+                orgErrors.SetError(txtName, null);
         }
     }
 }

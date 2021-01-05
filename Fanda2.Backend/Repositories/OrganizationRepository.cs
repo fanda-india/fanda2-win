@@ -30,6 +30,11 @@ namespace Fanda2.Backend.Repositories
             _contactRepository = new ContactRepository();
             _yearRepository = new AccountYearRepository();
             _ledgerGroupRepository = new LedgerGroupRepository();
+
+            DommelMapper.LogReceived = (qry) =>
+            {
+                System.Diagnostics.Debug.WriteLine("LOG: " + qry);
+            };
         }
 
         public List<OrganizationListModel> GetAll(bool includeDisabled = true, string searchTerm = null)
@@ -177,10 +182,15 @@ namespace Fanda2.Backend.Repositories
                 {
                     case KeyField.Code:
                         exists = con.Any<Organization>(o => o.Id != id && o.Code == fieldValue);
+                        //exists = con.ExecuteScalar<int>("select 1 from organizations where code like @code and id<>@id",
+                        //    new { code = fieldValue, id }) == 1;
                         break;
 
                     case KeyField.Name:
                         exists = con.Any<Organization>(o => o.Id != id && o.OrgName == fieldValue);
+                        //int res = con.ExecuteScalar<int>("select 1 from organizations where org_name like @name and id<>@id",
+                        //    new { name = fieldValue, id });
+                        //exists = res == 1;
                         break;
                 }
             }
