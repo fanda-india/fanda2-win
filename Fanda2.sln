@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1D196710-8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanda2.Tests", "Fanda2.Tests\Fanda2.Tests.csproj", "{1818AA2B-2016-4570-A6E4-037E9E63F25B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanda2", "Fanda2\Fanda2.csproj", "{8E23D66F-7666-47C9-9709-6FB9DEF955F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplesCommon", "SamplesCommon\SamplesCommon.csproj", "{9B739FAC-73E5-43CD-BDAC-C94BF7B9605D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{1818AA2B-2016-4570-A6E4-037E9E63F25B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1818AA2B-2016-4570-A6E4-037E9E63F25B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1818AA2B-2016-4570-A6E4-037E9E63F25B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E23D66F-7666-47C9-9709-6FB9DEF955F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E23D66F-7666-47C9-9709-6FB9DEF955F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E23D66F-7666-47C9-9709-6FB9DEF955F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E23D66F-7666-47C9-9709-6FB9DEF955F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B739FAC-73E5-43CD-BDAC-C94BF7B9605D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B739FAC-73E5-43CD-BDAC-C94BF7B9605D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B739FAC-73E5-43CD-BDAC-C94BF7B9605D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B739FAC-73E5-43CD-BDAC-C94BF7B9605D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

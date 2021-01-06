@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFrameworks>net461;net48;netcoreapp3.1;net5.0-windows10.0.18362.0</TargetFrameworks>
+		<!-- 10.0.18362.0 -->
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ModernWpfUI" Version="0.9.3-preview.201204.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Fanda2.Backend\Fanda2.Backend.csproj" />
+		<ProjectReference Include="..\SamplesCommon\SamplesCommon.csproj" />
+	</ItemGroup>
+</Project>
