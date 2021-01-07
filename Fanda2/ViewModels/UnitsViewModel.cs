@@ -1,62 +1,124 @@
 ﻿using Fanda2.Backend.Database;
 using Fanda2.Backend.Repositories;
+using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Fanda2.ViewModels
 {
     public class UnitsViewModel : ViewModelBase
     {
-        private readonly Unit _unit;
         private readonly UnitRepository _repository;
 
         private readonly DelegateCommand _saveCommand;
         private readonly DelegateCommand _cancelCommand;
-
-        //private int id;
-        //private string code;
-        //private string name;
-        //private string description;
-        //private bool isEnabled;
+        private readonly DelegateCommand _refreshCommand;
+        private readonly DelegateCommand _searchCommand;
+        private readonly DelegateCommand _addCommand;
+        private readonly DelegateCommand _deleteCommand;
+        private readonly DelegateCommand _fetchCommand;
 
         public UnitsViewModel()
         {
-            _unit = new Unit();
             _repository = new UnitRepository();
+
             _saveCommand = new DelegateCommand(OnSave, CanSave);
             _cancelCommand = new DelegateCommand(OnCancel, (arg) => true);
+            _addCommand = new DelegateCommand(OnAdd, (arg) => true);
+            _deleteCommand = new DelegateCommand(OnDelete, (arg) => true);
+            _refreshCommand = new DelegateCommand(OnRefresh, (arg) => true);
+            _searchCommand = new DelegateCommand(OnSearch, (arg) => true);
+            _fetchCommand = new DelegateCommand(OnFetch, (arg) => true);
+
+            RefreshList();
         }
 
-        private bool CanSave(object arg)
+        public ICommand SaveCommand => _saveCommand;
+        public ICommand CancelCommand => _cancelCommand;
+        public ICommand AddCommand => _addCommand;
+        public ICommand DeleteCommand => _deleteCommand;
+        public ICommand RefreshCommand => _refreshCommand;
+        public ICommand SearchCommand => _searchCommand;
+        public ICommand FetchCommand => _fetchCommand;
+
+        public int Id { get => Current.Id; set => SetProperty(Current, nameof(Current.Id), value); }
+        public string Code { get => Current.Code; set => SetProperty(Current, nameof(Current.Code), value); }
+        public string Name { get => Current.UnitName; set => SetProperty(Current, nameof(Current.UnitName), value); }
+        public string Description { get => Current.UnitDesc; set => SetProperty(Current, nameof(Current.UnitDesc), value); }
+        public bool IsEnabled { get => Current.IsEnabled; set => SetProperty(Current, nameof(Current.IsEnabled), value); }
+
+        public IList<UnitListModel> List { get; private set; }
+        public Unit Current { get; set; }
+        public string SearchTerm { get; set; }
+
+        private void OnAdd(object obj)
         {
-            //throw new NotImplementedException();
-            return true;
+            Current = new Unit();
+        }
+
+        private void OnDelete(object obj)
+        {
+            if (Current.Id > 0)
+            {
+                _repository.Remove(Current.Id);
+            }
         }
 
         private void OnSave(object obj)
         {
-            //throw new NotImplementedException();
+            //Unit unit = new Unit { Id = Id, Code = Code, UnitName = Name, UnitDesc = Description, IsEnabled = IsEnabled, OrgId = 1 };
+            //UnitRepository repository = new UnitRepository();
+
+            if (Current.Id == 0)
+                _repository.Add(1, Current);
+            else
+                _repository.Update(Current.Id, Current);
+
             _saveCommand.InvokeCanExecuteChanged();
         }
 
         private void OnCancel(object obj)
         {
-            // throw new NotImplementedException();
             _cancelCommand.InvokeCanExecuteChanged();
         }
 
-        public ICommand SaveCommand => _saveCommand;
-        public ICommand CancelCommand => _cancelCommand;
+        private void OnRefresh(object obj)
+        {
+            RefreshList();
+        }
 
-        public int Id { get => _unit.Id; set => SetProperty(ref _unit.Id, value, "Id"); }
-        public string Code { get => code; set => SetProperty(ref code, value, "Code"); }
-        public string Name { get => name; set => SetProperty(ref name, value, "Name"); }
-        public string Description { get => description; set => SetProperty(ref description, value, "Description"); }
-        public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value, "IsEnabled"); }
+        private void OnSearch(object obj)
+        {
+            RefreshList();
+        }
+
+        private void OnFetch(object obj)
+        {
+            UnitListModel listItem = obj as UnitListModel;
+            if (listItem != null)
+                Current = _repository.GetById(listItem.Id);
+        }
+
+        private bool CanSave(object arg)
+        {
+            if (string.IsNullOrWhiteSpace(Code) || string.IsNullOrWhiteSpace(Name))
+                return false;
+            return true;
+        }
+
+        #region Private methods
+
+        private void RefreshList()
+        {
+            List = _repository.GetAll(orgId: 1, includeDisabled: true, searchTerm: SearchTerm);
+            if (List.Count > 0)
+                Current = _repository.GetById(List[0].Id);
+            else
+                Current = new Unit();
+        }
+
+        #endregion Private methods
     }
 }

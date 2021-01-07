@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace Fanda2.ViewModels
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public bool ThrowOnInvalidPropertyName { get; set; }
 
@@ -14,6 +14,7 @@ namespace Fanda2.ViewModels
 
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
+            VerifyPropertyName(propertyName);
             if (!EqualityComparer<T>.Default.Equals(field, newValue))
             {
                 field = newValue;
@@ -23,11 +24,26 @@ namespace Fanda2.ViewModels
             return false;
         }
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected bool SetProperty<T, U>(T obj, string memberName, U newValue, [CallerMemberName] string propertyName = null)
         {
             VerifyPropertyName(propertyName);
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var pi = obj.GetType().GetProperty(memberName);
+            var member = pi.GetValue(obj);
+            if (!EqualityComparer<object>.Default.Equals(member, newValue))
+            {
+                // field = newValue;
+                pi.SetValue(obj, newValue);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+            return false;
         }
+
+        //protected virtual void OnPropertyChanged(string propertyName)
+        //{
+        //    VerifyPropertyName(propertyName);
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
         [Conditional("DEBUG")]
         [DebuggerStepThrough]
@@ -43,11 +59,6 @@ namespace Fanda2.ViewModels
                 else
                     Debug.Fail(msg);
             }
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }

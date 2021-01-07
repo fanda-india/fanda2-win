@@ -22,18 +22,13 @@ namespace Fanda2.Pages
     /// </summary>
     public partial class UnitsPage : Page
     {
+        private readonly UnitsViewModel _units;
+
         public UnitsPage()
         {
-            UnitsViewModel units = new UnitsViewModel { Code = "EACH", Name = "Each", Description = "Each unit", IsEnabled = true };
-            units.PropertyChanged += Units_PropertyChanged;
-            DataContext = units;
-
+            _units = new UnitsViewModel();
+            DataContext = _units;
             InitializeComponent();
-        }
-
-        private void Units_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            //throw new NotImplementedException();
         }
     }
 }

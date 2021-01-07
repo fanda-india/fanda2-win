@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace Fanda2.ViewModels
@@ -10,12 +11,13 @@ namespace Fanda2.ViewModels
 
         public DelegateCommand(Action<object> executeAction, Func<object, bool> canExecuteAction)
         {
-            _executeAction = executeAction;
+            _executeAction = executeAction ?? throw new ArgumentNullException(nameof(executeAction));
             _canExecuteAction = canExecuteAction;
         }
 
         public void Execute(object parameter) => _executeAction(parameter);
 
+        [DebuggerStepThrough]
         public bool CanExecute(object parameter) => _canExecuteAction?.Invoke(parameter) ?? true;
 
         public event EventHandler CanExecuteChanged;

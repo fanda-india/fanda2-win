@@ -123,12 +123,12 @@ namespace Fanda2.Navigation
             //Debug.WriteLine($"{((RadioMenuItem)e.Source).Header} unchecked");
         }
 
-        private RadioMenuItem FindMenuItem(ContextMenu menu, ElementTheme theme)
+        private static RadioMenuItem FindMenuItem(ContextMenu menu, ElementTheme theme)
         {
             return menu.Items.OfType<RadioMenuItem>().First(x => (ElementTheme)x.Tag == theme);
         }
 
-        private FrameworkElement GetTabItemContent(MenuItem menuItem)
+        private static FrameworkElement GetTabItemContent(MenuItem menuItem)
         {
             return ((menuItem
                 ?.Parent as ContextMenu)
@@ -331,7 +331,7 @@ namespace Fanda2.Navigation
             });
         }
 
-        private void SetApplicationTheme(ApplicationTheme? theme)
+        private static void SetApplicationTheme(ApplicationTheme? theme)
         {
             DispatcherHelper.RunOnMainThread(() =>
             {
