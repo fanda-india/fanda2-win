@@ -147,8 +147,7 @@ namespace Fanda.UI
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            ProductCategoryListModel currentItem = categoryListBindingSource.Current as ProductCategoryListModel;
-            if (currentItem == null)
+            if (!(categoryListBindingSource.Current is ProductCategoryListModel currentItem))
                 return;
 
             DialogResult result = MessageBox.Show($"Are you sure, you want to delete product category '{currentItem.Code}'?", "Delete",

@@ -8,8 +8,10 @@ namespace Fanda.UI
         private const string AppTitle = "Fanda v1.0";
         private OpenCompanyForm openCompanyForm;
         private EditCompanyForm editCompanyForm;
+
         private UnitsForm unitsForm;
         private ProductCategoriesForm productCategoriesForm;
+        private LedgersForm ledgersForm;
 
         public MainForm()
         {
@@ -72,12 +74,7 @@ namespace Fanda.UI
 
         private void mnuMasterLedgers_Click(object sender, EventArgs e)
         {
-            var form = new LedgersForm
-            {
-                MdiParent = this
-            };
-            form.Show();
-            form.BringToFront();
+            ledgersForm = FormHelpers.ShowForm(ref ledgersForm, this);
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)

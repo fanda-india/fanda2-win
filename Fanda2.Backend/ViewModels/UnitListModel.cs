@@ -7,6 +7,6 @@
         public string UnitName { get; set; }
         public string UnitDesc { get; set; }
         public bool IsEnabled { get; set; }
-        public int OrgId { get; set; }
+        //public int OrgId { get; set; }
     }
 }

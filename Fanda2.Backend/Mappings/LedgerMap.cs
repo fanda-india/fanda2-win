@@ -38,7 +38,7 @@ namespace Fanda2.Backend.Mappings
             Map(l => l.GroupName).ToColumn("group_name");
             Map(l => l.LedgerType).ToColumn("ledger_type");
             Map(l => l.IsEnabled).ToColumn("is_enabled");
-            Map(l => l.OrgId).ToColumn("org_id");
+            //Map(l => l.OrgId).ToColumn("org_id");
         }
     }
 }

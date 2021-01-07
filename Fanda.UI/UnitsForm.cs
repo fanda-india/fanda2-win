@@ -150,8 +150,7 @@ namespace Fanda.UI
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            UnitListModel unit = unitListBindingSource.Current as UnitListModel;
-            if (unit == null)
+            if (!(unitListBindingSource.Current is UnitListModel unit))
                 return;
 
             DialogResult result = MessageBox.Show($"Are you sure, you want to delete unit '{unit.Code}'?", "Delete",

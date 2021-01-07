@@ -27,21 +27,20 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
+                // [Filter]
                 StringBuilder filters = new StringBuilder($"org_id = {orgId}");
-
                 if (!includeDisabled)
                 {
                     filters.Append(" and is_enabled = 1");
                 }
-
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
                     filters.Append($" and (code like '%{searchTerm}%' or unit_name like '%{searchTerm}%' or unit_desc like '%{searchTerm}%')");
                 }
 
-                var list = con.Query<UnitListModel>($"select * from units where {filters}")
+                // Fetch from database
+                var list = con.Query<UnitListModel>($"select id, code, unit_name, unit_desc, is_enabled from units where {filters}")
                     .ToList();
-
                 return list;
             }
         }

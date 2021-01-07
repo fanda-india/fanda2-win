@@ -10,10 +10,7 @@ namespace Fanda2.Backend.ViewModels
         public string LedgerDesc { get; set; }
         public string GroupName { get; set; }
         public LedgerType LedgerType { get; set; }
-
-        //public string LedgerTypeString { get { return this.LedgerType.ToString(); } }
         public bool IsEnabled { get; set; }
-
-        public int OrgId { get; set; }
+        //public int OrgId { get; set; }
     }
 }

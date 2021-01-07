@@ -33,7 +33,7 @@ namespace Fanda2.Backend.Mappings
             Map(u => u.UnitName).ToColumn("unit_name");
             Map(u => u.UnitDesc).ToColumn("unit_desc");
             Map(u => u.IsEnabled).ToColumn("is_enabled");
-            Map(u => u.OrgId).ToColumn("org_id");
+            //Map(u => u.OrgId).ToColumn("org_id");
         }
     }
 }

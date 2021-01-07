@@ -9,6 +9,6 @@ namespace Fanda2.Backend.ViewModels
         public DateTime YearBegin { get; set; }
         public DateTime YearEnd { get; set; }
         public bool IsEnabled { get; set; }
-        public int OrgId { get; set; }
+        //public int OrgId { get; set; }
     }
 }

@@ -4,14 +4,13 @@ using Dommel;
 
 using Fanda2.Backend.Database;
 using Fanda2.Backend.Enums;
-using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Text;
 
 namespace Fanda2.Backend.Repositories
 {
@@ -34,36 +33,25 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                Expression<Func<LedgerListModel, bool>> filterDisabled;
-                if (includeDisabled)
+                // [Filter]
+                StringBuilder filters = new StringBuilder($"org_id = {orgId}");
+                if (!includeDisabled)
                 {
-                    filterDisabled = (p) => true;
+                    filters.Append(" and is_enabled = 1");
                 }
-                else
+                if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    filterDisabled = (p => p.IsEnabled == true);
+                    filters.Append($" and (code like '%{searchTerm}%' or ledger_name like '%{searchTerm}%' or ledger_desc like '%{searchTerm}%')");
                 }
 
-                if (string.IsNullOrEmpty(searchTerm))
-                {
-                    Expression<Func<LedgerListModel, bool>> filterOrg = (l) => l.OrgId == orgId;
-
-                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
-                    return con.Select(filters)
-                        .ToList();
-                }
-                else
-                {
-                    Expression<Func<LedgerListModel, bool>> filterOrg = (l) => l.OrgId == orgId &&
-                        (l.Code.Contains(searchTerm) ||
-                        l.LedgerName.Contains(searchTerm) ||
-                        l.LedgerDesc.Contains(searchTerm) ||
-                        l.GroupName.Contains(searchTerm));
-
-                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
-                    return con.Select(filters)
-                        .ToList();
-                }
+                // Fetch from database
+                var list = con.Query<LedgerListModel>(
+                    $"select l.id, l.code, l.ledger_name, l.ledger_desc, g.group_name, l.is_enabled " +
+                    $"from ledgers l " +
+                    $"left join ledger_groups g on l.group_id=g.id " +
+                    $"where {filters}")
+                    .ToList();
+                return list;
             }
         }
 

@@ -31,10 +31,10 @@ namespace Fanda2.Backend.Repositories
             _yearRepository = new AccountYearRepository();
             _ledgerGroupRepository = new LedgerGroupRepository();
 
-            DommelMapper.LogReceived = (qry) =>
-            {
-                System.Diagnostics.Debug.WriteLine("LOG: " + qry);
-            };
+            //DommelMapper.LogReceived = (qry) =>
+            //{
+            //    System.Diagnostics.Debug.WriteLine("LOG: " + qry);
+            //};
         }
 
         public List<OrganizationListModel> GetAll(bool includeDisabled = true, string searchTerm = null)
@@ -59,9 +59,9 @@ namespace Fanda2.Backend.Repositories
                 else
                 {
                     Expression<Func<OrganizationListModel, bool>> filterSearchTerm = (o) =>
-                        (o.Code.Contains(searchTerm) ||
-                         o.OrgName.Contains(searchTerm) ||
-                         o.OrgDesc.Contains(searchTerm));
+                        o.Code.Contains(searchTerm) ||
+                        o.OrgName.Contains(searchTerm) ||
+                        o.OrgDesc.Contains(searchTerm);
 
                     var expr = DbHelper.AndAlso(filterDisabled, filterSearchTerm);
                     return con.Select(expr)

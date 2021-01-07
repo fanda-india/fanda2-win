@@ -33,7 +33,7 @@ namespace Fanda2.Backend.Mappings
             Map(u => u.YearBegin).ToColumn("year_begin");
             Map(u => u.YearEnd).ToColumn("year_end");
             Map(u => u.IsEnabled).ToColumn("is_enabled");
-            Map(u => u.OrgId).ToColumn("org_id");
+            // Map(u => u.OrgId).ToColumn("org_id");
         }
     }
 }

@@ -18,34 +18,35 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                Expression<Func<AccountYearListModel, bool>> filterDisabled;
-                if (includeDisabled)
-                {
-                    filterDisabled = (p) => true;
-                }
-                else
-                {
-                    filterDisabled = (p => p.IsEnabled == true);
-                }
+                //Expression<Func<AccountYearListModel, bool>> filterDisabled;
+                //if (includeDisabled)
+                //{
+                //    filterDisabled = (p) => true;
+                //}
+                //else
+                //{
+                //    filterDisabled = (p => p.IsEnabled == true);
+                //}
 
-                if (string.IsNullOrEmpty(searchTerm))
-                {
-                    Expression<Func<AccountYearListModel, bool>> filterOrg = (o) => o.OrgId == orgId;
+                //if (string.IsNullOrEmpty(searchTerm))
+                //{
+                //    Expression<Func<AccountYearListModel, bool>> filterOrg = (o) => o.OrgId == orgId;
 
-                    var expr = DbHelper.AndAlso<AccountYearListModel>(filterDisabled, filterOrg);
-                    return con.Select<AccountYearListModel>(expr)
-                        .ToList();
-                }
-                else
-                {
-                    Expression<Func<AccountYearListModel, bool>> filterOrg =
-                        (ay) => ay.OrgId == orgId &&
-                        ay.YearCode.Contains(searchTerm);
+                //    var expr = DbHelper.AndAlso<AccountYearListModel>(filterDisabled, filterOrg);
+                //    return con.Select<AccountYearListModel>(expr)
+                //        .ToList();
+                //}
+                //else
+                //{
+                //    Expression<Func<AccountYearListModel, bool>> filterOrg =
+                //        (ay) => ay.OrgId == orgId &&
+                //        ay.YearCode.Contains(searchTerm);
 
-                    var expr = DbHelper.AndAlso<AccountYearListModel>(filterDisabled, filterOrg);
-                    return con.Select<AccountYearListModel>(expr)
-                        .ToList();
-                }
+                //    var expr = DbHelper.AndAlso<AccountYearListModel>(filterDisabled, filterOrg);
+                //    return con.Select<AccountYearListModel>(expr)
+                //        .ToList();
+                //}
+                return null;
             }
         }
 

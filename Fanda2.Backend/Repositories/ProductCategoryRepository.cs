@@ -1,4 +1,6 @@
-﻿using Dommel;
+﻿using Dapper;
+
+using Dommel;
 
 using Fanda2.Backend.Database;
 using Fanda2.Backend.Enums;
@@ -9,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace Fanda2.Backend.Repositories
 {
@@ -18,36 +21,51 @@ namespace Fanda2.Backend.Repositories
         {
             using (var con = _db.GetConnection())
             {
-                Expression<Func<ProductCategoryListModel, bool>> filterDisabled;
-                if (includeDisabled)
+                // [Filter]
+                StringBuilder filters = new StringBuilder($"org_id = {orgId}");
+                if (!includeDisabled)
                 {
-                    filterDisabled = (p) => true;
+                    filters.Append(" and is_enabled = 1");
                 }
-                else
+                if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    filterDisabled = (p => p.IsEnabled == true);
+                    filters.Append($" and (code like '%{searchTerm}%' or category_name like '%{searchTerm}%' or category_desc like '%{searchTerm}%')");
                 }
 
-                if (string.IsNullOrEmpty(searchTerm))
-                {
-                    Expression<Func<ProductCategoryListModel, bool>> filterOrg = (p) => p.OrgId == orgId;
+                // Fetch from database
+                var list = con.Query<ProductCategoryListModel>($"select id, code, category_name, category_desc, is_enabled from product_categories where {filters}")
+                    .ToList();
+                return list;
+                //Expression<Func<ProductCategoryListModel, bool>> filterDisabled;
+                //if (includeDisabled)
+                //{
+                //    filterDisabled = (p) => true;
+                //}
+                //else
+                //{
+                //    filterDisabled = (p => p.IsEnabled == true);
+                //}
 
-                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
-                    return con.Select(filters)
-                        .ToList();
-                }
-                else
-                {
-                    Expression<Func<ProductCategoryListModel, bool>> filterOrg = (pc) => pc.OrgId == orgId &&
-                        (pc.Code.Contains(searchTerm) ||
-                         pc.CategoryName.Contains(searchTerm) ||
-                         pc.CategoryDesc.Contains(searchTerm)) ||
-                         pc.ParentCategoryName.Contains(searchTerm);
+                //if (string.IsNullOrEmpty(searchTerm))
+                //{
+                //    Expression<Func<ProductCategoryListModel, bool>> filterOrg = (p) => p.OrgId == orgId;
 
-                    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
-                    return con.Select<ProductCategoryListModel>(filters)
-                        .ToList();
-                }
+                //    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
+                //    return con.Select(filters)
+                //        .ToList();
+                //}
+                //else
+                //{
+                //    Expression<Func<ProductCategoryListModel, bool>> filterOrg = (pc) => pc.OrgId == orgId &&
+                //        (pc.Code.Contains(searchTerm) ||
+                //         pc.CategoryName.Contains(searchTerm) ||
+                //         pc.CategoryDesc.Contains(searchTerm));
+                //    // || pc.ParentCategoryName.Contains(searchTerm);
+
+                //    var filters = DbHelper.AndAlso(filterDisabled, filterOrg);
+                //    return con.Select<ProductCategoryListModel>(filters)
+                //        .ToList();
+                //}
             }
         }
 
