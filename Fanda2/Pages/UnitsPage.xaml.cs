@@ -25,9 +25,15 @@ namespace Fanda2.Pages
         public UnitsPage()
         {
             UnitsViewModel units = new UnitsViewModel { Code = "EACH", Name = "Each", Description = "Each unit", IsEnabled = true };
+            units.PropertyChanged += Units_PropertyChanged;
             DataContext = units;
 
             InitializeComponent();
+        }
+
+        private void Units_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

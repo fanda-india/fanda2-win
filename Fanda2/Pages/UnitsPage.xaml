@@ -7,31 +7,37 @@
       xmlns:sc="clr-namespace:SamplesCommon;assembly=SamplesCommon"
       xmlns:local="clr-namespace:Fanda2.Pages"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="UnitsPage">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <!--<sc:ControlExample HeaderText="Unit Details">-->
+    <ui:SimpleStackPanel Spacing="6" Width="474">
+        <TextBox ui:ControlHelper.Header="Unit Code" Text="{Binding Path=Code}" HorizontalAlignment="Stretch" />
+        <TextBox ui:ControlHelper.Header="Unit Name" Text="{Binding Path=Name}" HorizontalAlignment="Stretch" />
+        <TextBox ui:ControlHelper.Header="Description" Text="{Binding Path=Description}" HorizontalAlignment="Stretch" />
+    </ui:SimpleStackPanel>
+    <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Unit Details" Margin="6" />
-        <TextBlock Grid.Row="1" Text="Unit Code: " VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6" />
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Code}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6" />
-        <TextBlock Grid.Row="2" Text="Unit Name: " VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6" />
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Name}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6" />
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Unit Details" Margin="6" />
+            <TextBlock Grid.Row="1" Text="Unit Code: " VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Code}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6" />
+            <TextBlock Grid.Row="2" Text="Unit Name: " VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Name}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="6" />
 
-        <ui:SimpleStackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Save" Width="100" Command="{Binding Path=SaveCommand}" VerticalAlignment="Center" Margin="6" />
-            <Button Content="Cancel" Width="100" Command="{Binding Path=CancelCommand}" VerticalAlignment="Center" Margin="6" />
-        </ui:SimpleStackPanel>
-    </Grid>
+            <ui:SimpleStackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Save" Width="100" Command="{Binding Path=SaveCommand}" VerticalAlignment="Center" Margin="6" />
+                <Button Content="Cancel" Width="100" Command="{Binding Path=CancelCommand}" VerticalAlignment="Center" Margin="6" />
+            </ui:SimpleStackPanel>
+        </Grid>-->
+    <!--</sc:ControlExample>-->
 </Page>
