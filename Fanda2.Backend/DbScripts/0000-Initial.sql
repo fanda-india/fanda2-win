@@ -60,21 +60,19 @@ CREATE TABLE organizations (
     id             INTEGER       PRIMARY KEY
                                  NOT NULL,
     code           VARCHAR (16)  UNIQUE  COLLATE NOCASE
-                             NOT NULL,
+                                 NOT NULL,
     org_name       VARCHAR (50)  UNIQUE  COLLATE NOCASE
-                             NOT NULL,
+                                 NOT NULL,
     org_desc       VARCHAR (255),
     regd_num       VARCHAR (25),
     org_pan        VARCHAR (25),
     org_tan        VARCHAR (25),
     gstin          VARCHAR (25),
     address_id     INTEGER       REFERENCES addresses (id) ON DELETE NO ACTION
-                                                       ON UPDATE CASCADE,
+                                                           ON UPDATE CASCADE,
     contact_id     INTEGER       REFERENCES contacts (id) ON DELETE NO ACTION
-                                                      ON UPDATE CASCADE,
-    active_year_id INTEGER       NULL
-                                 REFERENCES account_years(id) ON DELETE NO ACTION
                                                           ON UPDATE CASCADE,
+    active_year_id INTEGER       NULL,
     is_enabled     BOOLEAN       NOT NULL,
     created_at     DATETIME      NOT NULL,
     updated_at     DATETIME

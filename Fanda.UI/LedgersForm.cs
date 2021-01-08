@@ -29,6 +29,7 @@ namespace Fanda.UI
 
         private void ProductCategoriesForm_Load(object sender, EventArgs e)
         {
+            LoadGroupList();
             RefreshList(txtSearch.Text);
         }
 
@@ -260,6 +261,13 @@ namespace Fanda.UI
                 string direction = _isSortAscending ? "ASC" : "DESC";
                 ApplySort(_sortColumn.DataPropertyName, direction);
             }
+        }
+
+        private void LoadGroupList()
+        {
+            var groupRepo = new LedgerGroupRepository();
+            var groupList = groupRepo.GetAll();
+            groupBindingSource.DataSource = groupList;
         }
 
         #endregion Private methods

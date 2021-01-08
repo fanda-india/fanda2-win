@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -9,9 +10,11 @@ namespace Fanda.UI
         private OpenCompanyForm openCompanyForm;
         private EditCompanyForm editCompanyForm;
 
-        private UnitsForm unitsForm;
-        private ProductCategoriesForm productCategoriesForm;
-        private LedgersForm ledgersForm;
+        private readonly FormsCollection forms = new FormsCollection();
+
+        //private UnitsForm unitsForm;
+        //private ProductCategoriesForm productCategoriesForm;
+        //private LedgersForm ledgersForm;
 
         public MainForm()
         {
@@ -64,6 +67,9 @@ namespace Fanda.UI
 
         private void mnuMasterUnits_Click(object sender, EventArgs e)
         {
+            TypeForm formType = forms["units"];
+            UnitsForm unitsForm = (UnitsForm)Activator.CreateInstance(.FormType);
+
             unitsForm = FormHelpers.ShowForm(ref unitsForm, this);
         }
 
@@ -102,5 +108,32 @@ namespace Fanda.UI
         }
 
         #endregion Private methods
+    }
+
+    internal class FormsCollection : Dictionary<string, TypeForm>
+    {
+        public FormsCollection()
+        {
+            AddForm("Units", new TypeForm(typeof(UnitsForm)));
+            AddForm("ProductCategories", new TypeForm(typeof(ProductCategoriesForm)));
+            AddForm("Ledgers", new TypeForm(typeof(LedgersForm)));
+        }
+
+        private void AddForm(string formKey, TypeForm form = null)
+        {
+            Add(formKey, form);
+        }
+    }
+
+    internal class TypeForm
+    {
+        public TypeForm(Type formType, Form form = null)
+        {
+            FormType = formType;
+            Form = form;
+        }
+
+        public Type FormType { get; set; }
+        public Form Form { get; set; }
     }
 }

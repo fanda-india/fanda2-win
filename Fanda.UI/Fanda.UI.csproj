@@ -157,6 +157,7 @@
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Organization.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.ProductCategory.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Unit.datasource" />
+    <None Include="Properties\DataSources\Fanda2.Backend.ViewModels.LedgerGroupListModel.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.ViewModels.LedgerListModel.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.ViewModels.OrganizationListModel.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.ViewModels.ProductCategoryListModel.datasource" />
