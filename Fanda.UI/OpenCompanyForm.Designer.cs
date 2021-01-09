@@ -140,6 +140,7 @@ namespace Fanda.UI
             this.btnOpen.Size = new System.Drawing.Size(80, 28);
             this.btnOpen.TabIndex = 5;
             this.btnOpen.Text = "&Open";
+            this.btnOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
@@ -153,6 +154,7 @@ namespace Fanda.UI
             this.btnAdd.Size = new System.Drawing.Size(80, 28);
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "&Add";
+            this.btnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -165,6 +167,7 @@ namespace Fanda.UI
             this.btnRefresh.Size = new System.Drawing.Size(80, 28);
             this.btnRefresh.TabIndex = 0;
             this.btnRefresh.Text = "&Refresh";
+            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 

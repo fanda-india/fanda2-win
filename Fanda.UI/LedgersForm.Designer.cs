@@ -390,7 +390,7 @@ namespace Fanda.UI
             this.Name = "LedgersForm";
             this.Text = "Ledgers";
             this.Load += new System.EventHandler(this.ProductCategoriesForm_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LedgersForm_KeyPress);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LedgersForm_KeyDown);
             this.Resize += new System.EventHandler(this.ProductCategoriesForm_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

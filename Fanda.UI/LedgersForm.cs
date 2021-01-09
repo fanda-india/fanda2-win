@@ -41,9 +41,10 @@ namespace Fanda.UI
             }
 
             dgvProductCategories.Columns[0].Width = (int)(Width * 0.1);
-            dgvProductCategories.Columns[1].Width = (int)(Width * 0.3);
-            dgvProductCategories.Columns[2].Width = (int)(Width * 0.3);
-            dgvProductCategories.Columns[3].Width = (int)(Width * 0.1);
+            dgvProductCategories.Columns[1].Width = (int)(Width * 0.2);
+            dgvProductCategories.Columns[2].Width = (int)(Width * 0.23);
+            dgvProductCategories.Columns[3].Width = (int)(Width * 0.2);
+            dgvProductCategories.Columns[4].Width = (int)(Width * 0.1);
         }
 
         #endregion Form events
@@ -272,8 +273,27 @@ namespace Fanda.UI
 
         #endregion Private methods
 
-        private void LedgersForm_KeyPress(object sender, KeyPressEventArgs e)
+        private void LedgersForm_KeyDown(object sender, KeyEventArgs e)
         {
+            //Control nextControl;
+            ////Checks if the Enter Key was Pressed
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    //If so, it gets the next control and applies the focus to it
+            //    nextControl = GetNextControl(ActiveControl, !e.Shift);
+            //    if (nextControl == null)
+            //    {
+            //        nextControl = GetNextControl(null, true);
+            //    }
+            //    nextControl.Focus();
+            //    //Finally - it suppresses the Enter Key
+            //    e.SuppressKeyPress = true;
+            //}
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                SelectNextControl(ActiveControl, true, true, true, true);
+            }
         }
     }
 }

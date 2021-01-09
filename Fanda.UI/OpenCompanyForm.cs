@@ -148,6 +148,20 @@ namespace Fanda.UI
             }
         }
 
+        private void OpenCompanyForm_Shown(object sender, EventArgs e)
+        {
+            txtSearch.Focus();
+            SelectCurrentCompany();
+            if (_list.Count == 0)
+            {
+                btnAdd.PerformClick();
+            }
+            else if (_list.Count == 1)
+            {
+                btnOpen.PerformClick();
+            }
+        }
+
         #region Private methods
 
         private void ApplySort(string columnName, string direction)
@@ -227,19 +241,5 @@ namespace Fanda.UI
         }
 
         #endregion Private methods
-
-        private void OpenCompanyForm_Shown(object sender, EventArgs e)
-        {
-            txtSearch.Focus();
-            SelectCurrentCompany();
-            if (_list.Count == 0)
-            {
-                btnAdd.PerformClick();
-            }
-            else if (_list.Count == 1)
-            {
-                btnOpen.PerformClick();
-            }
-        }
     }
 }
