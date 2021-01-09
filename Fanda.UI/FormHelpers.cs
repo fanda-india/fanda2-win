@@ -4,6 +4,17 @@ namespace Fanda.UI
 {
     internal static class FormHelpers
     {
+        internal static void ShowForm<TForm>(TForm form)
+            where TForm : Form
+        {
+            if (form.WindowState == FormWindowState.Minimized)
+            {
+                form.WindowState = FormWindowState.Normal;
+            }
+            form.BringToFront();
+            form.Show();
+        }
+
         internal static TForm ShowForm<TForm>(ref TForm form, Form mdiParent)
             where TForm : Form, new()
         {

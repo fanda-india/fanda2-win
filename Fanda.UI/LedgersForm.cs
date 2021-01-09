@@ -271,5 +271,9 @@ namespace Fanda.UI
         }
 
         #endregion Private methods
+
+        private void LedgersForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        }
     }
 }

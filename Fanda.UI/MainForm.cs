@@ -12,10 +12,6 @@ namespace Fanda.UI
 
         private readonly FormsCollection forms = new FormsCollection();
 
-        //private UnitsForm unitsForm;
-        //private ProductCategoriesForm productCategoriesForm;
-        //private LedgersForm ledgersForm;
-
         public MainForm()
         {
             InitializeComponent();
@@ -61,31 +57,70 @@ namespace Fanda.UI
             {
                 EnableMenu(false);
             }
+            CloseAllForms();
         }
 
         #endregion File -> Company
 
         private void mnuMasterUnits_Click(object sender, EventArgs e)
         {
-            TypeForm formType = forms["units"];
-            UnitsForm unitsForm = (UnitsForm)Activator.CreateInstance(.FormType);
-
-            unitsForm = FormHelpers.ShowForm(ref unitsForm, this);
+            FormHelpers.ShowForm(CreateForm("Units"));
         }
 
         private void mnuMasterCategories_Click(object sender, EventArgs e)
         {
-            productCategoriesForm = FormHelpers.ShowForm(ref productCategoriesForm, this);
+            FormHelpers.ShowForm(CreateForm("ProductCategories"));
         }
 
         private void mnuMasterLedgers_Click(object sender, EventArgs e)
         {
-            ledgersForm = FormHelpers.ShowForm(ref ledgersForm, this);
+            FormHelpers.ShowForm(CreateForm("Ledgers"));
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void CloseAllForms()
+        {
+            foreach (var form in forms)
+            {
+                if (!(form.Value is BaseForm baseForm))
+                    continue;
+                if (baseForm.Form != null)
+                {
+                    baseForm.Form.Close();
+                    baseForm.Form = null;
+                }
+            }
+        }
+
+        private Form CreateForm(string formKey)
+        {
+            BaseForm baseForm = forms[formKey];
+            Form form;
+            if (baseForm.Form == null)
+            {
+                form = (Form)Activator.CreateInstance(baseForm.FormType);
+                form.MdiParent = this;
+                form.FormClosing += HideOnFormClosing;
+                baseForm.Form = form;
+            }
+            else
+            {
+                form = baseForm.Form;
+            }
+            return form;
+        }
+
+        private void HideOnFormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                ((Form)sender).Hide();
+            }
         }
 
         #region Private methods
@@ -110,24 +145,24 @@ namespace Fanda.UI
         #endregion Private methods
     }
 
-    internal class FormsCollection : Dictionary<string, TypeForm>
+    internal class FormsCollection : Dictionary<string, BaseForm>
     {
         public FormsCollection()
         {
-            AddForm("Units", new TypeForm(typeof(UnitsForm)));
-            AddForm("ProductCategories", new TypeForm(typeof(ProductCategoriesForm)));
-            AddForm("Ledgers", new TypeForm(typeof(LedgersForm)));
+            AddForm("Units", new BaseForm(typeof(UnitsForm)));
+            AddForm("ProductCategories", new BaseForm(typeof(ProductCategoriesForm)));
+            AddForm("Ledgers", new BaseForm(typeof(LedgersForm)));
         }
 
-        private void AddForm(string formKey, TypeForm form = null)
+        private void AddForm(string formKey, BaseForm form = null)
         {
             Add(formKey, form);
         }
     }
 
-    internal class TypeForm
+    internal class BaseForm
     {
-        public TypeForm(Type formType, Form form = null)
+        public BaseForm(Type formType, Form form = null)
         {
             FormType = formType;
             Form = form;
