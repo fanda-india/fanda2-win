@@ -29,7 +29,7 @@ namespace Fanda2.Backend
                 config.AddMap(new BankMap());
                 config.AddMap(new PartyMap());
                 config.AddMap(new UnitMap());
-                config.AddMap(new UnitListMap());
+                // config.AddMap(new UnitListMap());
                 config.AddMap(new ProductCategoryMap());
                 config.AddMap(new ProductCategoryListMap());
                 config.AddMap(new ProductMap());

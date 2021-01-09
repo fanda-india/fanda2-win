@@ -13,17 +13,17 @@ using System.Text;
 
 namespace Fanda2.Backend.Repositories
 {
-    public class UnitRepository : MasterRepositoryBase<Unit, UnitListModel>
+    public class UnitRepository : MasterRepositoryBase<Unit, Unit>
     {
-        //public UnitRepository()
-        //{
-        //    DommelMapper.LogReceived = (qry) =>
-        //    {
-        //        Debug.WriteLine("LOG: " + qry);
-        //    };
-        //}
+        public UnitRepository()
+        {
+            DommelMapper.LogReceived = (qry) =>
+            {
+                Debug.WriteLine("LOG: " + qry);
+            };
+        }
 
-        public override List<UnitListModel> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
+        public override List<Unit> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
@@ -39,7 +39,9 @@ namespace Fanda2.Backend.Repositories
                 }
 
                 // Fetch from database
-                var list = con.Query<UnitListModel>($"select id, code, unit_name, unit_desc, is_enabled from units where {filters}")
+                var list = con.Query<Unit>(
+                    $"select id, code, unit_name, unit_desc, is_enabled, org_id, created_at, updated_at " +
+                    $"from units where {filters}")
                     .ToList();
                 return list;
             }
@@ -47,21 +49,25 @@ namespace Fanda2.Backend.Repositories
 
         public override bool Exists(KeyField keyField, string fieldValue, int id, int orgId)
         {
-            bool exists = true;
             using (var con = _db.GetConnection())
             {
+                string query;
                 switch (keyField)
                 {
                     case KeyField.Code:
-                        exists = con.Any<Unit>(o => o.Id != id && o.Code == fieldValue && o.OrgId == orgId);
-                        break;
+                        //exists = con.Any<Unit>(o => o.Code == fieldValue && o.OrgId == orgId && o.Id != id);
+                        query = $"select 1 from units where code=@code COLLATE NOCASE and org_id=@orgId and id <> @id";
+                        return con.ExecuteScalar<int>(query, new { code = fieldValue, orgId, id }) == 1;
 
                     case KeyField.Name:
-                        exists = con.Any<Unit>(o => o.Id != id && o.UnitName == fieldValue && o.OrgId == orgId);
-                        break;
+                        //exists = con.Any<Unit>(o => o.UnitName == fieldValue && o.OrgId == orgId && o.Id != id);
+                        query = $"select 1 from units where unit_name=@unitName COLLATE NOCASE and org_id=@orgId and id <> @id";
+                        return con.ExecuteScalar<int>(query, new { unitName = fieldValue, orgId, id }) == 1;
+
+                    default:
+                        return true;
                 }
             }
-            return exists;
         }
     }
 }

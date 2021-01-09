@@ -1,12 +1,10 @@
-﻿using Fanda2.Backend.Database;
+﻿using Equin.ApplicationFramework;
+
+using Fanda2.Backend.Database;
 using Fanda2.Backend.Enums;
 using Fanda2.Backend.Repositories;
-using Fanda2.Backend.ViewModels;
 
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -14,8 +12,7 @@ namespace Fanda.UI
     public partial class UnitsForm : Form
     {
         private readonly UnitRepository _repository;
-        private List<UnitListModel> _list;
-        private Unit _unit;
+
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
@@ -29,7 +26,7 @@ namespace Fanda.UI
 
         private void UnitsForm_Load(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            LoadAndBindList();
         }
 
         private void UnitsForm_Resize(object sender, EventArgs e)
@@ -49,14 +46,9 @@ namespace Fanda.UI
 
         #region DataGridView events
 
-        private void dgvUnits_SelectionChanged(object sender, EventArgs e)
+        private void unitBindingSource_PositionChanged(object sender, EventArgs e)
         {
-            if (unitListBindingSource.Current is UnitListModel unit)
-            {
-                _unit = _repository.GetById(unit.Id);
-                unitBindingSource.DataSource = _unit;
-                tssLabel.Text = "Ready";
-            }
+            tssLabel.Text = "Ready";
         }
 
         private void dgvUnits_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -65,7 +57,7 @@ namespace Fanda.UI
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
             string direction = _isSortAscending ? "ASC" : "DESC";
 
-            ApplySort(column.DataPropertyName, direction);
+            unitsBindingSource.Sort = $"{column.DataPropertyName} {direction}";
 
             if (_sortColumn != null)
             {
@@ -88,30 +80,26 @@ namespace Fanda.UI
                 !string.IsNullOrEmpty(unitErrors.GetError(txtName)))
                 return;
 
-            int newUnitId = 0;
             bool success;
-            if (_unit.Id == 0)
+            bool isAdding = false;
+            Unit unit = GetCurrent();
+            if (unit.Id == 0)
             {
-                newUnitId = _repository.Add(AppConfig.CurrentCompany.Id, _unit);
-                success = newUnitId != 0;
+                isAdding = true;
+                success = _repository.Add(AppConfig.CurrentCompany.Id, unit) > 0;
             }
             else
             {
-                success = _repository.Update(_unit.Id, _unit);
+                success = _repository.Update(unit.Id, unit);
             }
 
             if (success)
             {
-                RefreshList(txtSearch.Text);
+                unitsBindingSource.EndEdit();
 
-                if (newUnitId > 0)
-                {
-                    var item = (unitListBindingSource.DataSource as List<UnitListModel>).Find(u => u.Id == newUnitId);
-                    int index = unitListBindingSource.IndexOf(item);
-                    //int index = unitListBindingSource.Find("Id", newUnitId);
-                    unitListBindingSource.Position = index;
-                }
                 tssLabel.Text = "Saved successfully!";
+                if (isAdding)
+                    btnAdd.PerformClick();
             }
             else
             {
@@ -121,10 +109,9 @@ namespace Fanda.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //unitErrors.SetError(txtCode, null);
-            //unitErrors.SetError(txtName, null);
             unitErrors.Clear();
-            dgvUnits_SelectionChanged(this, new EventArgs());
+            unitsBindingSource.CancelEdit();
+            unitsBindingSource.ResetBindings(false);
         }
 
         #endregion Save & Cancel button events
@@ -133,40 +120,56 @@ namespace Fanda.UI
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            if (txtSearch.Text == string.Empty)
+            {
+                unitsBindingSource.RemoveFilter();
+            }
+            else
+            {
+                string searchTerm = txtSearch.Text.ToLower();
+                (unitsBindingSource.DataSource as BindingListView<Unit>).ApplyFilter(
+                     u => u.Code.ToLower().Contains(searchTerm) || u.UnitName.ToLower().Contains(searchTerm) ||
+                        (u.UnitDesc == null ? false : u.UnitDesc.ToLower().Contains(searchTerm))
+                    );
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            LoadAndBindList();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _unit = new Unit();
-            unitBindingSource.DataSource = _unit;
+            unitsBindingSource.AddNew();
             txtCode.Focus();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (!(unitListBindingSource.Current is UnitListModel unit))
+            tssLabel.Text = "Ready";
+            Unit unit = GetCurrent();
+            if (unit == null)
                 return;
 
             DialogResult result = MessageBox.Show($"Are you sure, you want to delete unit '{unit.Code}'?", "Delete",
-            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {
                 bool success = _repository.Remove(unit.Id);
                 if (success)
                 {
-                    RefreshList(txtSearch.Text);
-                    tssLabel.Text = "Ready";
+                    unitsBindingSource.RemoveCurrent();
+                    tssLabel.Text = "Deleted successfully!";
                 }
                 else
                 {
                     tssLabel.Text = "Error occured while deleting.";
                 }
+            }
+            else
+            {
+                tssLabel.Text = "Cancelled!";
             }
         }
 
@@ -184,7 +187,8 @@ namespace Fanda.UI
             else
                 unitErrors.SetError(txtCode, null);
 
-            if (_repository.Exists(KeyField.Code, txtCode.Text, _unit.Id, AppConfig.CurrentCompany.Id))
+            Unit unit = GetCurrent();
+            if (_repository.Exists(KeyField.Code, txtCode.Text, unit.Id, AppConfig.CurrentCompany.Id))
                 unitErrors.SetError(txtCode, $"Unit code '{txtCode.Text}' already exists!");
             else
                 unitErrors.SetError(txtCode, null);
@@ -200,7 +204,8 @@ namespace Fanda.UI
             else
                 unitErrors.SetError(txtName, null);
 
-            if (_repository.Exists(KeyField.Name, txtName.Text, _unit.Id, AppConfig.CurrentCompany.Id))
+            Unit unit = GetCurrent();
+            if (_repository.Exists(KeyField.Name, txtName.Text, unit.Id, AppConfig.CurrentCompany.Id))
                 unitErrors.SetError(txtName, $"Unit name '{txtName.Text}' already exists!");
             else
                 unitErrors.SetError(txtName, null);
@@ -210,59 +215,15 @@ namespace Fanda.UI
 
         #region Private methods
 
-        private void ApplySort(string columnName, string direction)
+        private void LoadAndBindList()
         {
-            switch (columnName)
-            {
-                case "Code":
-                    if (direction == "ASC")
-                    {
-                        unitListBindingSource.DataSource = _list.OrderBy(k => k.Code);
-                    }
-                    else
-                    {
-                        unitListBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
-                    }
-
-                    break;
-
-                case "Name":
-                    if (direction == "ASC")
-                    {
-                        unitListBindingSource.DataSource = _list.OrderBy(k => k.UnitName);
-                    }
-                    else
-                    {
-                        unitListBindingSource.DataSource = _list.OrderByDescending(k => k.UnitName);
-                    }
-
-                    break;
-
-                case "Description":
-                    if (direction == "ASC")
-                    {
-                        unitListBindingSource.DataSource = _list.OrderBy(k => k.UnitDesc);
-                    }
-                    else
-                    {
-                        unitListBindingSource.DataSource = _list.OrderByDescending(k => k.UnitDesc);
-                    }
-
-                    break;
-            };
-            // _context.MyEntities.OrderBy(
-            //string.Format("it.{0} {1}", column.DataPropertyName, direction)).ToList();
+            var list = _repository.GetAll(AppConfig.CurrentCompany.Id, true);
+            unitsBindingSource.DataSource = new BindingListView<Unit>(list);
         }
 
-        private void RefreshList(string searchTerm)
+        private Unit GetCurrent()
         {
-            _list = _repository.GetAll(AppConfig.CurrentCompany.Id, true, searchTerm);
-            unitListBindingSource.DataSource = _list;
-            if (_sortColumn != null)
-            {
-                string direction = _isSortAscending ? "ASC" : "DESC";
-                ApplySort(_sortColumn.DataPropertyName, direction);
-            }
+            return ((ObjectView<Unit>)unitsBindingSource.Current).Object;
         }
 
         #endregion Private methods

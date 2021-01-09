@@ -34,14 +34,13 @@ namespace Fanda.UI
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
-            this.unitBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.unitsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.unitListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.unitStatus = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -57,8 +56,7 @@ namespace Fanda.UI
             this.unitDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unitListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unitsBindingSource)).BeginInit();
             this.unitStatus.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnits)).BeginInit();
@@ -110,7 +108,7 @@ namespace Fanda.UI
             // chkEnabled
             // 
             this.chkEnabled.AutoSize = true;
-            this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.unitBindingSource, "IsEnabled", true));
+            this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.unitsBindingSource, "IsEnabled", true));
             this.chkEnabled.Location = new System.Drawing.Point(87, 151);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(73, 19);
@@ -118,15 +116,16 @@ namespace Fanda.UI
             this.chkEnabled.Text = "Enabled?";
             this.chkEnabled.UseVisualStyleBackColor = true;
             // 
-            // unitBindingSource
+            // unitsBindingSource
             // 
-            this.unitBindingSource.DataSource = typeof(Fanda2.Backend.Database.Unit);
+            this.unitsBindingSource.DataSource = typeof(Fanda2.Backend.Database.Unit);
+            this.unitsBindingSource.PositionChanged += new System.EventHandler(this.unitBindingSource_PositionChanged);
             // 
             // txtDescription
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "UnitDesc", true));
+            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitsBindingSource, "UnitDesc", true));
             this.txtDescription.Location = new System.Drawing.Point(87, 82);
             this.txtDescription.MaxLength = 255;
             this.txtDescription.Multiline = true;
@@ -138,7 +137,7 @@ namespace Fanda.UI
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "UnitName", true));
+            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitsBindingSource, "UnitName", true));
             this.txtName.Location = new System.Drawing.Point(87, 52);
             this.txtName.MaxLength = 25;
             this.txtName.Name = "txtName";
@@ -158,7 +157,7 @@ namespace Fanda.UI
             // txtCode
             // 
             this.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitBindingSource, "Code", true));
+            this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.unitsBindingSource, "Code", true));
             this.txtCode.Location = new System.Drawing.Point(87, 22);
             this.txtCode.MaxLength = 16;
             this.txtCode.Name = "txtCode";
@@ -183,10 +182,6 @@ namespace Fanda.UI
             this.label1.Size = new System.Drawing.Size(38, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "&Code:";
-            // 
-            // unitListBindingSource
-            // 
-            this.unitListBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.UnitListModel);
             // 
             // unitStatus
             // 
@@ -292,16 +287,15 @@ namespace Fanda.UI
             this.unitNameDataGridViewTextBoxColumn,
             this.unitDescDataGridViewTextBoxColumn,
             this.isEnabledDataGridViewCheckBoxColumn});
-            this.dgvUnits.DataSource = this.unitListBindingSource;
+            this.dgvUnits.DataSource = this.unitsBindingSource;
             this.dgvUnits.Location = new System.Drawing.Point(7, 55);
             this.dgvUnits.Name = "dgvUnits";
             this.dgvUnits.ReadOnly = true;
-            this.dgvUnits.RowHeadersWidth = 51;
+            this.dgvUnits.RowHeadersWidth = 28;
             this.dgvUnits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUnits.Size = new System.Drawing.Size(730, 239);
             this.dgvUnits.TabIndex = 5;
             this.dgvUnits.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvUnits_ColumnHeaderMouseClick);
-            this.dgvUnits.SelectionChanged += new System.EventHandler(this.dgvUnits_SelectionChanged);
             // 
             // unitErrors
             // 
@@ -311,15 +305,14 @@ namespace Fanda.UI
             // 
             this.codeDataGridViewTextBoxColumn.DataPropertyName = "Code";
             this.codeDataGridViewTextBoxColumn.HeaderText = "Code";
-            this.codeDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.codeDataGridViewTextBoxColumn.Name = "codeDataGridViewTextBoxColumn";
             this.codeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codeDataGridViewTextBoxColumn.Width = 125;
             // 
             // unitNameDataGridViewTextBoxColumn
             // 
             this.unitNameDataGridViewTextBoxColumn.DataPropertyName = "UnitName";
             this.unitNameDataGridViewTextBoxColumn.HeaderText = "Unit Name";
-            this.unitNameDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.unitNameDataGridViewTextBoxColumn.Name = "unitNameDataGridViewTextBoxColumn";
             this.unitNameDataGridViewTextBoxColumn.ReadOnly = true;
             this.unitNameDataGridViewTextBoxColumn.Width = 200;
@@ -328,7 +321,6 @@ namespace Fanda.UI
             // 
             this.unitDescDataGridViewTextBoxColumn.DataPropertyName = "UnitDesc";
             this.unitDescDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.unitDescDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.unitDescDataGridViewTextBoxColumn.Name = "unitDescDataGridViewTextBoxColumn";
             this.unitDescDataGridViewTextBoxColumn.ReadOnly = true;
             this.unitDescDataGridViewTextBoxColumn.Width = 250;
@@ -337,7 +329,6 @@ namespace Fanda.UI
             // 
             this.isEnabledDataGridViewCheckBoxColumn.DataPropertyName = "IsEnabled";
             this.isEnabledDataGridViewCheckBoxColumn.HeaderText = "IsEnabled";
-            this.isEnabledDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
             this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
@@ -356,8 +347,7 @@ namespace Fanda.UI
             this.Resize += new System.EventHandler(this.UnitsForm_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unitListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unitsBindingSource)).EndInit();
             this.unitStatus.ResumeLayout(false);
             this.unitStatus.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -379,10 +369,9 @@ namespace Fanda.UI
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.BindingSource unitListBindingSource;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.BindingSource unitBindingSource;
+        private System.Windows.Forms.BindingSource unitsBindingSource;
         private System.Windows.Forms.StatusStrip unitStatus;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
         private System.Windows.Forms.GroupBox groupBox2;
