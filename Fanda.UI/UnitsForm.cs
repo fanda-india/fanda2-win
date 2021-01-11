@@ -5,6 +5,7 @@ using Fanda2.Backend.Enums;
 using Fanda2.Backend.Repositories;
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -38,7 +39,7 @@ namespace Fanda.UI
 
             dgvUnits.Columns[0].Width = (int)(Width * 0.1);
             dgvUnits.Columns[1].Width = (int)(Width * 0.3);
-            dgvUnits.Columns[2].Width = (int)(Width * 0.3);
+            dgvUnits.Columns[2].Width = (int)(Width * 0.35);
             dgvUnits.Columns[3].Width = (int)(Width * 0.1);
         }
 
@@ -49,6 +50,7 @@ namespace Fanda.UI
         private void unitBindingSource_PositionChanged(object sender, EventArgs e)
         {
             tssLabel.Text = "Ready";
+            //(unitsBindingSource.DataSource as BindingListView<Unit>)
         }
 
         private void dgvUnits_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -98,6 +100,7 @@ namespace Fanda.UI
                 unitsBindingSource.EndEdit();
 
                 tssLabel.Text = "Saved successfully!";
+                grpUnits.Enabled = true;
                 if (isAdding)
                     btnAdd.PerformClick();
             }
@@ -110,8 +113,15 @@ namespace Fanda.UI
         private void btnCancel_Click(object sender, EventArgs e)
         {
             unitErrors.Clear();
+            //Unit unit = GetCurrent();
+            //if (unit.Id > 0)
+            //{
+            //    (unitsBindingSource.DataSource as BindingListView<Unit>).Curr = _repository.GetById(unit.Id);
+            //}
+            ((ObjectView<Unit>)unitsBindingSource.Current).CancelEdit();
             unitsBindingSource.CancelEdit();
             unitsBindingSource.ResetBindings(false);
+            grpUnits.Enabled = true;
         }
 
         #endregion Save & Cancel button events
@@ -143,6 +153,7 @@ namespace Fanda.UI
         {
             unitsBindingSource.AddNew();
             txtCode.Focus();
+            grpUnits.Enabled = false;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -225,6 +236,11 @@ namespace Fanda.UI
         {
             return ((ObjectView<Unit>)unitsBindingSource.Current).Object;
         }
+
+        //private void SetCurrent(Unit unit)
+        //{
+        //    ((ObjectView<Unit>)unitsBindingSource.Current).CancelEdit();
+        //}
 
         #endregion Private methods
     }

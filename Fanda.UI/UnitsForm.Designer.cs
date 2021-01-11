@@ -43,22 +43,22 @@ namespace Fanda.UI
             this.label1 = new System.Windows.Forms.Label();
             this.unitStatus = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpUnits = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.dgvUnits = new System.Windows.Forms.DataGridView();
-            this.unitErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unitNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unitDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.unitErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unitsBindingSource)).BeginInit();
             this.unitStatus.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpUnits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitErrors)).BeginInit();
             this.SuspendLayout();
@@ -111,9 +111,9 @@ namespace Fanda.UI
             this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.unitsBindingSource, "IsEnabled", true));
             this.chkEnabled.Location = new System.Drawing.Point(87, 151);
             this.chkEnabled.Name = "chkEnabled";
-            this.chkEnabled.Size = new System.Drawing.Size(73, 19);
+            this.chkEnabled.Size = new System.Drawing.Size(84, 19);
             this.chkEnabled.TabIndex = 6;
-            this.chkEnabled.Text = "Enabled?";
+            this.chkEnabled.Text = "Is Enabled?";
             this.chkEnabled.UseVisualStyleBackColor = true;
             // 
             // unitsBindingSource
@@ -170,9 +170,9 @@ namespace Fanda.UI
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(7, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 15);
+            this.label2.Size = new System.Drawing.Size(67, 15);
             this.label2.TabIndex = 2;
-            this.label2.Text = "&Name:";
+            this.label2.Text = "&Unit Name:";
             // 
             // label1
             // 
@@ -203,23 +203,23 @@ namespace Fanda.UI
             this.tssLabel.Text = "Ready";
             this.tssLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // groupBox2
+            // grpUnits
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grpUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.btnDelete);
-            this.groupBox2.Controls.Add(this.btnAdd);
-            this.groupBox2.Controls.Add(this.txtSearch);
-            this.groupBox2.Controls.Add(this.btnRefresh);
-            this.groupBox2.Controls.Add(this.dgvUnits);
-            this.groupBox2.Location = new System.Drawing.Point(14, 211);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(744, 301);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Units";
+            this.grpUnits.Controls.Add(this.label4);
+            this.grpUnits.Controls.Add(this.btnDelete);
+            this.grpUnits.Controls.Add(this.btnAdd);
+            this.grpUnits.Controls.Add(this.txtSearch);
+            this.grpUnits.Controls.Add(this.btnRefresh);
+            this.grpUnits.Controls.Add(this.dgvUnits);
+            this.grpUnits.Location = new System.Drawing.Point(14, 211);
+            this.grpUnits.Name = "grpUnits";
+            this.grpUnits.Size = new System.Drawing.Size(744, 301);
+            this.grpUnits.TabIndex = 1;
+            this.grpUnits.TabStop = false;
+            this.grpUnits.Text = "Units";
             // 
             // label4
             // 
@@ -297,10 +297,6 @@ namespace Fanda.UI
             this.dgvUnits.TabIndex = 5;
             this.dgvUnits.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvUnits_ColumnHeaderMouseClick);
             // 
-            // unitErrors
-            // 
-            this.unitErrors.ContainerControl = this;
-            // 
             // codeDataGridViewTextBoxColumn
             // 
             this.codeDataGridViewTextBoxColumn.DataPropertyName = "Code";
@@ -328,16 +324,20 @@ namespace Fanda.UI
             // isEnabledDataGridViewCheckBoxColumn
             // 
             this.isEnabledDataGridViewCheckBoxColumn.DataPropertyName = "IsEnabled";
-            this.isEnabledDataGridViewCheckBoxColumn.HeaderText = "IsEnabled";
+            this.isEnabledDataGridViewCheckBoxColumn.HeaderText = "Is Enabled?";
             this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
             this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // unitErrors
+            // 
+            this.unitErrors.ContainerControl = this;
             // 
             // UnitsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(772, 541);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.grpUnits);
             this.Controls.Add(this.unitStatus);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -350,8 +350,8 @@ namespace Fanda.UI
             ((System.ComponentModel.ISupportInitialize)(this.unitsBindingSource)).EndInit();
             this.unitStatus.ResumeLayout(false);
             this.unitStatus.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpUnits.ResumeLayout(false);
+            this.grpUnits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnits)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitErrors)).EndInit();
             this.ResumeLayout(false);
@@ -374,7 +374,7 @@ namespace Fanda.UI
         private System.Windows.Forms.BindingSource unitsBindingSource;
         private System.Windows.Forms.StatusStrip unitStatus;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpUnits;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;

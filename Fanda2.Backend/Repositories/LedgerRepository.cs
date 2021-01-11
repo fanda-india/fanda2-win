@@ -146,21 +146,23 @@ namespace Fanda2.Backend.Repositories
 
         public bool Exists(KeyField keyField, string fieldValue, int id, int orgId)
         {
-            bool exists = true;
             using (var con = _db.GetConnection())
             {
+                string query;
                 switch (keyField)
                 {
                     case KeyField.Code:
-                        exists = con.Any<Ledger>(o => o.Id != id && o.Code == fieldValue && o.OrgId == orgId);
-                        break;
+                        query = $"select 1 from ledgers where code=@code COLLATE NOCASE and org_id=@orgId and id <> @id";
+                        return con.ExecuteScalar<int>(query, new { code = fieldValue, orgId, id }) == 1;
 
                     case KeyField.Name:
-                        exists = con.Any<Ledger>(o => o.Id != id && o.LedgerName == fieldValue && o.OrgId == orgId);
-                        break;
+                        query = $"select 1 from ledgers where ledger_name=@ledgerName COLLATE NOCASE and org_id=@orgId and id <> @id";
+                        return con.ExecuteScalar<int>(query, new { ledgerName = fieldValue, orgId, id }) == 1;
+
+                    default:
+                        return true;
                 }
             }
-            return exists;
         }
     }
 }

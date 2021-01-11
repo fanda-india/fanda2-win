@@ -49,7 +49,7 @@ namespace Fanda2.ViewModels
         public string Description { get => Current.UnitDesc; set => SetProperty(Current, nameof(Current.UnitDesc), value); }
         public bool IsEnabled { get => Current.IsEnabled; set => SetProperty(Current, nameof(Current.IsEnabled), value); }
 
-        public IList<UnitListModel> List { get; private set; }
+        public IList<Unit> List { get; private set; }
         public Unit Current { get; set; }
         public string SearchTerm { get; set; }
 
@@ -96,7 +96,7 @@ namespace Fanda2.ViewModels
 
         private void OnFetch(object obj)
         {
-            UnitListModel listItem = obj as UnitListModel;
+            Unit listItem = obj as Unit;
             if (listItem != null)
                 Current = _repository.GetById(listItem.Id);
         }

@@ -31,7 +31,7 @@ namespace Fanda2.Backend
                 config.AddMap(new UnitMap());
                 // config.AddMap(new UnitListMap());
                 config.AddMap(new ProductCategoryMap());
-                config.AddMap(new ProductCategoryListMap());
+                // config.AddMap(new ProductCategoryListMap());
                 config.AddMap(new ProductMap());
                 config.AddMap(new ProductListMap());
                 config.AddMap(new AccountYearMap());

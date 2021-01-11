@@ -4,20 +4,17 @@ using Dommel;
 
 using Fanda2.Backend.Database;
 using Fanda2.Backend.Enums;
-using Fanda2.Backend.Helpers;
 using Fanda2.Backend.ViewModels;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace Fanda2.Backend.Repositories
 {
-    public class ProductCategoryRepository : MasterRepositoryBase<ProductCategory, ProductCategoryListModel>
+    public class ProductCategoryRepository : MasterRepositoryBase<ProductCategory, ProductCategory>
     {
-        public override List<ProductCategoryListModel> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
+        public override List<ProductCategory> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
@@ -33,9 +30,14 @@ namespace Fanda2.Backend.Repositories
                 }
 
                 // Fetch from database
-                var list = con.Query<ProductCategoryListModel>($"select id, code, category_name, category_desc, is_enabled from product_categories where {filters}")
+                var list = con.Query<ProductCategory>(
+                    $"select id, code, category_name, category_desc, is_enabled, org_id, created_at, updated_at " +
+                    $"from product_categories where {filters}")
                     .ToList();
                 return list;
+
+                #region Commented
+
                 //Expression<Func<ProductCategoryListModel, bool>> filterDisabled;
                 //if (includeDisabled)
                 //{
@@ -66,26 +68,30 @@ namespace Fanda2.Backend.Repositories
                 //    return con.Select<ProductCategoryListModel>(filters)
                 //        .ToList();
                 //}
+
+                #endregion Commented
             }
         }
 
         public override bool Exists(KeyField keyField, string fieldValue, int id, int orgId)
         {
-            bool exists = true;
             using (var con = _db.GetConnection())
             {
+                string query;
                 switch (keyField)
                 {
                     case KeyField.Code:
-                        exists = con.Any<ProductCategory>(o => o.Id != id && o.Code == fieldValue && o.OrgId == orgId);
-                        break;
+                        query = $"select 1 from product_categories where code=@code COLLATE NOCASE and org_id=@orgId and id <> @id";
+                        return con.ExecuteScalar<int>(query, new { code = fieldValue, orgId, id }) == 1;
 
                     case KeyField.Name:
-                        exists = con.Any<ProductCategory>(o => o.Id != id && o.CategoryName == fieldValue && o.OrgId == orgId);
-                        break;
+                        query = $"select 1 from product_categories where category_name=@categoryName COLLATE NOCASE and org_id=@orgId and id <> @id";
+                        return con.ExecuteScalar<int>(query, new { categoryName = fieldValue, orgId, id }) == 1;
+
+                    default:
+                        return true;
                 }
             }
-            return exists;
         }
     }
 }

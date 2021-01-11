@@ -4,7 +4,6 @@ using Dommel;
 
 using Fanda2.Backend.Database;
 using Fanda2.Backend.Enums;
-using Fanda2.Backend.ViewModels;
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,13 +14,13 @@ namespace Fanda2.Backend.Repositories
 {
     public class UnitRepository : MasterRepositoryBase<Unit, Unit>
     {
-        public UnitRepository()
-        {
-            DommelMapper.LogReceived = (qry) =>
-            {
-                Debug.WriteLine("LOG: " + qry);
-            };
-        }
+        //public UnitRepository()
+        //{
+        //    DommelMapper.LogReceived = (qry) =>
+        //    {
+        //        Debug.WriteLine("LOG: " + qry);
+        //    };
+        //}
 
         public override List<Unit> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
         {
@@ -55,12 +54,10 @@ namespace Fanda2.Backend.Repositories
                 switch (keyField)
                 {
                     case KeyField.Code:
-                        //exists = con.Any<Unit>(o => o.Code == fieldValue && o.OrgId == orgId && o.Id != id);
                         query = $"select 1 from units where code=@code COLLATE NOCASE and org_id=@orgId and id <> @id";
                         return con.ExecuteScalar<int>(query, new { code = fieldValue, orgId, id }) == 1;
 
                     case KeyField.Name:
-                        //exists = con.Any<Unit>(o => o.UnitName == fieldValue && o.OrgId == orgId && o.Id != id);
                         query = $"select 1 from units where unit_name=@unitName COLLATE NOCASE and org_id=@orgId and id <> @id";
                         return con.ExecuteScalar<int>(query, new { unitName = fieldValue, orgId, id }) == 1;
 

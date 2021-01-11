@@ -23,19 +23,19 @@ namespace Fanda2.Backend.Mappings
         }
     }
 
-    internal class ProductCategoryListMap : DommelEntityMap<ProductCategoryListModel>
-    {
-        internal ProductCategoryListMap()
-        {
-            ToTable("product_categories");
+    //internal class ProductCategoryListMap : DommelEntityMap<ProductCategoryListModel>
+    //{
+    //    internal ProductCategoryListMap()
+    //    {
+    //        ToTable("product_categories");
 
-            Map(pc => pc.Id).ToColumn("id").IsKey();
-            Map(pc => pc.Code).ToColumn("code");
-            Map(pc => pc.CategoryName).ToColumn("category_name");
-            Map(pc => pc.CategoryDesc).ToColumn("category_desc");
-            // Map(pc => pc.ParentCategoryName).ToColumn("parent_category_name");
-            Map(pc => pc.IsEnabled).ToColumn("is_enabled");
-            //Map(pc => pc.OrgId).ToColumn("org_id");
-        }
-    }
+    //        Map(pc => pc.Id).ToColumn("id").IsKey();
+    //        Map(pc => pc.Code).ToColumn("code");
+    //        Map(pc => pc.CategoryName).ToColumn("category_name");
+    //        Map(pc => pc.CategoryDesc).ToColumn("category_desc");
+    //        // Map(pc => pc.ParentCategoryName).ToColumn("parent_category_name");
+    //        Map(pc => pc.IsEnabled).ToColumn("is_enabled");
+    //        //Map(pc => pc.OrgId).ToColumn("org_id");
+    //    }
+    //}
 }

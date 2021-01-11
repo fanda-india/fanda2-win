@@ -5,6 +5,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="ViewModels\ProductCategoryListModel.cs" />
 	  <Compile Remove="ViewModels\UnitListModel.cs" />
 	</ItemGroup>
 

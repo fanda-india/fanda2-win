@@ -1,12 +1,10 @@
-﻿using Fanda2.Backend.Database;
+﻿using Equin.ApplicationFramework;
+
+using Fanda2.Backend.Database;
 using Fanda2.Backend.Enums;
 using Fanda2.Backend.Repositories;
-using Fanda2.Backend.ViewModels;
 
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -14,8 +12,7 @@ namespace Fanda.UI
     public partial class ProductCategoriesForm : Form
     {
         private readonly ProductCategoryRepository _repository;
-        private List<ProductCategoryListModel> _list;
-        private ProductCategory _editItem;
+
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
@@ -29,7 +26,7 @@ namespace Fanda.UI
 
         private void ProductCategoriesForm_Load(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            LoadAndBindList();
         }
 
         private void ProductCategoriesForm_Resize(object sender, EventArgs e)
@@ -39,33 +36,28 @@ namespace Fanda.UI
                 return;
             }
 
-            dgvProductCategories.Columns[0].Width = (int)(Width * 0.1);
-            dgvProductCategories.Columns[1].Width = (int)(Width * 0.3);
-            dgvProductCategories.Columns[2].Width = (int)(Width * 0.3);
-            dgvProductCategories.Columns[3].Width = (int)(Width * 0.1);
+            dgvCategories.Columns[0].Width = (int)(Width * 0.1);
+            dgvCategories.Columns[1].Width = (int)(Width * 0.3);
+            dgvCategories.Columns[2].Width = (int)(Width * 0.35);
+            dgvCategories.Columns[3].Width = (int)(Width * 0.1);
         }
 
         #endregion Form events
 
         #region DataGridView events
 
-        private void dgvProductCategories_SelectionChanged(object sender, EventArgs e)
+        private void categoriesBindingSource_PositionChanged(object sender, EventArgs e)
         {
-            if (categoryListBindingSource.Current is ProductCategoryListModel currentItem)
-            {
-                _editItem = _repository.GetById(currentItem.Id);
-                categoryBindingSource.DataSource = _editItem;
-                tssLabel.Text = "Ready";
-            }
+            tssLabel.Text = "Ready";
         }
 
-        private void dgvProductCategories_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvCategories_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            DataGridViewColumn column = dgvProductCategories.Columns[e.ColumnIndex];
+            DataGridViewColumn column = dgvCategories.Columns[e.ColumnIndex];
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
             string direction = _isSortAscending ? "ASC" : "DESC";
 
-            ApplySort(column.DataPropertyName, direction);
+            categoriesBindingSource.Sort = $"{column.DataPropertyName} {direction}";
 
             if (_sortColumn != null)
             {
@@ -84,33 +76,30 @@ namespace Fanda.UI
         {
             txtCode_Validated(this, null);
             txtName_Validated(this, null);
-            if (!string.IsNullOrEmpty(itemErrors.GetError(txtCode)) ||
-                !string.IsNullOrEmpty(itemErrors.GetError(txtName)))
+            if (!string.IsNullOrEmpty(categoryErrors.GetError(txtCode)) ||
+                !string.IsNullOrEmpty(categoryErrors.GetError(txtName)))
                 return;
 
-            int newItemId = 0;
             bool success;
-            if (_editItem.Id == 0)
+            bool isAdding = false;
+            ProductCategory category = GetCurrent();
+            if (category.Id == 0)
             {
-                newItemId = _repository.Add(AppConfig.CurrentCompany.Id, _editItem);
-                success = newItemId != 0;
+                isAdding = true;
+                success = _repository.Add(AppConfig.CurrentCompany.Id, category) > 0;
             }
             else
             {
-                success = _repository.Update(_editItem.Id, _editItem);
+                success = _repository.Update(category.Id, category);
             }
 
             if (success)
             {
-                RefreshList(txtSearch.Text);
+                categoriesBindingSource.EndEdit();
 
-                if (newItemId > 0)
-                {
-                    var item = (categoryListBindingSource.DataSource as List<ProductCategoryListModel>).Find(u => u.Id == newItemId);
-                    int index = categoryListBindingSource.IndexOf(item);
-                    categoryListBindingSource.Position = index;
-                }
                 tssLabel.Text = "Saved successfully!";
+                if (isAdding)
+                    btnAdd.PerformClick();
             }
             else
             {
@@ -120,8 +109,9 @@ namespace Fanda.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            itemErrors.Clear();
-            dgvProductCategories_SelectionChanged(this, new EventArgs());
+            categoryErrors.Clear();
+            categoriesBindingSource.CancelEdit();
+            categoriesBindingSource.ResetBindings(false);
         }
 
         #endregion Save & Cancel button events
@@ -130,40 +120,56 @@ namespace Fanda.UI
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            if (txtSearch.Text == string.Empty)
+            {
+                categoriesBindingSource.RemoveFilter();
+            }
+            else
+            {
+                string searchTerm = txtSearch.Text.ToLower();
+                (categoriesBindingSource.DataSource as BindingListView<ProductCategory>).ApplyFilter(
+                     u => u.Code.ToLower().Contains(searchTerm) || u.CategoryName.ToLower().Contains(searchTerm) ||
+                        (u.CategoryDesc == null ? false : u.CategoryDesc.ToLower().Contains(searchTerm))
+                    );
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            LoadAndBindList();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _editItem = new ProductCategory();
-            categoryBindingSource.DataSource = _editItem;
+            categoriesBindingSource.AddNew();
             txtCode.Focus();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (!(categoryListBindingSource.Current is ProductCategoryListModel currentItem))
+            tssLabel.Text = "Ready";
+            ProductCategory category = GetCurrent();
+            if (category == null)
                 return;
 
-            DialogResult result = MessageBox.Show($"Are you sure, you want to delete product category '{currentItem.Code}'?", "Delete",
-            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            DialogResult result = MessageBox.Show($"Are you sure, you want to delete category '{category.Code}'?", "Delete",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {
-                bool success = _repository.Remove(currentItem.Id);
+                bool success = _repository.Remove(category.Id);
                 if (success)
                 {
-                    RefreshList(txtSearch.Text);
-                    tssLabel.Text = "Ready";
+                    categoriesBindingSource.RemoveCurrent();
+                    tssLabel.Text = "Deleted successfully!";
                 }
                 else
                 {
                     tssLabel.Text = "Error occured while deleting.";
                 }
+            }
+            else
+            {
+                tssLabel.Text = "Cancelled!";
             }
         }
 
@@ -175,91 +181,49 @@ namespace Fanda.UI
         {
             if (string.IsNullOrWhiteSpace(txtCode.Text))
             {
-                itemErrors.SetError(txtCode, $"Product category code is required!");
+                categoryErrors.SetError(txtCode, $"Category code is required!");
                 return;
             }
             else
-                itemErrors.SetError(txtCode, null);
+                categoryErrors.SetError(txtCode, null);
 
-            if (_repository.Exists(KeyField.Code, txtCode.Text, _editItem.Id, AppConfig.CurrentCompany.Id))
-                itemErrors.SetError(txtCode, $"Product category code '{txtCode.Text}' already exists!");
+            ProductCategory category = GetCurrent();
+            if (_repository.Exists(KeyField.Code, txtCode.Text, category.Id, AppConfig.CurrentCompany.Id))
+                categoryErrors.SetError(txtCode, $"Category code '{txtCode.Text}' already exists!");
             else
-                itemErrors.SetError(txtCode, null);
+                categoryErrors.SetError(txtCode, null);
         }
 
         private void txtName_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                itemErrors.SetError(txtName, $"Product category name is required!");
+                categoryErrors.SetError(txtName, $"Category name is required!");
                 return;
             }
             else
-                itemErrors.SetError(txtName, null);
+                categoryErrors.SetError(txtName, null);
 
-            if (_repository.Exists(KeyField.Name, txtName.Text, _editItem.Id, AppConfig.CurrentCompany.Id))
-                itemErrors.SetError(txtName, $"Product category name '{txtName.Text}' already exists!");
+            ProductCategory category = GetCurrent();
+            if (_repository.Exists(KeyField.Name, txtName.Text, category.Id, AppConfig.CurrentCompany.Id))
+                categoryErrors.SetError(txtName, $"Category name '{txtName.Text}' already exists!");
             else
-                itemErrors.SetError(txtName, null);
+                categoryErrors.SetError(txtName, null);
         }
 
         #endregion Validation events
 
         #region Private methods
 
-        private void ApplySort(string columnName, string direction)
+        private void LoadAndBindList()
         {
-            switch (columnName)
-            {
-                case "Code":
-                    if (direction == "ASC")
-                    {
-                        categoryListBindingSource.DataSource = _list.OrderBy(k => k.Code);
-                    }
-                    else
-                    {
-                        categoryListBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
-                    }
-
-                    break;
-
-                case "Name":
-                    if (direction == "ASC")
-                    {
-                        categoryListBindingSource.DataSource = _list.OrderBy(k => k.CategoryName);
-                    }
-                    else
-                    {
-                        categoryListBindingSource.DataSource = _list.OrderByDescending(k => k.CategoryName);
-                    }
-
-                    break;
-
-                case "Description":
-                    if (direction == "ASC")
-                    {
-                        categoryListBindingSource.DataSource = _list.OrderBy(k => k.CategoryDesc);
-                    }
-                    else
-                    {
-                        categoryListBindingSource.DataSource = _list.OrderByDescending(k => k.CategoryDesc);
-                    }
-
-                    break;
-            };
-            // _context.MyEntities.OrderBy(
-            //string.Format("it.{0} {1}", column.DataPropertyName, direction)).ToList();
+            var list = _repository.GetAll(AppConfig.CurrentCompany.Id, true);
+            categoriesBindingSource.DataSource = new BindingListView<ProductCategory>(list);
         }
 
-        private void RefreshList(string searchTerm)
+        private ProductCategory GetCurrent()
         {
-            _list = _repository.GetAll(AppConfig.CurrentCompany.Id, true, searchTerm);
-            categoryListBindingSource.DataSource = _list;
-            if (_sortColumn != null)
-            {
-                string direction = _isSortAscending ? "ASC" : "DESC";
-                ApplySort(_sortColumn.DataPropertyName, direction);
-            }
+            return ((ObjectView<ProductCategory>)categoriesBindingSource.Current).Object;
         }
 
         #endregion Private methods
