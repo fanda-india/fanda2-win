@@ -1,4 +1,6 @@
-﻿using Fanda2.Backend.Database;
+﻿using Equin.ApplicationFramework;
+
+using Fanda2.Backend.Database;
 using Fanda2.Backend.Enums;
 using Fanda2.Backend.Repositories;
 using Fanda2.Backend.ViewModels;
@@ -14,8 +16,7 @@ namespace Fanda.UI
     public partial class LedgersForm : Form
     {
         private readonly LedgerRepository _repository;
-        private List<LedgerListModel> _list;
-        private Ledger _editItem;
+
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
@@ -30,7 +31,7 @@ namespace Fanda.UI
         private void ProductCategoriesForm_Load(object sender, EventArgs e)
         {
             LoadGroupList();
-            RefreshList(txtSearch.Text);
+            LoadAndBindList();
         }
 
         private void ProductCategoriesForm_Resize(object sender, EventArgs e)
@@ -51,23 +52,20 @@ namespace Fanda.UI
 
         #region DataGridView events
 
-        private void dgvProductCategories_SelectionChanged(object sender, EventArgs e)
+        private void LedgersBindingSource_PositionChanged(object sender, EventArgs e)
         {
-            if (ledgerListBindingSource.Current is LedgerListModel currentItem)
-            {
-                _editItem = _repository.GetById(currentItem.Id);
-                ledgerBindingSource.DataSource = _editItem;
-                tssLabel.Text = "Ready";
-            }
+            tssLabel.Text = "Ready";
         }
 
-        private void dgvProductCategories_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DgvProductCategories_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridViewColumn column = dgvProductCategories.Columns[e.ColumnIndex];
+            if (column.SortMode == DataGridViewColumnSortMode.NotSortable)
+                return;
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
             string direction = _isSortAscending ? "ASC" : "DESC";
 
-            ApplySort(column.DataPropertyName, direction);
+            ledgersBindingSource.Sort = $"{column.DataPropertyName} {direction}";
 
             if (_sortColumn != null)
             {
@@ -82,37 +80,34 @@ namespace Fanda.UI
 
         #region Save & Cancel button events
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
-            txtCode_Validated(this, null);
-            txtName_Validated(this, null);
+            TxtCode_Validated(this, null);
+            TxtName_Validated(this, null);
             if (!string.IsNullOrEmpty(itemErrors.GetError(txtCode)) ||
                 !string.IsNullOrEmpty(itemErrors.GetError(txtName)))
                 return;
 
-            int newItemId = 0;
             bool success;
-            if (_editItem.Id == 0)
+            bool isAdding = false;
+            Ledger item = GetCurrent();
+            if (item.Id == 0)
             {
-                newItemId = _repository.Add(AppConfig.CurrentCompany.Id, _editItem);
-                success = newItemId != 0;
+                isAdding = true;
+                success = _repository.Add(AppConfig.CurrentCompany.Id, item) > 0;
             }
             else
             {
-                success = _repository.Update(_editItem.Id, _editItem);
+                success = _repository.Update(item.Id, item);
             }
 
             if (success)
             {
-                RefreshList(txtSearch.Text);
-
-                if (newItemId > 0)
-                {
-                    var item = (ledgerListBindingSource.DataSource as List<LedgerListModel>).Find(u => u.Id == newItemId);
-                    int index = ledgerListBindingSource.IndexOf(item);
-                    ledgerListBindingSource.Position = index;
-                }
+                ledgersBindingSource.EndEdit();
                 tssLabel.Text = "Saved successfully!";
+                grpLedgers.Enabled = true;
+                if (isAdding)
+                    btnAdd.PerformClick();
             }
             else
             {
@@ -120,52 +115,85 @@ namespace Fanda.UI
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void RestoreFromBackup()
+        {
+            Ledger current = GetCurrent();
+            if (current == null || current.Id == 0)
+                return;
+            Ledger item = _repository.GetById(current.Id);
+
+            current.Code = item.Code;
+            current.LedgerName = item.LedgerName;
+            current.LedgerDesc = item.LedgerDesc;
+            current.LedgerGroupId = item.LedgerGroupId;
+            current.IsEnabled = item.IsEnabled;
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             itemErrors.Clear();
-            dgvProductCategories_SelectionChanged(this, new EventArgs());
+            RestoreFromBackup();
+            ledgersBindingSource.CancelEdit();
+            ledgersBindingSource.ResetBindings(false);
+            grpLedgers.Enabled = true;
         }
 
         #endregion Save & Cancel button events
 
         #region Other events
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            if (txtSearch.Text == string.Empty)
+            {
+                ledgersBindingSource.RemoveFilter();
+            }
+            else
+            {
+                string searchTerm = txtSearch.Text.ToLower();
+                (ledgersBindingSource.DataSource as BindingListView<Ledger>).ApplyFilter(
+                     u => u.Code.ToLower().Contains(searchTerm) || u.LedgerName.ToLower().Contains(searchTerm) ||
+                        (u.LedgerDesc == null ? false : u.LedgerDesc.ToLower().Contains(searchTerm))
+                    );
+            }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            RefreshList(txtSearch.Text);
+            LoadAndBindList();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
-            _editItem = new Ledger();
-            ledgerBindingSource.DataSource = _editItem;
+            ledgersBindingSource.AddNew();
             txtCode.Focus();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
-            if (!(ledgerListBindingSource.Current is LedgerListModel currentItem))
+            tssLabel.Text = "Ready";
+            Ledger item = GetCurrent();
+            if (item == null)
                 return;
 
-            DialogResult result = MessageBox.Show($"Are you sure, you want to delete ledger '{currentItem.Code}'?", "Delete",
+            DialogResult result = MessageBox.Show($"Are you sure, you want to delete ledger '{item.Code}'?", "Delete",
             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {
-                bool success = _repository.Remove(currentItem.Id);
+                bool success = _repository.Remove(item.Id);
                 if (success)
                 {
-                    RefreshList(txtSearch.Text);
-                    tssLabel.Text = "Ready";
+                    ledgersBindingSource.RemoveCurrent();
+                    tssLabel.Text = "Deleted successfully!";
                 }
                 else
                 {
                     tssLabel.Text = "Error occured while deleting.";
                 }
+            }
+            else
+            {
+                tssLabel.Text = "Cancelled!";
             }
         }
 
@@ -173,7 +201,7 @@ namespace Fanda.UI
 
         #region Validation events
 
-        private void txtCode_Validated(object sender, EventArgs e)
+        private void TxtCode_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtCode.Text))
             {
@@ -183,13 +211,14 @@ namespace Fanda.UI
             else
                 itemErrors.SetError(txtCode, null);
 
-            if (_repository.Exists(KeyField.Code, txtCode.Text, _editItem.Id, AppConfig.CurrentCompany.Id))
+            Ledger current = GetCurrent();
+            if (_repository.Exists(KeyField.Code, txtCode.Text, current.Id, AppConfig.CurrentCompany.Id))
                 itemErrors.SetError(txtCode, $"Ledger code '{txtCode.Text}' already exists!");
             else
                 itemErrors.SetError(txtCode, null);
         }
 
-        private void txtName_Validated(object sender, EventArgs e)
+        private void TxtName_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
@@ -199,7 +228,8 @@ namespace Fanda.UI
             else
                 itemErrors.SetError(txtName, null);
 
-            if (_repository.Exists(KeyField.Name, txtName.Text, _editItem.Id, AppConfig.CurrentCompany.Id))
+            Ledger current = GetCurrent();
+            if (_repository.Exists(KeyField.Name, txtName.Text, current.Id, AppConfig.CurrentCompany.Id))
                 itemErrors.SetError(txtName, $"Ledger name '{txtName.Text}' already exists!");
             else
                 itemErrors.SetError(txtName, null);
@@ -209,59 +239,15 @@ namespace Fanda.UI
 
         #region Private methods
 
-        private void ApplySort(string columnName, string direction)
+        private void LoadAndBindList()
         {
-            switch (columnName)
-            {
-                case "Code":
-                    if (direction == "ASC")
-                    {
-                        ledgerListBindingSource.DataSource = _list.OrderBy(k => k.Code);
-                    }
-                    else
-                    {
-                        ledgerListBindingSource.DataSource = _list.OrderByDescending(k => k.Code);
-                    }
-
-                    break;
-
-                case "Name":
-                    if (direction == "ASC")
-                    {
-                        ledgerListBindingSource.DataSource = _list.OrderBy(k => k.LedgerName);
-                    }
-                    else
-                    {
-                        ledgerListBindingSource.DataSource = _list.OrderByDescending(k => k.LedgerName);
-                    }
-
-                    break;
-
-                case "Description":
-                    if (direction == "ASC")
-                    {
-                        ledgerListBindingSource.DataSource = _list.OrderBy(k => k.LedgerDesc);
-                    }
-                    else
-                    {
-                        ledgerListBindingSource.DataSource = _list.OrderByDescending(k => k.LedgerDesc);
-                    }
-
-                    break;
-            };
-            // _context.MyEntities.OrderBy(
-            //string.Format("it.{0} {1}", column.DataPropertyName, direction)).ToList();
+            var list = _repository.GetAll(AppConfig.CurrentCompany.Id, true);
+            ledgersBindingSource.DataSource = new BindingListView<Ledger>(list);
         }
 
-        private void RefreshList(string searchTerm)
+        private Ledger GetCurrent()
         {
-            _list = _repository.GetAll(AppConfig.CurrentCompany.Id, true, searchTerm);
-            ledgerListBindingSource.DataSource = _list;
-            if (_sortColumn != null)
-            {
-                string direction = _isSortAscending ? "ASC" : "DESC";
-                ApplySort(_sortColumn.DataPropertyName, direction);
-            }
+            return ((ObjectView<Ledger>)ledgersBindingSource.Current).Object;
         }
 
         private void LoadGroupList()

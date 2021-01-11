@@ -21,5 +21,10 @@ namespace Fanda2.Backend.Database
         public DateTime LastDate { get; set; }
         public SerialNumberReset SerialReset { get; set; }
         public int YearId { get; set; }
+
+        public SerialNumber Clone()
+        {
+            return (SerialNumber)MemberwiseClone();
+        }
     }
 }

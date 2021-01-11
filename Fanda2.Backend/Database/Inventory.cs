@@ -14,5 +14,10 @@ namespace Fanda2.Backend.Database
         public DateTime? ExpiryDate { get; set; }
         public int UnitId { get; set; }
         public decimal QtyOnHand { get; set; }
+
+        public Inventory Clone()
+        {
+            return (Inventory)MemberwiseClone();
+        }
     }
 }

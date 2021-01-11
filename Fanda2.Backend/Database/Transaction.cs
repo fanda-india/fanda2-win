@@ -14,5 +14,10 @@ namespace Fanda2.Backend.Database
         public DateTime? ReferenceDate { get; set; }
         public int? JournalId { get; set; }        // nullable
         public int? InvoiceId { get; set; }        // nullable
+
+        public Transaction Clone()
+        {
+            return (Transaction)MemberwiseClone();
+        }
     }
 }

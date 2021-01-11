@@ -33,6 +33,11 @@ namespace Fanda2.Backend.Database
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
+        public AccountYear Clone()
+        {
+            return (AccountYear)MemberwiseClone();
+        }
+
         public bool IsEmpty()
         {
             return YearBegin == default &&

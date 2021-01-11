@@ -22,23 +22,25 @@ namespace Fanda2.Backend.Mappings
             Map(l => l.IsEnabled).ToColumn("is_enabled");
             Map(l => l.CreatedAt).ToColumn("created_at");
             Map(l => l.UpdatedAt).ToColumn("updated_at");
-        }
-    }
 
-    internal class LedgerListMap : DommelEntityMap<LedgerListModel>
-    {
-        internal LedgerListMap()
-        {
-            ToTable("ledgers");
-
-            Map(l => l.Id).ToColumn("id").IsKey();
-            Map(l => l.Code).ToColumn("code");
-            Map(l => l.LedgerName).ToColumn("ledger_name");
-            Map(l => l.LedgerDesc).ToColumn("ledger_desc");
             Map(l => l.GroupName).ToColumn("group_name");
-            Map(l => l.LedgerType).ToColumn("ledger_type");
-            Map(l => l.IsEnabled).ToColumn("is_enabled");
-            //Map(l => l.OrgId).ToColumn("org_id");
         }
     }
+
+    //internal class LedgerListMap : DommelEntityMap<LedgerListModel>
+    //{
+    //    internal LedgerListMap()
+    //    {
+    //        ToTable("ledgers");
+
+    //        Map(l => l.Id).ToColumn("id").IsKey();
+    //        Map(l => l.Code).ToColumn("code");
+    //        Map(l => l.LedgerName).ToColumn("ledger_name");
+    //        Map(l => l.LedgerDesc).ToColumn("ledger_desc");
+    //        Map(l => l.GroupName).ToColumn("group_name");
+    //        Map(l => l.LedgerType).ToColumn("ledger_type");
+    //        Map(l => l.IsEnabled).ToColumn("is_enabled");
+    //        //Map(l => l.OrgId).ToColumn("org_id");
+    //    }
+    //}
 }

@@ -8,6 +8,11 @@
         public decimal OpeningBalance { get; set; }
         public string BalanceSign { get; set; }
 
+        public LedgerBalance Clone()
+        {
+            return (LedgerBalance)MemberwiseClone();
+        }
+
         public bool IsEmpty()
         {
             return OpeningBalance == 0 ||

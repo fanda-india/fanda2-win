@@ -32,7 +32,6 @@ namespace Fanda.UI
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cboGroup = new System.Windows.Forms.ComboBox();
-            this.ledgerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -46,27 +45,26 @@ namespace Fanda.UI
             this.label1 = new System.Windows.Forms.Label();
             this.itemStatus = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpLedgers = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.dgvProductCategories = new System.Windows.Forms.DataGridView();
+            this.ledgersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.itemErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ledgerListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.itemErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ledgerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             this.itemStatus.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpLedgers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductCategories)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledgerListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledgersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemErrors)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,7 +92,7 @@ namespace Fanda.UI
             // 
             // cboGroup
             // 
-            this.cboGroup.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.ledgerBindingSource, "LedgerGroupId", true));
+            this.cboGroup.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.ledgersBindingSource, "LedgerGroupId", true));
             this.cboGroup.DataSource = this.groupBindingSource;
             this.cboGroup.DisplayMember = "GroupName";
             this.cboGroup.FormattingEnabled = true;
@@ -103,10 +101,6 @@ namespace Fanda.UI
             this.cboGroup.Size = new System.Drawing.Size(651, 23);
             this.cboGroup.TabIndex = 7;
             this.cboGroup.ValueMember = "Id";
-            // 
-            // ledgerBindingSource
-            // 
-            this.ledgerBindingSource.DataSource = typeof(Fanda2.Backend.Database.Ledger);
             // 
             // groupBindingSource
             // 
@@ -130,7 +124,7 @@ namespace Fanda.UI
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnSave
             // 
@@ -141,12 +135,12 @@ namespace Fanda.UI
             this.btnSave.TabIndex = 9;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // chkEnabled
             // 
             this.chkEnabled.AutoSize = true;
-            this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.ledgerBindingSource, "IsEnabled", true));
+            this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.ledgersBindingSource, "IsEnabled", true));
             this.chkEnabled.Location = new System.Drawing.Point(86, 179);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(73, 19);
@@ -158,7 +152,7 @@ namespace Fanda.UI
             // 
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgerBindingSource, "LedgerDesc", true));
+            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgersBindingSource, "LedgerDesc", true));
             this.txtDescription.Location = new System.Drawing.Point(87, 82);
             this.txtDescription.MaxLength = 255;
             this.txtDescription.Multiline = true;
@@ -170,13 +164,13 @@ namespace Fanda.UI
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgerBindingSource, "LedgerName", true));
+            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgersBindingSource, "LedgerName", true));
             this.txtName.Location = new System.Drawing.Point(87, 52);
             this.txtName.MaxLength = 25;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(632, 23);
             this.txtName.TabIndex = 3;
-            this.txtName.Validated += new System.EventHandler(this.txtName_Validated);
+            this.txtName.Validated += new System.EventHandler(this.TxtName_Validated);
             // 
             // label3
             // 
@@ -190,13 +184,13 @@ namespace Fanda.UI
             // txtCode
             // 
             this.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgerBindingSource, "Code", true));
+            this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgersBindingSource, "Code", true));
             this.txtCode.Location = new System.Drawing.Point(87, 22);
             this.txtCode.MaxLength = 16;
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(123, 23);
             this.txtCode.TabIndex = 1;
-            this.txtCode.Validated += new System.EventHandler(this.txtCode_Validated);
+            this.txtCode.Validated += new System.EventHandler(this.TxtCode_Validated);
             // 
             // label2
             // 
@@ -236,23 +230,23 @@ namespace Fanda.UI
             this.tssLabel.Text = "Ready";
             this.tssLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // groupBox2
+            // grpLedgers
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grpLedgers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.btnDelete);
-            this.groupBox2.Controls.Add(this.btnAdd);
-            this.groupBox2.Controls.Add(this.txtSearch);
-            this.groupBox2.Controls.Add(this.btnRefresh);
-            this.groupBox2.Controls.Add(this.dgvProductCategories);
-            this.groupBox2.Location = new System.Drawing.Point(14, 234);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(744, 278);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ledgers";
+            this.grpLedgers.Controls.Add(this.label4);
+            this.grpLedgers.Controls.Add(this.btnDelete);
+            this.grpLedgers.Controls.Add(this.btnAdd);
+            this.grpLedgers.Controls.Add(this.txtSearch);
+            this.grpLedgers.Controls.Add(this.btnRefresh);
+            this.grpLedgers.Controls.Add(this.dgvProductCategories);
+            this.grpLedgers.Location = new System.Drawing.Point(14, 234);
+            this.grpLedgers.Name = "grpLedgers";
+            this.grpLedgers.Size = new System.Drawing.Size(744, 278);
+            this.grpLedgers.TabIndex = 1;
+            this.grpLedgers.TabStop = false;
+            this.grpLedgers.Text = "Ledgers";
             // 
             // label4
             // 
@@ -272,7 +266,7 @@ namespace Fanda.UI
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // btnAdd
             // 
@@ -283,7 +277,7 @@ namespace Fanda.UI
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "&Add";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // txtSearch
             // 
@@ -294,7 +288,7 @@ namespace Fanda.UI
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(388, 23);
             this.txtSearch.TabIndex = 2;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
             // 
             // btnRefresh
             // 
@@ -304,7 +298,7 @@ namespace Fanda.UI
             this.btnRefresh.TabIndex = 0;
             this.btnRefresh.Text = "&Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh_Click);
             // 
             // dgvProductCategories
             // 
@@ -321,7 +315,7 @@ namespace Fanda.UI
             this.ledgerDescDataGridViewTextBoxColumn,
             this.groupNameDataGridViewTextBoxColumn,
             this.isEnabledDataGridViewCheckBoxColumn});
-            this.dgvProductCategories.DataSource = this.ledgerListBindingSource;
+            this.dgvProductCategories.DataSource = this.ledgersBindingSource;
             this.dgvProductCategories.Location = new System.Drawing.Point(7, 55);
             this.dgvProductCategories.Name = "dgvProductCategories";
             this.dgvProductCategories.ReadOnly = true;
@@ -329,8 +323,16 @@ namespace Fanda.UI
             this.dgvProductCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProductCategories.Size = new System.Drawing.Size(730, 216);
             this.dgvProductCategories.TabIndex = 5;
-            this.dgvProductCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvProductCategories_ColumnHeaderMouseClick);
-            this.dgvProductCategories.SelectionChanged += new System.EventHandler(this.dgvProductCategories_SelectionChanged);
+            this.dgvProductCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvProductCategories_ColumnHeaderMouseClick);
+            // 
+            // ledgersBindingSource
+            // 
+            this.ledgersBindingSource.DataSource = typeof(Fanda2.Backend.Database.Ledger);
+            this.ledgersBindingSource.PositionChanged += new System.EventHandler(this.LedgersBindingSource_PositionChanged);
+            // 
+            // itemErrors
+            // 
+            this.itemErrors.ContainerControl = this;
             // 
             // codeDataGridViewTextBoxColumn
             // 
@@ -353,7 +355,7 @@ namespace Fanda.UI
             this.ledgerDescDataGridViewTextBoxColumn.HeaderText = "Description";
             this.ledgerDescDataGridViewTextBoxColumn.Name = "ledgerDescDataGridViewTextBoxColumn";
             this.ledgerDescDataGridViewTextBoxColumn.ReadOnly = true;
-            this.ledgerDescDataGridViewTextBoxColumn.Width = 150;
+            this.ledgerDescDataGridViewTextBoxColumn.Width = 200;
             // 
             // groupNameDataGridViewTextBoxColumn
             // 
@@ -369,20 +371,12 @@ namespace Fanda.UI
             this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
             this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
-            // ledgerListBindingSource
-            // 
-            this.ledgerListBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.LedgerListModel);
-            // 
-            // itemErrors
-            // 
-            this.itemErrors.ContainerControl = this;
-            // 
             // LedgersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(772, 541);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.grpLedgers);
             this.Controls.Add(this.itemStatus);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -394,14 +388,13 @@ namespace Fanda.UI
             this.Resize += new System.EventHandler(this.ProductCategoriesForm_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ledgerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             this.itemStatus.ResumeLayout(false);
             this.itemStatus.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpLedgers.ResumeLayout(false);
+            this.grpLedgers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductCategories)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledgerListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledgersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemErrors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -418,13 +411,12 @@ namespace Fanda.UI
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.BindingSource ledgerListBindingSource;
+        private System.Windows.Forms.BindingSource ledgersBindingSource;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.BindingSource ledgerBindingSource;
         private System.Windows.Forms.StatusStrip itemStatus;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpLedgers;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;

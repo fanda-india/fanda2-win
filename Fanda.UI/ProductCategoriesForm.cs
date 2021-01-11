@@ -5,6 +5,7 @@ using Fanda2.Backend.Enums;
 using Fanda2.Backend.Repositories;
 
 using System;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -12,7 +13,6 @@ namespace Fanda.UI
     public partial class ProductCategoriesForm : Form
     {
         private readonly ProductCategoryRepository _repository;
-
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
@@ -46,14 +46,16 @@ namespace Fanda.UI
 
         #region DataGridView events
 
-        private void categoriesBindingSource_PositionChanged(object sender, EventArgs e)
+        private void CategoriesBindingSource_PositionChanged(object sender, EventArgs e)
         {
             tssLabel.Text = "Ready";
         }
 
-        private void dgvCategories_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DgvCategories_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridViewColumn column = dgvCategories.Columns[e.ColumnIndex];
+            if (column.SortMode == DataGridViewColumnSortMode.NotSortable)
+                return;
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
             string direction = _isSortAscending ? "ASC" : "DESC";
 
@@ -72,10 +74,10 @@ namespace Fanda.UI
 
         #region Save & Cancel button events
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
-            txtCode_Validated(this, null);
-            txtName_Validated(this, null);
+            TxtCode_Validated(this, null);
+            TxtName_Validated(this, null);
             if (!string.IsNullOrEmpty(categoryErrors.GetError(txtCode)) ||
                 !string.IsNullOrEmpty(categoryErrors.GetError(txtName)))
                 return;
@@ -98,6 +100,7 @@ namespace Fanda.UI
                 categoriesBindingSource.EndEdit();
 
                 tssLabel.Text = "Saved successfully!";
+                grpCategories.Enabled = true;
                 if (isAdding)
                     btnAdd.PerformClick();
             }
@@ -105,20 +108,36 @@ namespace Fanda.UI
             {
                 tssLabel.Text = "Error: Error occured while saving.";
             }
+            //}
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void RestoreFromBackup()
+        {
+            ProductCategory current = GetCurrent();
+            if (current == null || current.Id == 0)
+                return;
+            ProductCategory cat = _repository.GetById(current.Id);
+
+            current.Code = cat.Code;
+            current.CategoryName = cat.CategoryName;
+            current.CategoryDesc = cat.CategoryDesc;
+            current.IsEnabled = cat.IsEnabled;
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             categoryErrors.Clear();
+            RestoreFromBackup();
             categoriesBindingSource.CancelEdit();
             categoriesBindingSource.ResetBindings(false);
+            grpCategories.Enabled = true;
         }
 
         #endregion Save & Cancel button events
 
         #region Other events
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
             if (txtSearch.Text == string.Empty)
             {
@@ -134,18 +153,19 @@ namespace Fanda.UI
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void BtnRefresh_Click(object sender, EventArgs e)
         {
             LoadAndBindList();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             categoriesBindingSource.AddNew();
             txtCode.Focus();
+            grpCategories.Enabled = false;
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             tssLabel.Text = "Ready";
             ProductCategory category = GetCurrent();
@@ -177,7 +197,7 @@ namespace Fanda.UI
 
         #region Validation events
 
-        private void txtCode_Validated(object sender, EventArgs e)
+        private void TxtCode_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtCode.Text))
             {
@@ -194,7 +214,7 @@ namespace Fanda.UI
                 categoryErrors.SetError(txtCode, null);
         }
 
-        private void txtName_Validated(object sender, EventArgs e)
+        private void TxtName_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
@@ -218,7 +238,8 @@ namespace Fanda.UI
         private void LoadAndBindList()
         {
             var list = _repository.GetAll(AppConfig.CurrentCompany.Id, true);
-            categoriesBindingSource.DataSource = new BindingListView<ProductCategory>(list);
+            BindingListView<ProductCategory> listView = new BindingListView<ProductCategory>(list);
+            categoriesBindingSource.DataSource = listView;
         }
 
         private ProductCategory GetCurrent()

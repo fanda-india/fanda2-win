@@ -13,7 +13,6 @@ namespace Fanda.UI
     public partial class UnitsForm : Form
     {
         private readonly UnitRepository _repository;
-
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
 
@@ -37,29 +36,30 @@ namespace Fanda.UI
                 return;
             }
 
-            dgvUnits.Columns[0].Width = (int)(Width * 0.1);
-            dgvUnits.Columns[1].Width = (int)(Width * 0.3);
-            dgvUnits.Columns[2].Width = (int)(Width * 0.35);
-            dgvUnits.Columns[3].Width = (int)(Width * 0.1);
+            UnitsGridView.Columns[0].Width = (int)(Width * 0.1);
+            UnitsGridView.Columns[1].Width = (int)(Width * 0.3);
+            UnitsGridView.Columns[2].Width = (int)(Width * 0.35);
+            UnitsGridView.Columns[3].Width = (int)(Width * 0.1);
         }
 
         #endregion Form events
 
         #region DataGridView events
 
-        private void unitBindingSource_PositionChanged(object sender, EventArgs e)
+        private void UnitsBindingSource_PositionChanged(object sender, EventArgs e)
         {
-            tssLabel.Text = "Ready";
-            //(unitsBindingSource.DataSource as BindingListView<Unit>)
+            StatusLabel.Text = "Ready";
         }
 
-        private void dgvUnits_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void UnitsGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            DataGridViewColumn column = dgvUnits.Columns[e.ColumnIndex];
+            DataGridViewColumn column = UnitsGridView.Columns[e.ColumnIndex];
+            if (column.SortMode == DataGridViewColumnSortMode.NotSortable)
+                return;
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
             string direction = _isSortAscending ? "ASC" : "DESC";
 
-            unitsBindingSource.Sort = $"{column.DataPropertyName} {direction}";
+            UnitsBindingSource.Sort = $"{column.DataPropertyName} {direction}";
 
             if (_sortColumn != null)
             {
@@ -74,12 +74,12 @@ namespace Fanda.UI
 
         #region Save & Cancel button events
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
-            txtCode_Validated(this, null);
-            txtName_Validated(this, null);
-            if (!string.IsNullOrEmpty(unitErrors.GetError(txtCode)) ||
-                !string.IsNullOrEmpty(unitErrors.GetError(txtName)))
+            CodeText_Validated(this, null);
+            NameText_Validated(this, null);
+            if (!string.IsNullOrEmpty(UnitErrors.GetError(CodeText)) ||
+                !string.IsNullOrEmpty(UnitErrors.GetError(NameText)))
                 return;
 
             bool success;
@@ -97,68 +97,76 @@ namespace Fanda.UI
 
             if (success)
             {
-                unitsBindingSource.EndEdit();
+                UnitsBindingSource.EndEdit();
 
-                tssLabel.Text = "Saved successfully!";
-                grpUnits.Enabled = true;
+                StatusLabel.Text = "Saved successfully!";
+                UnitsGroupBox.Enabled = true;
                 if (isAdding)
-                    btnAdd.PerformClick();
+                    AddButton.PerformClick();
             }
             else
             {
-                tssLabel.Text = "Error: Error occured while saving.";
+                StatusLabel.Text = "Error: Error occured while saving.";
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void RestoreFromDatabase()
         {
-            unitErrors.Clear();
-            //Unit unit = GetCurrent();
-            //if (unit.Id > 0)
-            //{
-            //    (unitsBindingSource.DataSource as BindingListView<Unit>).Curr = _repository.GetById(unit.Id);
-            //}
-            ((ObjectView<Unit>)unitsBindingSource.Current).CancelEdit();
-            unitsBindingSource.CancelEdit();
-            unitsBindingSource.ResetBindings(false);
-            grpUnits.Enabled = true;
+            Unit current = GetCurrent();
+            if (current == null || current.Id == 0)
+                return;
+            Unit unit = _repository.GetById(current.Id);
+
+            current.Code = unit.Code;
+            current.UnitName = unit.UnitName;
+            current.UnitDesc = unit.UnitDesc;
+            current.IsEnabled = unit.IsEnabled;
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            UnitErrors.Clear();
+            RestoreFromDatabase();
+            UnitsBindingSource.CancelEdit();
+            UnitsBindingSource.ResetBindings(false);
+            UnitsGroupBox.Enabled = true;
         }
 
         #endregion Save & Cancel button events
 
         #region Other events
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void SearchText_TextChanged(object sender, EventArgs e)
         {
-            if (txtSearch.Text == string.Empty)
+            if (SearchText.Text == string.Empty)
             {
-                unitsBindingSource.RemoveFilter();
+                UnitsBindingSource.RemoveFilter();
             }
             else
             {
-                string searchTerm = txtSearch.Text.ToLower();
-                (unitsBindingSource.DataSource as BindingListView<Unit>).ApplyFilter(
+                string searchTerm = SearchText.Text.ToLower();
+                (UnitsBindingSource.DataSource as BindingListView<Unit>).ApplyFilter(
                      u => u.Code.ToLower().Contains(searchTerm) || u.UnitName.ToLower().Contains(searchTerm) ||
                         (u.UnitDesc == null ? false : u.UnitDesc.ToLower().Contains(searchTerm))
                     );
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void RefreshButton_Click(object sender, EventArgs e)
         {
             LoadAndBindList();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
-            unitsBindingSource.AddNew();
-            txtCode.Focus();
-            grpUnits.Enabled = false;
+            UnitsBindingSource.AddNew();
+            CodeText.Focus();
+            UnitsGroupBox.Enabled = false;
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void DeleteButton_Click(object sender, EventArgs e)
         {
-            tssLabel.Text = "Ready";
+            StatusLabel.Text = "Ready";
             Unit unit = GetCurrent();
             if (unit == null)
                 return;
@@ -170,17 +178,17 @@ namespace Fanda.UI
                 bool success = _repository.Remove(unit.Id);
                 if (success)
                 {
-                    unitsBindingSource.RemoveCurrent();
-                    tssLabel.Text = "Deleted successfully!";
+                    UnitsBindingSource.RemoveCurrent();
+                    StatusLabel.Text = "Deleted successfully!";
                 }
                 else
                 {
-                    tssLabel.Text = "Error occured while deleting.";
+                    StatusLabel.Text = "Error occured while deleting.";
                 }
             }
             else
             {
-                tssLabel.Text = "Cancelled!";
+                StatusLabel.Text = "Cancelled!";
             }
         }
 
@@ -188,38 +196,38 @@ namespace Fanda.UI
 
         #region Validation events
 
-        private void txtCode_Validated(object sender, EventArgs e)
+        private void CodeText_Validated(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtCode.Text))
+            if (string.IsNullOrWhiteSpace(CodeText.Text))
             {
-                unitErrors.SetError(txtCode, $"Unit code is required!");
+                UnitErrors.SetError(CodeText, $"Unit code is required!");
                 return;
             }
             else
-                unitErrors.SetError(txtCode, null);
+                UnitErrors.SetError(CodeText, null);
 
             Unit unit = GetCurrent();
-            if (_repository.Exists(KeyField.Code, txtCode.Text, unit.Id, AppConfig.CurrentCompany.Id))
-                unitErrors.SetError(txtCode, $"Unit code '{txtCode.Text}' already exists!");
+            if (_repository.Exists(KeyField.Code, CodeText.Text, unit.Id, AppConfig.CurrentCompany.Id))
+                UnitErrors.SetError(CodeText, $"Unit code '{CodeText.Text}' already exists!");
             else
-                unitErrors.SetError(txtCode, null);
+                UnitErrors.SetError(CodeText, null);
         }
 
-        private void txtName_Validated(object sender, EventArgs e)
+        private void NameText_Validated(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
+            if (string.IsNullOrWhiteSpace(NameText.Text))
             {
-                unitErrors.SetError(txtName, $"Unit name is required!");
+                UnitErrors.SetError(NameText, $"Unit name is required!");
                 return;
             }
             else
-                unitErrors.SetError(txtName, null);
+                UnitErrors.SetError(NameText, null);
 
             Unit unit = GetCurrent();
-            if (_repository.Exists(KeyField.Name, txtName.Text, unit.Id, AppConfig.CurrentCompany.Id))
-                unitErrors.SetError(txtName, $"Unit name '{txtName.Text}' already exists!");
+            if (_repository.Exists(KeyField.Name, NameText.Text, unit.Id, AppConfig.CurrentCompany.Id))
+                UnitErrors.SetError(NameText, $"Unit name '{NameText.Text}' already exists!");
             else
-                unitErrors.SetError(txtName, null);
+                UnitErrors.SetError(NameText, null);
         }
 
         #endregion Validation events
@@ -229,12 +237,12 @@ namespace Fanda.UI
         private void LoadAndBindList()
         {
             var list = _repository.GetAll(AppConfig.CurrentCompany.Id, true);
-            unitsBindingSource.DataSource = new BindingListView<Unit>(list);
+            UnitsBindingSource.DataSource = new BindingListView<Unit>(list);
         }
 
         private Unit GetCurrent()
         {
-            return ((ObjectView<Unit>)unitsBindingSource.Current).Object;
+            return ((ObjectView<Unit>)UnitsBindingSource.Current).Object;
         }
 
         //private void SetCurrent(Unit unit)

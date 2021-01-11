@@ -13,6 +13,11 @@ namespace Fanda2.Backend.Database
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
+        public Unit Clone()
+        {
+            return (Unit)MemberwiseClone();
+        }
+
         public bool IsEmpty()
         {
             return string.IsNullOrWhiteSpace(Code) &&

@@ -18,6 +18,11 @@ namespace Fanda2.Backend.Database
         public virtual Address Address { get; set; }
         public virtual Contact Contact { get; set; }
 
+        public Party Clone()
+        {
+            return (Party)MemberwiseClone();
+        }
+
         public bool IsEmpty()
         {
             return string.IsNullOrWhiteSpace(RegdNum) &&

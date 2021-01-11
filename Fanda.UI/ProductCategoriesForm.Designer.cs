@@ -34,6 +34,7 @@ namespace Fanda.UI
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
+            this.categoriesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,25 +43,24 @@ namespace Fanda.UI
             this.label1 = new System.Windows.Forms.Label();
             this.categoryStatus = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpCategories = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.dgvCategories = new System.Windows.Forms.DataGridView();
-            this.categoryErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.categoriesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.categoryErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.categoriesBindingSource)).BeginInit();
             this.categoryStatus.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpCategories.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategories)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryErrors)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.categoriesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -92,7 +92,7 @@ namespace Fanda.UI
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnSave
             // 
@@ -103,7 +103,7 @@ namespace Fanda.UI
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // chkEnabled
             // 
@@ -115,6 +115,11 @@ namespace Fanda.UI
             this.chkEnabled.TabIndex = 6;
             this.chkEnabled.Text = "Is Enabled?";
             this.chkEnabled.UseVisualStyleBackColor = true;
+            // 
+            // categoriesBindingSource
+            // 
+            this.categoriesBindingSource.DataSource = typeof(Fanda2.Backend.Database.ProductCategory);
+            this.categoriesBindingSource.PositionChanged += new System.EventHandler(this.CategoriesBindingSource_PositionChanged);
             // 
             // txtDescription
             // 
@@ -138,7 +143,7 @@ namespace Fanda.UI
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(613, 23);
             this.txtName.TabIndex = 3;
-            this.txtName.Validated += new System.EventHandler(this.txtName_Validated);
+            this.txtName.Validated += new System.EventHandler(this.TxtName_Validated);
             // 
             // label3
             // 
@@ -158,7 +163,7 @@ namespace Fanda.UI
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(123, 23);
             this.txtCode.TabIndex = 1;
-            this.txtCode.Validated += new System.EventHandler(this.txtCode_Validated);
+            this.txtCode.Validated += new System.EventHandler(this.TxtCode_Validated);
             // 
             // label2
             // 
@@ -198,23 +203,23 @@ namespace Fanda.UI
             this.tssLabel.Text = "Ready";
             this.tssLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // groupBox2
+            // grpCategories
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grpCategories.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.btnDelete);
-            this.groupBox2.Controls.Add(this.btnAdd);
-            this.groupBox2.Controls.Add(this.txtSearch);
-            this.groupBox2.Controls.Add(this.btnRefresh);
-            this.groupBox2.Controls.Add(this.dgvCategories);
-            this.groupBox2.Location = new System.Drawing.Point(14, 211);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(744, 301);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Product Categories";
+            this.grpCategories.Controls.Add(this.label4);
+            this.grpCategories.Controls.Add(this.btnDelete);
+            this.grpCategories.Controls.Add(this.btnAdd);
+            this.grpCategories.Controls.Add(this.txtSearch);
+            this.grpCategories.Controls.Add(this.btnRefresh);
+            this.grpCategories.Controls.Add(this.dgvCategories);
+            this.grpCategories.Location = new System.Drawing.Point(14, 211);
+            this.grpCategories.Name = "grpCategories";
+            this.grpCategories.Size = new System.Drawing.Size(744, 301);
+            this.grpCategories.TabIndex = 1;
+            this.grpCategories.TabStop = false;
+            this.grpCategories.Text = "Product Categories";
             // 
             // label4
             // 
@@ -234,7 +239,7 @@ namespace Fanda.UI
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // btnAdd
             // 
@@ -245,7 +250,7 @@ namespace Fanda.UI
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "&Add";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // txtSearch
             // 
@@ -256,7 +261,7 @@ namespace Fanda.UI
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(388, 23);
             this.txtSearch.TabIndex = 2;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
             // 
             // btnRefresh
             // 
@@ -266,7 +271,7 @@ namespace Fanda.UI
             this.btnRefresh.TabIndex = 0;
             this.btnRefresh.Text = "&Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh_Click);
             // 
             // dgvCategories
             // 
@@ -290,11 +295,7 @@ namespace Fanda.UI
             this.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCategories.Size = new System.Drawing.Size(730, 239);
             this.dgvCategories.TabIndex = 5;
-            this.dgvCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvCategories_ColumnHeaderMouseClick);
-            // 
-            // categoryErrors
-            // 
-            this.categoryErrors.ContainerControl = this;
+            this.dgvCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvCategories_ColumnHeaderMouseClick);
             // 
             // codeDataGridViewTextBoxColumn
             // 
@@ -327,17 +328,16 @@ namespace Fanda.UI
             this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
             this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
-            // categoriesBindingSource
+            // categoryErrors
             // 
-            this.categoriesBindingSource.DataSource = typeof(Fanda2.Backend.Database.ProductCategory);
-            this.categoriesBindingSource.PositionChanged += new System.EventHandler(this.categoriesBindingSource_PositionChanged);
+            this.categoryErrors.ContainerControl = this;
             // 
             // ProductCategoriesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(772, 541);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.grpCategories);
             this.Controls.Add(this.categoryStatus);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -347,13 +347,13 @@ namespace Fanda.UI
             this.Resize += new System.EventHandler(this.ProductCategoriesForm_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.categoriesBindingSource)).EndInit();
             this.categoryStatus.ResumeLayout(false);
             this.categoryStatus.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpCategories.ResumeLayout(false);
+            this.grpCategories.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategories)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoryErrors)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.categoriesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,7 +374,7 @@ namespace Fanda.UI
         private System.Windows.Forms.BindingSource categoriesBindingSource;
         private System.Windows.Forms.StatusStrip categoryStatus;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpCategories;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;

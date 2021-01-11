@@ -15,5 +15,10 @@ namespace Fanda2.Backend.Database
         public int YearId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public Journal Clone()
+        {
+            return (Journal)MemberwiseClone();
+        }
     }
 }

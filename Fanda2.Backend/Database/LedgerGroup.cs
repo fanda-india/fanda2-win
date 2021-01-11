@@ -17,5 +17,10 @@ namespace Fanda2.Backend.Database
         public bool IsEnabled { get; set; } = true;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public LedgerGroup Clone()
+        {
+            return (LedgerGroup)MemberwiseClone();
+        }
     }
 }

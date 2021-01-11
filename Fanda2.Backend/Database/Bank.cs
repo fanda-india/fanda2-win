@@ -19,6 +19,11 @@ namespace Fanda2.Backend.Database
         public virtual Address Address { get; set; }
         public virtual Contact Contact { get; set; }
 
+        public Bank Clone()
+        {
+            return (Bank)MemberwiseClone();
+        }
+
         public bool IsEmpty()
         {
             return string.IsNullOrWhiteSpace(AccountNumber) &&

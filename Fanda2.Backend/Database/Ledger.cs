@@ -19,16 +19,20 @@ namespace Fanda2.Backend.Database
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        // Ledger Balance
+        public string GroupName { get; set; }
 
-        //public int YearId { get; set; }
-        //public decimal OpeningBalance { get; set; }
-        //public string BalanceSign { get; set; }
+        #region Virtual Members
+
         public virtual LedgerBalance Balance { get; set; }
-
-        // Virtual Members
-
         public virtual Bank Bank { get; set; }
+
         public virtual Party Party { get; set; }
+
+        #endregion Virtual Members
+
+        public Ledger Clone()
+        {
+            return (Ledger)MemberwiseClone();
+        }
     }
 }

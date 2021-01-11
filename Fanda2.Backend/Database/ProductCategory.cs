@@ -14,6 +14,11 @@ namespace Fanda2.Backend.Database
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
+        public ProductCategory Clone()
+        {
+            return (ProductCategory)MemberwiseClone();
+        }
+
         public bool IsEmpty()
         {
             return string.IsNullOrWhiteSpace(Code) &&

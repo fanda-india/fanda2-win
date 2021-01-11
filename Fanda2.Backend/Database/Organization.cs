@@ -30,6 +30,11 @@ namespace Fanda2.Backend.Database
         public virtual AccountYear Year { get; set; }
         public virtual Address Address { get; set; }
         public virtual Contact Contact { get; set; }
+
+        public Organization Clone()
+        {
+            return (Organization)MemberwiseClone();
+        }
     }
 
     //public class OrgAddress
