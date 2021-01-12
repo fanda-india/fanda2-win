@@ -78,7 +78,7 @@ namespace Fanda.UI
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(14, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(744, 190);
+            this.groupBox1.Size = new System.Drawing.Size(744, 173);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Unit Details";
@@ -86,7 +86,7 @@ namespace Fanda.UI
             // CancelButton
             // 
             this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.Location = new System.Drawing.Point(650, 151);
+            this.CancelButton.Location = new System.Drawing.Point(651, 138);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(87, 27);
             this.CancelButton.TabIndex = 8;
@@ -97,7 +97,7 @@ namespace Fanda.UI
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(555, 151);
+            this.SaveButton.Location = new System.Drawing.Point(556, 138);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(87, 27);
             this.SaveButton.TabIndex = 7;
@@ -109,7 +109,7 @@ namespace Fanda.UI
             // 
             this.IsEnabledCheck.AutoSize = true;
             this.IsEnabledCheck.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.UnitsBindingSource, "IsEnabled", true));
-            this.IsEnabledCheck.Location = new System.Drawing.Point(87, 151);
+            this.IsEnabledCheck.Location = new System.Drawing.Point(88, 138);
             this.IsEnabledCheck.Name = "IsEnabledCheck";
             this.IsEnabledCheck.Size = new System.Drawing.Size(84, 19);
             this.IsEnabledCheck.TabIndex = 6;
@@ -130,7 +130,7 @@ namespace Fanda.UI
             this.DescriptionText.MaxLength = 255;
             this.DescriptionText.Multiline = true;
             this.DescriptionText.Name = "DescriptionText";
-            this.DescriptionText.Size = new System.Drawing.Size(649, 62);
+            this.DescriptionText.Size = new System.Drawing.Size(650, 50);
             this.DescriptionText.TabIndex = 5;
             // 
             // NameText
@@ -214,9 +214,9 @@ namespace Fanda.UI
             this.UnitsGroupBox.Controls.Add(this.SearchText);
             this.UnitsGroupBox.Controls.Add(this.RefreshButton);
             this.UnitsGroupBox.Controls.Add(this.UnitsGridView);
-            this.UnitsGroupBox.Location = new System.Drawing.Point(14, 211);
+            this.UnitsGroupBox.Location = new System.Drawing.Point(14, 193);
             this.UnitsGroupBox.Name = "UnitsGroupBox";
-            this.UnitsGroupBox.Size = new System.Drawing.Size(744, 301);
+            this.UnitsGroupBox.Size = new System.Drawing.Size(744, 319);
             this.UnitsGroupBox.TabIndex = 1;
             this.UnitsGroupBox.TabStop = false;
             this.UnitsGroupBox.Text = "Units";
@@ -293,7 +293,7 @@ namespace Fanda.UI
             this.UnitsGridView.ReadOnly = true;
             this.UnitsGridView.RowHeadersWidth = 28;
             this.UnitsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.UnitsGridView.Size = new System.Drawing.Size(730, 239);
+            this.UnitsGridView.Size = new System.Drawing.Size(730, 257);
             this.UnitsGridView.TabIndex = 5;
             this.UnitsGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.UnitsGridView_ColumnHeaderMouseClick);
             // 

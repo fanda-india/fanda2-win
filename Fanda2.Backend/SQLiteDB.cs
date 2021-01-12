@@ -25,7 +25,7 @@ namespace Fanda2.Backend
                 config.AddMap(new OrganizationMap());
                 config.AddMap(new OrganizationListMap());
                 config.AddMap(new LedgerMap());
-                // config.AddMap(new LedgerListMap());
+                config.AddMap(new LedgerListMap());
                 config.AddMap(new BankMap());
                 config.AddMap(new PartyMap());
                 config.AddMap(new UnitMap());

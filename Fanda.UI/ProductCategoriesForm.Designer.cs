@@ -78,7 +78,7 @@ namespace Fanda.UI
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(14, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(744, 190);
+            this.groupBox1.Size = new System.Drawing.Size(744, 175);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Product Category Details";
@@ -86,7 +86,7 @@ namespace Fanda.UI
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(650, 151);
+            this.btnCancel.Location = new System.Drawing.Point(651, 138);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(87, 27);
             this.btnCancel.TabIndex = 8;
@@ -97,7 +97,7 @@ namespace Fanda.UI
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(555, 151);
+            this.btnSave.Location = new System.Drawing.Point(556, 138);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(87, 27);
             this.btnSave.TabIndex = 7;
@@ -109,7 +109,7 @@ namespace Fanda.UI
             // 
             this.chkEnabled.AutoSize = true;
             this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.categoriesBindingSource, "IsEnabled", true));
-            this.chkEnabled.Location = new System.Drawing.Point(106, 151);
+            this.chkEnabled.Location = new System.Drawing.Point(107, 138);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(84, 19);
             this.chkEnabled.TabIndex = 6;
@@ -130,7 +130,7 @@ namespace Fanda.UI
             this.txtDescription.MaxLength = 255;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(630, 62);
+            this.txtDescription.Size = new System.Drawing.Size(631, 50);
             this.txtDescription.TabIndex = 5;
             // 
             // txtName
@@ -214,9 +214,9 @@ namespace Fanda.UI
             this.grpCategories.Controls.Add(this.txtSearch);
             this.grpCategories.Controls.Add(this.btnRefresh);
             this.grpCategories.Controls.Add(this.dgvCategories);
-            this.grpCategories.Location = new System.Drawing.Point(14, 211);
+            this.grpCategories.Location = new System.Drawing.Point(14, 195);
             this.grpCategories.Name = "grpCategories";
-            this.grpCategories.Size = new System.Drawing.Size(744, 301);
+            this.grpCategories.Size = new System.Drawing.Size(744, 317);
             this.grpCategories.TabIndex = 1;
             this.grpCategories.TabStop = false;
             this.grpCategories.Text = "Product Categories";
@@ -233,7 +233,7 @@ namespace Fanda.UI
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(650, 22);
+            this.btnDelete.Location = new System.Drawing.Point(651, 22);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(87, 27);
             this.btnDelete.TabIndex = 4;
@@ -244,7 +244,7 @@ namespace Fanda.UI
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Location = new System.Drawing.Point(555, 22);
+            this.btnAdd.Location = new System.Drawing.Point(558, 22);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(87, 27);
             this.btnAdd.TabIndex = 3;
@@ -256,10 +256,10 @@ namespace Fanda.UI
             // 
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearch.Location = new System.Drawing.Point(160, 24);
+            this.txtSearch.Location = new System.Drawing.Point(152, 24);
             this.txtSearch.MaxLength = 255;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(388, 23);
+            this.txtSearch.Size = new System.Drawing.Size(400, 23);
             this.txtSearch.TabIndex = 2;
             this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
             // 
@@ -293,7 +293,7 @@ namespace Fanda.UI
             this.dgvCategories.ReadOnly = true;
             this.dgvCategories.RowHeadersWidth = 28;
             this.dgvCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCategories.Size = new System.Drawing.Size(730, 239);
+            this.dgvCategories.Size = new System.Drawing.Size(730, 255);
             this.dgvCategories.TabIndex = 5;
             this.dgvCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvCategories_ColumnHeaderMouseClick);
             // 

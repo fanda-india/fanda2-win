@@ -19,8 +19,6 @@ namespace Fanda2.Backend.Database
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        public string GroupName { get; set; }
-
         #region Virtual Members
 
         public virtual LedgerBalance Balance { get; set; }

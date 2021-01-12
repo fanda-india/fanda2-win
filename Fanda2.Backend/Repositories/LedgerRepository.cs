@@ -14,7 +14,7 @@ using System.Text;
 
 namespace Fanda2.Backend.Repositories
 {
-    public class LedgerRepository : IRepository<Ledger, Ledger>
+    public class LedgerRepository : IRepository<Ledger, LedgerListModel>
     {
         private readonly SQLiteDB _db;
         private readonly BankRepository _bankRepository;
@@ -29,7 +29,7 @@ namespace Fanda2.Backend.Repositories
             _balanceRepository = new LedgerBalanceRepository();
         }
 
-        public List<Ledger> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
+        public List<LedgerListModel> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
@@ -45,11 +45,11 @@ namespace Fanda2.Backend.Repositories
                 }
 
                 // Fetch from database
-                var list = con.Query<Ledger>(
+                var list = con.Query<LedgerListModel>(
                     $"select l.id, l.code, l.ledger_name, l.ledger_desc, l.group_id, g.group_name, l.ledger_type, " +
                     $"l.is_system, l.is_enabled, l.created_at, l.updated_at " +
                     $"from ledgers l " +
-                    $"left join ledger_groups g on l.group_id=g.id " +
+                    $"left join ledger_groups g on l.group_id = g.id " +
                     $"where {filters}")
                     .ToList();
                 return list;

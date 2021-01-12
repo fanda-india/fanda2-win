@@ -242,7 +242,7 @@ namespace Fanda.UI
         private void LoadAndBindList()
         {
             var list = _repository.GetAll(AppConfig.CurrentCompany.Id, true);
-            ledgersBindingSource.DataSource = new BindingListView<Ledger>(list);
+            ledgersBindingSource.DataSource = new BindingListView<LedgerListModel>(list);
         }
 
         private Ledger GetCurrent()
