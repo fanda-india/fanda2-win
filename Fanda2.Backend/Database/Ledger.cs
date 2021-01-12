@@ -1,4 +1,5 @@
 ﻿using Fanda2.Backend.Enums;
+using Fanda2.Backend.ViewModels;
 
 using System;
 
@@ -7,7 +8,6 @@ namespace Fanda2.Backend.Database
     public class Ledger
     {
         public int Id { get; set; }
-
         public string Code { get; set; }
         public string LedgerName { get; set; }
         public string LedgerDesc { get; set; }
@@ -16,8 +16,8 @@ namespace Fanda2.Backend.Database
         public bool IsSystem { get; set; }
         public int OrgId { get; set; }
         public bool IsEnabled { get; set; } = true;
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; internal set; }
+        public DateTime? UpdatedAt { get; internal set; }
 
         #region Virtual Members
 
@@ -32,5 +32,19 @@ namespace Fanda2.Backend.Database
         {
             return (Ledger)MemberwiseClone();
         }
+
+        //public Ledger FromLedgerListModel(LedgerListModel model)
+        //{
+        //    return new Ledger
+        //    {
+        //        Id = model.Id,
+        //        Code = model.Code,
+        //        LedgerName = model.LedgerName,
+        //        LedgerDesc = model.LedgerDesc,
+        //        LedgerGroupId = model.LedgerGroupId,
+        //        LedgerType = model.LedgerType,
+        //        IsEnabled = model.IsEnabled
+        //    };
+        //}
     }
 }

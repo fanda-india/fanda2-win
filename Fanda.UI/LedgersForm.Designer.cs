@@ -30,7 +30,7 @@ namespace Fanda.UI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpEdit = new System.Windows.Forms.GroupBox();
             this.cboGroup = new System.Windows.Forms.ComboBox();
             this.ledgersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -53,53 +53,67 @@ namespace Fanda.UI
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.dgvProductCategories = new System.Windows.Forms.DataGridView();
-            this.itemErrors = new System.Windows.Forms.ErrorProvider(this.components);
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ledgerTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.groupBox1.SuspendLayout();
+            this.itemErrors = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.grpBalances = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtDebitBalance = new System.Windows.Forms.TextBox();
+            this.txtCreditBalance = new System.Windows.Forms.TextBox();
+            this.txtBalance = new System.Windows.Forms.TextBox();
+            this.cboBalance = new System.Windows.Forms.ComboBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.grpEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ledgersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             this.itemStatus.SuspendLayout();
             this.grpLedgers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductCategories)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemErrors)).BeginInit();
+            this.grpBalances.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // grpEdit
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.cboGroup);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.btnCancel);
-            this.groupBox1.Controls.Add(this.btnSave);
-            this.groupBox1.Controls.Add(this.chkEnabled);
-            this.groupBox1.Controls.Add(this.txtDescription);
-            this.groupBox1.Controls.Add(this.txtName);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtCode);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(14, 14);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(744, 201);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ledger Details";
+            this.grpEdit.Controls.Add(this.cboBalance);
+            this.grpEdit.Controls.Add(this.label6);
+            this.grpEdit.Controls.Add(this.cboGroup);
+            this.grpEdit.Controls.Add(this.label5);
+            this.grpEdit.Controls.Add(this.chkEnabled);
+            this.grpEdit.Controls.Add(this.txtDescription);
+            this.grpEdit.Controls.Add(this.txtName);
+            this.grpEdit.Controls.Add(this.label3);
+            this.grpEdit.Controls.Add(this.txtBalance);
+            this.grpEdit.Controls.Add(this.txtCode);
+            this.grpEdit.Controls.Add(this.label2);
+            this.grpEdit.Controls.Add(this.label1);
+            this.grpEdit.Location = new System.Drawing.Point(12, 12);
+            this.grpEdit.Name = "grpEdit";
+            this.grpEdit.Size = new System.Drawing.Size(553, 201);
+            this.grpEdit.TabIndex = 0;
+            this.grpEdit.TabStop = false;
+            this.grpEdit.Text = "Ledger Details";
             // 
             // cboGroup
             // 
+            this.cboGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboGroup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cboGroup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboGroup.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.ledgersBindingSource, "LedgerGroupId", true));
             this.cboGroup.DataSource = this.groupBindingSource;
             this.cboGroup.DisplayMember = "GroupName";
             this.cboGroup.FormattingEnabled = true;
-            this.cboGroup.Location = new System.Drawing.Point(87, 138);
+            this.cboGroup.Location = new System.Drawing.Point(83, 138);
             this.cboGroup.Name = "cboGroup";
-            this.cboGroup.Size = new System.Drawing.Size(650, 23);
+            this.cboGroup.Size = new System.Drawing.Size(464, 23);
             this.cboGroup.TabIndex = 7;
             this.cboGroup.ValueMember = "Id";
             // 
@@ -115,7 +129,7 @@ namespace Fanda.UI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 153);
+            this.label5.Location = new System.Drawing.Point(7, 141);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 15);
             this.label5.TabIndex = 6;
@@ -124,10 +138,10 @@ namespace Fanda.UI
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(651, 167);
+            this.btnCancel.Location = new System.Drawing.Point(664, 186);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(87, 27);
-            this.btnCancel.TabIndex = 10;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
@@ -135,10 +149,10 @@ namespace Fanda.UI
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(558, 167);
+            this.btnSave.Location = new System.Drawing.Point(571, 186);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(87, 27);
-            this.btnSave.TabIndex = 9;
+            this.btnSave.TabIndex = 1;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
@@ -147,7 +161,7 @@ namespace Fanda.UI
             // 
             this.chkEnabled.AutoSize = true;
             this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.ledgersBindingSource, "IsEnabled", true));
-            this.chkEnabled.Location = new System.Drawing.Point(87, 172);
+            this.chkEnabled.Location = new System.Drawing.Point(83, 169);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(73, 19);
             this.chkEnabled.TabIndex = 8;
@@ -159,11 +173,11 @@ namespace Fanda.UI
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgersBindingSource, "LedgerDesc", true));
-            this.txtDescription.Location = new System.Drawing.Point(87, 81);
+            this.txtDescription.Location = new System.Drawing.Point(83, 82);
             this.txtDescription.MaxLength = 255;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(650, 50);
+            this.txtDescription.Size = new System.Drawing.Size(464, 50);
             this.txtDescription.TabIndex = 5;
             // 
             // txtName
@@ -171,10 +185,10 @@ namespace Fanda.UI
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgersBindingSource, "LedgerName", true));
-            this.txtName.Location = new System.Drawing.Point(87, 52);
+            this.txtName.Location = new System.Drawing.Point(83, 52);
             this.txtName.MaxLength = 25;
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(632, 23);
+            this.txtName.Size = new System.Drawing.Size(464, 23);
             this.txtName.TabIndex = 3;
             this.txtName.Validated += new System.EventHandler(this.TxtName_Validated);
             // 
@@ -191,7 +205,7 @@ namespace Fanda.UI
             // 
             this.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgersBindingSource, "Code", true));
-            this.txtCode.Location = new System.Drawing.Point(87, 22);
+            this.txtCode.Location = new System.Drawing.Point(83, 23);
             this.txtCode.MaxLength = 16;
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(123, 23);
@@ -225,7 +239,7 @@ namespace Fanda.UI
             this.itemStatus.Name = "itemStatus";
             this.itemStatus.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             this.itemStatus.Size = new System.Drawing.Size(772, 22);
-            this.itemStatus.TabIndex = 2;
+            this.itemStatus.TabIndex = 4;
             this.itemStatus.Text = "Ready";
             // 
             // tssLabel
@@ -250,7 +264,7 @@ namespace Fanda.UI
             this.grpLedgers.Location = new System.Drawing.Point(14, 221);
             this.grpLedgers.Name = "grpLedgers";
             this.grpLedgers.Size = new System.Drawing.Size(744, 291);
-            this.grpLedgers.TabIndex = 1;
+            this.grpLedgers.TabIndex = 3;
             this.grpLedgers.TabStop = false;
             this.grpLedgers.Text = "Ledgers";
             // 
@@ -320,7 +334,6 @@ namespace Fanda.UI
             this.ledgerNameDataGridViewTextBoxColumn,
             this.ledgerDescDataGridViewTextBoxColumn,
             this.groupNameDataGridViewTextBoxColumn,
-            this.ledgerTypeDataGridViewTextBoxColumn,
             this.isEnabledDataGridViewCheckBoxColumn});
             this.dgvProductCategories.DataSource = this.ledgersBindingSource;
             this.dgvProductCategories.Location = new System.Drawing.Point(7, 55);
@@ -331,10 +344,6 @@ namespace Fanda.UI
             this.dgvProductCategories.Size = new System.Drawing.Size(730, 229);
             this.dgvProductCategories.TabIndex = 5;
             this.dgvProductCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvProductCategories_ColumnHeaderMouseClick);
-            // 
-            // itemErrors
-            // 
-            this.itemErrors.ContainerControl = this;
             // 
             // codeDataGridViewTextBoxColumn
             // 
@@ -349,7 +358,7 @@ namespace Fanda.UI
             this.ledgerNameDataGridViewTextBoxColumn.HeaderText = "LedgerName";
             this.ledgerNameDataGridViewTextBoxColumn.Name = "ledgerNameDataGridViewTextBoxColumn";
             this.ledgerNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.ledgerNameDataGridViewTextBoxColumn.Width = 125;
+            this.ledgerNameDataGridViewTextBoxColumn.Width = 150;
             // 
             // ledgerDescDataGridViewTextBoxColumn
             // 
@@ -357,21 +366,15 @@ namespace Fanda.UI
             this.ledgerDescDataGridViewTextBoxColumn.HeaderText = "LedgerDesc";
             this.ledgerDescDataGridViewTextBoxColumn.Name = "ledgerDescDataGridViewTextBoxColumn";
             this.ledgerDescDataGridViewTextBoxColumn.ReadOnly = true;
-            this.ledgerDescDataGridViewTextBoxColumn.Width = 150;
+            this.ledgerDescDataGridViewTextBoxColumn.Width = 200;
             // 
-            // dataGridViewTextBoxColumn2
+            // groupNameDataGridViewTextBoxColumn
             // 
             this.groupNameDataGridViewTextBoxColumn.DataPropertyName = "GroupName";
             this.groupNameDataGridViewTextBoxColumn.HeaderText = "GroupName";
-            this.groupNameDataGridViewTextBoxColumn.Name = "dataGridViewTextBoxColumn2";
+            this.groupNameDataGridViewTextBoxColumn.Name = "groupNameDataGridViewTextBoxColumn";
             this.groupNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ledgerTypeDataGridViewTextBoxColumn
-            // 
-            this.ledgerTypeDataGridViewTextBoxColumn.DataPropertyName = "LedgerType";
-            this.ledgerTypeDataGridViewTextBoxColumn.HeaderText = "LedgerType";
-            this.ledgerTypeDataGridViewTextBoxColumn.Name = "ledgerTypeDataGridViewTextBoxColumn";
-            this.ledgerTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.groupNameDataGridViewTextBoxColumn.Width = 125;
             // 
             // isEnabledDataGridViewCheckBoxColumn
             // 
@@ -380,14 +383,120 @@ namespace Fanda.UI
             this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
             this.isEnabledDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
+            // itemErrors
+            // 
+            this.itemErrors.ContainerControl = this;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(270, 170);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 15);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Balance:";
+            // 
+            // grpBalances
+            // 
+            this.grpBalances.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBalances.Controls.Add(this.txtCreditBalance);
+            this.grpBalances.Controls.Add(this.txtDebitBalance);
+            this.grpBalances.Controls.Add(this.label8);
+            this.grpBalances.Controls.Add(this.label7);
+            this.grpBalances.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpBalances.Location = new System.Drawing.Point(571, 12);
+            this.grpBalances.Name = "grpBalances";
+            this.grpBalances.Size = new System.Drawing.Size(187, 100);
+            this.grpBalances.TabIndex = 5;
+            this.grpBalances.TabStop = false;
+            this.grpBalances.Text = "Total Balances";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 23);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(49, 20);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Debit:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 57);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 20);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Credit:";
+            // 
+            // txtDebitBalance
+            // 
+            this.txtDebitBalance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDebitBalance.Location = new System.Drawing.Point(64, 20);
+            this.txtDebitBalance.Name = "txtDebitBalance";
+            this.txtDebitBalance.ReadOnly = true;
+            this.txtDebitBalance.Size = new System.Drawing.Size(117, 27);
+            this.txtDebitBalance.TabIndex = 1;
+            // 
+            // txtCreditBalance
+            // 
+            this.txtCreditBalance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCreditBalance.Location = new System.Drawing.Point(64, 54);
+            this.txtCreditBalance.Name = "txtCreditBalance";
+            this.txtCreditBalance.ReadOnly = true;
+            this.txtCreditBalance.Size = new System.Drawing.Size(117, 27);
+            this.txtCreditBalance.TabIndex = 3;
+            // 
+            // txtBalance
+            // 
+            this.txtBalance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBalance.Location = new System.Drawing.Point(327, 167);
+            this.txtBalance.MaxLength = 16;
+            this.txtBalance.Name = "txtBalance";
+            this.txtBalance.Size = new System.Drawing.Size(127, 23);
+            this.txtBalance.TabIndex = 10;
+            this.txtBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtBalance.Validated += new System.EventHandler(this.TxtCode_Validated);
+            // 
+            // cboBalance
+            // 
+            this.cboBalance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboBalance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboBalance.FormattingEnabled = true;
+            this.cboBalance.Items.AddRange(new object[] {
+            "Debit",
+            "Credit"});
+            this.cboBalance.Location = new System.Drawing.Point(460, 167);
+            this.cboBalance.Name = "cboBalance";
+            this.cboBalance.Size = new System.Drawing.Size(87, 23);
+            this.cboBalance.TabIndex = 11;
+            // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(635, 123);
+            this.maskedTextBox1.Mask = "99,99,99,999.99";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(100, 23);
+            this.maskedTextBox1.TabIndex = 6;
+            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // LedgersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(772, 541);
+            this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.grpLedgers);
+            this.Controls.Add(this.grpBalances);
             this.Controls.Add(this.itemStatus);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grpEdit);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSave);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeyPreview = true;
             this.Name = "LedgersForm";
@@ -395,8 +504,8 @@ namespace Fanda.UI
             this.Load += new System.EventHandler(this.ProductCategoriesForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LedgersForm_KeyDown);
             this.Resize += new System.EventHandler(this.ProductCategoriesForm_Resize);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpEdit.ResumeLayout(false);
+            this.grpEdit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ledgersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             this.itemStatus.ResumeLayout(false);
@@ -405,6 +514,8 @@ namespace Fanda.UI
             this.grpLedgers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductCategories)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemErrors)).EndInit();
+            this.grpBalances.ResumeLayout(false);
+            this.grpBalances.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -412,7 +523,7 @@ namespace Fanda.UI
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpEdit;
         private System.Windows.Forms.CheckBox chkEnabled;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.TextBox txtName;
@@ -440,7 +551,15 @@ namespace Fanda.UI
         private System.Windows.Forms.DataGridViewTextBoxColumn ledgerNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ledgerDescDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn groupNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ledgerTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isEnabledDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.GroupBox grpBalances;
+        private System.Windows.Forms.TextBox txtCreditBalance;
+        private System.Windows.Forms.TextBox txtDebitBalance;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cboBalance;
+        private System.Windows.Forms.TextBox txtBalance;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
     }
 }

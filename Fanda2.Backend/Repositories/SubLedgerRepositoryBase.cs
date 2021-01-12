@@ -22,6 +22,11 @@ namespace Fanda2.Backend.Repositories
         {
             _addressRepository = new AddressRepository();
             _contactRepository = new ContactRepository();
+
+            DommelMapper.LogReceived = (qry) =>
+            {
+                System.Diagnostics.Debug.WriteLine("LOG: " + qry);
+            };
         }
 
         public virtual bool Save(int ledgerId, TEntity entity, IDbConnection con, IDbTransaction tran)
@@ -80,7 +85,7 @@ namespace Fanda2.Backend.Repositories
                 return false;
             }
 
-            TEntity entity = con.Select<TEntity>(b => b.LedgerId == ledgerId)
+            TEntity entity = con.Select<TEntity>(b => b.LedgerId == ledgerId, tran)
                 .FirstOrDefault();
             if (entity == null)
             {

@@ -54,6 +54,15 @@ namespace Fanda.UI
 
         private void LedgersBindingSource_PositionChanged(object sender, EventArgs e)
         {
+            LedgerListModel model = GetCurrent();
+            if (model.IsSystem)
+            {
+                grpEdit.Enabled = false;
+            }
+            else
+            {
+                grpEdit.Enabled = true;
+            }
             tssLabel.Text = "Ready";
         }
 
@@ -90,11 +99,12 @@ namespace Fanda.UI
 
             bool success;
             bool isAdding = false;
-            Ledger item = GetCurrent();
+            Ledger item = GetCurrent().ToLedger();
             if (item.Id == 0)
             {
                 isAdding = true;
                 success = _repository.Add(AppConfig.CurrentCompany.Id, item) > 0;
+                // RestoreFromDatabase();
             }
             else
             {
@@ -103,7 +113,12 @@ namespace Fanda.UI
 
             if (success)
             {
+                LedgerListModel current = GetCurrent();
+                current.Id = item.Id;
+                current.GroupName = cboGroup.Text;
+
                 ledgersBindingSource.EndEdit();
+                ledgersBindingSource.ResetBindings(false);
                 tssLabel.Text = "Saved successfully!";
                 grpLedgers.Enabled = true;
                 if (isAdding)
@@ -115,9 +130,9 @@ namespace Fanda.UI
             }
         }
 
-        private void RestoreFromBackup()
+        private void RestoreFromDatabase()
         {
-            Ledger current = GetCurrent();
+            LedgerListModel current = GetCurrent();
             if (current == null || current.Id == 0)
                 return;
             Ledger item = _repository.GetById(current.Id);
@@ -132,7 +147,7 @@ namespace Fanda.UI
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             itemErrors.Clear();
-            RestoreFromBackup();
+            RestoreFromDatabase();
             ledgersBindingSource.CancelEdit();
             ledgersBindingSource.ResetBindings(false);
             grpLedgers.Enabled = true;
@@ -151,7 +166,7 @@ namespace Fanda.UI
             else
             {
                 string searchTerm = txtSearch.Text.ToLower();
-                (ledgersBindingSource.DataSource as BindingListView<Ledger>).ApplyFilter(
+                (ledgersBindingSource.DataSource as BindingListView<LedgerListModel>).ApplyFilter(
                      u => u.Code.ToLower().Contains(searchTerm) || u.LedgerName.ToLower().Contains(searchTerm) ||
                         (u.LedgerDesc == null ? false : u.LedgerDesc.ToLower().Contains(searchTerm))
                     );
@@ -165,6 +180,7 @@ namespace Fanda.UI
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
+            grpLedgers.Enabled = false;
             ledgersBindingSource.AddNew();
             txtCode.Focus();
         }
@@ -172,7 +188,7 @@ namespace Fanda.UI
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             tssLabel.Text = "Ready";
-            Ledger item = GetCurrent();
+            LedgerListModel item = GetCurrent();
             if (item == null)
                 return;
 
@@ -211,7 +227,7 @@ namespace Fanda.UI
             else
                 itemErrors.SetError(txtCode, null);
 
-            Ledger current = GetCurrent();
+            LedgerListModel current = GetCurrent();
             if (_repository.Exists(KeyField.Code, txtCode.Text, current.Id, AppConfig.CurrentCompany.Id))
                 itemErrors.SetError(txtCode, $"Ledger code '{txtCode.Text}' already exists!");
             else
@@ -228,7 +244,7 @@ namespace Fanda.UI
             else
                 itemErrors.SetError(txtName, null);
 
-            Ledger current = GetCurrent();
+            LedgerListModel current = GetCurrent();
             if (_repository.Exists(KeyField.Name, txtName.Text, current.Id, AppConfig.CurrentCompany.Id))
                 itemErrors.SetError(txtName, $"Ledger name '{txtName.Text}' already exists!");
             else
@@ -245,9 +261,9 @@ namespace Fanda.UI
             ledgersBindingSource.DataSource = new BindingListView<LedgerListModel>(list);
         }
 
-        private Ledger GetCurrent()
+        private LedgerListModel GetCurrent()
         {
-            return ((ObjectView<Ledger>)ledgersBindingSource.Current).Object;
+            return ((ObjectView<LedgerListModel>)ledgersBindingSource.Current).Object;
         }
 
         private void LoadGroupList()
@@ -280,6 +296,11 @@ namespace Fanda.UI
                 e.SuppressKeyPress = true;
                 SelectNextControl(ActiveControl, true, true, true, true);
             }
+        }
+
+        private void ledgersBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

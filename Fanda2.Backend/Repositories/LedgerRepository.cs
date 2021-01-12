@@ -34,14 +34,14 @@ namespace Fanda2.Backend.Repositories
             using (var con = _db.GetConnection())
             {
                 // [Filter]
-                StringBuilder filters = new StringBuilder($"org_id = {orgId}");
+                StringBuilder filters = new StringBuilder($"org_id = @orgId and ledger_type = 0");
                 if (!includeDisabled)
                 {
                     filters.Append(" and is_enabled = 1");
                 }
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    filters.Append($" and (code like '%{searchTerm}%' or ledger_name like '%{searchTerm}%' or ledger_desc like '%{searchTerm}%')");
+                    filters.Append($" and (code like @searchTerm or ledger_name like @searchTerm or ledger_desc like @searchTerm)");
                 }
 
                 // Fetch from database
@@ -50,7 +50,7 @@ namespace Fanda2.Backend.Repositories
                     $"l.is_system, l.is_enabled, l.created_at, l.updated_at " +
                     $"from ledgers l " +
                     $"left join ledger_groups g on l.group_id = g.id " +
-                    $"where {filters}")
+                    $"where {filters}", new { orgId, searchTerm = $"'%{searchTerm}%'" })
                     .ToList();
                 return list;
             }
@@ -84,7 +84,7 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public int Add(int orgId, Ledger ledger, IDbConnection con, IDbTransaction tran)
+        internal int Add(int orgId, Ledger ledger, IDbConnection con, IDbTransaction tran)
         {
             ledger.OrgId = orgId;
             ledger.CreatedAt = DateTime.Now;
@@ -109,7 +109,11 @@ namespace Fanda2.Backend.Repositories
                 using (var tran = con.BeginTransaction())
                 {
                     ledger.UpdatedAt = DateTime.Now;
-                    bool success = con.Update(ledger);
+                    // bool success = con.Update(ledger);
+                    bool success = con.Execute(
+                        $"update ledgers set code=@Code, ledger_name=@LedgerName, ledger_desc=@LedgerDesc, " +
+                        $"group_id=@LedgerGroupId, ledger_type=@LedgerType, is_enabled=@IsEnabled, updated_at=@UpdatedAt " +
+                        $"where id=@Id", ledger) == 1;
                     _bankRepository.Save(ledger.Id, ledger.Bank, con, tran);
                     _partyRepository.Save(ledger.Id, ledger.Party, con, tran);
                     _balanceRepository.Save(ledger.Balance, con, tran);

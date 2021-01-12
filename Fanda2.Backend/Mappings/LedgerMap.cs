@@ -36,10 +36,21 @@ namespace Fanda2.Backend.Mappings
             Map(l => l.Code).ToColumn("code");
             Map(l => l.LedgerName).ToColumn("ledger_name");
             Map(l => l.LedgerDesc).ToColumn("ledger_desc");
+            Map(l => l.LedgerGroupId).ToColumn("group_id");
             Map(l => l.GroupName).ToColumn("group_name");
             Map(l => l.LedgerType).ToColumn("ledger_type");
+            Map(l => l.IsSystem).ToColumn("is_system");
             Map(l => l.IsEnabled).ToColumn("is_enabled");
-            //Map(l => l.OrgId).ToColumn("org_id");
+        }
+    }
+
+    internal class SubLedgerMap : DommelEntityMap<ISubLedger>
+    {
+        public SubLedgerMap()
+        {
+            Map(s => s.LedgerId).ToColumn("ledger_id");
+            Map(s => s.AddressId).ToColumn("address_id");
+            Map(s => s.ContactId).ToColumn("contact_id");
         }
     }
 }
