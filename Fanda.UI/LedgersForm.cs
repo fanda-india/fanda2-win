@@ -297,10 +297,5 @@ namespace Fanda.UI
                 SelectNextControl(ActiveControl, true, true, true, true);
             }
         }
-
-        private void ledgersBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

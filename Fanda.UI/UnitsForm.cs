@@ -5,7 +5,6 @@ using Fanda2.Backend.Enums;
 using Fanda2.Backend.Repositories;
 
 using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -244,11 +243,6 @@ namespace Fanda.UI
         {
             return ((ObjectView<Unit>)UnitsBindingSource.Current).Object;
         }
-
-        //private void SetCurrent(Unit unit)
-        //{
-        //    ((ObjectView<Unit>)unitsBindingSource.Current).CancelEdit();
-        //}
 
         #endregion Private methods
     }
