@@ -172,6 +172,27 @@ namespace Fanda2.Backend.Repositories
                 }
             }
         }
+
+        public TotalLedgerBalance GetLedgerBalances(int yearId)
+        {
+            using (var con = _db.GetConnection())
+            {
+                string query =
+                    "select sum(case when balance_sign='D' then opening_balance else 0 end) DebitBalance, " +
+                    "sum(case when balance_sign = 'C' then opening_balance else 0 end) CreditBalance " +
+                    "from ledger_balances b " +
+                    "where year_id = @yearId";
+                var result = con.QuerySingle<TotalLedgerBalance>(query, new { yearId });
+                return result;
+            }
+        }
+    }
+
+    public class TotalLedgerBalance
+    {
+        public decimal DebitBalance { get; set; }
+        public decimal CreditBalance { get; set; }
+        public decimal Difference { get { return DebitBalance - CreditBalance; } }
     }
 }
 
