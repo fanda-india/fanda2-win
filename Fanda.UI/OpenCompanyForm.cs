@@ -12,6 +12,7 @@ namespace Fanda.UI
     public partial class OpenCompanyForm : Form
     {
         private readonly OrganizationRepository _repository;
+        private readonly AccountYearRepository _yearRepository;
         private List<OrganizationListModel> _list;
         private DataGridViewColumn _sortColumn;
         private bool _isSortAscending;
@@ -22,6 +23,7 @@ namespace Fanda.UI
         {
             InitializeComponent();
             _repository = new OrganizationRepository();
+            _yearRepository = new AccountYearRepository();
         }
 
         private void OrganizationsForm_Load(object sender, EventArgs e)
@@ -108,6 +110,7 @@ namespace Fanda.UI
             if (orgListBindingSource.Current is OrganizationListModel org)
             {
                 AppConfig.CurrentCompany = _repository.GetById(org.Id);
+                AppConfig.CurrentYear = _yearRepository.GetById(org.ActiveYearId);
                 Close();
             }
         }

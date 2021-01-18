@@ -37,18 +37,19 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public int? Save(LedgerBalance balance, IDbConnection con, IDbTransaction tran)
+        public int? Save(int ledgerId, LedgerBalance balance, IDbConnection con, IDbTransaction tran)
         {
             if (balance == null)
             {
                 return null;
             }
 
-            if (balance.LedgerId <= 0 || balance.YearId <= 0)
+            if (ledgerId <= 0 || balance.YearId <= 0)
             {
                 throw new ArgumentNullException("LedgerId or YearId of LedgerBalance is null");
             }
 
+            balance.LedgerId = ledgerId;
             // Insert
             if (balance.Id == 0)
             {
@@ -87,7 +88,7 @@ namespace Fanda2.Backend.Repositories
                 throw new ArgumentNullException("LedgerId or YearId of LedgerBalance is null");
             }
 
-            int rows = con.Execute("DELETE FROM ledger_balances WHERE ledger_id=@ledgerId AND year_id@yearId", new { ledgerId, yearId }, tran);
+            int rows = con.Execute("DELETE FROM ledger_balances WHERE ledger_id=@ledgerId AND year_id=@yearId", new { ledgerId, yearId }, tran);
             return rows == 1;
         }
 

@@ -15,7 +15,16 @@ namespace Fanda2.Backend.ViewModels
         public bool IsSystem { get; set; }
         public bool IsEnabled { get; set; } = true;
 
-        public Ledger ToLedger()
+        #region Balance
+
+        public int BalanceId { get; set; }
+        public decimal OpeningBalance { get; set; }
+        public string BalanceSign { get; set; }
+
+        #endregion Balance
+
+        // public LedgerBalance Balance { get; set; }
+        public Ledger ToLedger(int yearId)
         {
             return new Ledger
             {
@@ -25,7 +34,15 @@ namespace Fanda2.Backend.ViewModels
                 LedgerDesc = LedgerDesc,
                 LedgerGroupId = LedgerGroupId,
                 LedgerType = LedgerType,
-                IsEnabled = IsEnabled
+                IsEnabled = IsEnabled,
+                Balance = new LedgerBalance
+                {
+                    LedgerId = Id,
+                    OpeningBalance = OpeningBalance,
+                    BalanceSign = BalanceSign,
+                    Id = BalanceId,
+                    YearId = yearId
+                }
             };
         }
     }

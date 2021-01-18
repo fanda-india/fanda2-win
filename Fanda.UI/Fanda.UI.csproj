@@ -158,6 +158,7 @@
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Address.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Contact.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Ledger.datasource" />
+    <None Include="Properties\DataSources\Fanda2.Backend.Database.LedgerBalance.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Organization.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.ProductCategory.datasource" />
     <None Include="Properties\DataSources\Fanda2.Backend.Database.Unit.datasource" />

@@ -41,6 +41,9 @@ namespace Fanda2.Backend.Mappings
             Map(l => l.LedgerType).ToColumn("ledger_type");
             Map(l => l.IsSystem).ToColumn("is_system");
             Map(l => l.IsEnabled).ToColumn("is_enabled");
+            Map(l => l.BalanceId).ToColumn("balance_id");
+            Map(l => l.OpeningBalance).ToColumn("opening_balance");
+            Map(l => l.BalanceSign).ToColumn("balance_sign");
         }
     }
 

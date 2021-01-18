@@ -14,7 +14,7 @@ using System.Text;
 
 namespace Fanda2.Backend.Repositories
 {
-    public class LedgerRepository : IRepository<Ledger, LedgerListModel>
+    public class LedgerRepository //: IRepository<Ledger, LedgerListModel>
     {
         private readonly SQLiteDB _db;
         private readonly BankRepository _bankRepository;
@@ -29,7 +29,7 @@ namespace Fanda2.Backend.Repositories
             _balanceRepository = new LedgerBalanceRepository();
         }
 
-        public List<LedgerListModel> GetAll(int orgId, bool includeDisabled = true, string searchTerm = null)
+        public List<LedgerListModel> GetAll(int orgId, int yearId, bool includeDisabled = true, string searchTerm = null)
         {
             using (var con = _db.GetConnection())
             {
@@ -47,12 +47,15 @@ namespace Fanda2.Backend.Repositories
                 // Fetch from database
                 var list = con.Query<LedgerListModel>(
                     $"select l.id, l.code, l.ledger_name, l.ledger_desc, l.group_id, g.group_name, l.ledger_type, " +
-                    $"l.is_system, l.is_enabled, l.created_at, l.updated_at " +
+                    $"l.is_system, l.is_enabled, l.created_at, l.updated_at, " +
+                    $"b.id balance_id, b.opening_balance, b.balance_sign " +
                     $"from ledgers l " +
                     $"left join ledger_groups g on l.group_id = g.id " +
-                    $"where {filters}", new { orgId, searchTerm = $"'%{searchTerm}%'" })
+                    $"left join ledger_balances b on l.id = b.ledger_id and b.year_id = @yearId " +
+                    $"where {filters}", new { orgId, yearId, searchTerm = $"'%{searchTerm}%'" })
                     .ToList();
                 return list;
+                // , (l, b) => { l.Balance = b; return l; }
             }
         }
 
@@ -64,12 +67,12 @@ namespace Fanda2.Backend.Repositories
             }
         }
 
-        public Ledger UpdateBalance(Ledger ledger, int ledgerId, int yearId)
-        {
-            var balance = _balanceRepository.Get(ledgerId, yearId);
-            ledger.Balance = balance;
-            return ledger;
-        }
+        //public Ledger UpdateBalance(Ledger ledger, int ledgerId, int yearId)
+        //{
+        //    var balance = _balanceRepository.Get(ledgerId, yearId);
+        //    ledger.Balance = balance;
+        //    return ledger;
+        //}
 
         public int Add(int orgId, Ledger ledger)
         {
@@ -93,7 +96,7 @@ namespace Fanda2.Backend.Repositories
             ledger.Id = ledgerId;
             _bankRepository.Save(ledgerId, ledger.Bank, con, tran);
             _partyRepository.Save(ledgerId, ledger.Party, con, tran);
-            _balanceRepository.Save(ledger.Balance, con, tran);
+            _balanceRepository.Save(ledgerId, ledger.Balance, con, tran);
             return ledgerId;
         }
 
@@ -116,14 +119,14 @@ namespace Fanda2.Backend.Repositories
                         $"where id=@Id", ledger) == 1;
                     _bankRepository.Save(ledger.Id, ledger.Bank, con, tran);
                     _partyRepository.Save(ledger.Id, ledger.Party, con, tran);
-                    _balanceRepository.Save(ledger.Balance, con, tran);
+                    _balanceRepository.Save(ledger.Id, ledger.Balance, con, tran);
                     tran.Commit();
                     return success;
                 }
             }
         }
 
-        public bool Remove(int ledgerId)
+        public bool Remove(int ledgerId, int yearId)
         {
             if (ledgerId <= 0)
             {
@@ -141,8 +144,8 @@ namespace Fanda2.Backend.Repositories
                     _bankRepository.Remove(ledgerId, con, tran);
                     _partyRepository.Remove(ledgerId, con, tran);
                     // TODO: Remove LedgerBalance for active accounting year
-                    //_balanceRepository.RemoveById(ledgerId, con, tran);
-                    int rows = con.Execute("DELETE FROM ledgers WHERE id=@ledgerId", new { ledgerId }, tran);
+                    _balanceRepository.RemoveById(ledgerId, yearId, con, tran);
+                    int rows = con.Execute("delete from ledgers where id=@ledgerId", new { ledgerId }, tran);
                     tran.Commit();
                     return rows == 1;
                 }

@@ -6,9 +6,6 @@ using Fanda2.Backend.Repositories;
 using Fanda2.Backend.ViewModels;
 
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Fanda.UI
@@ -31,6 +28,7 @@ namespace Fanda.UI
         private void ProductCategoriesForm_Load(object sender, EventArgs e)
         {
             LoadGroupList();
+            LoadBalanceSigns();
             LoadAndBindList();
         }
 
@@ -48,6 +46,29 @@ namespace Fanda.UI
             dgvProductCategories.Columns[4].Width = (int)(Width * 0.1);
         }
 
+        private void LedgersForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Control nextControl;
+            ////Checks if the Enter Key was Pressed
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    //If so, it gets the next control and applies the focus to it
+            //    nextControl = GetNextControl(ActiveControl, !e.Shift);
+            //    if (nextControl == null)
+            //    {
+            //        nextControl = GetNextControl(null, true);
+            //    }
+            //    nextControl.Focus();
+            //    //Finally - it suppresses the Enter Key
+            //    e.SuppressKeyPress = true;
+            //}
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                SelectNextControl(ActiveControl, true, true, true, true);
+            }
+        }
+
         #endregion Form events
 
         #region DataGridView events
@@ -55,13 +76,19 @@ namespace Fanda.UI
         private void LedgersBindingSource_PositionChanged(object sender, EventArgs e)
         {
             LedgerListModel model = GetCurrent();
+            //if (model.Balance != null)
+            //    balanceBindingSource.DataSource = model.Balance;
+            //else
+            //    balanceBindingSource.DataSource = typeof(LedgerBalance);
             if (model.IsSystem)
             {
-                grpEdit.Enabled = false;
+                //grpEdit.Enabled = false;
+                DisableEdit(true);
             }
             else
             {
-                grpEdit.Enabled = true;
+                //grpEdit.Enabled = true;
+                DisableEdit(false);
             }
             tssLabel.Text = "Ready";
         }
@@ -99,7 +126,7 @@ namespace Fanda.UI
 
             bool success;
             bool isAdding = false;
-            Ledger item = GetCurrent().ToLedger();
+            Ledger item = GetCurrent().ToLedger(AppConfig.CurrentYear.Id);
             if (item.Id == 0)
             {
                 isAdding = true;
@@ -196,7 +223,7 @@ namespace Fanda.UI
             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {
-                bool success = _repository.Remove(item.Id);
+                bool success = _repository.Remove(item.Id, AppConfig.CurrentYear.Id);
                 if (success)
                 {
                     ledgersBindingSource.RemoveCurrent();
@@ -257,7 +284,7 @@ namespace Fanda.UI
 
         private void LoadAndBindList()
         {
-            var list = _repository.GetAll(AppConfig.CurrentCompany.Id, true);
+            var list = _repository.GetAll(AppConfig.CurrentCompany.Id, AppConfig.CurrentYear.Id, true);
             ledgersBindingSource.DataSource = new BindingListView<LedgerListModel>(list);
         }
 
@@ -273,29 +300,29 @@ namespace Fanda.UI
             groupBindingSource.DataSource = groupList;
         }
 
-        #endregion Private methods
-
-        private void LedgersForm_KeyDown(object sender, KeyEventArgs e)
+        private void DisableEdit(bool disable = true)
         {
-            //Control nextControl;
-            ////Checks if the Enter Key was Pressed
-            //if (e.KeyCode == Keys.Enter)
-            //{
-            //    //If so, it gets the next control and applies the focus to it
-            //    nextControl = GetNextControl(ActiveControl, !e.Shift);
-            //    if (nextControl == null)
-            //    {
-            //        nextControl = GetNextControl(null, true);
-            //    }
-            //    nextControl.Focus();
-            //    //Finally - it suppresses the Enter Key
-            //    e.SuppressKeyPress = true;
-            //}
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                SelectNextControl(ActiveControl, true, true, true, true);
-            }
+            txtCode.Enabled = !disable;
+            txtName.Enabled = !disable;
+            txtDescription.Enabled = !disable;
+            cboGroup.Enabled = !disable;
+            chkEnabled.Enabled = !disable;
         }
+
+        private void LoadBalanceSigns()
+        {
+            var signList = new[]
+            {
+                new { Key ="", DisplayText = ""},
+                new { Key ="D", DisplayText = "Debit"},
+                new { Key ="C", DisplayText = "Credit"}
+            };
+            cboBalance.DataSource = signList;
+            cboBalance.DisplayMember = "DisplayText";
+            cboBalance.ValueMember = "Key";
+            // cboBalance.DataBindings.Add("SelectedValue",)
+        }
+
+        #endregion Private methods
     }
 }

@@ -18,8 +18,6 @@ namespace Fanda2.Backend
         bool Remove(int id);
 
         bool Exists(KeyField keyField, string fieldValue, int id, int superId);
-
-        //bool Exists(int orgId, Expression<Func<TEntity, bool>> predicate /*KeyField keyField, string fieldValue, int id, int orgId*/);
     }
 
     internal interface IRepository<Entity>

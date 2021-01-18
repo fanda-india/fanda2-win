@@ -31,9 +31,14 @@ namespace Fanda.UI
         {
             this.components = new System.ComponentModel.Container();
             this.grpEdit = new System.Windows.Forms.GroupBox();
-            this.cboGroup = new System.Windows.Forms.ComboBox();
+            this.cboBalance = new System.Windows.Forms.ComboBox();
             this.ledgersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnSave = new System.Windows.Forms.Button();
+            this.cboGroup = new System.Windows.Forms.ComboBox();
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.txtBalance = new System.Windows.Forms.TextBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
@@ -42,12 +47,11 @@ namespace Fanda.UI
             this.txtCode = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cboBalance = new System.Windows.Forms.ComboBox();
-            this.txtBalance = new System.Windows.Forms.TextBox();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
             this.itemStatus = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssDebitBalance = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssCreditBalance = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssDiff = new System.Windows.Forms.ToolStripStatusLabel();
             this.grpLedgers = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -61,10 +65,6 @@ namespace Fanda.UI
             this.groupNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.itemErrors = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.tssDebitBalance = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tssCreditBalance = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tssDiff = new System.Windows.Forms.ToolStripStatusLabel();
             this.grpEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ledgersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
@@ -94,10 +94,36 @@ namespace Fanda.UI
             this.grpEdit.Controls.Add(this.label1);
             this.grpEdit.Location = new System.Drawing.Point(12, 12);
             this.grpEdit.Name = "grpEdit";
-            this.grpEdit.Size = new System.Drawing.Size(748, 237);
+            this.grpEdit.Size = new System.Drawing.Size(748, 196);
             this.grpEdit.TabIndex = 0;
             this.grpEdit.TabStop = false;
             this.grpEdit.Text = "Ledger Details";
+            // 
+            // cboBalance
+            // 
+            this.cboBalance.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.ledgersBindingSource, "BalanceSign", true));
+            this.cboBalance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboBalance.FormattingEnabled = true;
+            this.cboBalance.Location = new System.Drawing.Point(271, 162);
+            this.cboBalance.Name = "cboBalance";
+            this.cboBalance.Size = new System.Drawing.Size(98, 23);
+            this.cboBalance.TabIndex = 10;
+            // 
+            // ledgersBindingSource
+            // 
+            this.ledgersBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.LedgerListModel);
+            this.ledgersBindingSource.PositionChanged += new System.EventHandler(this.LedgersBindingSource_PositionChanged);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(562, 162);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(87, 27);
+            this.btnSave.TabIndex = 12;
+            this.btnSave.Text = "&Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // cboGroup
             // 
@@ -109,20 +135,47 @@ namespace Fanda.UI
             this.cboGroup.DataSource = this.groupBindingSource;
             this.cboGroup.DisplayMember = "GroupName";
             this.cboGroup.FormattingEnabled = true;
-            this.cboGroup.Location = new System.Drawing.Point(113, 138);
+            this.cboGroup.Location = new System.Drawing.Point(113, 133);
             this.cboGroup.Name = "cboGroup";
             this.cboGroup.Size = new System.Drawing.Size(629, 23);
             this.cboGroup.TabIndex = 7;
             this.cboGroup.ValueMember = "Id";
             // 
-            // ledgersBindingSource
-            // 
-            this.ledgersBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.LedgerListModel);
-            this.ledgersBindingSource.PositionChanged += new System.EventHandler(this.LedgersBindingSource_PositionChanged);
-            // 
             // groupBindingSource
             // 
             this.groupBindingSource.DataSource = typeof(Fanda2.Backend.ViewModels.LedgerGroupListModel);
+            // 
+            // txtBalance
+            // 
+            this.txtBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBalance.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgersBindingSource, "OpeningBalance", true));
+            this.txtBalance.Location = new System.Drawing.Point(113, 162);
+            this.txtBalance.MaxLength = 16;
+            this.txtBalance.Name = "txtBalance";
+            this.txtBalance.Size = new System.Drawing.Size(152, 23);
+            this.txtBalance.TabIndex = 9;
+            this.txtBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtBalance.Validated += new System.EventHandler(this.TxtCode_Validated);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(655, 162);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(87, 27);
+            this.btnCancel.TabIndex = 13;
+            this.btnCancel.Text = "&Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 168);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 15);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Opening &Balance:";
             // 
             // label5
             // 
@@ -137,7 +190,7 @@ namespace Fanda.UI
             // 
             this.chkEnabled.AutoSize = true;
             this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.ledgersBindingSource, "IsEnabled", true));
-            this.chkEnabled.Location = new System.Drawing.Point(113, 196);
+            this.chkEnabled.Location = new System.Drawing.Point(375, 164);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(73, 19);
             this.chkEnabled.TabIndex = 11;
@@ -149,7 +202,7 @@ namespace Fanda.UI
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ledgersBindingSource, "LedgerDesc", true));
-            this.txtDescription.Location = new System.Drawing.Point(113, 82);
+            this.txtDescription.Location = new System.Drawing.Point(113, 81);
             this.txtDescription.MaxLength = 255;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
@@ -184,7 +237,7 @@ namespace Fanda.UI
             this.txtCode.Location = new System.Drawing.Point(113, 23);
             this.txtCode.MaxLength = 16;
             this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(123, 23);
+            this.txtCode.Size = new System.Drawing.Size(152, 23);
             this.txtCode.TabIndex = 1;
             this.txtCode.Validated += new System.EventHandler(this.TxtCode_Validated);
             // 
@@ -206,55 +259,6 @@ namespace Fanda.UI
             this.label1.TabIndex = 0;
             this.label1.Text = "&Code:";
             // 
-            // cboBalance
-            // 
-            this.cboBalance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboBalance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboBalance.FormattingEnabled = true;
-            this.cboBalance.Items.AddRange(new object[] {
-            "",
-            "Debit",
-            "Credit"});
-            this.cboBalance.Location = new System.Drawing.Point(565, 167);
-            this.cboBalance.Name = "cboBalance";
-            this.cboBalance.Size = new System.Drawing.Size(177, 23);
-            this.cboBalance.TabIndex = 10;
-            // 
-            // txtBalance
-            // 
-            this.txtBalance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBalance.Location = new System.Drawing.Point(113, 167);
-            this.txtBalance.MaxLength = 16;
-            this.txtBalance.Name = "txtBalance";
-            this.txtBalance.Size = new System.Drawing.Size(446, 23);
-            this.txtBalance.TabIndex = 9;
-            this.txtBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtBalance.Validated += new System.EventHandler(this.TxtCode_Validated);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(655, 199);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(87, 27);
-            this.btnCancel.TabIndex = 13;
-            this.btnCancel.Text = "&Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(565, 199);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(87, 27);
-            this.btnSave.TabIndex = 12;
-            this.btnSave.Text = "&Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
-            // 
             // itemStatus
             // 
             this.itemStatus.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -274,10 +278,31 @@ namespace Fanda.UI
             // tssLabel
             // 
             this.tssLabel.Name = "tssLabel";
-            this.tssLabel.Size = new System.Drawing.Size(324, 17);
+            this.tssLabel.Size = new System.Drawing.Size(231, 17);
             this.tssLabel.Spring = true;
             this.tssLabel.Text = "Ready";
             this.tssLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tssDebitBalance
+            // 
+            this.tssDebitBalance.Name = "tssDebitBalance";
+            this.tssDebitBalance.Size = new System.Drawing.Size(193, 17);
+            this.tssDebitBalance.Text = "Debit Balance: 9,99,99,99,999.99";
+            this.tssDebitBalance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tssCreditBalance
+            // 
+            this.tssCreditBalance.Name = "tssCreditBalance";
+            this.tssCreditBalance.Size = new System.Drawing.Size(197, 17);
+            this.tssCreditBalance.Text = "Credit Balance: 9,99,99,99,999.99";
+            this.tssCreditBalance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tssDiff
+            // 
+            this.tssDiff.Name = "tssDiff";
+            this.tssDiff.Size = new System.Drawing.Size(134, 17);
+            this.tssDiff.Text = "Diff: 9,99,99,99,999.99";
+            this.tssDiff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // grpLedgers
             // 
@@ -290,9 +315,9 @@ namespace Fanda.UI
             this.grpLedgers.Controls.Add(this.txtSearch);
             this.grpLedgers.Controls.Add(this.btnRefresh);
             this.grpLedgers.Controls.Add(this.dgvProductCategories);
-            this.grpLedgers.Location = new System.Drawing.Point(12, 255);
+            this.grpLedgers.Location = new System.Drawing.Point(12, 214);
             this.grpLedgers.Name = "grpLedgers";
-            this.grpLedgers.Size = new System.Drawing.Size(748, 257);
+            this.grpLedgers.Size = new System.Drawing.Size(748, 298);
             this.grpLedgers.TabIndex = 1;
             this.grpLedgers.TabStop = false;
             this.grpLedgers.Text = "Ledgers";
@@ -370,7 +395,7 @@ namespace Fanda.UI
             this.dgvProductCategories.ReadOnly = true;
             this.dgvProductCategories.RowHeadersWidth = 28;
             this.dgvProductCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductCategories.Size = new System.Drawing.Size(734, 195);
+            this.dgvProductCategories.Size = new System.Drawing.Size(734, 236);
             this.dgvProductCategories.TabIndex = 5;
             this.dgvProductCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvProductCategories_ColumnHeaderMouseClick);
             // 
@@ -416,33 +441,6 @@ namespace Fanda.UI
             // 
             this.itemErrors.ContainerControl = this;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 170);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 15);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Opening &Balance:";
-            // 
-            // tssDebitBalance
-            // 
-            this.tssDebitBalance.Name = "tssDebitBalance";
-            this.tssDebitBalance.Size = new System.Drawing.Size(172, 17);
-            this.tssDebitBalance.Text = "Debit Balance: 9,99,99,99,999.99";
-            // 
-            // tssCreditBalance
-            // 
-            this.tssCreditBalance.Name = "tssCreditBalance";
-            this.tssCreditBalance.Size = new System.Drawing.Size(172, 17);
-            this.tssCreditBalance.Text = "Debit Balance: 9,99,99,99,999.99";
-            // 
-            // tssDiff
-            // 
-            this.tssDiff.Name = "tssDiff";
-            this.tssDiff.Size = new System.Drawing.Size(119, 17);
-            this.tssDiff.Text = "Diff: 9,99,99,99,999.99";
-            // 
             // LedgersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -453,6 +451,7 @@ namespace Fanda.UI
             this.Controls.Add(this.grpEdit);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeyPreview = true;
+            this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "LedgersForm";
             this.Text = "Ledgers";
             this.Load += new System.EventHandler(this.ProductCategoriesForm_Load);

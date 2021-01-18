@@ -37,6 +37,7 @@ namespace Fanda2.Backend.Mappings
             Map(l => l.Code).ToColumn("code");
             Map(l => l.OrgName).ToColumn("org_name");
             Map(l => l.OrgDesc).ToColumn("org_desc");
+            Map(l => l.ActiveYearId).ToColumn("active_year_id");
             Map(l => l.IsEnabled).ToColumn("is_enabled");
         }
     }
