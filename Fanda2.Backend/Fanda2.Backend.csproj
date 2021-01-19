@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="ViewModels\ProductCategoryListModel.cs" />
-	  <Compile Remove="ViewModels\UnitListModel.cs" />
+		<Compile Remove="ViewModels\ProductCategoryListModel.cs" />
+		<Compile Remove="ViewModels\UnitListModel.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
