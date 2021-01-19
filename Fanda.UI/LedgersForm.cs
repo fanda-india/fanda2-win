@@ -335,12 +335,12 @@ namespace Fanda.UI
             tssDiff.Text = $"Diff: {balances.Difference:##,##,##,##0.00}";
             if (balances.Difference != 0)
             {
-                tssDiff.BackColor = Color.Red;
-                tssDiff.ForeColor = Color.White;
+                //tssDiff.BackColor = Color.Red;
+                tssDiff.ForeColor = Color.Red;
             }
             else
             {
-                tssDiff.BackColor = SystemColors.Control;
+                //tssDiff.BackColor = SystemColors.Control;
                 tssDiff.ForeColor = SystemColors.ControlText;
             }
         }
