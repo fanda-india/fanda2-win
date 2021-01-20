@@ -86,6 +86,12 @@
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
     <Compile Include="FormHelpers.cs" />
+    <Compile Include="PartiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PartiesForm.Designer.cs">
+      <DependentUpon>PartiesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     <Compile Include="UnitsForm.Designer.cs">
       <DependentUpon>UnitsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="PartiesForm.resx">
+      <DependentUpon>PartiesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

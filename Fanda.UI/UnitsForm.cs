@@ -35,10 +35,10 @@ namespace Fanda.UI
                 return;
             }
 
-            UnitsGridView.Columns[0].Width = (int)(Width * 0.1);
-            UnitsGridView.Columns[1].Width = (int)(Width * 0.3);
-            UnitsGridView.Columns[2].Width = (int)(Width * 0.35);
-            UnitsGridView.Columns[3].Width = (int)(Width * 0.1);
+            gridUnits.Columns[0].Width = (int)(Width * 0.1);
+            gridUnits.Columns[1].Width = (int)(Width * 0.3);
+            gridUnits.Columns[2].Width = (int)(Width * 0.35);
+            gridUnits.Columns[3].Width = (int)(Width * 0.1);
         }
 
         #endregion Form events
@@ -47,12 +47,12 @@ namespace Fanda.UI
 
         private void UnitsBindingSource_PositionChanged(object sender, EventArgs e)
         {
-            StatusLabel.Text = "Ready";
+            tssStatus.Text = "Ready";
         }
 
         private void UnitsGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            DataGridViewColumn column = UnitsGridView.Columns[e.ColumnIndex];
+            DataGridViewColumn column = gridUnits.Columns[e.ColumnIndex];
             if (column.SortMode == DataGridViewColumnSortMode.NotSortable)
                 return;
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
@@ -75,10 +75,10 @@ namespace Fanda.UI
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            CodeText_Validated(this, null);
-            NameText_Validated(this, null);
-            if (!string.IsNullOrEmpty(UnitErrors.GetError(CodeText)) ||
-                !string.IsNullOrEmpty(UnitErrors.GetError(NameText)))
+            txtCode_Validated(this, null);
+            txtName_Validated(this, null);
+            if (!string.IsNullOrEmpty(UnitErrors.GetError(txtCode)) ||
+                !string.IsNullOrEmpty(UnitErrors.GetError(txtName)))
                 return;
 
             bool success;
@@ -98,14 +98,14 @@ namespace Fanda.UI
             {
                 UnitsBindingSource.EndEdit();
 
-                StatusLabel.Text = "Saved successfully!";
-                UnitsGroupBox.Enabled = true;
+                tssStatus.Text = "Saved successfully!";
+                grpUnits.Enabled = true;
                 if (isAdding)
-                    AddButton.PerformClick();
+                    btnAdd.PerformClick();
             }
             else
             {
-                StatusLabel.Text = "Error: Error occured while saving.";
+                tssStatus.Text = "Error: Error occured while saving.";
             }
         }
 
@@ -128,7 +128,7 @@ namespace Fanda.UI
             RestoreFromDatabase();
             UnitsBindingSource.CancelEdit();
             UnitsBindingSource.ResetBindings(false);
-            UnitsGroupBox.Enabled = true;
+            grpUnits.Enabled = true;
         }
 
         #endregion Save & Cancel button events
@@ -137,13 +137,13 @@ namespace Fanda.UI
 
         private void SearchText_TextChanged(object sender, EventArgs e)
         {
-            if (SearchText.Text == string.Empty)
+            if (txtSearch.Text == string.Empty)
             {
                 UnitsBindingSource.RemoveFilter();
             }
             else
             {
-                string searchTerm = SearchText.Text.ToLower();
+                string searchTerm = txtSearch.Text.ToLower();
                 (UnitsBindingSource.DataSource as BindingListView<Unit>).ApplyFilter(
                      u => u.Code.ToLower().Contains(searchTerm) || u.UnitName.ToLower().Contains(searchTerm) ||
                         (u.UnitDesc == null ? false : u.UnitDesc.ToLower().Contains(searchTerm))
@@ -159,13 +159,13 @@ namespace Fanda.UI
         private void AddButton_Click(object sender, EventArgs e)
         {
             UnitsBindingSource.AddNew();
-            CodeText.Focus();
-            UnitsGroupBox.Enabled = false;
+            txtCode.Focus();
+            grpUnits.Enabled = false;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            StatusLabel.Text = "Ready";
+            tssStatus.Text = "Ready";
             Unit unit = GetCurrent();
             if (unit == null)
                 return;
@@ -178,16 +178,16 @@ namespace Fanda.UI
                 if (success)
                 {
                     UnitsBindingSource.RemoveCurrent();
-                    StatusLabel.Text = "Deleted successfully!";
+                    tssStatus.Text = "Deleted successfully!";
                 }
                 else
                 {
-                    StatusLabel.Text = "Error occured while deleting.";
+                    tssStatus.Text = "Error occured while deleting.";
                 }
             }
             else
             {
-                StatusLabel.Text = "Cancelled!";
+                tssStatus.Text = "Cancelled!";
             }
         }
 
@@ -195,38 +195,38 @@ namespace Fanda.UI
 
         #region Validation events
 
-        private void CodeText_Validated(object sender, EventArgs e)
+        private void txtCode_Validated(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(CodeText.Text))
+            if (string.IsNullOrWhiteSpace(txtCode.Text))
             {
-                UnitErrors.SetError(CodeText, $"Unit code is required!");
+                UnitErrors.SetError(txtCode, $"Unit code is required!");
                 return;
             }
             else
-                UnitErrors.SetError(CodeText, null);
+                UnitErrors.SetError(txtCode, null);
 
             Unit unit = GetCurrent();
-            if (_repository.Exists(KeyField.Code, CodeText.Text, unit.Id, AppConfig.CurrentCompany.Id))
-                UnitErrors.SetError(CodeText, $"Unit code '{CodeText.Text}' already exists!");
+            if (_repository.Exists(KeyField.Code, txtCode.Text, unit.Id, AppConfig.CurrentCompany.Id))
+                UnitErrors.SetError(txtCode, $"Unit code '{txtCode.Text}' already exists!");
             else
-                UnitErrors.SetError(CodeText, null);
+                UnitErrors.SetError(txtCode, null);
         }
 
-        private void NameText_Validated(object sender, EventArgs e)
+        private void txtName_Validated(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(NameText.Text))
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                UnitErrors.SetError(NameText, $"Unit name is required!");
+                UnitErrors.SetError(txtName, $"Unit name is required!");
                 return;
             }
             else
-                UnitErrors.SetError(NameText, null);
+                UnitErrors.SetError(txtName, null);
 
             Unit unit = GetCurrent();
-            if (_repository.Exists(KeyField.Name, NameText.Text, unit.Id, AppConfig.CurrentCompany.Id))
-                UnitErrors.SetError(NameText, $"Unit name '{NameText.Text}' already exists!");
+            if (_repository.Exists(KeyField.Name, txtName.Text, unit.Id, AppConfig.CurrentCompany.Id))
+                UnitErrors.SetError(txtName, $"Unit name '{txtName.Text}' already exists!");
             else
-                UnitErrors.SetError(NameText, null);
+                UnitErrors.SetError(txtName, null);
         }
 
         #endregion Validation events

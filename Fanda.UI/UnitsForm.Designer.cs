@@ -30,120 +30,120 @@ namespace Fanda.UI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.CancelButton = new System.Windows.Forms.Button();
-            this.SaveButton = new System.Windows.Forms.Button();
-            this.IsEnabledCheck = new System.Windows.Forms.CheckBox();
+            this.grpDetails = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.UnitsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.DescriptionText = new System.Windows.Forms.TextBox();
-            this.NameText = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.CodeText = new System.Windows.Forms.TextBox();
+            this.txtCode = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.ItemStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.UnitsGroupBox = new System.Windows.Forms.GroupBox();
+            this.UnitStatus = new System.Windows.Forms.StatusStrip();
+            this.tssStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.grpUnits = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.DeleteButton = new System.Windows.Forms.Button();
-            this.AddButton = new System.Windows.Forms.Button();
-            this.SearchText = new System.Windows.Forms.TextBox();
-            this.RefreshButton = new System.Windows.Forms.Button();
-            this.UnitsGridView = new System.Windows.Forms.DataGridView();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.gridUnits = new System.Windows.Forms.DataGridView();
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unitNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unitDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.UnitErrors = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBox1.SuspendLayout();
+            this.grpDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UnitsBindingSource)).BeginInit();
-            this.ItemStatusStrip.SuspendLayout();
-            this.UnitsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UnitsGridView)).BeginInit();
+            this.UnitStatus.SuspendLayout();
+            this.grpUnits.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridUnits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnitErrors)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // grpDetails
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.CancelButton);
-            this.groupBox1.Controls.Add(this.SaveButton);
-            this.groupBox1.Controls.Add(this.IsEnabledCheck);
-            this.groupBox1.Controls.Add(this.DescriptionText);
-            this.groupBox1.Controls.Add(this.NameText);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.CodeText);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(14, 14);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(744, 173);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Unit Details";
+            this.grpDetails.Controls.Add(this.btnCancel);
+            this.grpDetails.Controls.Add(this.btnSave);
+            this.grpDetails.Controls.Add(this.chkEnabled);
+            this.grpDetails.Controls.Add(this.txtDescription);
+            this.grpDetails.Controls.Add(this.txtName);
+            this.grpDetails.Controls.Add(this.label3);
+            this.grpDetails.Controls.Add(this.txtCode);
+            this.grpDetails.Controls.Add(this.label2);
+            this.grpDetails.Controls.Add(this.label1);
+            this.grpDetails.Location = new System.Drawing.Point(14, 14);
+            this.grpDetails.Name = "grpDetails";
+            this.grpDetails.Size = new System.Drawing.Size(744, 173);
+            this.grpDetails.TabIndex = 0;
+            this.grpDetails.TabStop = false;
+            this.grpDetails.Text = "Unit Details";
             // 
-            // CancelButton
+            // btnCancel
             // 
-            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.Location = new System.Drawing.Point(651, 138);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(87, 27);
-            this.CancelButton.TabIndex = 8;
-            this.CancelButton.Text = "&Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(651, 138);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(87, 27);
+            this.btnCancel.TabIndex = 8;
+            this.btnCancel.Text = "&Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // SaveButton
+            // btnSave
             // 
-            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(556, 138);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(87, 27);
-            this.SaveButton.TabIndex = 7;
-            this.SaveButton.Text = "&Save";
-            this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(556, 138);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(87, 27);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "&Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // IsEnabledCheck
+            // chkEnabled
             // 
-            this.IsEnabledCheck.AutoSize = true;
-            this.IsEnabledCheck.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.UnitsBindingSource, "IsEnabled", true));
-            this.IsEnabledCheck.Location = new System.Drawing.Point(88, 138);
-            this.IsEnabledCheck.Name = "IsEnabledCheck";
-            this.IsEnabledCheck.Size = new System.Drawing.Size(84, 19);
-            this.IsEnabledCheck.TabIndex = 6;
-            this.IsEnabledCheck.Text = "Is Enabled?";
-            this.IsEnabledCheck.UseVisualStyleBackColor = true;
+            this.chkEnabled.AutoSize = true;
+            this.chkEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.UnitsBindingSource, "IsEnabled", true));
+            this.chkEnabled.Location = new System.Drawing.Point(88, 138);
+            this.chkEnabled.Name = "chkEnabled";
+            this.chkEnabled.Size = new System.Drawing.Size(84, 19);
+            this.chkEnabled.TabIndex = 6;
+            this.chkEnabled.Text = "Is Enabled?";
+            this.chkEnabled.UseVisualStyleBackColor = true;
             // 
             // UnitsBindingSource
             // 
             this.UnitsBindingSource.DataSource = typeof(Fanda2.Backend.Database.Unit);
             this.UnitsBindingSource.PositionChanged += new System.EventHandler(this.UnitsBindingSource_PositionChanged);
             // 
-            // DescriptionText
+            // txtDescription
             // 
-            this.DescriptionText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DescriptionText.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.UnitsBindingSource, "UnitDesc", true));
-            this.DescriptionText.Location = new System.Drawing.Point(87, 82);
-            this.DescriptionText.MaxLength = 255;
-            this.DescriptionText.Multiline = true;
-            this.DescriptionText.Name = "DescriptionText";
-            this.DescriptionText.Size = new System.Drawing.Size(650, 50);
-            this.DescriptionText.TabIndex = 5;
+            this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.UnitsBindingSource, "UnitDesc", true));
+            this.txtDescription.Location = new System.Drawing.Point(87, 82);
+            this.txtDescription.MaxLength = 255;
+            this.txtDescription.Multiline = true;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(650, 50);
+            this.txtDescription.TabIndex = 5;
             // 
-            // NameText
+            // txtName
             // 
-            this.NameText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameText.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.UnitsBindingSource, "UnitName", true));
-            this.NameText.Location = new System.Drawing.Point(87, 52);
-            this.NameText.MaxLength = 25;
-            this.NameText.Name = "NameText";
-            this.NameText.Size = new System.Drawing.Size(632, 23);
-            this.NameText.TabIndex = 3;
-            this.NameText.Validated += new System.EventHandler(this.NameText_Validated);
+            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.UnitsBindingSource, "UnitName", true));
+            this.txtName.Location = new System.Drawing.Point(87, 52);
+            this.txtName.MaxLength = 25;
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(632, 23);
+            this.txtName.TabIndex = 3;
+            this.txtName.Validated += new System.EventHandler(this.txtName_Validated);
             // 
             // label3
             // 
@@ -154,16 +154,16 @@ namespace Fanda.UI
             this.label3.TabIndex = 4;
             this.label3.Text = "&Description:";
             // 
-            // CodeText
+            // txtCode
             // 
-            this.CodeText.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.CodeText.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.UnitsBindingSource, "Code", true));
-            this.CodeText.Location = new System.Drawing.Point(87, 22);
-            this.CodeText.MaxLength = 16;
-            this.CodeText.Name = "CodeText";
-            this.CodeText.Size = new System.Drawing.Size(123, 23);
-            this.CodeText.TabIndex = 1;
-            this.CodeText.Validated += new System.EventHandler(this.CodeText_Validated);
+            this.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.UnitsBindingSource, "Code", true));
+            this.txtCode.Location = new System.Drawing.Point(87, 22);
+            this.txtCode.MaxLength = 16;
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(123, 23);
+            this.txtCode.TabIndex = 1;
+            this.txtCode.Validated += new System.EventHandler(this.txtCode_Validated);
             // 
             // label2
             // 
@@ -183,43 +183,43 @@ namespace Fanda.UI
             this.label1.TabIndex = 0;
             this.label1.Text = "&Code:";
             // 
-            // ItemStatusStrip
+            // UnitStatus
             // 
-            this.ItemStatusStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
-            this.ItemStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel});
-            this.ItemStatusStrip.Location = new System.Drawing.Point(0, 519);
-            this.ItemStatusStrip.Name = "ItemStatusStrip";
-            this.ItemStatusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.ItemStatusStrip.Size = new System.Drawing.Size(772, 22);
-            this.ItemStatusStrip.TabIndex = 2;
-            this.ItemStatusStrip.Text = "Ready";
+            this.UnitStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.UnitStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssStatus});
+            this.UnitStatus.Location = new System.Drawing.Point(0, 519);
+            this.UnitStatus.Name = "UnitStatus";
+            this.UnitStatus.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.UnitStatus.Size = new System.Drawing.Size(772, 22);
+            this.UnitStatus.TabIndex = 2;
+            this.UnitStatus.Text = "Ready";
             // 
-            // StatusLabel
+            // tssStatus
             // 
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(755, 17);
-            this.StatusLabel.Spring = true;
-            this.StatusLabel.Text = "Ready";
-            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tssStatus.Name = "tssStatus";
+            this.tssStatus.Size = new System.Drawing.Size(724, 17);
+            this.tssStatus.Spring = true;
+            this.tssStatus.Text = "Ready";
+            this.tssStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // UnitsGroupBox
+            // grpUnits
             // 
-            this.UnitsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grpUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.UnitsGroupBox.Controls.Add(this.label4);
-            this.UnitsGroupBox.Controls.Add(this.DeleteButton);
-            this.UnitsGroupBox.Controls.Add(this.AddButton);
-            this.UnitsGroupBox.Controls.Add(this.SearchText);
-            this.UnitsGroupBox.Controls.Add(this.RefreshButton);
-            this.UnitsGroupBox.Controls.Add(this.UnitsGridView);
-            this.UnitsGroupBox.Location = new System.Drawing.Point(14, 193);
-            this.UnitsGroupBox.Name = "UnitsGroupBox";
-            this.UnitsGroupBox.Size = new System.Drawing.Size(744, 319);
-            this.UnitsGroupBox.TabIndex = 1;
-            this.UnitsGroupBox.TabStop = false;
-            this.UnitsGroupBox.Text = "Units";
+            this.grpUnits.Controls.Add(this.label4);
+            this.grpUnits.Controls.Add(this.btnDelete);
+            this.grpUnits.Controls.Add(this.btnAdd);
+            this.grpUnits.Controls.Add(this.txtSearch);
+            this.grpUnits.Controls.Add(this.btnRefresh);
+            this.grpUnits.Controls.Add(this.gridUnits);
+            this.grpUnits.Location = new System.Drawing.Point(14, 193);
+            this.grpUnits.Name = "grpUnits";
+            this.grpUnits.Size = new System.Drawing.Size(744, 319);
+            this.grpUnits.TabIndex = 1;
+            this.grpUnits.TabStop = false;
+            this.grpUnits.Text = "Units";
             // 
             // label4
             // 
@@ -230,72 +230,72 @@ namespace Fanda.UI
             this.label4.TabIndex = 1;
             this.label4.Text = "&Search:";
             // 
-            // DeleteButton
+            // btnDelete
             // 
-            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteButton.Location = new System.Drawing.Point(650, 22);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(87, 27);
-            this.DeleteButton.TabIndex = 4;
-            this.DeleteButton.Text = "&Delete";
-            this.DeleteButton.UseVisualStyleBackColor = true;
-            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Location = new System.Drawing.Point(650, 22);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(87, 27);
+            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Text = "&Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
-            // AddButton
+            // btnAdd
             // 
-            this.AddButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddButton.Location = new System.Drawing.Point(555, 22);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(87, 27);
-            this.AddButton.TabIndex = 3;
-            this.AddButton.Text = "&Add";
-            this.AddButton.UseVisualStyleBackColor = true;
-            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Location = new System.Drawing.Point(555, 22);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(87, 27);
+            this.btnAdd.TabIndex = 3;
+            this.btnAdd.Text = "&Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // SearchText
+            // txtSearch
             // 
-            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchText.Location = new System.Drawing.Point(160, 24);
-            this.SearchText.MaxLength = 255;
-            this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(388, 23);
-            this.SearchText.TabIndex = 2;
-            this.SearchText.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
+            this.txtSearch.Location = new System.Drawing.Point(160, 24);
+            this.txtSearch.MaxLength = 255;
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(388, 23);
+            this.txtSearch.TabIndex = 2;
+            this.txtSearch.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
             // 
-            // RefreshButton
+            // btnRefresh
             // 
-            this.RefreshButton.Location = new System.Drawing.Point(7, 22);
-            this.RefreshButton.Name = "RefreshButton";
-            this.RefreshButton.Size = new System.Drawing.Size(87, 27);
-            this.RefreshButton.TabIndex = 0;
-            this.RefreshButton.Text = "&Refresh";
-            this.RefreshButton.UseVisualStyleBackColor = true;
-            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
+            this.btnRefresh.Location = new System.Drawing.Point(7, 22);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(87, 27);
+            this.btnRefresh.TabIndex = 0;
+            this.btnRefresh.Text = "&Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
-            // UnitsGridView
+            // gridUnits
             // 
-            this.UnitsGridView.AllowUserToAddRows = false;
-            this.UnitsGridView.AllowUserToDeleteRows = false;
-            this.UnitsGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.gridUnits.AllowUserToAddRows = false;
+            this.gridUnits.AllowUserToDeleteRows = false;
+            this.gridUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.UnitsGridView.AutoGenerateColumns = false;
-            this.UnitsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.UnitsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.gridUnits.AutoGenerateColumns = false;
+            this.gridUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridUnits.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codeDataGridViewTextBoxColumn,
             this.unitNameDataGridViewTextBoxColumn,
             this.unitDescDataGridViewTextBoxColumn,
             this.isEnabledDataGridViewCheckBoxColumn});
-            this.UnitsGridView.DataSource = this.UnitsBindingSource;
-            this.UnitsGridView.Location = new System.Drawing.Point(7, 55);
-            this.UnitsGridView.Name = "UnitsGridView";
-            this.UnitsGridView.ReadOnly = true;
-            this.UnitsGridView.RowHeadersWidth = 28;
-            this.UnitsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.UnitsGridView.Size = new System.Drawing.Size(730, 257);
-            this.UnitsGridView.TabIndex = 5;
-            this.UnitsGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.UnitsGridView_ColumnHeaderMouseClick);
+            this.gridUnits.DataSource = this.UnitsBindingSource;
+            this.gridUnits.Location = new System.Drawing.Point(7, 55);
+            this.gridUnits.Name = "gridUnits";
+            this.gridUnits.ReadOnly = true;
+            this.gridUnits.RowHeadersWidth = 28;
+            this.gridUnits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridUnits.Size = new System.Drawing.Size(730, 257);
+            this.gridUnits.TabIndex = 5;
+            this.gridUnits.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.UnitsGridView_ColumnHeaderMouseClick);
             // 
             // codeDataGridViewTextBoxColumn
             // 
@@ -338,22 +338,22 @@ namespace Fanda.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(772, 541);
-            this.Controls.Add(this.UnitsGroupBox);
-            this.Controls.Add(this.ItemStatusStrip);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grpUnits);
+            this.Controls.Add(this.UnitStatus);
+            this.Controls.Add(this.grpDetails);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UnitsForm";
             this.Text = "Units";
             this.Load += new System.EventHandler(this.UnitsForm_Load);
             this.Resize += new System.EventHandler(this.UnitsForm_Resize);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpDetails.ResumeLayout(false);
+            this.grpDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UnitsBindingSource)).EndInit();
-            this.ItemStatusStrip.ResumeLayout(false);
-            this.ItemStatusStrip.PerformLayout();
-            this.UnitsGroupBox.ResumeLayout(false);
-            this.UnitsGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UnitsGridView)).EndInit();
+            this.UnitStatus.ResumeLayout(false);
+            this.UnitStatus.PerformLayout();
+            this.grpUnits.ResumeLayout(false);
+            this.grpUnits.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridUnits)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnitErrors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -362,26 +362,26 @@ namespace Fanda.UI
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox IsEnabledCheck;
-        private System.Windows.Forms.TextBox DescriptionText;
-        private System.Windows.Forms.TextBox NameText;
+        private System.Windows.Forms.GroupBox grpDetails;
+        private System.Windows.Forms.CheckBox chkEnabled;
+        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox CodeText;
+        private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private new System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.Button SaveButton;
+        private new System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.BindingSource UnitsBindingSource;
-        private System.Windows.Forms.StatusStrip ItemStatusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
-        private System.Windows.Forms.GroupBox UnitsGroupBox;
+        private System.Windows.Forms.StatusStrip UnitStatus;
+        private System.Windows.Forms.ToolStripStatusLabel tssStatus;
+        private System.Windows.Forms.GroupBox grpUnits;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button DeleteButton;
-        private System.Windows.Forms.Button AddButton;
-        private System.Windows.Forms.TextBox SearchText;
-        private System.Windows.Forms.Button RefreshButton;
-        private System.Windows.Forms.DataGridView UnitsGridView;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.DataGridView gridUnits;
         private System.Windows.Forms.ErrorProvider UnitErrors;
         private System.Windows.Forms.DataGridViewTextBoxColumn codeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn unitNameDataGridViewTextBoxColumn;
