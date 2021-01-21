@@ -31,7 +31,6 @@ namespace Fanda.UI
             LoadGroupList();
             LoadBalanceSigns();
             LoadAndBindList();
-            UpdateLedgerBalances();
         }
 
         private void ProductCategoriesForm_Resize(object sender, EventArgs e)
@@ -150,7 +149,6 @@ namespace Fanda.UI
                 ledgersBindingSource.ResetBindings(false);
                 tssLabel.Text = "Saved successfully!";
                 grpLedgers.Enabled = true;
-                UpdateLedgerBalances();
                 if (isAdding)
                     btnAdd.PerformClick();
             }
@@ -231,7 +229,6 @@ namespace Fanda.UI
                 {
                     ledgersBindingSource.RemoveCurrent();
                     tssLabel.Text = "Deleted successfully!";
-                    UpdateLedgerBalances();
                 }
                 else
                 {
@@ -325,24 +322,6 @@ namespace Fanda.UI
             cboBalance.DisplayMember = "DisplayText";
             cboBalance.ValueMember = "Key";
             // cboBalance.DataBindings.Add("SelectedValue",)
-        }
-
-        private void UpdateLedgerBalances()
-        {
-            var balances = _repository.GetLedgerBalances(AppConfig.CurrentYear.Id);
-            tssDebitBalance.Text = $"Total Debit: {balances.DebitBalance:##,##,##,##0.00}";
-            tssCreditBalance.Text = $"Total Credit: {balances.CreditBalance:##,##,##,##0.00}";
-            tssDiff.Text = $"Diff: {balances.Difference:##,##,##,##0.00}";
-            if (balances.Difference != 0)
-            {
-                //tssDiff.BackColor = Color.Red;
-                tssDiff.ForeColor = Color.Red;
-            }
-            else
-            {
-                //tssDiff.BackColor = SystemColors.Control;
-                tssDiff.ForeColor = SystemColors.ControlText;
-            }
         }
 
         #endregion Private methods
