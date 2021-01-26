@@ -94,7 +94,7 @@ namespace Fanda.UI
             this.grpEdit.Size = new System.Drawing.Size(748, 196);
             this.grpEdit.TabIndex = 0;
             this.grpEdit.TabStop = false;
-            this.grpEdit.Text = "Ledger Details";
+            this.grpEdit.Text = "Party Details";
             // 
             // cboBalance
             // 
@@ -168,7 +168,7 @@ namespace Fanda.UI
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 168);
+            this.label6.Location = new System.Drawing.Point(6, 165);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 15);
             this.label6.TabIndex = 8;
@@ -177,11 +177,11 @@ namespace Fanda.UI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 141);
+            this.label5.Location = new System.Drawing.Point(7, 136);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 15);
+            this.label5.Size = new System.Drawing.Size(34, 15);
             this.label5.TabIndex = 6;
-            this.label5.Text = "&Group:";
+            this.label5.Text = "&Type:";
             // 
             // chkEnabled
             // 
@@ -221,7 +221,7 @@ namespace Fanda.UI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 85);
+            this.label3.Location = new System.Drawing.Point(7, 84);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 15);
             this.label3.TabIndex = 4;
@@ -272,7 +272,7 @@ namespace Fanda.UI
             // tssLabel
             // 
             this.tssLabel.Name = "tssLabel";
-            this.tssLabel.Size = new System.Drawing.Size(724, 17);
+            this.tssLabel.Size = new System.Drawing.Size(755, 17);
             this.tssLabel.Spring = true;
             this.tssLabel.Text = "Ready";
             this.tssLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -293,7 +293,7 @@ namespace Fanda.UI
             this.grpLedgers.Size = new System.Drawing.Size(748, 298);
             this.grpLedgers.TabIndex = 1;
             this.grpLedgers.TabStop = false;
-            this.grpLedgers.Text = "Ledgers";
+            this.grpLedgers.Text = "Parties";
             // 
             // label4
             // 
