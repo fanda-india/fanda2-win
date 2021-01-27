@@ -370,7 +370,7 @@ namespace Fanda.UI
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private new System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.BindingSource UnitsBindingSource;
         private System.Windows.Forms.StatusStrip UnitStatus;
