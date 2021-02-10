@@ -26,7 +26,7 @@ namespace Fanda.UI
 
         #region Form events
 
-        private void ProductCategoriesForm_Load(object sender, EventArgs e)
+        private void LedgersForm_Load(object sender, EventArgs e)
         {
             LoadGroupList();
             LoadBalanceSigns();
@@ -34,18 +34,18 @@ namespace Fanda.UI
             UpdateLedgerBalances();
         }
 
-        private void ProductCategoriesForm_Resize(object sender, EventArgs e)
+        private void LedgersForm_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {
                 return;
             }
 
-            dgvProductCategories.Columns[0].Width = (int)(Width * 0.1);
-            dgvProductCategories.Columns[1].Width = (int)(Width * 0.2);
-            dgvProductCategories.Columns[2].Width = (int)(Width * 0.23);
-            dgvProductCategories.Columns[3].Width = (int)(Width * 0.2);
-            dgvProductCategories.Columns[4].Width = (int)(Width * 0.1);
+            dgvLedgers.Columns[0].Width = (int)(Width * 0.1);
+            dgvLedgers.Columns[1].Width = (int)(Width * 0.2);
+            dgvLedgers.Columns[2].Width = (int)(Width * 0.23);
+            dgvLedgers.Columns[3].Width = (int)(Width * 0.2);
+            dgvLedgers.Columns[4].Width = (int)(Width * 0.1);
         }
 
         private void LedgersForm_KeyDown(object sender, KeyEventArgs e)
@@ -95,9 +95,9 @@ namespace Fanda.UI
             tssLabel.Text = "Ready";
         }
 
-        private void DgvProductCategories_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DatagridLedgers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            DataGridViewColumn column = dgvProductCategories.Columns[e.ColumnIndex];
+            DataGridViewColumn column = dgvLedgers.Columns[e.ColumnIndex];
             if (column.SortMode == DataGridViewColumnSortMode.NotSortable)
                 return;
             _isSortAscending = (_sortColumn == null || _isSortAscending == false);
@@ -118,13 +118,18 @@ namespace Fanda.UI
 
         #region Save & Cancel button events
 
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
-            TxtCode_Validated(this, null);
-            TxtName_Validated(this, null);
+            CodeText_Validated(this, null);
+            NameText_Validated(this, null);
+            GroupCombo_Validated(this, null);
+
             if (!string.IsNullOrEmpty(itemErrors.GetError(txtCode)) ||
-                !string.IsNullOrEmpty(itemErrors.GetError(txtName)))
+                !string.IsNullOrEmpty(itemErrors.GetError(txtName)) ||
+                cboGroup.SelectedIndex == 1)
+            {
                 return;
+            }
 
             bool success;
             bool isAdding = false;
@@ -160,21 +165,7 @@ namespace Fanda.UI
             }
         }
 
-        private void RestoreFromDatabase()
-        {
-            LedgerListModel current = GetCurrent();
-            if (current == null || current.Id == 0)
-                return;
-            Ledger item = _repository.GetById(current.Id);
-
-            current.Code = item.Code;
-            current.LedgerName = item.LedgerName;
-            current.LedgerDesc = item.LedgerDesc;
-            current.LedgerGroupId = item.LedgerGroupId;
-            current.IsEnabled = item.IsEnabled;
-        }
-
-        private void BtnCancel_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             itemErrors.Clear();
             RestoreFromDatabase();
@@ -187,7 +178,7 @@ namespace Fanda.UI
 
         #region Other events
 
-        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        private void SearchText_TextChanged(object sender, EventArgs e)
         {
             if (txtSearch.Text == string.Empty)
             {
@@ -203,19 +194,19 @@ namespace Fanda.UI
             }
         }
 
-        private void BtnRefresh_Click(object sender, EventArgs e)
+        private void RefreshButton_Click(object sender, EventArgs e)
         {
             LoadAndBindList();
         }
 
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
             grpLedgers.Enabled = false;
             ledgersBindingSource.AddNew();
             txtCode.Focus();
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void DeleteButton_Click(object sender, EventArgs e)
         {
             tssLabel.Text = "Ready";
             LedgerListModel item = GetCurrent();
@@ -248,7 +239,7 @@ namespace Fanda.UI
 
         #region Validation events
 
-        private void TxtCode_Validated(object sender, EventArgs e)
+        private void CodeText_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtCode.Text))
             {
@@ -265,7 +256,7 @@ namespace Fanda.UI
                 itemErrors.SetError(txtCode, null);
         }
 
-        private void TxtName_Validated(object sender, EventArgs e)
+        private void NameText_Validated(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
@@ -282,9 +273,34 @@ namespace Fanda.UI
                 itemErrors.SetError(txtName, null);
         }
 
+        private void GroupCombo_Validated(object sender, EventArgs e)
+        {
+            if (cboGroup.SelectedIndex == -1)
+            {
+                itemErrors.SetError(cboGroup, "Select ledger group!");
+                return;
+            }
+            else
+                itemErrors.SetError(cboGroup, null);
+        }
+
         #endregion Validation events
 
         #region Private methods
+
+        private void RestoreFromDatabase()
+        {
+            LedgerListModel current = GetCurrent();
+            if (current == null || current.Id == 0)
+                return;
+            Ledger item = _repository.GetById(current.Id);
+
+            current.Code = item.Code;
+            current.LedgerName = item.LedgerName;
+            current.LedgerDesc = item.LedgerDesc;
+            current.LedgerGroupId = item.LedgerGroupId;
+            current.IsEnabled = item.IsEnabled;
+        }
 
         private void LoadAndBindList()
         {
@@ -317,9 +333,9 @@ namespace Fanda.UI
         {
             var signList = new[]
             {
-                new { Key ="", DisplayText = ""},
-                new { Key ="D", DisplayText = "Debit"},
-                new { Key ="C", DisplayText = "Credit"}
+                new { Key = "", DisplayText = "" },
+                new { Key = "D", DisplayText = "Debit" },
+                new { Key = "C", DisplayText = "Credit" }
             };
             cboBalance.DataSource = signList;
             cboBalance.DisplayMember = "DisplayText";

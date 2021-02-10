@@ -58,7 +58,7 @@ namespace Fanda.UI
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.dgvProductCategories = new System.Windows.Forms.DataGridView();
+            this.dgvLedgers = new System.Windows.Forms.DataGridView();
             this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ledgerDescDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,7 +70,7 @@ namespace Fanda.UI
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             this.itemStatus.SuspendLayout();
             this.grpLedgers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProductCategories)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLedgers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemErrors)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,7 +123,7 @@ namespace Fanda.UI
             this.btnSave.TabIndex = 12;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // cboGroup
             // 
@@ -137,9 +137,10 @@ namespace Fanda.UI
             this.cboGroup.FormattingEnabled = true;
             this.cboGroup.Location = new System.Drawing.Point(113, 133);
             this.cboGroup.Name = "cboGroup";
-            this.cboGroup.Size = new System.Drawing.Size(629, 23);
+            this.cboGroup.Size = new System.Drawing.Size(617, 23);
             this.cboGroup.TabIndex = 7;
             this.cboGroup.ValueMember = "Id";
+            this.cboGroup.Validated += new System.EventHandler(this.GroupCombo_Validated);
             // 
             // groupBindingSource
             // 
@@ -155,7 +156,7 @@ namespace Fanda.UI
             this.txtBalance.Size = new System.Drawing.Size(152, 23);
             this.txtBalance.TabIndex = 9;
             this.txtBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtBalance.Validated += new System.EventHandler(this.TxtCode_Validated);
+            this.txtBalance.Validated += new System.EventHandler(this.CodeText_Validated);
             // 
             // btnCancel
             // 
@@ -166,7 +167,7 @@ namespace Fanda.UI
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // label6
             // 
@@ -206,7 +207,7 @@ namespace Fanda.UI
             this.txtDescription.MaxLength = 255;
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(629, 46);
+            this.txtDescription.Size = new System.Drawing.Size(628, 46);
             this.txtDescription.TabIndex = 5;
             // 
             // txtName
@@ -217,9 +218,9 @@ namespace Fanda.UI
             this.txtName.Location = new System.Drawing.Point(113, 52);
             this.txtName.MaxLength = 25;
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(629, 23);
+            this.txtName.Size = new System.Drawing.Size(617, 23);
             this.txtName.TabIndex = 3;
-            this.txtName.Validated += new System.EventHandler(this.TxtName_Validated);
+            this.txtName.Validated += new System.EventHandler(this.NameText_Validated);
             // 
             // label3
             // 
@@ -239,7 +240,7 @@ namespace Fanda.UI
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(152, 23);
             this.txtCode.TabIndex = 1;
-            this.txtCode.Validated += new System.EventHandler(this.TxtCode_Validated);
+            this.txtCode.Validated += new System.EventHandler(this.CodeText_Validated);
             // 
             // label2
             // 
@@ -314,7 +315,7 @@ namespace Fanda.UI
             this.grpLedgers.Controls.Add(this.btnAdd);
             this.grpLedgers.Controls.Add(this.txtSearch);
             this.grpLedgers.Controls.Add(this.btnRefresh);
-            this.grpLedgers.Controls.Add(this.dgvProductCategories);
+            this.grpLedgers.Controls.Add(this.dgvLedgers);
             this.grpLedgers.Location = new System.Drawing.Point(12, 214);
             this.grpLedgers.Name = "grpLedgers";
             this.grpLedgers.Size = new System.Drawing.Size(748, 298);
@@ -340,7 +341,7 @@ namespace Fanda.UI
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            this.btnDelete.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // btnAdd
             // 
@@ -351,7 +352,7 @@ namespace Fanda.UI
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "&Add";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txtSearch
             // 
@@ -362,7 +363,7 @@ namespace Fanda.UI
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(392, 23);
             this.txtSearch.TabIndex = 2;
-            this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
+            this.txtSearch.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
             // 
             // btnRefresh
             // 
@@ -372,32 +373,32 @@ namespace Fanda.UI
             this.btnRefresh.TabIndex = 0;
             this.btnRefresh.Text = "&Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh_Click);
+            this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
-            // dgvProductCategories
+            // dgvLedgers
             // 
-            this.dgvProductCategories.AllowUserToAddRows = false;
-            this.dgvProductCategories.AllowUserToDeleteRows = false;
-            this.dgvProductCategories.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvLedgers.AllowUserToAddRows = false;
+            this.dgvLedgers.AllowUserToDeleteRows = false;
+            this.dgvLedgers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvProductCategories.AutoGenerateColumns = false;
-            this.dgvProductCategories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductCategories.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvLedgers.AutoGenerateColumns = false;
+            this.dgvLedgers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLedgers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codeDataGridViewTextBoxColumn,
             this.ledgerNameDataGridViewTextBoxColumn,
             this.ledgerDescDataGridViewTextBoxColumn,
             this.groupNameDataGridViewTextBoxColumn,
             this.isEnabledDataGridViewCheckBoxColumn});
-            this.dgvProductCategories.DataSource = this.ledgersBindingSource;
-            this.dgvProductCategories.Location = new System.Drawing.Point(7, 55);
-            this.dgvProductCategories.Name = "dgvProductCategories";
-            this.dgvProductCategories.ReadOnly = true;
-            this.dgvProductCategories.RowHeadersWidth = 28;
-            this.dgvProductCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductCategories.Size = new System.Drawing.Size(734, 236);
-            this.dgvProductCategories.TabIndex = 5;
-            this.dgvProductCategories.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvProductCategories_ColumnHeaderMouseClick);
+            this.dgvLedgers.DataSource = this.ledgersBindingSource;
+            this.dgvLedgers.Location = new System.Drawing.Point(7, 55);
+            this.dgvLedgers.Name = "dgvLedgers";
+            this.dgvLedgers.ReadOnly = true;
+            this.dgvLedgers.RowHeadersWidth = 28;
+            this.dgvLedgers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvLedgers.Size = new System.Drawing.Size(734, 236);
+            this.dgvLedgers.TabIndex = 5;
+            this.dgvLedgers.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DatagridLedgers_ColumnHeaderMouseClick);
             // 
             // codeDataGridViewTextBoxColumn
             // 
@@ -454,9 +455,9 @@ namespace Fanda.UI
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "LedgersForm";
             this.Text = "Ledgers";
-            this.Load += new System.EventHandler(this.ProductCategoriesForm_Load);
+            this.Load += new System.EventHandler(this.LedgersForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LedgersForm_KeyDown);
-            this.Resize += new System.EventHandler(this.ProductCategoriesForm_Resize);
+            this.Resize += new System.EventHandler(this.LedgersForm_Resize);
             this.grpEdit.ResumeLayout(false);
             this.grpEdit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ledgersBindingSource)).EndInit();
@@ -465,7 +466,7 @@ namespace Fanda.UI
             this.itemStatus.PerformLayout();
             this.grpLedgers.ResumeLayout(false);
             this.grpLedgers.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProductCategories)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLedgers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemErrors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -493,7 +494,7 @@ namespace Fanda.UI
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.DataGridView dgvProductCategories;
+        private System.Windows.Forms.DataGridView dgvLedgers;
         private System.Windows.Forms.ErrorProvider itemErrors;
         private System.Windows.Forms.ComboBox cboGroup;
         private System.Windows.Forms.Label label5;
