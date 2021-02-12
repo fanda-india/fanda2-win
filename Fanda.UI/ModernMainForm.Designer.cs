@@ -38,28 +38,28 @@ namespace Fanda.UI
             this.buttonSales = new FontAwesome.Sharp.IconButton();
             this.buttonDashboard = new FontAwesome.Sharp.IconButton();
             this.panelTitleBar = new System.Windows.Forms.Panel();
-            this.buttonCompany = new FontAwesome.Sharp.IconButton();
             this.buttonUser = new FontAwesome.Sharp.IconButton();
-            this.panelLogo = new System.Windows.Forms.Panel();
-            this.buttonHome = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelRight = new System.Windows.Forms.Panel();
             this.titleChildForm = new System.Windows.Forms.Label();
             this.iconChildForm = new FontAwesome.Sharp.IconPictureBox();
+            this.panelCompany = new System.Windows.Forms.Panel();
+            this.buttonCompany = new FontAwesome.Sharp.IconButton();
+            this.panelLogo = new System.Windows.Forms.Panel();
+            this.buttonHome = new System.Windows.Forms.PictureBox();
             this.panelShadow = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
-            this.logoDesktop = new System.Windows.Forms.PictureBox();
-            this.panelCompany = new System.Windows.Forms.Panel();
-            this.panelRight = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panelBorder = new System.Windows.Forms.Panel();
+            this.logoDesktop = new System.Windows.Forms.PictureBox();
             this.panelMenu.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
+            this.panelRight.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).BeginInit();
+            this.panelCompany.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.buttonHome)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).BeginInit();
             this.panelDesktop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoDesktop)).BeginInit();
-            this.panelCompany.SuspendLayout();
-            this.panelRight.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -76,7 +76,7 @@ namespace Fanda.UI
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(220, 531);
+            this.panelMenu.Size = new System.Drawing.Size(220, 481);
             this.panelMenu.TabIndex = 0;
             // 
             // buttonSettings
@@ -244,30 +244,8 @@ namespace Fanda.UI
             this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitleBar.Location = new System.Drawing.Point(0, 0);
             this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(979, 70);
+            this.panelTitleBar.Size = new System.Drawing.Size(884, 70);
             this.panelTitleBar.TabIndex = 1;
-            // 
-            // buttonCompany
-            // 
-            this.buttonCompany.AutoSize = true;
-            this.buttonCompany.BackColor = System.Drawing.Color.Indigo;
-            this.buttonCompany.FlatAppearance.BorderColor = System.Drawing.Color.Indigo;
-            this.buttonCompany.FlatAppearance.BorderSize = 0;
-            this.buttonCompany.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCompany.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCompany.ForeColor = System.Drawing.Color.LavenderBlush;
-            this.buttonCompany.IconChar = FontAwesome.Sharp.IconChar.University;
-            this.buttonCompany.IconColor = System.Drawing.Color.LavenderBlush;
-            this.buttonCompany.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonCompany.IconSize = 40;
-            this.buttonCompany.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCompany.Location = new System.Drawing.Point(6, 9);
-            this.buttonCompany.Name = "buttonCompany";
-            this.buttonCompany.Size = new System.Drawing.Size(386, 46);
-            this.buttonCompany.TabIndex = 4;
-            this.buttonCompany.Text = "Sri Santhalakshmi Silks and Sarees";
-            this.buttonCompany.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonCompany.UseVisualStyleBackColor = false;
             // 
             // buttonUser
             // 
@@ -281,33 +259,30 @@ namespace Fanda.UI
             this.buttonUser.IconColor = System.Drawing.Color.LavenderBlush;
             this.buttonUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonUser.IconSize = 24;
-            this.buttonUser.Location = new System.Drawing.Point(943, 22);
+            this.buttonUser.Location = new System.Drawing.Point(848, 21);
             this.buttonUser.Name = "buttonUser";
-            this.buttonUser.Size = new System.Drawing.Size(24, 24);
+            this.buttonUser.Size = new System.Drawing.Size(32, 32);
             this.buttonUser.TabIndex = 4;
             this.buttonUser.UseVisualStyleBackColor = false;
             // 
-            // panelLogo
+            // panel1
             // 
-            this.panelLogo.Controls.Add(this.buttonHome);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLogo.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(220, 70);
-            this.panelLogo.TabIndex = 3;
+            this.panel1.BackColor = System.Drawing.Color.BlueViolet;
+            this.panel1.Location = new System.Drawing.Point(688, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1, 70);
+            this.panel1.TabIndex = 6;
             // 
-            // buttonHome
+            // panelRight
             // 
-            this.buttonHome.BackColor = System.Drawing.Color.Transparent;
-            this.buttonHome.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonHome.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
-            this.buttonHome.Location = new System.Drawing.Point(0, 0);
-            this.buttonHome.Name = "buttonHome";
-            this.buttonHome.Size = new System.Drawing.Size(220, 70);
-            this.buttonHome.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.buttonHome.TabIndex = 0;
-            this.buttonHome.TabStop = false;
-            this.buttonHome.Click += new System.EventHandler(this.buttonHome_Click);
+            this.panelRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelRight.Controls.Add(this.titleChildForm);
+            this.panelRight.Controls.Add(this.iconChildForm);
+            this.panelRight.Location = new System.Drawing.Point(692, 0);
+            this.panelRight.Name = "panelRight";
+            this.panelRight.Size = new System.Drawing.Size(150, 70);
+            this.panelRight.TabIndex = 5;
             // 
             // titleChildForm
             // 
@@ -334,13 +309,64 @@ namespace Fanda.UI
             this.iconChildForm.TabIndex = 0;
             this.iconChildForm.TabStop = false;
             // 
+            // panelCompany
+            // 
+            this.panelCompany.Controls.Add(this.buttonCompany);
+            this.panelCompany.Location = new System.Drawing.Point(220, 3);
+            this.panelCompany.Name = "panelCompany";
+            this.panelCompany.Size = new System.Drawing.Size(462, 64);
+            this.panelCompany.TabIndex = 4;
+            // 
+            // buttonCompany
+            // 
+            this.buttonCompany.BackColor = System.Drawing.Color.Indigo;
+            this.buttonCompany.FlatAppearance.BorderColor = System.Drawing.Color.Indigo;
+            this.buttonCompany.FlatAppearance.BorderSize = 0;
+            this.buttonCompany.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCompany.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCompany.ForeColor = System.Drawing.Color.LavenderBlush;
+            this.buttonCompany.IconChar = FontAwesome.Sharp.IconChar.University;
+            this.buttonCompany.IconColor = System.Drawing.Color.LavenderBlush;
+            this.buttonCompany.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.buttonCompany.IconSize = 40;
+            this.buttonCompany.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonCompany.Location = new System.Drawing.Point(6, 9);
+            this.buttonCompany.Name = "buttonCompany";
+            this.buttonCompany.Size = new System.Drawing.Size(453, 46);
+            this.buttonCompany.TabIndex = 4;
+            this.buttonCompany.Text = "Sri Santhalakshmi Silks and Sarees";
+            this.buttonCompany.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonCompany.UseVisualStyleBackColor = false;
+            // 
+            // panelLogo
+            // 
+            this.panelLogo.Controls.Add(this.buttonHome);
+            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLogo.Location = new System.Drawing.Point(0, 0);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(220, 70);
+            this.panelLogo.TabIndex = 3;
+            // 
+            // buttonHome
+            // 
+            this.buttonHome.BackColor = System.Drawing.Color.Transparent;
+            this.buttonHome.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonHome.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
+            this.buttonHome.Location = new System.Drawing.Point(0, 0);
+            this.buttonHome.Name = "buttonHome";
+            this.buttonHome.Size = new System.Drawing.Size(220, 70);
+            this.buttonHome.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.buttonHome.TabIndex = 0;
+            this.buttonHome.TabStop = false;
+            this.buttonHome.Click += new System.EventHandler(this.buttonHome_Click);
+            // 
             // panelShadow
             // 
             this.panelShadow.BackColor = System.Drawing.Color.BlueViolet;
             this.panelShadow.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelShadow.Location = new System.Drawing.Point(0, 70);
             this.panelShadow.Name = "panelShadow";
-            this.panelShadow.Size = new System.Drawing.Size(979, 10);
+            this.panelShadow.Size = new System.Drawing.Size(884, 10);
             this.panelShadow.TabIndex = 2;
             // 
             // panelDesktop
@@ -353,47 +379,8 @@ namespace Fanda.UI
             this.panelDesktop.ForeColor = System.Drawing.Color.Indigo;
             this.panelDesktop.Location = new System.Drawing.Point(0, 80);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(979, 531);
+            this.panelDesktop.Size = new System.Drawing.Size(884, 481);
             this.panelDesktop.TabIndex = 3;
-            // 
-            // logoDesktop
-            // 
-            this.logoDesktop.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.logoDesktop.BackColor = System.Drawing.Color.Transparent;
-            this.logoDesktop.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
-            this.logoDesktop.Location = new System.Drawing.Point(432, 200);
-            this.logoDesktop.Name = "logoDesktop";
-            this.logoDesktop.Size = new System.Drawing.Size(354, 106);
-            this.logoDesktop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.logoDesktop.TabIndex = 1;
-            this.logoDesktop.TabStop = false;
-            // 
-            // panelCompany
-            // 
-            this.panelCompany.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelCompany.Controls.Add(this.buttonCompany);
-            this.panelCompany.Location = new System.Drawing.Point(220, 3);
-            this.panelCompany.Name = "panelCompany";
-            this.panelCompany.Size = new System.Drawing.Size(466, 64);
-            this.panelCompany.TabIndex = 4;
-            // 
-            // panelRight
-            // 
-            this.panelRight.Controls.Add(this.titleChildForm);
-            this.panelRight.Controls.Add(this.iconChildForm);
-            this.panelRight.Location = new System.Drawing.Point(692, 0);
-            this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(245, 70);
-            this.panelRight.TabIndex = 5;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.BlueViolet;
-            this.panel1.Location = new System.Drawing.Point(688, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1, 70);
-            this.panel1.TabIndex = 6;
             // 
             // panelBorder
             // 
@@ -401,32 +388,44 @@ namespace Fanda.UI
             this.panelBorder.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelBorder.Location = new System.Drawing.Point(220, 0);
             this.panelBorder.Name = "panelBorder";
-            this.panelBorder.Size = new System.Drawing.Size(1, 531);
+            this.panelBorder.Size = new System.Drawing.Size(1, 481);
             this.panelBorder.TabIndex = 2;
+            // 
+            // logoDesktop
+            // 
+            this.logoDesktop.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.logoDesktop.BackColor = System.Drawing.Color.Transparent;
+            this.logoDesktop.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
+            this.logoDesktop.Location = new System.Drawing.Point(385, 175);
+            this.logoDesktop.Name = "logoDesktop";
+            this.logoDesktop.Size = new System.Drawing.Size(354, 106);
+            this.logoDesktop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.logoDesktop.TabIndex = 1;
+            this.logoDesktop.TabStop = false;
             // 
             // ModernMainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(979, 611);
+            this.ClientSize = new System.Drawing.Size(884, 561);
             this.Controls.Add(this.panelDesktop);
             this.Controls.Add(this.panelShadow);
             this.Controls.Add(this.panelTitleBar);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinimumSize = new System.Drawing.Size(900, 600);
             this.Name = "ModernMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fanda v2.0";
             this.Load += new System.EventHandler(this.ModernMainForm_Load);
             this.panelMenu.ResumeLayout(false);
             this.panelTitleBar.ResumeLayout(false);
-            this.panelLogo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.buttonHome)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).EndInit();
-            this.panelDesktop.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.logoDesktop)).EndInit();
-            this.panelCompany.ResumeLayout(false);
-            this.panelCompany.PerformLayout();
             this.panelRight.ResumeLayout(false);
             this.panelRight.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).EndInit();
+            this.panelCompany.ResumeLayout(false);
+            this.panelLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.buttonHome)).EndInit();
+            this.panelDesktop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.logoDesktop)).EndInit();
             this.ResumeLayout(false);
 
         }
