@@ -14,6 +14,7 @@ namespace Fanda.UI
 {
     public partial class ModernMainForm : Form
     {
+        private const string AppName = "Fanda v2.0";
         private IconButton currentButton;
         private Panel leftBorderButton;
         private Form currentChildForm;
@@ -26,11 +27,16 @@ namespace Fanda.UI
             panelMenu.Controls.Add(leftBorderButton);
         }
 
+        private void ModernMainForm_Load(object sender, EventArgs e)
+        {
+            ResetActivateButton();
+        }
+
         private bool ActivateButton(object senderButton, Color color)
         {
             if (senderButton != null && !senderButton.Equals(currentButton))
             {
-                DisableButton();
+                DeactivateButton();
 
                 currentButton = (IconButton)senderButton;
                 currentButton.BackColor = color;
@@ -46,12 +52,13 @@ namespace Fanda.UI
                 // Icon current child form
                 iconChildForm.IconChar = currentButton.IconChar;
                 titleChildForm.Text = currentButton.Text;
+                Text = $"{AppName} - " + currentButton.Text;
                 return true;
             }
             return false;
         }
 
-        private void DisableButton()
+        private void DeactivateButton()
         {
             if (currentButton != null)
             {
@@ -63,10 +70,11 @@ namespace Fanda.UI
 
         private void ResetActivateButton()
         {
-            DisableButton();
+            DeactivateButton();
             leftBorderButton.Visible = false;
             iconChildForm.IconChar = IconChar.Home;
             titleChildForm.Text = "Home";
+            Text = $"{AppName} - Home";
 
             if (currentChildForm != null)
             {
@@ -81,8 +89,8 @@ namespace Fanda.UI
             if (currentChildForm != null)
             {
                 currentChildForm.Close();
-                currentChildForm.Dispose();
-                currentChildForm = null;
+                // currentChildForm.Dispose();
+                // currentChildForm = null;
             }
             if (currentChildForm != null && currentChildForm.Equals(childForm))
                 return;
@@ -97,6 +105,11 @@ namespace Fanda.UI
             childForm.BringToFront();
             childForm.Show();
             //titleChildForm.Text = childForm.Text;
+        }
+
+        private void buttonHome_Click(object sender, EventArgs e)
+        {
+            ResetActivateButton();
         }
 
         private void buttonDashboard_Click(object sender, EventArgs e)
@@ -135,11 +148,6 @@ namespace Fanda.UI
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, Color.Indigo);
-        }
-
-        private void buttonHome_Click(object sender, EventArgs e)
-        {
-            ResetActivateButton();
         }
     }
 }
