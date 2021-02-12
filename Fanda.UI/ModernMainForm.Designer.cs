@@ -40,15 +40,18 @@ namespace Fanda.UI
             this.panelLogo = new System.Windows.Forms.Panel();
             this.buttonHome = new System.Windows.Forms.PictureBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
-            this.iconChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.titleChildForm = new System.Windows.Forms.Label();
+            this.iconChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.panelShadow = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelMenu.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.buttonHome)).BeginInit();
             this.panelTitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).BeginInit();
+            this.panelDesktop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -254,6 +257,16 @@ namespace Fanda.UI
             this.panelTitleBar.Size = new System.Drawing.Size(580, 50);
             this.panelTitleBar.TabIndex = 1;
             // 
+            // titleChildForm
+            // 
+            this.titleChildForm.AutoSize = true;
+            this.titleChildForm.ForeColor = System.Drawing.Color.DeepPink;
+            this.titleChildForm.Location = new System.Drawing.Point(43, 14);
+            this.titleChildForm.Name = "titleChildForm";
+            this.titleChildForm.Size = new System.Drawing.Size(52, 21);
+            this.titleChildForm.TabIndex = 2;
+            this.titleChildForm.Text = "Home";
+            // 
             // iconChildForm
             // 
             this.iconChildForm.BackColor = System.Drawing.Color.Transparent;
@@ -267,16 +280,6 @@ namespace Fanda.UI
             this.iconChildForm.TabIndex = 0;
             this.iconChildForm.TabStop = false;
             // 
-            // titleChildForm
-            // 
-            this.titleChildForm.AutoSize = true;
-            this.titleChildForm.ForeColor = System.Drawing.Color.DeepPink;
-            this.titleChildForm.Location = new System.Drawing.Point(43, 14);
-            this.titleChildForm.Name = "titleChildForm";
-            this.titleChildForm.Size = new System.Drawing.Size(52, 21);
-            this.titleChildForm.TabIndex = 2;
-            this.titleChildForm.Text = "Home";
-            // 
             // panelShadow
             // 
             this.panelShadow.BackColor = System.Drawing.Color.BlueViolet;
@@ -289,11 +292,24 @@ namespace Fanda.UI
             // panelDesktop
             // 
             this.panelDesktop.BackColor = System.Drawing.Color.Snow;
+            this.panelDesktop.Controls.Add(this.pictureBox1);
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDesktop.Location = new System.Drawing.Point(220, 57);
             this.panelDesktop.Name = "panelDesktop";
             this.panelDesktop.Size = new System.Drawing.Size(580, 393);
             this.panelDesktop.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
+            this.pictureBox1.Location = new System.Drawing.Point(193, 155);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(194, 82);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // ModernMainForm
             // 
@@ -312,6 +328,8 @@ namespace Fanda.UI
             this.panelTitleBar.ResumeLayout(false);
             this.panelTitleBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).EndInit();
+            this.panelDesktop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -333,5 +351,6 @@ namespace Fanda.UI
         private System.Windows.Forms.Label titleChildForm;
         private System.Windows.Forms.Panel panelShadow;
         private System.Windows.Forms.Panel panelDesktop;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

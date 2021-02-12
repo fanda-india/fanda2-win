@@ -326,59 +326,59 @@ namespace Fanda.UI
             // mnuTranSales
             // 
             this.mnuTranSales.Name = "mnuTranSales";
-            this.mnuTranSales.Size = new System.Drawing.Size(180, 22);
+            this.mnuTranSales.Size = new System.Drawing.Size(152, 22);
             this.mnuTranSales.Text = "&Sales";
             // 
             // mnuTranPurchase
             // 
             this.mnuTranPurchase.Name = "mnuTranPurchase";
-            this.mnuTranPurchase.Size = new System.Drawing.Size(180, 22);
+            this.mnuTranPurchase.Size = new System.Drawing.Size(152, 22);
             this.mnuTranPurchase.Text = "&Purchase";
             // 
             // mnuTranDebitNotes
             // 
             this.mnuTranDebitNotes.Name = "mnuTranDebitNotes";
-            this.mnuTranDebitNotes.Size = new System.Drawing.Size(180, 22);
+            this.mnuTranDebitNotes.Size = new System.Drawing.Size(152, 22);
             this.mnuTranDebitNotes.Text = "&Debit Notes";
             // 
             // mnuTranCreditNotes
             // 
             this.mnuTranCreditNotes.Name = "mnuTranCreditNotes";
-            this.mnuTranCreditNotes.Size = new System.Drawing.Size(180, 22);
+            this.mnuTranCreditNotes.Size = new System.Drawing.Size(152, 22);
             this.mnuTranCreditNotes.Text = "&Credit Notes";
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(149, 6);
             // 
             // mnuTranOpenStock
             // 
             this.mnuTranOpenStock.Name = "mnuTranOpenStock";
-            this.mnuTranOpenStock.Size = new System.Drawing.Size(180, 22);
+            this.mnuTranOpenStock.Size = new System.Drawing.Size(152, 22);
             this.mnuTranOpenStock.Text = "&Opening Stock";
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(149, 6);
             // 
             // mnuTranReceipts
             // 
             this.mnuTranReceipts.Name = "mnuTranReceipts";
-            this.mnuTranReceipts.Size = new System.Drawing.Size(180, 22);
+            this.mnuTranReceipts.Size = new System.Drawing.Size(152, 22);
             this.mnuTranReceipts.Text = "&Receipts";
             // 
             // mnuTranPayments
             // 
             this.mnuTranPayments.Name = "mnuTranPayments";
-            this.mnuTranPayments.Size = new System.Drawing.Size(180, 22);
+            this.mnuTranPayments.Size = new System.Drawing.Size(152, 22);
             this.mnuTranPayments.Text = "Pa&yments";
             // 
             // mnuTranJournals
             // 
             this.mnuTranJournals.Name = "mnuTranJournals";
-            this.mnuTranJournals.Size = new System.Drawing.Size(180, 22);
+            this.mnuTranJournals.Size = new System.Drawing.Size(152, 22);
             this.mnuTranJournals.Text = "&Journals";
             // 
             // mnuGeneralReports
