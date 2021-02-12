@@ -68,7 +68,7 @@ namespace Fanda.UI
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(220, 450);
+            this.panelMenu.Size = new System.Drawing.Size(220, 611);
             this.panelMenu.TabIndex = 0;
             // 
             // buttonSettings
@@ -82,7 +82,7 @@ namespace Fanda.UI
             this.buttonSettings.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonSettings.IconSize = 32;
             this.buttonSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSettings.Location = new System.Drawing.Point(0, 340);
+            this.buttonSettings.Location = new System.Drawing.Point(0, 297);
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.buttonSettings.Size = new System.Drawing.Size(220, 40);
@@ -104,7 +104,7 @@ namespace Fanda.UI
             this.buttonJournals.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonJournals.IconSize = 32;
             this.buttonJournals.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonJournals.Location = new System.Drawing.Point(0, 300);
+            this.buttonJournals.Location = new System.Drawing.Point(0, 257);
             this.buttonJournals.Name = "buttonJournals";
             this.buttonJournals.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.buttonJournals.Size = new System.Drawing.Size(220, 40);
@@ -126,7 +126,7 @@ namespace Fanda.UI
             this.buttonPayments.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonPayments.IconSize = 32;
             this.buttonPayments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonPayments.Location = new System.Drawing.Point(0, 260);
+            this.buttonPayments.Location = new System.Drawing.Point(0, 217);
             this.buttonPayments.Name = "buttonPayments";
             this.buttonPayments.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.buttonPayments.Size = new System.Drawing.Size(220, 40);
@@ -148,7 +148,7 @@ namespace Fanda.UI
             this.buttonReceipts.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonReceipts.IconSize = 32;
             this.buttonReceipts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonReceipts.Location = new System.Drawing.Point(0, 220);
+            this.buttonReceipts.Location = new System.Drawing.Point(0, 177);
             this.buttonReceipts.Name = "buttonReceipts";
             this.buttonReceipts.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.buttonReceipts.Size = new System.Drawing.Size(220, 40);
@@ -170,7 +170,7 @@ namespace Fanda.UI
             this.buttonPurchase.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonPurchase.IconSize = 32;
             this.buttonPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonPurchase.Location = new System.Drawing.Point(0, 180);
+            this.buttonPurchase.Location = new System.Drawing.Point(0, 137);
             this.buttonPurchase.Name = "buttonPurchase";
             this.buttonPurchase.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.buttonPurchase.Size = new System.Drawing.Size(220, 40);
@@ -192,7 +192,7 @@ namespace Fanda.UI
             this.buttonSales.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonSales.IconSize = 32;
             this.buttonSales.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSales.Location = new System.Drawing.Point(0, 140);
+            this.buttonSales.Location = new System.Drawing.Point(0, 97);
             this.buttonSales.Name = "buttonSales";
             this.buttonSales.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.buttonSales.Size = new System.Drawing.Size(220, 40);
@@ -214,7 +214,7 @@ namespace Fanda.UI
             this.buttonDashboard.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonDashboard.IconSize = 32;
             this.buttonDashboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonDashboard.Location = new System.Drawing.Point(0, 100);
+            this.buttonDashboard.Location = new System.Drawing.Point(0, 57);
             this.buttonDashboard.Name = "buttonDashboard";
             this.buttonDashboard.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.buttonDashboard.Size = new System.Drawing.Size(220, 40);
@@ -231,16 +231,17 @@ namespace Fanda.UI
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLogo.Location = new System.Drawing.Point(0, 0);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(220, 100);
+            this.panelLogo.Size = new System.Drawing.Size(220, 57);
             this.panelLogo.TabIndex = 0;
             // 
             // buttonHome
             // 
             this.buttonHome.BackColor = System.Drawing.Color.Transparent;
+            this.buttonHome.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonHome.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
-            this.buttonHome.Location = new System.Drawing.Point(12, 12);
+            this.buttonHome.Location = new System.Drawing.Point(0, 0);
             this.buttonHome.Name = "buttonHome";
-            this.buttonHome.Size = new System.Drawing.Size(194, 82);
+            this.buttonHome.Size = new System.Drawing.Size(220, 57);
             this.buttonHome.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.buttonHome.TabIndex = 0;
             this.buttonHome.TabStop = false;
@@ -254,13 +255,13 @@ namespace Fanda.UI
             this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitleBar.Location = new System.Drawing.Point(220, 0);
             this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(580, 50);
+            this.panelTitleBar.Size = new System.Drawing.Size(714, 50);
             this.panelTitleBar.TabIndex = 1;
             // 
             // titleChildForm
             // 
             this.titleChildForm.AutoSize = true;
-            this.titleChildForm.ForeColor = System.Drawing.Color.DeepPink;
+            this.titleChildForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
             this.titleChildForm.Location = new System.Drawing.Point(43, 14);
             this.titleChildForm.Name = "titleChildForm";
             this.titleChildForm.Size = new System.Drawing.Size(52, 21);
@@ -270,9 +271,9 @@ namespace Fanda.UI
             // iconChildForm
             // 
             this.iconChildForm.BackColor = System.Drawing.Color.Transparent;
-            this.iconChildForm.ForeColor = System.Drawing.Color.DeepPink;
+            this.iconChildForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
             this.iconChildForm.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.iconChildForm.IconColor = System.Drawing.Color.DeepPink;
+            this.iconChildForm.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
             this.iconChildForm.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconChildForm.Location = new System.Drawing.Point(11, 11);
             this.iconChildForm.Name = "iconChildForm";
@@ -286,7 +287,7 @@ namespace Fanda.UI
             this.panelShadow.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelShadow.Location = new System.Drawing.Point(220, 50);
             this.panelShadow.Name = "panelShadow";
-            this.panelShadow.Size = new System.Drawing.Size(580, 7);
+            this.panelShadow.Size = new System.Drawing.Size(714, 7);
             this.panelShadow.TabIndex = 2;
             // 
             // panelDesktop
@@ -296,7 +297,7 @@ namespace Fanda.UI
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDesktop.Location = new System.Drawing.Point(220, 57);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(580, 393);
+            this.panelDesktop.Size = new System.Drawing.Size(714, 554);
             this.panelDesktop.TabIndex = 3;
             // 
             // pictureBox1
@@ -304,7 +305,7 @@ namespace Fanda.UI
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
-            this.pictureBox1.Location = new System.Drawing.Point(193, 155);
+            this.pictureBox1.Location = new System.Drawing.Point(260, 236);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(194, 82);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -314,14 +315,15 @@ namespace Fanda.UI
             // ModernMainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(934, 611);
             this.Controls.Add(this.panelDesktop);
             this.Controls.Add(this.panelShadow);
             this.Controls.Add(this.panelTitleBar);
             this.Controls.Add(this.panelMenu);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ModernMainForm";
-            this.Text = "ModernMainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Fanda v2.0";
             this.panelMenu.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.buttonHome)).EndInit();

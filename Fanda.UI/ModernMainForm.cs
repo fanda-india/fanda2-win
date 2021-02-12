@@ -35,7 +35,7 @@ namespace Fanda.UI
                 currentButton = (IconButton)senderButton;
                 currentButton.BackColor = color;
                 currentButton.ForeColor = Color.FromArgb(247, 245, 251);
-                currentButton.IconColor = Color.DeepPink;//Color.FromArgb(247, 245, 251);
+                currentButton.IconColor = Color.FromArgb(247, 245, 251);    // Color.DeepPink;
 
                 // Left border
                 leftBorderButton.BackColor = Color.DeepPink;
