@@ -38,34 +38,30 @@ namespace Fanda.UI
             this.buttonSales = new FontAwesome.Sharp.IconButton();
             this.buttonDashboard = new FontAwesome.Sharp.IconButton();
             this.panelTitleBar = new System.Windows.Forms.Panel();
+            this.linkCompany = new System.Windows.Forms.LinkLabel();
+            this.comboCompany = new System.Windows.Forms.ComboBox();
             this.buttonUser = new FontAwesome.Sharp.IconButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panelRight = new System.Windows.Forms.Panel();
+            this.buttonHome = new System.Windows.Forms.PictureBox();
             this.titleChildForm = new System.Windows.Forms.Label();
             this.iconChildForm = new FontAwesome.Sharp.IconPictureBox();
-            this.panelCompany = new System.Windows.Forms.Panel();
-            this.buttonCompany = new FontAwesome.Sharp.IconButton();
-            this.panelLogo = new System.Windows.Forms.Panel();
-            this.buttonHome = new System.Windows.Forms.PictureBox();
             this.panelShadow = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panelBorder = new System.Windows.Forms.Panel();
             this.logoDesktop = new System.Windows.Forms.PictureBox();
             this.panelMenu.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
-            this.panelRight.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).BeginInit();
-            this.panelCompany.SuspendLayout();
-            this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.buttonHome)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).BeginInit();
             this.panelDesktop.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoDesktop)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMenu
             // 
             this.panelMenu.AutoScroll = true;
-            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
+            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
             this.panelMenu.Controls.Add(this.buttonSettings);
             this.panelMenu.Controls.Add(this.buttonJournals);
             this.panelMenu.Controls.Add(this.buttonPayments);
@@ -76,7 +72,7 @@ namespace Fanda.UI
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(220, 481);
+            this.panelMenu.Size = new System.Drawing.Size(220, 486);
             this.panelMenu.TabIndex = 0;
             // 
             // buttonSettings
@@ -84,9 +80,9 @@ namespace Fanda.UI
             this.buttonSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonSettings.FlatAppearance.BorderSize = 0;
             this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSettings.ForeColor = System.Drawing.Color.Indigo;
+            this.buttonSettings.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonSettings.IconChar = FontAwesome.Sharp.IconChar.Tools;
-            this.buttonSettings.IconColor = System.Drawing.Color.Indigo;
+            this.buttonSettings.IconColor = System.Drawing.Color.WhiteSmoke;
             this.buttonSettings.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonSettings.IconSize = 32;
             this.buttonSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -106,9 +102,9 @@ namespace Fanda.UI
             this.buttonJournals.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonJournals.FlatAppearance.BorderSize = 0;
             this.buttonJournals.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonJournals.ForeColor = System.Drawing.Color.Indigo;
+            this.buttonJournals.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonJournals.IconChar = FontAwesome.Sharp.IconChar.JournalWhills;
-            this.buttonJournals.IconColor = System.Drawing.Color.Indigo;
+            this.buttonJournals.IconColor = System.Drawing.Color.WhiteSmoke;
             this.buttonJournals.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonJournals.IconSize = 32;
             this.buttonJournals.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -128,9 +124,9 @@ namespace Fanda.UI
             this.buttonPayments.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonPayments.FlatAppearance.BorderSize = 0;
             this.buttonPayments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPayments.ForeColor = System.Drawing.Color.Indigo;
+            this.buttonPayments.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonPayments.IconChar = FontAwesome.Sharp.IconChar.MoneyBill;
-            this.buttonPayments.IconColor = System.Drawing.Color.Indigo;
+            this.buttonPayments.IconColor = System.Drawing.Color.WhiteSmoke;
             this.buttonPayments.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonPayments.IconSize = 32;
             this.buttonPayments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -150,9 +146,9 @@ namespace Fanda.UI
             this.buttonReceipts.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonReceipts.FlatAppearance.BorderSize = 0;
             this.buttonReceipts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReceipts.ForeColor = System.Drawing.Color.Indigo;
+            this.buttonReceipts.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonReceipts.IconChar = FontAwesome.Sharp.IconChar.Receipt;
-            this.buttonReceipts.IconColor = System.Drawing.Color.Indigo;
+            this.buttonReceipts.IconColor = System.Drawing.Color.WhiteSmoke;
             this.buttonReceipts.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonReceipts.IconSize = 32;
             this.buttonReceipts.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -172,9 +168,9 @@ namespace Fanda.UI
             this.buttonPurchase.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonPurchase.FlatAppearance.BorderSize = 0;
             this.buttonPurchase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPurchase.ForeColor = System.Drawing.Color.Indigo;
+            this.buttonPurchase.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonPurchase.IconChar = FontAwesome.Sharp.IconChar.Truck;
-            this.buttonPurchase.IconColor = System.Drawing.Color.Indigo;
+            this.buttonPurchase.IconColor = System.Drawing.Color.WhiteSmoke;
             this.buttonPurchase.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonPurchase.IconSize = 32;
             this.buttonPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -194,9 +190,9 @@ namespace Fanda.UI
             this.buttonSales.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonSales.FlatAppearance.BorderSize = 0;
             this.buttonSales.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSales.ForeColor = System.Drawing.Color.Indigo;
+            this.buttonSales.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonSales.IconChar = FontAwesome.Sharp.IconChar.ShoppingCart;
-            this.buttonSales.IconColor = System.Drawing.Color.Indigo;
+            this.buttonSales.IconColor = System.Drawing.Color.WhiteSmoke;
             this.buttonSales.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonSales.IconSize = 32;
             this.buttonSales.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -216,9 +212,9 @@ namespace Fanda.UI
             this.buttonDashboard.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonDashboard.FlatAppearance.BorderSize = 0;
             this.buttonDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDashboard.ForeColor = System.Drawing.Color.Indigo;
+            this.buttonDashboard.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonDashboard.IconChar = FontAwesome.Sharp.IconChar.TachometerAlt;
-            this.buttonDashboard.IconColor = System.Drawing.Color.Indigo;
+            this.buttonDashboard.IconColor = System.Drawing.Color.WhiteSmoke;
             this.buttonDashboard.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonDashboard.IconSize = 32;
             this.buttonDashboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -235,122 +231,74 @@ namespace Fanda.UI
             // 
             // panelTitleBar
             // 
-            this.panelTitleBar.BackColor = System.Drawing.Color.Indigo;
+            this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
+            this.panelTitleBar.Controls.Add(this.linkCompany);
+            this.panelTitleBar.Controls.Add(this.comboCompany);
             this.panelTitleBar.Controls.Add(this.buttonUser);
-            this.panelTitleBar.Controls.Add(this.panel1);
-            this.panelTitleBar.Controls.Add(this.panelRight);
-            this.panelTitleBar.Controls.Add(this.panelCompany);
-            this.panelTitleBar.Controls.Add(this.panelLogo);
+            this.panelTitleBar.Controls.Add(this.buttonHome);
             this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitleBar.Location = new System.Drawing.Point(0, 0);
             this.panelTitleBar.Name = "panelTitleBar";
             this.panelTitleBar.Size = new System.Drawing.Size(884, 70);
             this.panelTitleBar.TabIndex = 1;
             // 
+            // linkCompany
+            // 
+            this.linkCompany.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.linkCompany.Font = new System.Drawing.Font("Segoe UI Semibold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkCompany.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkCompany.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.linkCompany.Location = new System.Drawing.Point(226, 9);
+            this.linkCompany.Name = "linkCompany";
+            this.linkCompany.Size = new System.Drawing.Size(528, 58);
+            this.linkCompany.TabIndex = 5;
+            this.linkCompany.TabStop = true;
+            this.linkCompany.Text = "Sri Santhalakshmi Silks and Sarees";
+            this.linkCompany.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCompany_LinkClicked);
+            // 
+            // comboCompany
+            // 
+            this.comboCompany.DropDownHeight = 300;
+            this.comboCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCompany.Font = new System.Drawing.Font("Segoe UI Semibold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboCompany.FormattingEnabled = true;
+            this.comboCompany.IntegralHeight = false;
+            this.comboCompany.Items.AddRange(new object[] {
+            "Sri Santhalakshmi Silks and Sarees",
+            "Vijayalakshmi Silks",
+            "Sri Jaya Silks",
+            "Santhnakrishna Silks",
+            "Rasigapriya Silks"});
+            this.comboCompany.Location = new System.Drawing.Point(226, 37);
+            this.comboCompany.Name = "comboCompany";
+            this.comboCompany.Size = new System.Drawing.Size(528, 53);
+            this.comboCompany.TabIndex = 6;
+            this.comboCompany.Visible = false;
+            this.comboCompany.SelectedIndexChanged += new System.EventHandler(this.comboCompany_SelectedIndexChanged);
+            this.comboCompany.DropDownClosed += new System.EventHandler(this.comboCompany_DropDownClosed);
+            // 
             // buttonUser
             // 
             this.buttonUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUser.BackColor = System.Drawing.Color.Indigo;
+            this.buttonUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
             this.buttonUser.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.buttonUser.FlatAppearance.BorderSize = 0;
             this.buttonUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonUser.ForeColor = System.Drawing.Color.LavenderBlush;
+            this.buttonUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(65)))), ((int)(((byte)(63)))));
             this.buttonUser.IconChar = FontAwesome.Sharp.IconChar.User;
-            this.buttonUser.IconColor = System.Drawing.Color.LavenderBlush;
+            this.buttonUser.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(65)))), ((int)(((byte)(63)))));
             this.buttonUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonUser.IconSize = 24;
-            this.buttonUser.Location = new System.Drawing.Point(848, 21);
+            this.buttonUser.Location = new System.Drawing.Point(840, 19);
             this.buttonUser.Name = "buttonUser";
             this.buttonUser.Size = new System.Drawing.Size(32, 32);
             this.buttonUser.TabIndex = 4;
             this.buttonUser.UseVisualStyleBackColor = false;
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.BlueViolet;
-            this.panel1.Location = new System.Drawing.Point(688, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1, 70);
-            this.panel1.TabIndex = 6;
-            // 
-            // panelRight
-            // 
-            this.panelRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelRight.Controls.Add(this.titleChildForm);
-            this.panelRight.Controls.Add(this.iconChildForm);
-            this.panelRight.Location = new System.Drawing.Point(692, 0);
-            this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(150, 70);
-            this.panelRight.TabIndex = 5;
-            // 
-            // titleChildForm
-            // 
-            this.titleChildForm.AutoSize = true;
-            this.titleChildForm.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleChildForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
-            this.titleChildForm.Location = new System.Drawing.Point(41, 19);
-            this.titleChildForm.Name = "titleChildForm";
-            this.titleChildForm.Size = new System.Drawing.Size(71, 30);
-            this.titleChildForm.TabIndex = 2;
-            this.titleChildForm.Text = "Home";
-            // 
-            // iconChildForm
-            // 
-            this.iconChildForm.BackColor = System.Drawing.Color.Indigo;
-            this.iconChildForm.ForeColor = System.Drawing.Color.LavenderBlush;
-            this.iconChildForm.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.iconChildForm.IconColor = System.Drawing.Color.LavenderBlush;
-            this.iconChildForm.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconChildForm.IconSize = 40;
-            this.iconChildForm.Location = new System.Drawing.Point(3, 17);
-            this.iconChildForm.Name = "iconChildForm";
-            this.iconChildForm.Size = new System.Drawing.Size(40, 40);
-            this.iconChildForm.TabIndex = 0;
-            this.iconChildForm.TabStop = false;
-            // 
-            // panelCompany
-            // 
-            this.panelCompany.Controls.Add(this.buttonCompany);
-            this.panelCompany.Location = new System.Drawing.Point(220, 3);
-            this.panelCompany.Name = "panelCompany";
-            this.panelCompany.Size = new System.Drawing.Size(462, 64);
-            this.panelCompany.TabIndex = 4;
-            // 
-            // buttonCompany
-            // 
-            this.buttonCompany.BackColor = System.Drawing.Color.Indigo;
-            this.buttonCompany.FlatAppearance.BorderColor = System.Drawing.Color.Indigo;
-            this.buttonCompany.FlatAppearance.BorderSize = 0;
-            this.buttonCompany.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCompany.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCompany.ForeColor = System.Drawing.Color.LavenderBlush;
-            this.buttonCompany.IconChar = FontAwesome.Sharp.IconChar.University;
-            this.buttonCompany.IconColor = System.Drawing.Color.LavenderBlush;
-            this.buttonCompany.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonCompany.IconSize = 40;
-            this.buttonCompany.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCompany.Location = new System.Drawing.Point(6, 9);
-            this.buttonCompany.Name = "buttonCompany";
-            this.buttonCompany.Size = new System.Drawing.Size(453, 46);
-            this.buttonCompany.TabIndex = 4;
-            this.buttonCompany.Text = "Sri Santhalakshmi Silks and Sarees";
-            this.buttonCompany.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonCompany.UseVisualStyleBackColor = false;
-            // 
-            // panelLogo
-            // 
-            this.panelLogo.Controls.Add(this.buttonHome);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLogo.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(220, 70);
-            this.panelLogo.TabIndex = 3;
-            // 
             // buttonHome
             // 
             this.buttonHome.BackColor = System.Drawing.Color.Transparent;
-            this.buttonHome.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonHome.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonHome.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
             this.buttonHome.Location = new System.Drawing.Point(0, 0);
             this.buttonHome.Name = "buttonHome";
@@ -360,27 +308,63 @@ namespace Fanda.UI
             this.buttonHome.TabStop = false;
             this.buttonHome.Click += new System.EventHandler(this.buttonHome_Click);
             // 
+            // titleChildForm
+            // 
+            this.titleChildForm.AutoSize = true;
+            this.titleChildForm.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleChildForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(65)))), ((int)(((byte)(63)))));
+            this.titleChildForm.Location = new System.Drawing.Point(44, 10);
+            this.titleChildForm.Name = "titleChildForm";
+            this.titleChildForm.Size = new System.Drawing.Size(71, 30);
+            this.titleChildForm.TabIndex = 2;
+            this.titleChildForm.Text = "Home";
+            // 
+            // iconChildForm
+            // 
+            this.iconChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
+            this.iconChildForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(65)))), ((int)(((byte)(63)))));
+            this.iconChildForm.IconChar = FontAwesome.Sharp.IconChar.Home;
+            this.iconChildForm.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(65)))), ((int)(((byte)(63)))));
+            this.iconChildForm.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconChildForm.IconSize = 40;
+            this.iconChildForm.Location = new System.Drawing.Point(6, 6);
+            this.iconChildForm.Name = "iconChildForm";
+            this.iconChildForm.Size = new System.Drawing.Size(40, 40);
+            this.iconChildForm.TabIndex = 0;
+            this.iconChildForm.TabStop = false;
+            // 
             // panelShadow
             // 
-            this.panelShadow.BackColor = System.Drawing.Color.BlueViolet;
+            this.panelShadow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(65)))), ((int)(((byte)(63)))));
             this.panelShadow.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelShadow.Location = new System.Drawing.Point(0, 70);
             this.panelShadow.Name = "panelShadow";
-            this.panelShadow.Size = new System.Drawing.Size(884, 10);
+            this.panelShadow.Size = new System.Drawing.Size(884, 5);
             this.panelShadow.TabIndex = 2;
             // 
             // panelDesktop
             // 
-            this.panelDesktop.BackColor = System.Drawing.Color.Snow;
+            this.panelDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
+            this.panelDesktop.Controls.Add(this.panel1);
             this.panelDesktop.Controls.Add(this.panelBorder);
             this.panelDesktop.Controls.Add(this.panelMenu);
             this.panelDesktop.Controls.Add(this.logoDesktop);
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDesktop.ForeColor = System.Drawing.Color.Indigo;
-            this.panelDesktop.Location = new System.Drawing.Point(0, 80);
+            this.panelDesktop.Location = new System.Drawing.Point(0, 75);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(884, 481);
+            this.panelDesktop.Size = new System.Drawing.Size(884, 486);
             this.panelDesktop.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.iconChildForm);
+            this.panel1.Controls.Add(this.titleChildForm);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(221, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(663, 50);
+            this.panel1.TabIndex = 3;
             // 
             // panelBorder
             // 
@@ -388,7 +372,7 @@ namespace Fanda.UI
             this.panelBorder.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelBorder.Location = new System.Drawing.Point(220, 0);
             this.panelBorder.Name = "panelBorder";
-            this.panelBorder.Size = new System.Drawing.Size(1, 481);
+            this.panelBorder.Size = new System.Drawing.Size(1, 486);
             this.panelBorder.TabIndex = 2;
             // 
             // logoDesktop
@@ -396,7 +380,7 @@ namespace Fanda.UI
             this.logoDesktop.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.logoDesktop.BackColor = System.Drawing.Color.Transparent;
             this.logoDesktop.Image = global::Fanda.UI.Properties.Resources.FandaLogo1;
-            this.logoDesktop.Location = new System.Drawing.Point(385, 175);
+            this.logoDesktop.Location = new System.Drawing.Point(385, 178);
             this.logoDesktop.Name = "logoDesktop";
             this.logoDesktop.Size = new System.Drawing.Size(354, 106);
             this.logoDesktop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -418,13 +402,11 @@ namespace Fanda.UI
             this.Load += new System.EventHandler(this.ModernMainForm_Load);
             this.panelMenu.ResumeLayout(false);
             this.panelTitleBar.ResumeLayout(false);
-            this.panelRight.ResumeLayout(false);
-            this.panelRight.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).EndInit();
-            this.panelCompany.ResumeLayout(false);
-            this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.buttonHome)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconChildForm)).EndInit();
             this.panelDesktop.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoDesktop)).EndInit();
             this.ResumeLayout(false);
 
@@ -446,13 +428,11 @@ namespace Fanda.UI
         private System.Windows.Forms.Panel panelShadow;
         private System.Windows.Forms.Panel panelDesktop;
         private System.Windows.Forms.PictureBox logoDesktop;
-        private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.PictureBox buttonHome;
         private FontAwesome.Sharp.IconButton buttonUser;
-        private FontAwesome.Sharp.IconButton buttonCompany;
-        private System.Windows.Forms.Panel panelCompany;
-        private System.Windows.Forms.Panel panelRight;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panelBorder;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.LinkLabel linkCompany;
+        private System.Windows.Forms.ComboBox comboCompany;
     }
 }

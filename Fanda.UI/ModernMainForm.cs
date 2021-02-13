@@ -30,6 +30,8 @@ namespace Fanda.UI
         private void ModernMainForm_Load(object sender, EventArgs e)
         {
             ResetActivateButton();
+            comboCompany.SelectedIndex = 0;
+            linkCompany_LinkClicked(null, null);
         }
 
         private bool ActivateButton(object senderButton, Color color)
@@ -148,6 +150,32 @@ namespace Fanda.UI
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, Color.Indigo);
+        }
+
+        private void linkCompany_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            linkCompany.Visible = false;
+            comboCompany.Visible = true;
+
+            comboCompany.Left = linkCompany.Left + 4;
+            comboCompany.Top = linkCompany.Top - 4;
+            comboCompany.Width = linkCompany.Width;
+            comboCompany.Focus();
+            comboCompany.DroppedDown = true;
+        }
+
+        private void comboCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboCompany.Visible = false;
+            linkCompany.Text = comboCompany.Text;
+            linkCompany.Visible = true;
+        }
+
+        private void comboCompany_DropDownClosed(object sender, EventArgs e)
+        {
+            comboCompany.Visible = false;
+            linkCompany.Text = comboCompany.Text;
+            linkCompany.Visible = true;
         }
     }
 }

@@ -134,6 +134,7 @@
     <Compile Include="ProductCategoriesForm.Designer.cs">
       <DependentUpon>ProductCategoriesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Theme.cs" />
     <Compile Include="UnitsForm.cs">
       <SubType>Form</SubType>
     </Compile>
