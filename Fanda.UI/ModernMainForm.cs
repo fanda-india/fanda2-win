@@ -31,7 +31,7 @@ namespace Fanda.UI
         {
             ResetActivateButton();
             comboCompany.SelectedIndex = 0;
-            linkCompany_LinkClicked(null, null);
+            // linkCompany_LinkClicked(null, null);
         }
 
         private bool ActivateButton(object senderButton, Color color)
