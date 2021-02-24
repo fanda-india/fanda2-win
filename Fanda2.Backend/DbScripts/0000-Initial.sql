@@ -10,11 +10,11 @@ BEGIN TRANSACTION;
 CREATE TABLE users (
     id            INTEGER       PRIMARY KEY
                                 NOT NULL,
-    login_name    VARCHAR (16)  UNIQUE COLLATE NOCASE
+    login_name    VARCHAR (16)  UNIQUE --COLLATE NOCASE
                                 NOT NULL,
-    email         VARCHAR (100) UNIQUE COLLATE NOCASE
+    email         VARCHAR (100) UNIQUE --COLLATE NOCASE
                                 NOT NULL,
-    mobile_number VARCHAR (10)  UNIQUE COLLATE NOCASE
+    mobile_number VARCHAR (10)  UNIQUE --COLLATE NOCASE
                                 NOT NULL,
     first_name    VARCHAR (25),
     last_name     VARCHAR (25),
@@ -59,9 +59,9 @@ CREATE TABLE contacts (
 CREATE TABLE organizations (
     id             INTEGER       PRIMARY KEY
                                  NOT NULL,
-    code           VARCHAR (16)  UNIQUE  COLLATE NOCASE
+    code           VARCHAR (16)  UNIQUE  --COLLATE NOCASE
                                  NOT NULL,
-    org_name       VARCHAR (50)  UNIQUE  COLLATE NOCASE
+    org_name       VARCHAR (50)  UNIQUE  --COLLATE NOCASE
                                  NOT NULL,
     org_desc       VARCHAR (255),
     regd_num       VARCHAR (25),
@@ -70,8 +70,8 @@ CREATE TABLE organizations (
     gstin          VARCHAR (25),
     address_id     INTEGER       REFERENCES addresses (id) ON DELETE NO ACTION
                                                            ON UPDATE CASCADE,
-    contact_id     INTEGER       REFERENCES contacts (id) ON DELETE NO ACTION
-                                                          ON UPDATE CASCADE,
+    contact_id     INTEGER       REFERENCES contacts (id)  ON DELETE NO ACTION
+                                                           ON UPDATE CASCADE,
     active_year_id INTEGER       NULL,
     is_enabled     BOOLEAN       NOT NULL,
     created_at     DATETIME      NOT NULL,
@@ -109,11 +109,11 @@ CREATE TABLE ledgers (
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME,
     UNIQUE (
-        code COLLATE NOCASE,
+        code, --COLLATE NOCASE,
         org_id
     ),
     UNIQUE (
-        ledger_name COLLATE NOCASE,
+        ledger_name, --COLLATE NOCASE,
         org_id
     )
 );
@@ -125,7 +125,7 @@ CREATE TABLE banks (
     ledger_id      INTEGER      NOT NULL
                                 REFERENCES ledgers (id) ON DELETE CASCADE
                                                         ON UPDATE CASCADE,
-    account_number VARCHAR (25) UNIQUE COLLATE NOCASE
+    account_number VARCHAR (25) UNIQUE --COLLATE NOCASE
                                 NOT NULL,
     account_type   INTEGER,
     ifsc_code      VARCHAR (16) NOT NULL,
@@ -172,11 +172,11 @@ CREATE TABLE units (
     created_at DATETIME      NOT NULL,
     updated_at DATETIME,
     UNIQUE (
-        code COLLATE NOCASE,
+        code, --COLLATE NOCASE,
         org_id
     ),
     UNIQUE (
-        unit_name COLLATE NOCASE,
+        unit_name, --COLLATE NOCASE,
         org_id
     )
 );
@@ -197,11 +197,11 @@ CREATE TABLE product_categories (
     created_at    DATETIME      NOT NULL,
     updated_at    DATETIME,
     UNIQUE (
-        code COLLATE NOCASE,
+        code, --COLLATE NOCASE,
         org_id
     ),
     UNIQUE (
-        category_name COLLATE NOCASE,
+        category_name, --COLLATE NOCASE,
         org_id
     )
 );
@@ -232,11 +232,11 @@ CREATE TABLE products (
     created_at     DATETIME        NOT NULL,
     updated_at     DATETIME,
     UNIQUE (
-        code COLLATE NOCASE,
+        code, --COLLATE NOCASE,
         org_id
     ),
     UNIQUE (
-        product_name COLLATE NOCASE,
+        product_name, --COLLATE NOCASE,
         org_id
     )
 );
@@ -255,7 +255,7 @@ CREATE TABLE account_years (
     created_at DATETIME     NOT NULL,
     updated_at DATETIME,	
     UNIQUE (
-       year_code COLLATE NOCASE,
+       year_code, --COLLATE NOCASE,
        org_id
     ),
     UNIQUE (
@@ -318,7 +318,7 @@ CREATE TABLE journals (
     created_at     DATETIME     NOT NULL,
     updated_at     DATETIME,
     UNIQUE (
-        journal_number COLLATE NOCASE,
+        journal_number, --COLLATE NOCASE,
         year_id
     )
 );
@@ -381,7 +381,7 @@ CREATE TABLE invoices (
     created_at     DATETIME        NOT NULL,
     updated_at     DATETIME,
     UNIQUE (
-        invoice_number COLLATE NOCASE,
+        invoice_number, --COLLATE NOCASE,
         year_id
     )
 );
@@ -394,7 +394,7 @@ CREATE TABLE inventory (
                                 REFERENCES products (id) ON DELETE NO ACTION
                                                           ON UPDATE CASCADE,
     tag_number  VARCHAR (16)    NOT NULL
-                                UNIQUE COLLATE NOCASE,
+                                UNIQUE --COLLATE NOCASE,
     mfg_date    DATE,
     expire_date DATE,
     unit_id     INTEGER         NOT NULL
