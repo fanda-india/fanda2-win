@@ -82,8 +82,10 @@ CREATE TABLE organizations (
 CREATE TABLE ledger_groups (
     id         INTEGER       PRIMARY KEY
                              NOT NULL,
-    code       VARCHAR (16)  NOT NULL,
-    group_name VARCHAR (25)  NOT NULL,
+    code       VARCHAR (16)  UNIQUE 
+                             NOT NULL,
+    group_name VARCHAR (25)  UNIQUE 
+                             NOT NULL,
     group_desc VARCHAR (255),
     group_type INTEGER       NOT NULL,
     parent_id  INTEGER       REFERENCES ledger_groups (id) ON DELETE NO ACTION
